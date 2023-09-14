@@ -37,7 +37,7 @@
     "lint:fix": "eslint ./src --fix && prettier ./src --write"
   },
   "eslintConfig": {
-    "extends":
+    "extends": [
       "react-app",
       "react-app/jest"
     ]
