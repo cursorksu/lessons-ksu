@@ -3,6 +3,7 @@ import { Card } from '../Card';
 import { EditTextModal } from '../EditTextModal';
 import { Box, Grid } from '@mui/material';
 import { EditModal } from '../EditModal';
+import { DisplayTopic } from '../DisplayTopic';
 // import { Topic } from "../Topic";
 
 export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
@@ -71,7 +72,7 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
             <EditTextModal fieldName={'topic'} fieldData={lesson?.topic} />
           }
         >
-          {/*<Topic />*/}
+          <DisplayTopic topicId={lesson?.topic}/>
         </Card>
       </Grid>
     </Grid>

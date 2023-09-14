@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useGetTopicById } from '../../api/topic';
 import { TopicStyled } from './style';
 
-export const Topic = React.forwardRef(({ lesson }) => {
+export const DisplayTopic = ({ topicId }) => {
   const [currentTopic, setCurrentTopic] = useState(null);
 
   const { getTopicById } = useGetTopicById();
 
   useEffect(() => {
-    lesson?.topic &&
-      getTopicById(lesson?.topic).then(
-        (data) =>
-          console.log({ data }) || setCurrentTopic(JSON.parse(data.topic)),
-      );
-  }, [lesson, getTopicById]);
+    topicId &&
+    getTopicById(topicId).then(
+      (data) =>
+        console.log({ data }) || setCurrentTopic(JSON.parse(data.topic)),
+    );
+  }, [topicId, getTopicById]);
 
   return (
     <TopicStyled>
@@ -104,4 +104,4 @@ export const Topic = React.forwardRef(({ lesson }) => {
       })}
     </TopicStyled>
   );
-});
+}
