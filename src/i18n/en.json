@@ -1,0 +1,34 @@
+{
+  "button": {
+    "createProject": "Create Project",
+    "deleteProject": "Delete project",
+    "stopProject": "Stop project",
+    "startProject": "Start project",
+    "cancel": "Cancel",
+    "savePhoto": "Save photo",
+    "upload": "Upload",
+    "uploadPhoto": "Upload Photo",
+    "cabinet": "To the personal office",
+    "addProduct": "Add a product",
+    "createChallenge": "Create a challenge",
+    "accept": "Accept",
+    "confirm": "Confirm",
+    "reject": "Reject"
+  },
+  "errors": {
+    "passwordsMatch": "Passwords must match",
+    "limitProjectName": "Limit Project name 60 symbols",
+    "userAlreadyExist": "User with this email already exist in database",
+    "common": "Something went wrong, try again",
+    "required": "This field is required",
+    "joinAgreement": "You agree to receive notifications",
+    "conditionsAgreement": "You should fill Condition agreement",
+    "emailFormat": "Please check Email format",
+    "passwordMin": "Minimum number of characters 6",
+    "passwordMax": "Minimum number of characters 20",
+    "emptyField": "It is important that this field is filled",
+    "agreementUnsigned": "It is important that you agree to data processing",
+    "notNumber": "Not a number",
+    "decreaseSymbols": "It is necessary to reduce the description to 500 characters"
+  }
+}
