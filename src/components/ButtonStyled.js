@@ -1,12 +1,12 @@
-import { Button } from '@mui/material';
-import styled from '@emotion/styled';
+import { Button } from "@mui/material";
+import styled from "@emotion/styled";
 import {
   BG_GRAY,
   BORDER_GRAY,
   PRIMARY_MAIN,
   TEXT_MAIN,
-} from '../constants/colors';
-import { Link } from 'react-router-dom';
+} from "../constants/colors";
+import { Link } from "react-router-dom";
 
 export const ButtonStyled = styled(Button)`
   color: #fff;

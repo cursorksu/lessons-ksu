@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React from "react";
+import { Box } from "@mui/material";
 
 export const TabPanelMemory = ({ value, show }) => {
   return show ? (

@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
-import { useReactToPrint } from 'react-to-print';
-import { Tooltip } from '@mui/material';
-import { EditModal } from '../../EditModal';
-import { ButtonIconStyled } from '../../ButtonStyled';
-import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
-import { TopicToPrint } from '../../ComponentsToPrint';
+import React, { useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { Tooltip } from "@mui/material";
+import { EditModal } from "../../EditModal";
+import { ButtonIconStyled } from "../../ButtonStyled";
+import { ReactComponent as PrintIcon } from "../../../assets/print.svg";
+import { TopicToPrint } from "../../ComponentsToPrint";
 
 export const TabPanelTopic = ({ value, show, lesson }) => {
   const componentRef = useRef();

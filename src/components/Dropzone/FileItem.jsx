@@ -1,12 +1,12 @@
-import React from 'react';
-import { Box } from '@mui/material';
-import { ReactComponent as CloseIcon } from '../../assets/close.svg';
-import { ButtonIconStyled } from '../ButtonStyled';
+import React from "react";
+import { Box } from "@mui/material";
+import { ReactComponent as CloseIcon } from "../../assets/close.svg";
+import { ButtonIconStyled } from "../ButtonStyled";
 
 export const UvFileItem = ({ file, handleRemove = () => null }) => {
   const getExe = (title) => {
     if (!title) return;
-    const arr = title?.split('.');
+    const arr = title?.split(".");
     return arr[arr?.length - 1];
   };
 
@@ -14,14 +14,14 @@ export const UvFileItem = ({ file, handleRemove = () => null }) => {
     <div>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
         }}
       >
         <h2>
           <Box component="span" mb={0.5}>
-            {file?.file?.name?.split('.')[0]}
+            {file?.file?.name?.split(".")[0]}
           </Box>
           <Box component="span" className="secondaryGray">
             .{file?.file?.name && getExe(file?.file?.name)}
@@ -32,7 +32,7 @@ export const UvFileItem = ({ file, handleRemove = () => null }) => {
         {!file.progress || file?.progress === 100
           ? Math.round((file.file?.size / 1000000 + Number.EPSILON) * 100) /
               100 +
-            'MB'
+            "MB"
           : `${file.bytesTransferred} Kb of ${file.totalBytes} Kb`}
       </Box>
 

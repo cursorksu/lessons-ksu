@@ -1,9 +1,9 @@
-import React from 'react';
-import { Box, Grid } from '@mui/material';
-import { ButtonStyled } from '../components/ButtonStyled';
-import { ReactComponent as BookIcon } from '../assets/open-book.svg';
-import { routes } from '../router/constants';
-import { useNavigate } from 'react-router';
+import React from "react";
+import { Box, Grid } from "@mui/material";
+import { ButtonStyled } from "../components/ButtonStyled";
+import { ReactComponent as BookIcon } from "../assets/open-book.svg";
+import { routes } from "../router/constants";
+import { useNavigate } from "react-router";
 
 export const Home = () => {
   const navigate = useNavigate();

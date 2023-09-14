@@ -1,33 +1,33 @@
-import React, { useCallback, useState } from 'react';
-import { useParams } from 'react-router';
-import { Controller, useForm } from 'react-hook-form';
-import { Box, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
-import { DialogStyled } from '../DialogStyled';
-import { ReactComponent as CloseIcon } from '../../assets/close.svg';
-import { ReactComponent as EditIcon } from '../../assets/edit.svg';
-import { useGetLessonById, useUpdateLesson } from '../../api/lesson';
-import { Bible } from './components/Bible';
-import { Topic } from './components/Topic';
-import { EditModalStyled } from './style';
-import { Transition } from '../Transition';
-import { DynamicList } from '../DynamicList/DynamicList';
+import React, { useCallback, useState } from "react";
+import { useParams } from "react-router";
+import { Controller, useForm } from "react-hook-form";
+import { Box, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { ButtonIconStyled, ButtonStyled } from "../ButtonStyled";
+import { DialogStyled } from "../DialogStyled";
+import { ReactComponent as CloseIcon } from "../../assets/close.svg";
+import { ReactComponent as EditIcon } from "../../assets/edit.svg";
+import { useGetLessonById, useUpdateLesson } from "../../api/lesson";
+import { Bible } from "./components/Bible";
+import { Topic } from "./components/Topic";
+import { EditModalStyled } from "./style";
+import { Transition } from "../Transition";
+import { DynamicList } from "../DynamicList/DynamicList";
 
 const FieldName = {
-  bible: 'bible',
-  list: 'list',
-  topic: 'topic',
+  bible: "bible",
+  list: "list",
+  topic: "topic",
 };
 const getTitle = (fieldName) => {
   switch (fieldName) {
-    case 'bible':
-      return 'Додайте місце з Біблії';
-    case 'list':
-      return 'Додайте необхідні матеріали';
-    case 'topic':
-      return 'Додайте історію до уроку';
+    case "bible":
+      return "Додайте місце з Біблії";
+    case "list":
+      return "Додайте необхідні матеріали";
+    case "topic":
+      return "Додайте історію до уроку";
     default:
-      return 'Дефолтна назва';
+      return "Дефолтна назва";
   }
 };
 
@@ -108,7 +108,7 @@ export const EditModal = ({ fieldName, fieldData }) => {
               />
             </Box>
           </DialogContent>
-          <DialogActions style={{ padding: '0 25px 25px' }}>
+          <DialogActions style={{ padding: "0 25px 25px" }}>
             <ButtonStyled onClick={handleClose}>Отменить</ButtonStyled>
             <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
               Сохранить

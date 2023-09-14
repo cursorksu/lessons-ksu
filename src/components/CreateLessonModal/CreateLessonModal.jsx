@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
-import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
-import { DialogStyled } from '../DialogStyled';
+import React, { useCallback, useState } from "react";
+import { ButtonIconStyled, ButtonStyled } from "../ButtonStyled";
+import { DialogStyled } from "../DialogStyled";
 import {
   Box,
   DialogActions,
@@ -9,22 +9,22 @@ import {
   FormGroup,
   FormHelperText,
   Slide,
-} from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
-import { ReactComponent as CloseIcon } from '../../assets/close.svg';
-import { InputContrastStyled, TextareaAutosizeStyled } from '../InputStyled';
-import { PRIMARY_MAIN } from '../../constants/colors';
+} from "@mui/material";
+import { Controller, useForm } from "react-hook-form";
+import { ReactComponent as CloseIcon } from "../../assets/close.svg";
+import { InputContrastStyled, TextareaAutosizeStyled } from "../InputStyled";
+import { PRIMARY_MAIN } from "../../constants/colors";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
 const INITIAL_LESSON = {
-  title: '',
-  img: '',
-  goal: '',
-  bible: '',
-  quote: '',
+  title: "",
+  img: "",
+  goal: "",
+  bible: "",
+  quote: "",
 };
 
 export const CreateLessonModal = ({ onSubmit }) => {
@@ -61,7 +61,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
         + Добавить урок
       </ButtonStyled>
       <DialogStyled
-        maxWidth={'600'}
+        maxWidth={"600"}
         open={isOpen}
         TransitionComponent={Transition}
         keepMounted
@@ -92,7 +92,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors['title'] && (
+                    {formState.errors["title"] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -117,7 +117,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors['img'] && (
+                    {formState.errors["img"] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -142,7 +142,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors['goal'] && (
+                    {formState.errors["goal"] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -167,7 +167,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors['bible'] && (
+                    {formState.errors["bible"] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -192,7 +192,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors['quote'] && (
+                    {formState.errors["quote"] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -202,7 +202,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
               />
             </Box>
           </DialogContent>
-          <DialogActions style={{ padding: '0 25px 25px' }}>
+          <DialogActions style={{ padding: "0 25px 25px" }}>
             <ButtonStyled onClick={handleClose}>Отменить</ButtonStyled>
             <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
               Создать

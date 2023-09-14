@@ -1,40 +1,54 @@
-import React, { useCallback, useState } from 'react';
-import { useParams } from 'react-router';
-import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
-import { ReactComponent as EditIcon } from '../../assets/edit.svg';
-import { DialogStyled } from '../DialogStyled';
+import React, { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { ButtonIconStyled, ButtonStyled } from "../ButtonStyled";
+import { ReactComponent as EditIcon } from "../../assets/edit.svg";
+import { DialogStyled } from "../DialogStyled";
 import {
   Box,
   DialogActions,
   DialogContent,
   DialogTitle,
   FormLabel,
-} from '@mui/material';
-import { ReactComponent as CloseIcon } from '../../assets/close.svg';
-import { useUpdateLesson } from '../../api/lesson';
-import { BlockWrapperStyled, EditModalStyled } from './style';
+} from "@mui/material";
+import { ReactComponent as CloseIcon } from "../../assets/close.svg";
+import { useUpdateLesson } from "../../api/lesson";
+import { BlockWrapperStyled } from "./style";
 import {
   InputFieldStyled,
   InputStyled,
   TextareaAutosizeStyled,
-} from '../InputStyled';
-import { HandleBar } from './components/HandleBar';
-import { LessonsDatePicker } from '../DatePicker/DatePicker';
-import { getRandomNumber } from '../../utils/randomizer';
-import { useCreateTopic } from '../../api/topic';
-import { DropzoneField } from '../Dropzone/DropzoneField';
-import { Link } from './components/Link';
-import { Transition } from '../Transition';
-import { DynamicList } from '../DynamicList/DynamicList';
+} from "../InputStyled";
+import { HandleBar } from "./components/HandleBar";
+import { LessonsDatePicker } from "../DatePicker/DatePicker";
+import { getRandomNumber } from "../../utils/randomizer";
+import {
+  useCreateTopic,
+  useGetTopicById,
+  useUpdateTopic,
+} from "../../api/topic";
+import { DropzoneField } from "../Dropzone/DropzoneField";
+import { Link } from "./components/Link";
+import { Transition } from "../Transition";
+import { DynamicList } from "../DynamicList/DynamicList";
+import { DynamicListItem } from "../DynamicListItem/DynamicListItem";
 
-export const EditTextModal = () => {
+export const EditTextModal = ({ topicId }) => {
   const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const { updateLesson } = useUpdateLesson();
+  const { getTopicById } = useGetTopicById();
   const { createTopic } = useCreateTopic();
+  const { updateTopic } = useUpdateTopic();
   const handleOpen = useCallback(() => {
     setIsOpen(true);
   }, []);
+
+  useEffect(() => {
+    isOpen &&
+      getTopicById(topicId).then((data) => {
+        data && setTopic(JSON.parse(data.topic));
+      });
+  }, [getTopicById, topicId, isOpen]);
 
   const [topic, setTopic] = useState([]);
 
@@ -49,13 +63,20 @@ export const EditTextModal = () => {
 
   const onSubmitHandler = useCallback(async () => {
     try {
-      const topicId = await createTopic(topic);
-      await updateLesson(id, { topic: topicId });
-      handleClose();
+      if (!topicId) {
+        const newTopicId = await createTopic(topic);
+        await updateLesson(id, { topic: newTopicId });
+        return;
+      }
+      console.log({ topicId });
+      await updateTopic(topicId, topic);
+      return;
     } catch (e) {
       console.log(e);
+    } finally {
+      handleClose();
     }
-  }, [topic, createTopic, updateLesson, handleClose, id]);
+  }, [topic, createTopic, updateLesson, handleClose, id, topicId, updateTopic]);
 
   const addEntity = useCallback(
     (entityName) => {
@@ -63,7 +84,7 @@ export const EditTextModal = () => {
         ...prev,
         {
           id: getRandomNumber(0, 10000),
-          value: '',
+          value: "",
           type: entityName,
         },
       ]);
@@ -83,38 +104,57 @@ export const EditTextModal = () => {
     );
   };
 
-  const handleChange = (data) => {
+  const handleRemove = useCallback((id) => {
+    setTopic((prev) => prev?.filter((el) => el.id !== id));
+  }, []);
+
+  const handleChange = useCallback((data) => {
     setTopic((prev) => prev.map((el) => (el.id === +data.id ? data : el)));
+  }, []);
+
+  const moveItem = (dragIndex, hoverIndex) => {
+    setTopic((prevItem) => {
+      const updatedCards = [...prevItem]; // Создаем копию массива prevCards
+      const [draggedCard] = updatedCards.splice(dragIndex, 1); // Удаляем элемент, который нужно переместить
+      updatedCards.splice(hoverIndex, 0, draggedCard); // Вставляем элемент в новую позицию
+      return updatedCards; // Обновляем стейт
+    });
   };
 
   return (
     <Box className="action">
-      <EditModalStyled>
-        <ButtonIconStyled onClick={handleOpen} className="print-hide">
-          <EditIcon />
-        </ButtonIconStyled>
-        <DialogStyled
-          custommaxwidth={1000}
-          open={isOpen}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleClose}
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <form>
-            <DialogTitle className="title">
-              Створіть свою історію
-              <HandleBar addEntity={addEntity} clearRenderList={reset} />
-              <ButtonIconStyled onClick={handleClose}>
-                <CloseIcon />
-              </ButtonIconStyled>
-            </DialogTitle>
-            <DialogContent>
-              <Box>
-                {topic.length > 0 ? (
-                  topic?.map((el) => (
-                    <div>
-                      {el.type === 'list' && (
+      <ButtonIconStyled onClick={handleOpen} className="print-hide">
+        <EditIcon />
+      </ButtonIconStyled>
+      <DialogStyled
+        custommaxwidth={1000}
+        open={isOpen}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <form>
+          <DialogTitle className="title">
+            Створіть свою історію
+            <HandleBar addEntity={addEntity} clearRenderList={reset} />
+            <ButtonIconStyled onClick={handleClose}>
+              <CloseIcon />
+            </ButtonIconStyled>
+          </DialogTitle>
+          <DialogContent className="dynamic-list">
+            <Box>
+              {topic.length > 0 ? (
+                topic?.map((el, idx) => (
+                  <div>
+                    {el.type === "list" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
                         <BlockWrapperStyled>
                           <DynamicList
                             id={el.id}
@@ -125,18 +165,26 @@ export const EditTextModal = () => {
                                 handleChange({
                                   id: el.id || getRandomNumber(0, 10000),
                                   value: data,
-                                  type: 'list',
+                                  type: "list",
                                 }),
                             }}
                           />
                         </BlockWrapperStyled>
-                      )}
+                      </DynamicListItem>
+                    )}
 
-                      {el.type === 'date' && (
+                    {el.type === "date" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
                         <BlockWrapperStyled>
                           <LessonsDatePicker
                             id={el.id}
-                            legend={'Дата'}
+                            legend={"Дата"}
                             value={el.value}
                             onChange={(data) =>
                               handleChange({
@@ -147,8 +195,16 @@ export const EditTextModal = () => {
                             }
                           />
                         </BlockWrapperStyled>
-                      )}
-                      {el.type === 'title' && (
+                      </DynamicListItem>
+                    )}
+                    {el.type === "title" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
                         <BlockWrapperStyled>
                           <InputFieldStyled>
                             <label htmlFor={el.id}>Заголовок</label>
@@ -164,8 +220,16 @@ export const EditTextModal = () => {
                             />
                           </InputFieldStyled>
                         </BlockWrapperStyled>
-                      )}
-                      {el.type === 'subtitle' && (
+                      </DynamicListItem>
+                    )}
+                    {el.type === "subtitle" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
                         <BlockWrapperStyled>
                           <InputFieldStyled>
                             <label htmlFor={el.id}>Підзаголовок</label>
@@ -181,8 +245,16 @@ export const EditTextModal = () => {
                             />
                           </InputFieldStyled>
                         </BlockWrapperStyled>
-                      )}
-                      {el.type === 'paragraph' && (
+                      </DynamicListItem>
+                    )}
+                    {el.type === "paragraph" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
                         <BlockWrapperStyled>
                           <InputFieldStyled>
                             <FormLabel className="label">Параграф</FormLabel>
@@ -195,8 +267,16 @@ export const EditTextModal = () => {
                             />
                           </InputFieldStyled>
                         </BlockWrapperStyled>
-                      )}
-                      {el.type === 'code' && (
+                      </DynamicListItem>
+                    )}
+                    {el.type === "code" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
                         <BlockWrapperStyled>
                           <InputFieldStyled>
                             <FormLabel className="label">
@@ -211,36 +291,73 @@ export const EditTextModal = () => {
                             />
                           </InputFieldStyled>
                         </BlockWrapperStyled>
-                      )}
-                      {el.type === 'dev' && (
-                        <BlockWrapperStyled>
+                      </DynamicListItem>
+                    )}
+                    {el.type === "dev" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
+                        <BlockWrapperStyled className="hr">
+                          <label htmlFor={el.id}>Розділювач</label>
                           <hr id={el.id} />
                         </BlockWrapperStyled>
-                      )}
-                      {el.type === 'link' && (
-                        <Link
-                          onChange={(data) =>
-                            handleChange({
-                              id: el.id || getRandomNumber(0, 10000),
-                              type: 'link',
-                              ...data,
-                            })
-                          }
-                        />
-                      )}
-                      {el.type === 'dict' && (
-                        <Link
-                          onChange={(data) =>
-                            handleChange({
-                              id: el.id || getRandomNumber(0, 10000),
-                              type: 'dict',
-                              ...data,
-                            })
-                          }
-                        />
-                      )}
+                      </DynamicListItem>
+                    )}
+                    {el.type === "link" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
+                        <BlockWrapperStyled>
+                          <Link
+                            onChange={(data) =>
+                              handleChange({
+                                id: el.id || getRandomNumber(0, 10000),
+                                type: "link",
+                                ...data,
+                              })
+                            }
+                          />
+                        </BlockWrapperStyled>
+                      </DynamicListItem>
+                    )}
+                    {el.type === "dict" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
+                        <BlockWrapperStyled>
+                          <Link
+                            onChange={(data) =>
+                              handleChange({
+                                id: el.id || getRandomNumber(0, 10000),
+                                type: "dict",
+                                ...data,
+                              })
+                            }
+                          />
+                        </BlockWrapperStyled>
+                      </DynamicListItem>
+                    )}
 
-                      {el.type === 'media' && (
+                    {el.type === "media" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
                         <BlockWrapperStyled>
                           <InputFieldStyled>
                             <label htmlFor={el.id}>
@@ -265,9 +382,17 @@ export const EditTextModal = () => {
                             />
                           </InputFieldStyled>
                         </BlockWrapperStyled>
-                      )}
+                      </DynamicListItem>
+                    )}
 
-                      {el.type === 'image' && (
+                    {el.type === "image" && (
+                      <DynamicListItem
+                        key={el.id}
+                        field={el}
+                        index={idx}
+                        handleRemove={handleRemove}
+                        moveItem={moveItem}
+                      >
                         <BlockWrapperStyled>
                           <DropzoneField
                             onChange={(data) =>
@@ -279,21 +404,21 @@ export const EditTextModal = () => {
                             }
                           />
                         </BlockWrapperStyled>
-                      )}
-                    </div>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </Box>
-            </DialogContent>
-            <DialogActions style={{ padding: '0 25px 25px' }}>
-              <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
-              <ButtonStyled onClick={onSubmitHandler}>Зберегти</ButtonStyled>
-            </DialogActions>
-          </form>
-        </DialogStyled>
-      </EditModalStyled>
+                      </DynamicListItem>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <></>
+              )}
+            </Box>
+          </DialogContent>
+          <DialogActions style={{ padding: "0 25px 25px" }}>
+            <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
+            <ButtonStyled onClick={onSubmitHandler}>Зберегти</ButtonStyled>
+          </DialogActions>
+        </form>
+      </DialogStyled>
     </Box>
   );
 };

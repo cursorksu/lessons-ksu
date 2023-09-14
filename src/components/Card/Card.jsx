@@ -1,5 +1,5 @@
-import { CardActions, CardContent } from '@mui/material';
-import { CardStyled } from './CardStyled';
+import { CardActions, CardContent } from "@mui/material";
+import { CardStyled } from "./CardStyled";
 
 export const Card = ({ title, action, children }) => {
   return (

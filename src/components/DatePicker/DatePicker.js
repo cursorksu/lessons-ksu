@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import { FormHelperText, Popover } from '@mui/material';
-import { DatePickerStyled } from './style';
-import DatePicker from 'react-datepicker';
-import { InputContrastStyled } from '../InputStyled';
+import React, { useRef, useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import { FormHelperText, Popover } from "@mui/material";
+import { DatePickerStyled } from "./style";
+import DatePicker from "react-datepicker";
+import { InputContrastStyled } from "../InputStyled";
 
 export const LessonsDatePicker = ({ legend, value, onChange, name }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -45,12 +45,12 @@ export const LessonsDatePicker = ({ legend, value, onChange, name }) => {
         open={!!anchorEl}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
+          vertical: "center",
+          horizontal: "center",
         }}
         transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
+          vertical: "bottom",
+          horizontal: "center",
         }}
       >
         <DatePicker

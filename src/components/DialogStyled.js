@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import { Dialog } from '@mui/material';
+import styled from "@emotion/styled";
+import { Dialog } from "@mui/material";
 
 export const DialogStyled = styled(Dialog)`
   padding: 20px;
@@ -44,5 +44,17 @@ export const DialogStyled = styled(Dialog)`
 
   .MuiDialogActions-root {
     padding: 30px;
+  }
+
+  .dynamic-list {
+    & > div > div > div > .remove-handle {
+      top: 8px;
+      right: 40px;
+    }
+
+    & > div > div > div > .drag-handle {
+      top: 8px;
+      right: 10px;
+    }
   }
 `;

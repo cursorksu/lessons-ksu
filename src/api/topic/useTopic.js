@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { fireStore } from '../index';
+import { useCallback, useEffect, useState } from "react";
+import { fireStore } from "../index";
 import {
   collection,
   getDocs,
@@ -8,7 +8,7 @@ import {
   getDoc,
   addDoc,
   updateDoc,
-} from 'firebase/firestore/lite';
+} from "firebase/firestore/lite";
 
 // const Topic = [{
 //   id,
@@ -27,7 +27,7 @@ export const useGetTopic = () => {
 
   const fetchTopic = useCallback(async () => {
     try {
-      const topicsCollection = collection(fireStore, 'topics');
+      const topicsCollection = collection(fireStore, "topics");
       const querySnapshot = await getDocs(topicsCollection);
       const topicsData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -36,7 +36,7 @@ export const useGetTopic = () => {
       setTopic(topicsData.sort((a, b) => a.createdAt - b.createdAt));
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching topics:', error);
+      console.error("Error fetching topics:", error);
     }
   }, []);
 
@@ -50,10 +50,10 @@ export const useGetTopic = () => {
 export const useDeleteTopic = () => {
   const deleteTopic = useCallback(async (topicId) => {
     try {
-      const topicDocRef = doc(fireStore, 'topics', topicId);
+      const topicDocRef = doc(fireStore, "topics", topicId);
       await deleteDoc(topicDocRef);
     } catch (error) {
-      console.error('Error deleting topic:', error);
+      console.error("Error deleting topic:", error);
     }
   }, []);
 
@@ -63,7 +63,7 @@ export const useDeleteTopic = () => {
 export const useGetTopicById = () => {
   const getTopicById = useCallback(async (topicId) => {
     try {
-      const topicDocRef = doc(fireStore, 'topics', topicId);
+      const topicDocRef = doc(fireStore, "topics", topicId);
       const topicSnapshot = await getDoc(topicDocRef);
 
       if (topicSnapshot.exists()) {
@@ -82,7 +82,7 @@ export const useGetTopicById = () => {
 export const useCreateTopic = () => {
   const createTopicDock = useCallback(async (topic) => {
     try {
-      const topicCollection = collection(fireStore, 'topics');
+      const topicCollection = collection(fireStore, "topics");
       const docRef = await addDoc(topicCollection, {
         topic: JSON.stringify(topic),
         createdAt: new Date(),
@@ -102,14 +102,14 @@ export const useCreateTopic = () => {
 export const useUpdateTopic = () => {
   const updateTopic = useCallback(async (topicId, updatedFields) => {
     try {
-      const topicDocRef = doc(fireStore, 'topics', topicId);
+      const topicDocRef = doc(fireStore, "topics", topicId);
       const topicSnapshot = await getDoc(topicDocRef);
 
       if (topicSnapshot.exists()) {
         const existingTopicData = topicSnapshot.data();
         const updatedTopicData = {
           ...existingTopicData,
-          ...updatedFields,
+          topic: JSON.stringify(updatedFields),
         };
         await updateDoc(topicDocRef, updatedTopicData);
 

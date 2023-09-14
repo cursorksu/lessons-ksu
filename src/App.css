@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background: url('https://catherineasquithgallery.com/uploads/posts/2021-02/1613799456_26-p-zolotoi-zadnii-fon-28.jpg');
+  background: url("https://catherineasquithgallery.com/uploads/posts/2021-02/1613799456_26-p-zolotoi-zadnii-fon-28.jpg");
 }
 
 * {
@@ -9,7 +9,7 @@
 
 .App-header {
   position: relative;
-  background-image: url('https://age-info.com/wp-content/uploads/2019/06/5-19-scaled.jpg');
+  background-image: url("https://age-info.com/wp-content/uploads/2019/06/5-19-scaled.jpg");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;

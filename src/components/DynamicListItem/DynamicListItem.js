@@ -1,24 +1,23 @@
-import React, { useRef } from 'react';
-import { ButtonIconBasisStyled } from '../ButtonStyled';
-import { InputContrastStyled } from '../InputStyled';
-import { ReactComponent as MoveIcon } from '../../assets/move.svg';
-import { ReactComponent as RemoveIcon } from '../../assets/minus.svg';
-import { useDrag, useDrop } from 'react-dnd';
-import { DndItemStyled } from './style';
+import React, { useRef } from "react";
+import { ButtonIconBasisStyled } from "../ButtonStyled";
+import { ReactComponent as MoveIcon } from "../../assets/move.svg";
+import { ReactComponent as RemoveIcon } from "../../assets/minus.svg";
+import { useDrag, useDrop } from "react-dnd";
+import { DndItemStyled } from "./style";
 
-export const ListItem = ({
+export const DynamicListItem = ({
   field,
   index,
-  onChange,
   handleRemove,
   moveItem,
+  children,
 }) => {
   const ref = useRef(null);
 
   // https://codesandbox.io/s/github/react-dnd/react-dnd/tree/gh-pages/examples_js/04-sortable/simple?from-embed=&file=/src/Container.js:20-39
 
   const [{ handlerId }, drop] = useDrop({
-    accept: 'input',
+    accept: "div",
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -49,7 +48,7 @@ export const ListItem = ({
     },
   });
   const [{ opacity }, drag, preview] = useDrag({
-    type: 'input',
+    type: "div",
     item: () => {
       return { id: field?.id, index };
     },
@@ -69,23 +68,17 @@ export const ListItem = ({
       className="dnd-item"
       style={{ opacity }}
     >
-      <InputContrastStyled
-        ref={preview}
-        id={`${field?.id}`}
-        name={`${field?.id}`}
-        placeholder="Наступний елемент списку"
-        value={field?.value}
-        onChange={(e) => onChange(e, field?.id)}
-      />
+      <div ref={preview}>{children}</div>
+
       <ButtonIconBasisStyled
-        className="remove-handle absolute-rite"
+        className="remove-handle"
         onClick={() => handleRemove(field?.id)}
       >
         <RemoveIcon />
       </ButtonIconBasisStyled>
       <ButtonIconBasisStyled
         ref={drag}
-        className="drag-handle absolute-rite"
+        className="drag-handle"
         data-handler-id={handlerId}
       >
         <MoveIcon />

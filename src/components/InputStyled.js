@@ -1,22 +1,21 @@
-import { TextareaAutosize, TextField } from '@mui/material';
-import styled from '@emotion/styled';
-import { BORDER_GRAY, PRIMARY_MAIN_RGBA } from '../constants/colors';
+import { TextareaAutosize, TextField } from "@mui/material";
+import styled from "@emotion/styled";
+import { BORDER_GRAY, PRIMARY_MAIN_RGBA } from "../constants/colors";
 
 export const InputFieldStyled = styled.div`
   width: 100%;
   display: block;
-  margin-bottom: 12px;
 
   .MuiInputBase-root {
     width: 100%;
   }
 
+  .label,
   label {
     font-family: Montserrat, sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.87);
-    margin-top: 12px;
+    font-weight: 300;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
   }
 
   input {
@@ -52,19 +51,12 @@ export const InputStyled = styled(TextField)`
     border: 1px solid ${BORDER_GRAY};
     height: 2rem;
     line-height: 2rem;
-
-    &:focus {
-      border: 1px solid ${BORDER_GRAY};
-    }
-
-    label {
-      color: ${BORDER_GRAY};
-    }
   }
 `;
 
 export const InputContrastStyled = styled(TextField)`
   width: 100%;
+  display: block;
   font-family: Montserrat, sans-serif;
   box-shadow: none;
   border: none;

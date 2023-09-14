@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React from "react";
+import { Box } from "@mui/material";
 
 export const TabPanelGame = ({ value, show }) => {
   return show ? (

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { fireStore } from '../index';
+import { useCallback, useEffect, useState } from "react";
+import { fireStore } from "../index";
 import {
   collection,
   getDocs,
@@ -8,7 +8,7 @@ import {
   getDoc,
   addDoc,
   updateDoc,
-} from 'firebase/firestore/lite';
+} from "firebase/firestore/lite";
 
 // const Topic = {
 //   id,
@@ -27,7 +27,7 @@ export const useGetLessons = () => {
 
   const fetchLessons = useCallback(async () => {
     try {
-      const lessonsCollection = collection(fireStore, 'lessons');
+      const lessonsCollection = collection(fireStore, "lessons");
       const querySnapshot = await getDocs(lessonsCollection);
       const lessonsData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -36,7 +36,7 @@ export const useGetLessons = () => {
       setLessons(lessonsData.sort((a, b) => a.createdAt - b.createdAt));
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching lessons:', error);
+      console.error("Error fetching lessons:", error);
     }
   }, []);
 
@@ -50,10 +50,10 @@ export const useGetLessons = () => {
 export const useDeleteLesson = () => {
   const deleteLesson = useCallback(async (lessonId) => {
     try {
-      const lessonDocRef = doc(fireStore, 'lessons', lessonId);
+      const lessonDocRef = doc(fireStore, "lessons", lessonId);
       await deleteDoc(lessonDocRef);
     } catch (error) {
-      console.error('Error deleting lesson:', error);
+      console.error("Error deleting lesson:", error);
     }
   }, []);
 
@@ -63,7 +63,7 @@ export const useDeleteLesson = () => {
 export const useGetLessonById = () => {
   const getLessonById = useCallback(async (lessonId) => {
     try {
-      const lessonDocRef = doc(fireStore, 'lessons', lessonId);
+      const lessonDocRef = doc(fireStore, "lessons", lessonId);
       const lessonSnapshot = await getDoc(lessonDocRef);
 
       if (lessonSnapshot.exists()) {
@@ -82,7 +82,7 @@ export const useGetLessonById = () => {
 export const useCreateLesson = () => {
   const createLessonDock = useCallback(async (lesson) => {
     try {
-      const lessonsCollection = collection(fireStore, 'lessons');
+      const lessonsCollection = collection(fireStore, "lessons");
       await addDoc(lessonsCollection, {
         ...lesson,
         createdAt: new Date(),
@@ -100,7 +100,7 @@ export const useCreateLesson = () => {
 export const useUpdateLesson = () => {
   const updateLesson = useCallback(async (lessonId, updatedFields) => {
     try {
-      const lessonDocRef = doc(fireStore, 'lessons', lessonId);
+      const lessonDocRef = doc(fireStore, "lessons", lessonId);
       const lessonSnapshot = await getDoc(lessonDocRef);
 
       if (lessonSnapshot.exists()) {

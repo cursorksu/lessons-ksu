@@ -1,14 +1,14 @@
-import { Grid } from '@mui/material';
-import React from 'react';
-import { useNavigate } from 'react-router';
+import { Grid } from "@mui/material";
+import React from "react";
+import { useNavigate } from "react-router";
 import {
   useGetLessons,
   useDeleteLesson,
   useCreateLesson,
-} from '../../api/lesson';
-import { Loader } from '../Loader';
-import { LessonCard } from '../LessonCard';
-import { CreateLessonModal } from '../CreateLessonModal';
+} from "../../api/lesson";
+import { Loader } from "../Loader";
+import { LessonCard } from "../LessonCard";
+import { CreateLessonModal } from "../CreateLessonModal";
 
 export const LessonList = () => {
   const navigate = useNavigate();
@@ -39,9 +39,9 @@ export const LessonList = () => {
           sm={12}
           item
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Loader />
@@ -52,7 +52,7 @@ export const LessonList = () => {
             sm={12}
             item
             key={item?.id}
-            sx={{ display: 'flex', alignItems: 'stretch' }}
+            sx={{ display: "flex", alignItems: "stretch" }}
           >
             <LessonCard
               item={item}

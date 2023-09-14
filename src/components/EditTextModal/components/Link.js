@@ -1,10 +1,18 @@
-import { BlockWrapperFlexStyled } from '../style';
-import { InputFieldStyled, InputStyled } from '../../InputStyled';
-import React, { useState } from 'react';
+import { BlockWrapperFlexStyled } from "../style";
+import { InputFieldStyled, InputStyled } from "../../InputStyled";
+import React, { useCallback, useState } from "react";
+import { ButtonStyled } from "../../ButtonStyled";
 
 export const Link = ({ onChange, name }) => {
-  const [link, setLink] = useState('');
-  const [text, setText] = useState('');
+  const [link, setLink] = useState("");
+  const [text, setText] = useState("");
+
+  const handleChange = useCallback(() => {
+    onChange({
+      text,
+      value: link,
+    });
+  }, [link, text, onChange]);
 
   return (
     <BlockWrapperFlexStyled>
@@ -26,16 +34,7 @@ export const Link = ({ onChange, name }) => {
           onChange={(e) => setLink(e.target.value)}
         />
       </InputFieldStyled>
-      <button
-        onChange={() =>
-          onChange({
-            text,
-            value: link,
-          })
-        }
-      >
-        Add link
-      </button>
+      <ButtonStyled onChange={handleChange}>Add link</ButtonStyled>
     </BlockWrapperFlexStyled>
   );
 };

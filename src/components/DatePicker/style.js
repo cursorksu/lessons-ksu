@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
-import { FormControl } from '@mui/material';
-import { BORDER_GRAY } from '../../constants/colors';
+import styled from "@emotion/styled";
+import { FormControl } from "@mui/material";
+import { BORDER_GRAY } from "../../constants/colors";
 
 export const DatePickerStyled = styled(FormControl)`
   min-width: 100%;

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, BrowserRouter as Router } from 'react-router-dom';
-import { authRouts, publicRoutes } from './routes';
-import { Routes } from 'react-router';
+import React from "react";
+import { Route, BrowserRouter as Router } from "react-router-dom";
+import { authRouts, publicRoutes } from "./routes";
+import { Routes } from "react-router";
 
 export const AppRouter = () => {
   return (

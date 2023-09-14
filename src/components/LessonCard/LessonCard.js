@@ -1,9 +1,9 @@
-import React from 'react';
-import { CardContent, Divider, Grid, Typography } from '@mui/material';
-import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
-import { ButtonIconStyled } from '../ButtonStyled';
+import React from "react";
+import { CardContent, Divider, Grid, Typography } from "@mui/material";
+import { ReactComponent as DeleteIcon } from "../../assets/delete.svg";
+import { ButtonIconStyled } from "../ButtonStyled";
 
-import { LessonCardStyled } from './style';
+import { LessonCardStyled } from "./style";
 
 export const LessonCard = ({ item, onClick, onDelete }) => (
   <LessonCardStyled variant="outlined" onClick={() => onClick(item?.id)}>

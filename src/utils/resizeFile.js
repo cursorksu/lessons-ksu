@@ -1,4 +1,4 @@
-import Resizer from 'react-image-file-resizer';
+import Resizer from "react-image-file-resizer";
 
 export const resizeFile = (
   file,
@@ -11,13 +11,13 @@ export const resizeFile = (
       file,
       maxWidth,
       maxHeight,
-      'JPEG',
+      "JPEG",
       quality,
       0,
       (uri) => {
         resolve(uri);
       },
-      'base64',
+      "base64",
     );
   });
   return response;

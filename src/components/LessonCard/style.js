@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
-import { Card } from '@mui/material';
-import { GOLD } from '../../constants/colors';
+import styled from "@emotion/styled";
+import { Card } from "@mui/material";
+import { GOLD } from "../../constants/colors";
 
 export const LessonCardStyled = styled(Card)`
   width: 100%;

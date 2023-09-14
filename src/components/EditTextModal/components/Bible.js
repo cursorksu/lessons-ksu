@@ -1,6 +1,6 @@
-import { FormGroup } from '@mui/material';
-import { InputContrastStyled, TextareaAutosizeStyled } from '../../InputStyled';
-import React from 'react';
+import { FormGroup } from "@mui/material";
+import { InputContrastStyled, TextareaAutosizeStyled } from "../../InputStyled";
+import React from "react";
 
 export const Bible = ({ field }) => {
   return (

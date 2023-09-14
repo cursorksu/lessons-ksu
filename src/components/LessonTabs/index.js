@@ -1,1 +1,1 @@
-export * as UserTabs from './LessonTabs';
+export * as UserTabs from "./LessonTabs";
