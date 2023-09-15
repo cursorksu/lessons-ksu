@@ -13,18 +13,22 @@ export const TabPanelTopic = ({ value, show, lesson }) => {
   });
 
   return show
-    ? (<div>
-        <div className='btn-wrapper'>
-          <Tooltip title='Змінити цей урок'>
-            <EditModal fieldName='title' />
+    ? (
+      <div>
+        <div className="btn-wrapper">
+          <Tooltip title="Змінити цей урок">
+            <EditModal fieldName="title" />
           </Tooltip>
-          <Tooltip title='Надрукувати цей урок'>
+          <Tooltip title="Надрукувати цей урок">
             <ButtonIconStyled onClick={handlePrint}>
               <PrintIcon />
             </ButtonIconStyled>
           </Tooltip>
         </div>
         <TopicToPrint ref={componentRef} lesson={lesson} />
-      </div>)
-    : (<></>);
+      </div>
+    )
+    : (
+      <></>
+    );
 };

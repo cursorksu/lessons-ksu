@@ -8,16 +8,23 @@ export const DisplayTopic = ({ topicId }) => {
   const { getTopicById } = useGetTopicById();
 
   useEffect(() => {
-    topicId && getTopicById(topicId)
-      .then((data) => setCurrentTopic(JSON.parse(data.topic)));
+    topicId &&
+      getTopicById(topicId).then((data) =>
+        setCurrentTopic(JSON.parse(data.topic))
+      );
   }, [topicId, getTopicById]);
 
-  return (<TopicStyled>
+  return (
+    <TopicStyled>
       {currentTopic?.map((el) => {
         if (el.type === 'list') {
-          return (<ul key={el.id}>
-              {el.value.map((item) => (<li> {item.value}</li>))}
-            </ul>);
+          return (
+            <ul key={el.id}>
+              {el.value.map((item) => (
+                <li> {item.value}</li>
+              ))}
+            </ul>
+          );
         }
 
         if (el.type === 'dev') {
@@ -25,10 +32,12 @@ export const DisplayTopic = ({ topicId }) => {
         }
 
         if (el.type === 'dict') {
-          return (<div key={el.id}>
-              <div className='declaration'>{el.value}</div>
-              <div className='text'>{el.text}</div>
-            </div>);
+          return (
+            <div key={el.id}>
+              <div className="declaration">{el.value}</div>
+              <div className="text">{el.text}</div>
+            </div>
+          );
         }
 
         if (el.type === 'title') {
@@ -40,9 +49,9 @@ export const DisplayTopic = ({ topicId }) => {
 
         if (el.type === 'paragraph') {
           const paragraphArray = el.value.split('\n');
-          return paragraphArray.map((p, index) => !p.length
-            ? <br key={index} />
-            : <p key={el.id + index}>{p}</p>);
+          return paragraphArray.map((p, index) =>
+            !p.length ? <br key={index} /> : <p key={el.id + index}>{p}</p>
+          );
         }
 
         if (el.type === 'date') {
@@ -50,48 +59,57 @@ export const DisplayTopic = ({ topicId }) => {
         }
 
         if (el.type === 'image') {
-          return (<div key={el.id}>
+          return (
+            <div key={el.id}>
               <div>
                 <img src={el.value} alt={el.description} />
               </div>
               <div>
                 <label>{el.description}</label>
               </div>
-            </div>);
+            </div>
+          );
         }
 
         if (el.type === 'link') {
-          return (<a key={el.id} href={el.value}>
+          return (
+            <a key={el.id} href={el.value}>
               {el.text}
-            </a>);
+            </a>
+          );
         }
 
         if (el.type === 'media') {
-          return (<div key={el.id} className='sect sect-bg'>
-              <div className='sect-header sect-title'>{el.text}</div>
-              <div className='sect-content video-box'>
+          return (
+            <div key={el.id} className="sect sect-bg">
+              <div className="sect-header sect-title">{el.text}</div>
+              <div className="sect-content video-box">
                 <iframe
-                  width='100%'
-                  height='400'
+                  width="100%"
+                  height="400"
                   src={el.value}
-                  title='YouTube video player'
-                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 />
               </div>
-            </div>);
+            </div>
+          );
         }
 
         if (el.type === 'code') {
           const htmlContent = el.value;
 
-          return (<div
+          return (
+            <div
               key={el.id}
               dangerouslySetInnerHTML={{ __html: htmlContent }}
-            />);
+            />
+          );
         }
 
         return <div key={el.id}></div>;
       })}
-    </TopicStyled>);
+    </TopicStyled>
+  );
 };

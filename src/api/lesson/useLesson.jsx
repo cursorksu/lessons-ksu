@@ -9,6 +9,8 @@ import {
   addDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
+import { setMessage } from '../../store/notificationReducer';
+import { useDispatch } from 'react-redux';
 
 // const Topic = {
 //   id,
@@ -22,6 +24,7 @@ import {
 // }
 
 export const useGetLessons = () => {
+  const dispatch = useDispatch();
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +39,13 @@ export const useGetLessons = () => {
       setLessons(lessonsData.sort((a, b) => a.createdAt - b.createdAt));
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching lessons:', error);
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error fetching lessons:',
+          description: error,
+        }
+      }));
     }
   }, []);
 
@@ -48,12 +57,19 @@ export const useGetLessons = () => {
 };
 
 export const useDeleteLesson = () => {
+  const dispatch = useDispatch();
   const deleteLesson = useCallback(async (lessonId) => {
     try {
       const lessonDocRef = doc(fireStore, 'lessons', lessonId);
       await deleteDoc(lessonDocRef);
     } catch (error) {
-      console.error('Error deleting lesson:', error);
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error deleting lesson:',
+          description: error,
+        }
+      }));
     }
   }, []);
 
@@ -61,6 +77,7 @@ export const useDeleteLesson = () => {
 };
 
 export const useGetLessonById = () => {
+  const dispatch = useDispatch();
   const getLessonById = useCallback(async (lessonId) => {
     try {
       const lessonDocRef = doc(fireStore, 'lessons', lessonId);
@@ -72,6 +89,13 @@ export const useGetLessonById = () => {
         return null;
       }
     } catch (error) {
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error fetching lesson:',
+          description: error,
+        }
+      }));
       return null;
     }
   }, []);
@@ -80,6 +104,7 @@ export const useGetLessonById = () => {
 };
 
 export const useCreateLesson = () => {
+  const dispatch = useDispatch();
   const createLessonDock = useCallback(async (lesson) => {
     try {
       const lessonsCollection = collection(fireStore, 'lessons');
@@ -88,9 +113,13 @@ export const useCreateLesson = () => {
         createdAt: new Date(),
       });
     } catch (error) {
-      console.log({
-        message: error,
-      });
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error creating lesson:',
+          description: error,
+        }
+      }));
     }
   }, []);
 
@@ -98,6 +127,7 @@ export const useCreateLesson = () => {
 };
 
 export const useUpdateLesson = () => {
+  const dispatch = useDispatch();
   const updateLesson = useCallback(async (lessonId, updatedFields) => {
     try {
       const lessonDocRef = doc(fireStore, 'lessons', lessonId);
@@ -116,7 +146,13 @@ export const useUpdateLesson = () => {
         return null;
       }
     } catch (error) {
-      console.log({ error });
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error updating lesson:',
+          description: error,
+        }
+      }));
       return null;
     }
   }, []);

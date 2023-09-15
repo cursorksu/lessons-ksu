@@ -2,18 +2,6 @@ import { Button as MuiButton } from '@mui/material';
 import styled from '@emotion/styled';
 import { BG_GRAY, PRIMARY_MAIN, TEXT_MAIN, TOMATO } from '../constants/colors';
 
-export const StyledSemanticButton = styled(MuiButton)`
-  &&& {
-    color: ${TOMATO};
-    background: transparent;
-    transition: color 0.3s ease-in-out;
-
-    &:hover {
-      background: transparent;
-    }
-  }
-`;
-
 export const ButtonStyled = styled(MuiButton)`
   color: #fff;
   background-color: tomato;

@@ -9,6 +9,8 @@ import {
   addDoc,
   updateDoc,
 } from 'firebase/firestore/lite';
+import { useDispatch } from 'react-redux';
+import { setMessage } from '../../store/notificationReducer';
 
 // const Topic = [{
 //   id,
@@ -22,6 +24,7 @@ import {
 // }];
 
 export const useGetTopic = () => {
+  const dispatch = useDispatch();
   const [topic, setTopic] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,9 +39,15 @@ export const useGetTopic = () => {
       setTopic(topicsData.sort((a, b) => a.createdAt - b.createdAt));
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching topics:', error);
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error!',
+          description: error.message,
+        }
+      }));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     fetchTopic();
@@ -48,21 +57,30 @@ export const useGetTopic = () => {
 };
 
 export const useDeleteTopic = () => {
+  const dispatch = useDispatch();
   const deleteTopic = useCallback(async (topicId) => {
     try {
       const topicDocRef = doc(fireStore, 'topics', topicId);
       await deleteDoc(topicDocRef);
     } catch (error) {
-      console.error('Error deleting topic:', error);
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error!',
+          description: error.message,
+        }
+      }));
     }
-  }, []);
+  }, [dispatch]);
 
   return { deleteTopic };
 };
 
 export const useGetTopicById = () => {
+  const dispatch = useDispatch();
   const getTopicById = useCallback(async (topicId) => {
     try {
+
       const topicDocRef = doc(fireStore, 'topics', topicId);
       const topicSnapshot = await getDoc(topicDocRef);
 
@@ -72,14 +90,22 @@ export const useGetTopicById = () => {
         return null;
       }
     } catch (error) {
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error!',
+          description: error.message,
+        }
+      }));
       return null;
     }
-  }, []);
+  }, [dispatch]);
 
   return { getTopicById };
 };
 
 export const useCreateTopic = () => {
+  const dispatch = useDispatch();
   const createTopicDock = useCallback(async (topic) => {
     try {
       const topicCollection = collection(fireStore, 'topics');
@@ -90,16 +116,21 @@ export const useCreateTopic = () => {
       const id = docRef.id;
       return id;
     } catch (error) {
-      console.log({
-        message: error,
-      });
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error!',
+          description: error.message,
+        }
+      }));
     }
-  }, []);
+  }, [dispatch]);
 
   return { createTopic: createTopicDock };
 };
 
 export const useUpdateTopic = () => {
+  const dispatch = useDispatch();
   const updateTopic = useCallback(async (topicId, updatedFields) => {
     try {
       const topicDocRef = doc(fireStore, 'topics', topicId);
@@ -118,10 +149,16 @@ export const useUpdateTopic = () => {
         return null;
       }
     } catch (error) {
-      console.log({ error });
+      dispatch(setMessage({
+        type: 'error',
+        message: {
+          title: 'Error!',
+          description: error.message,
+        }
+      }));
       return null;
     }
-  }, []);
+  }, [dispatch]);
 
   return { updateTopic };
 };
