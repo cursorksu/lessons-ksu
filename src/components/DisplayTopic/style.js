@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const TopicStyled = styled.div`
   text-align: left;
@@ -12,7 +12,7 @@ export const TopicStyled = styled.div`
       margin: 0;
 
       &:before {
-        content: "\\21E8";
+        content: '\\21E8';
         display: inline-block;
         margin-right: 10px;
       }

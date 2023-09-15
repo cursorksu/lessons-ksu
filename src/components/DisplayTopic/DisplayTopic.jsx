@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useGetTopicById } from "../../api/topic";
-import { TopicStyled } from "./style";
+import React, { useEffect, useState } from 'react';
+import { useGetTopicById } from '../../api/topic';
+import { TopicStyled } from './style';
 
 export const DisplayTopic = ({ topicId }) => {
   const [currentTopic, setCurrentTopic] = useState(null);
@@ -11,14 +11,14 @@ export const DisplayTopic = ({ topicId }) => {
     topicId &&
       getTopicById(topicId).then(
         (data) =>
-          console.log({ data }) || setCurrentTopic(JSON.parse(data.topic)),
+          setCurrentTopic(JSON.parse(data.topic))
       );
   }, [topicId, getTopicById]);
 
   return (
     <TopicStyled>
       {currentTopic?.map((el) => {
-        if (el.type === "list") {
+        if (el.type === 'list') {
           return (
             <ul key={el.id}>
               {el.value.map((item) => (
@@ -28,11 +28,11 @@ export const DisplayTopic = ({ topicId }) => {
           );
         }
 
-        if (el.type === "dev") {
+        if (el.type === 'dev') {
           return <hr key={el.id} />;
         }
 
-        if (el.type === "dict") {
+        if (el.type === 'dict') {
           return (
             <div key={el.id}>
               <div className="declaration">{el.value}</div>
@@ -41,22 +41,25 @@ export const DisplayTopic = ({ topicId }) => {
           );
         }
 
-        if (el.type === "title") {
+        if (el.type === 'title') {
           return <h2 key={el.id}>{el.value}</h2>;
         }
-        if (el.type === "subtitle") {
+        if (el.type === 'subtitle') {
           return <h4 key={el.id}>{el.value}</h4>;
         }
 
-        if (el.type === "paragraph") {
-          return <p key={el.id}>{el.value}</p>;
+        if (el.type === 'paragraph') {
+          const paragraphArray = el.value.split('\n');
+          return paragraphArray.map((p, index) =>
+            !p.length ? <br key={index} /> : <p key={el.id + index}>{p}</p>
+          );
         }
 
-        if (el.type === "date") {
+        if (el.type === 'date') {
           return <i key={el.id}>{el.value}</i>;
         }
 
-        if (el.type === "image") {
+        if (el.type === 'image') {
           return (
             <div key={el.id}>
               <div>
@@ -69,7 +72,7 @@ export const DisplayTopic = ({ topicId }) => {
           );
         }
 
-        if (el.type === "link") {
+        if (el.type === 'link') {
           return (
             <a key={el.id} href={el.value}>
               {el.text}
@@ -77,7 +80,7 @@ export const DisplayTopic = ({ topicId }) => {
           );
         }
 
-        if (el.type === "media") {
+        if (el.type === 'media') {
           return (
             <div key={el.id} className="sect sect-bg">
               <div className="sect-header sect-title">{el.text}</div>
@@ -95,7 +98,7 @@ export const DisplayTopic = ({ topicId }) => {
           );
         }
 
-        if (el.type === "code") {
+        if (el.type === 'code') {
           const htmlContent = el.value;
 
           return (

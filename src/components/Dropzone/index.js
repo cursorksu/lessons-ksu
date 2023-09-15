@@ -1,1 +1,1 @@
-export * as DropzoneField from "./DropzoneField";
+export * as DropzoneField from './DropzoneField';

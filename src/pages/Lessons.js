@@ -1,7 +1,7 @@
-import React from "react";
-import { Grid } from "@mui/material";
-import { GoBackButton } from "../components/GoBackButton";
-import { LessonList } from "../components/LessonList";
+import React from 'react';
+import { Grid } from '@mui/material';
+import { GoBackButton } from '../components/GoBackButton';
+import { LessonList } from '../components/LessonList';
 
 export const LessonsPage = () => {
   return (

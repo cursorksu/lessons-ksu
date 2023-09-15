@@ -1,11 +1,11 @@
-import { FormGroup } from "@mui/material";
-import { InputContrastStyled, TextareaAutosizeStyled } from "../../InputStyled";
-import React from "react";
+import { FormGroup } from '@mui/material';
+import { InputStyled, TextareaAutosizeStyled } from '../../InputStyled';
+import React from 'react';
 
 export const Bible = ({ field }) => {
   return (
     <FormGroup>
-      <InputContrastStyled
+      <InputStyled
         id="quote"
         name="quote"
         placeholder="Місце з Писання"

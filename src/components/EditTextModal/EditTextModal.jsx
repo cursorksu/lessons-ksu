@@ -1,36 +1,36 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { ButtonIconStyled, ButtonStyled } from "../ButtonStyled";
-import { ReactComponent as EditIcon } from "../../assets/edit.svg";
-import { DialogStyled } from "../DialogStyled";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+import { DialogStyled } from '../DialogStyled';
 import {
   Box,
   DialogActions,
   DialogContent,
   DialogTitle,
   FormLabel,
-} from "@mui/material";
-import { ReactComponent as CloseIcon } from "../../assets/close.svg";
-import { useUpdateLesson } from "../../api/lesson";
-import { BlockWrapperStyled } from "./style";
+} from '@mui/material';
+import { ReactComponent as CloseIcon } from '../../assets/close.svg';
+import { useUpdateLesson } from '../../api/lesson';
+import { BlockWrapperStyled } from './style';
 import {
   InputFieldStyled,
   InputStyled,
   TextareaAutosizeStyled,
-} from "../InputStyled";
-import { HandleBar } from "./components/HandleBar";
-import { LessonsDatePicker } from "../DatePicker/DatePicker";
-import { getRandomNumber } from "../../utils/randomizer";
+} from '../InputStyled';
+import { HandleBar } from './components/HandleBar';
+import { LessonsDatePicker } from '../DatePicker/DatePicker';
+import { getRandomNumber } from '../../utils/randomizer';
 import {
   useCreateTopic,
   useGetTopicById,
   useUpdateTopic,
-} from "../../api/topic";
-import { DropzoneField } from "../Dropzone/DropzoneField";
-import { Link } from "./components/Link";
-import { Transition } from "../Transition";
-import { DynamicList } from "../DynamicList/DynamicList";
-import { DynamicListItem } from "../DynamicListItem/DynamicListItem";
+} from '../../api/topic';
+import { DropzoneField } from '../Dropzone/DropzoneField';
+import { Link } from './components/Link';
+import { Transition } from '../Transition';
+import { DynamicList } from '../DynamicList/DynamicList';
+import { DynamicListItem } from '../DynamicListItem/DynamicListItem';
 
 export const EditTextModal = ({ topicId }) => {
   const { id } = useParams();
@@ -78,19 +78,16 @@ export const EditTextModal = ({ topicId }) => {
     }
   }, [topic, createTopic, updateLesson, handleClose, id, topicId, updateTopic]);
 
-  const addEntity = useCallback(
-    (entityName) => {
-      setTopic((prev) => [
-        ...prev,
-        {
-          id: getRandomNumber(0, 10000),
-          value: "",
-          type: entityName,
-        },
-      ]);
-    },
-    [setTopic],
-  );
+  const addEntity = useCallback((entityName) => {
+    setTopic((prev) => [
+      ...prev,
+      {
+        id: getRandomNumber(0, 10000),
+        value: '',
+        type: entityName,
+      },
+    ]);
+  }, []);
 
   const handleChangeField = (target, type) => {
     const updatedData = {
@@ -100,8 +97,27 @@ export const EditTextModal = ({ topicId }) => {
     };
 
     setTopic((prev) =>
-      prev.map((el) => (el.id === +target.id ? updatedData : el)),
+      prev.map((el) => (el.id === +target.id ? updatedData : el))
     );
+  };
+
+  const handleChangeParagraph = (e) => {
+    setTopic((prev) => {
+      let value = prev.find((el) => el.id === +e.target.id).value;
+      const updatedData = {
+        id: +e.target.id,
+        value: e.target.value,
+        type: 'paragraph',
+      };
+      if (e.keyCode === 13 && !e.shiftKey) {
+        e.preventDefault();
+        updatedData.value = value + '\n';
+      }
+
+      console.log({ value: updatedData.value });
+
+      return prev.map((el) => (el.id === +e.target.id ? updatedData : el));
+    });
   };
 
   const handleRemove = useCallback((id) => {
@@ -147,7 +163,7 @@ export const EditTextModal = ({ topicId }) => {
               {topic.length > 0 ? (
                 topic?.map((el, idx) => (
                   <div>
-                    {el.type === "list" && (
+                    {el.type === 'list' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -165,7 +181,7 @@ export const EditTextModal = ({ topicId }) => {
                                 handleChange({
                                   id: el.id || getRandomNumber(0, 10000),
                                   value: data,
-                                  type: "list",
+                                  type: 'list',
                                 }),
                             }}
                           />
@@ -173,7 +189,7 @@ export const EditTextModal = ({ topicId }) => {
                       </DynamicListItem>
                     )}
 
-                    {el.type === "date" && (
+                    {el.type === 'date' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -184,7 +200,7 @@ export const EditTextModal = ({ topicId }) => {
                         <BlockWrapperStyled>
                           <LessonsDatePicker
                             id={el.id}
-                            legend={"Дата"}
+                            legend={'Дата'}
                             value={el.value}
                             onChange={(data) =>
                               handleChange({
@@ -197,7 +213,7 @@ export const EditTextModal = ({ topicId }) => {
                         </BlockWrapperStyled>
                       </DynamicListItem>
                     )}
-                    {el.type === "title" && (
+                    {el.type === 'title' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -209,6 +225,7 @@ export const EditTextModal = ({ topicId }) => {
                           <InputFieldStyled>
                             <label htmlFor={el.id}>Заголовок</label>
                             <InputStyled
+                              fluid
                               key={el.id}
                               id={el.id}
                               name={el.type}
@@ -222,7 +239,7 @@ export const EditTextModal = ({ topicId }) => {
                         </BlockWrapperStyled>
                       </DynamicListItem>
                     )}
-                    {el.type === "subtitle" && (
+                    {el.type === 'subtitle' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -234,6 +251,7 @@ export const EditTextModal = ({ topicId }) => {
                           <InputFieldStyled>
                             <label htmlFor={el.id}>Підзаголовок</label>
                             <InputStyled
+                              fluid
                               key={el.id}
                               id={el.id}
                               name={el.type}
@@ -247,7 +265,7 @@ export const EditTextModal = ({ topicId }) => {
                         </BlockWrapperStyled>
                       </DynamicListItem>
                     )}
-                    {el.type === "paragraph" && (
+                    {el.type === 'paragraph' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -259,17 +277,18 @@ export const EditTextModal = ({ topicId }) => {
                           <InputFieldStyled>
                             <FormLabel className="label">Параграф</FormLabel>
                             <TextareaAutosizeStyled
+                              rows={4}
                               id={el.id}
                               name="paragraph"
                               placeholder="Введіть параграф тектсу"
                               value={el.value}
-                              onChange={(e) => handleChangeField(e.target)}
+                              onChange={(e) => handleChangeParagraph(e)}
                             />
                           </InputFieldStyled>
                         </BlockWrapperStyled>
                       </DynamicListItem>
                     )}
-                    {el.type === "code" && (
+                    {el.type === 'code' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -283,6 +302,7 @@ export const EditTextModal = ({ topicId }) => {
                               Додайте html
                             </FormLabel>
                             <TextareaAutosizeStyled
+                              rows={4}
                               id={el.id}
                               name="code"
                               placeholder="Введіть html"
@@ -293,7 +313,7 @@ export const EditTextModal = ({ topicId }) => {
                         </BlockWrapperStyled>
                       </DynamicListItem>
                     )}
-                    {el.type === "dev" && (
+                    {el.type === 'dev' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -307,7 +327,7 @@ export const EditTextModal = ({ topicId }) => {
                         </BlockWrapperStyled>
                       </DynamicListItem>
                     )}
-                    {el.type === "link" && (
+                    {el.type === 'link' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -320,7 +340,7 @@ export const EditTextModal = ({ topicId }) => {
                             onChange={(data) =>
                               handleChange({
                                 id: el.id || getRandomNumber(0, 10000),
-                                type: "link",
+                                type: 'link',
                                 ...data,
                               })
                             }
@@ -328,7 +348,7 @@ export const EditTextModal = ({ topicId }) => {
                         </BlockWrapperStyled>
                       </DynamicListItem>
                     )}
-                    {el.type === "dict" && (
+                    {el.type === 'dict' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -341,7 +361,7 @@ export const EditTextModal = ({ topicId }) => {
                             onChange={(data) =>
                               handleChange({
                                 id: el.id || getRandomNumber(0, 10000),
-                                type: "dict",
+                                type: 'dict',
                                 ...data,
                               })
                             }
@@ -350,7 +370,7 @@ export const EditTextModal = ({ topicId }) => {
                       </DynamicListItem>
                     )}
 
-                    {el.type === "media" && (
+                    {el.type === 'media' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -371,6 +391,7 @@ export const EditTextModal = ({ topicId }) => {
                               додати посилання на нього тут
                             </label>
                             <InputStyled
+                              fluid
                               key={el.id}
                               id={el.id}
                               name={el.type}
@@ -385,7 +406,7 @@ export const EditTextModal = ({ topicId }) => {
                       </DynamicListItem>
                     )}
 
-                    {el.type === "image" && (
+                    {el.type === 'image' && (
                       <DynamicListItem
                         key={el.id}
                         field={el}
@@ -413,7 +434,7 @@ export const EditTextModal = ({ topicId }) => {
               )}
             </Box>
           </DialogContent>
-          <DialogActions style={{ padding: "0 25px 25px" }}>
+          <DialogActions style={{ padding: '0 25px 25px' }}>
             <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
             <ButtonStyled onClick={onSubmitHandler}>Зберегти</ButtonStyled>
           </DialogActions>

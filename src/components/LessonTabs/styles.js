@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { FormControl } from "@mui/material";
+import styled from '@emotion/styled';
+import { FormControl } from '@mui/material';
 
 export const TabStyled = styled(FormControl)`
   margin-top: 30px;
@@ -23,7 +23,7 @@ export const TabStyled = styled(FormControl)`
     z-index: 1;
 
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0;
       left: 0;

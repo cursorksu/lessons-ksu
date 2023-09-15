@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Dialog } from "@mui/material";
+import styled from '@emotion/styled';
+import { Dialog } from '@mui/material';
 
 export const DialogStyled = styled(Dialog)`
   padding: 20px;

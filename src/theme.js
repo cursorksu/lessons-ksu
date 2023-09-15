@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material/styles";
-import { PRIMARY_MAIN } from "./constants/colors";
+import { createTheme } from '@mui/material/styles';
+import { PRIMARY_MAIN } from './constants/colors';
 
 export const theme = createTheme({
   breakpoints: {
@@ -12,18 +12,18 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Montserrat, sans-serif",
+    fontFamily: 'Montserrat, sans-serif',
     button: {
-      fontFamily: "Montserrat, sans-serif",
-      textTransform: "none",
+      fontFamily: 'Montserrat, sans-serif',
+      textTransform: 'none',
       letterSpacing: 0,
       fontSize: 14,
-      lineHeight: "16px",
+      lineHeight: '16px',
       fontWeight: 100,
     },
 
     body: {
-      component: "p",
+      component: 'p',
       fontSize: 12,
       lineHeight: 1.5,
       fontWeight: 300,

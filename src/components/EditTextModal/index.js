@@ -1,1 +1,1 @@
-export * from "./EditTextModal";
+export * from './EditTextModal';

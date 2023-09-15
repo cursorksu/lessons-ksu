@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
-import { FormHelperText, Popover } from "@mui/material";
-import { DatePickerStyled } from "./style";
-import DatePicker from "react-datepicker";
-import { InputContrastStyled } from "../InputStyled";
+import React, { useRef, useState } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import { Popover } from '@mui/material';
+import { DatePickerStyled } from './style';
+import DatePicker from 'react-datepicker';
+import { InputFieldStyled, InputStyled } from '../InputStyled';
 
 export const LessonsDatePicker = ({ legend, value, onChange, name }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,32 +25,33 @@ export const LessonsDatePicker = ({ legend, value, onChange, name }) => {
 
   return (
     <DatePickerStyled>
-      <FormHelperText htmlFor={name} color="secondary">
-        {legend}
-      </FormHelperText>
-      <InputContrastStyled
-        ref={inputRef}
-        value={
-          value
-            ? `${new Date(value).toLocaleDateString()}`
-            : new Date().toLocaleDateString()
-        }
-        onClick={handleAnchorClick}
-        onChange={onChange}
-        name={name}
-        id={name}
-      />
+      <InputFieldStyled>
+        <label htmlFor={name}>{legend}</label>
+        <InputStyled
+          fluid
+          ref={inputRef}
+          value={
+            value
+              ? `${new Date(value).toLocaleDateString()}`
+              : new Date().toLocaleDateString()
+          }
+          onClick={handleAnchorClick}
+          onChange={onChange}
+          name={name}
+          id={name}
+        />
+      </InputFieldStyled>
       <Popover
         onClose={handleAnchorClose}
         open={!!anchorEl}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
+          vertical: 'center',
+          horizontal: 'center',
         }}
         transformOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
+          vertical: 'bottom',
+          horizontal: 'center',
         }}
       >
         <DatePicker

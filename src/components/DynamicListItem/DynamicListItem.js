@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
-import { ButtonIconBasisStyled } from "../ButtonStyled";
-import { ReactComponent as MoveIcon } from "../../assets/move.svg";
-import { ReactComponent as RemoveIcon } from "../../assets/minus.svg";
-import { useDrag, useDrop } from "react-dnd";
-import { DndItemStyled } from "./style";
+import React, { useRef } from 'react';
+import { ButtonIconBasisStyled } from '../ButtonStyled';
+import { ReactComponent as MoveIcon } from '../../assets/move.svg';
+import { ReactComponent as RemoveIcon } from '../../assets/minus.svg';
+import { useDrag, useDrop } from 'react-dnd';
+import { DndItemStyled } from './style';
 
 export const DynamicListItem = ({
   field,
@@ -17,7 +17,7 @@ export const DynamicListItem = ({
   // https://codesandbox.io/s/github/react-dnd/react-dnd/tree/gh-pages/examples_js/04-sortable/simple?from-embed=&file=/src/Container.js:20-39
 
   const [{ handlerId }, drop] = useDrop({
-    accept: "div",
+    accept: 'div',
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -48,7 +48,7 @@ export const DynamicListItem = ({
     },
   });
   const [{ opacity }, drag, preview] = useDrag({
-    type: "div",
+    type: 'div',
     item: () => {
       return { id: field?.id, index };
     },

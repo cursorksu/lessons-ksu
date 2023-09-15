@@ -1,1 +1,1 @@
-export * from "./TopicToPrint";
+export * from './TopicToPrint';

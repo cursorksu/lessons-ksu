@@ -1,23 +1,23 @@
-import React from "react";
-import { routes } from "./constants";
-import { Home } from "../pages/Home";
-import { LessonsPage } from "../pages/Lessons";
-import { Lesson } from "../pages/Lesson";
+import React from 'react';
+import { routes } from './constants';
+import { Home } from '../pages/Home';
+import { LessonsPage } from '../pages/Lessons';
+import { Lesson } from '../pages/Lesson';
 
 export const publicRoutes = [
   {
     path: routes.home,
-    title: "Home",
+    title: 'Home',
     component: <Home />,
   },
   {
     path: `${routes.lessons}`,
-    title: "Lesson list",
+    title: 'Lesson list',
     component: <LessonsPage />,
   },
   {
     path: `${routes.lesson}/:id`,
-    title: "Lesson",
+    title: 'Lesson',
     component: <Lesson />,
   },
 ];

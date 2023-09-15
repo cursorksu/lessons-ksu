@@ -1,6 +1,6 @@
-import { Card } from "@mui/material";
-import styled from "@emotion/styled";
-import { BORDER_GRAY } from "../../constants/colors";
+import { Card } from '@mui/material';
+import styled from '@emotion/styled';
+import { BORDER_GRAY } from '../../constants/colors';
 
 export const CardStyled = styled(Card)`
   color: #fff;

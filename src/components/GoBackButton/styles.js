@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { Button } from "@mui/material";
-import { PRIMARY_MAIN } from "../../constants/colors";
+import styled from '@emotion/styled';
+import { Button } from '@mui/material';
+import { PRIMARY_MAIN } from '../../constants/colors';
 
 export const GoBackButtonStyled = styled(Button)`
   width: 60px;

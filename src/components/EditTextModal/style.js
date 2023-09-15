@@ -1,13 +1,15 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
+import { PRIMARY_MAIN } from '../../constants/colors';
 
 export const BlockWrapperStyled = styled.div`
-  border: 1px solid tomato;
+  border: 1px solid ${PRIMARY_MAIN};
   padding: 20px 8px 8px;
   border-radius: 4px;
   background: transparent;
   box-shadow: none;
 
   &.hr {
+    color: ${PRIMARY_MAIN};
     padding-top: 34px;
   }
 

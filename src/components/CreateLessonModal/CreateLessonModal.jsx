@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
-import { ButtonIconStyled, ButtonStyled } from "../ButtonStyled";
-import { DialogStyled } from "../DialogStyled";
+import React, { useCallback, useState } from 'react';
+import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
+import { DialogStyled } from '../DialogStyled';
 import {
   Box,
   DialogActions,
@@ -8,23 +8,19 @@ import {
   DialogTitle,
   FormGroup,
   FormHelperText,
-  Slide,
-} from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-import { ReactComponent as CloseIcon } from "../../assets/close.svg";
-import { InputContrastStyled, TextareaAutosizeStyled } from "../InputStyled";
-import { PRIMARY_MAIN } from "../../constants/colors";
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
+} from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
+import { ReactComponent as CloseIcon } from '../../assets/close.svg';
+import { InputStyled, TextareaAutosizeStyled } from '../InputStyled';
+import { PRIMARY_MAIN } from '../../constants/colors';
+import { Transition } from '../Transition';
 
 const INITIAL_LESSON = {
-  title: "",
-  img: "",
-  goal: "",
-  bible: "",
-  quote: "",
+  title: '',
+  img: '',
+  goal: '',
+  bible: '',
+  quote: '',
 };
 
 export const CreateLessonModal = ({ onSubmit }) => {
@@ -52,7 +48,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
         console.log(e);
       }
     },
-    [onSubmit, setIsOpen, reset],
+    [onSubmit, setIsOpen, reset]
   );
 
   return (
@@ -61,7 +57,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
         + Добавить урок
       </ButtonStyled>
       <DialogStyled
-        maxWidth={"600"}
+        maxWidth={'600'}
         open={isOpen}
         TransitionComponent={Transition}
         keepMounted
@@ -85,14 +81,14 @@ export const CreateLessonModal = ({ onSubmit }) => {
                     <FormHelperText htmlFor="title" color="secondary">
                       Название урока
                     </FormHelperText>
-                    <InputContrastStyled
+                    <InputStyled
                       id="title"
                       name="title"
                       placeholder="Название урока"
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors["title"] && (
+                    {formState.errors['title'] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -110,14 +106,14 @@ export const CreateLessonModal = ({ onSubmit }) => {
                     <FormHelperText htmlFor="img" color="secondary">
                       Изображение
                     </FormHelperText>
-                    <InputContrastStyled
+                    <InputStyled
                       id="img"
                       name="img"
                       placeholder="Вставьте ссылку на изображение"
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors["img"] && (
+                    {formState.errors['img'] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -136,13 +132,14 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       Название урока
                     </FormHelperText>
                     <TextareaAutosizeStyled
+                      rows={4}
                       id="goal"
                       name="goal"
                       placeholder="Основная мысль урока"
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors["goal"] && (
+                    {formState.errors['goal'] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -161,13 +158,14 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       Место из бибилии
                     </FormHelperText>
                     <TextareaAutosizeStyled
+                      rows={4}
                       id="bible"
                       name="bible"
                       placeholder="Основное место из Библии"
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors["bible"] && (
+                    {formState.errors['bible'] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -185,14 +183,14 @@ export const CreateLessonModal = ({ onSubmit }) => {
                     <FormHelperText htmlFor="quote" color="secondary">
                       Ссылка
                     </FormHelperText>
-                    <InputContrastStyled
+                    <InputStyled
                       id="quote"
                       name="quote"
                       placeholder="В каком стихе это написано"
                       value={field.value}
                       onChange={field.onChange}
                     />
-                    {formState.errors["quote"] && (
+                    {formState.errors['quote'] && (
                       <FormHelperText sx={{ color: PRIMARY_MAIN }}>
                         Поле не должно быть пустым
                       </FormHelperText>
@@ -202,7 +200,7 @@ export const CreateLessonModal = ({ onSubmit }) => {
               />
             </Box>
           </DialogContent>
-          <DialogActions style={{ padding: "0 25px 25px" }}>
+          <DialogActions style={{ padding: '0 25px 25px' }}>
             <ButtonStyled onClick={handleClose}>Отменить</ButtonStyled>
             <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
               Создать

@@ -1,11 +1,11 @@
-import { FormGroup } from "@mui/material";
-import { InputContrastStyled, TextareaAutosizeStyled } from "../../InputStyled";
-import React from "react";
+import { FormGroup } from '@mui/material';
+import { InputStyled, TextareaAutosizeStyled } from '../../InputStyled';
+import React from 'react';
 
 export const Topic = ({ field }) => {
   return (
     <FormGroup>
-      <InputContrastStyled
+      <InputStyled
         id="quote"
         name="quote"
         placeholder="Місце з Писання"
@@ -13,6 +13,7 @@ export const Topic = ({ field }) => {
         onChange={field.onChange}
       />
       <TextareaAutosizeStyled
+        rows={4}
         id="bible"
         name="bible"
         placeholder="Біблійний текст"

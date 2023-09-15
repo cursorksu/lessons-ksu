@@ -1,9 +1,9 @@
 export const getBase64Image = (src, callback, outputFormat) => {
   const img = new Image();
-  img.crossOrigin = "Anonymous";
+  img.crossOrigin = 'Anonymous';
   img.onload = () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
     let dataURL;
     canvas.height = img.naturalHeight;
     canvas.width = img.naturalWidth;
@@ -16,7 +16,7 @@ export const getBase64Image = (src, callback, outputFormat) => {
   img.src = src;
   if (img.complete || img.complete === undefined) {
     img.src =
-      "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
     img.src = src;
   }
 };
