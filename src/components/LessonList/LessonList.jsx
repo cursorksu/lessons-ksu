@@ -30,28 +30,28 @@ export const LessonList = () => {
   };
 
   return (<Grid container rowSpacing={2}>
-      <CreateLessonModal onSubmit={handleAddLesson} />
-      {loading
-        ? (<Grid
-            sm={12}
-            item
-            sx={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}
-          >
-            <Loader />
-          </Grid>)
-        : (lessons?.map((item) => (<Grid
-              sm={12}
-              item
-              key={item?.id}
-              sx={{ display: 'flex', alignItems: 'stretch' }}
-            >
-              <LessonCard
-                item={item}
-                onClick={handleClick}
-                onDelete={handleDelete}
-              />
-            </Grid>)))}
-    </Grid>);
+    <CreateLessonModal onSubmit={handleAddLesson} />
+    {loading
+      ? (<Grid
+        sm={12}
+        item
+        sx={{
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}
+      >
+        <Loader />
+      </Grid>)
+      : (lessons?.map((item) => (<Grid
+        sm={12}
+        item
+        key={item?.id}
+        sx={{ display: 'flex', alignItems: 'stretch' }}
+      >
+        <LessonCard
+          item={item}
+          onClick={handleClick}
+          onDelete={handleDelete}
+        />
+      </Grid>)))}
+  </Grid>);
 };
