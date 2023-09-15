@@ -9,9 +9,8 @@ export const DisplayTopic = ({ topicId }) => {
 
   useEffect(() => {
     topicId &&
-      getTopicById(topicId).then(
-        (data) =>
-          setCurrentTopic(JSON.parse(data.topic))
+      getTopicById(topicId).then((data) =>
+        setCurrentTopic(JSON.parse(data.topic))
       );
   }, [topicId, getTopicById]);
 

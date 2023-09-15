@@ -131,8 +131,12 @@ export const EditTextModal = ({ topicId }) => {
   const moveItem = (dragIndex, hoverIndex) => {
     setTopic((prevItem) => {
       const updatedCards = [...prevItem]; // Создаем копию массива prevCards
-      const [draggedCard] = updatedCards.splice(dragIndex, 1); // Удаляем элемент, который нужно переместить
-      updatedCards.splice(hoverIndex, 0, draggedCard); // Вставляем элемент в новую позицию
+      const [draggedCard] = updatedCards.splice(dragIndex, 1); // Удаляем
+      // элемент,
+      // который нужно
+      // переместить
+      updatedCards.splice(hoverIndex, 0, draggedCard); // Вставляем элемент в
+      // новую позицию
       return updatedCards; // Обновляем стейт
     });
   };
