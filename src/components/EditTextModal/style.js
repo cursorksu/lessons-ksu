@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { PRIMARY_MAIN } from '../../constants/colors';
+import { BG_GOLD, PRIMARY_MAIN } from '../../constants/colors';
 
 export const BlockWrapperStyled = styled.div`
-  border: 1px solid ${PRIMARY_MAIN};
+  border: 1px solid ${BG_GOLD};
   padding: 20px 8px 8px;
   border-radius: 4px;
   background: transparent;
