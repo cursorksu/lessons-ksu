@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { Notification } from '../../Notification';
 
 export const TabPanelSubject = ({ value, show }) => {
   return show

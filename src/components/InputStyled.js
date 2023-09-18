@@ -18,6 +18,11 @@ export const InputFieldStyled = styled.div`
 `;
 
 export const InputStyled = styled(Input)`
+  &:focus {
+    outline: none;
+    border: none;
+  }
+  
   input {
     width: 100%;
     border-radius: 4px;

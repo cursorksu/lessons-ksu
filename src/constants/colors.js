@@ -13,3 +13,4 @@ export const PERPLE_MAIN = '#8E44AD';
 export const PRIMARY_MAIN = '#a39367';
 export const GOLD = '#a39367';
 export const BG_GOLD = 'rgba(163, 147,103, 0.3)';
+export const HOVER_GOLD = 'rgba(163, 147,103, 0.1)';

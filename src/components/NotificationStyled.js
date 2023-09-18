@@ -11,14 +11,14 @@ export const NotificationStyled = styled.div`
   border: 0;
   max-width: 300px;
   padding: 0;
-  
+
   &.open {
     padding: 20px;
     border: 2px solid transparent;
   }
-  
+
   &.error {
-    border: 2px solid  ${PRIMARY_HOVER};
+    border: 2px solid ${PRIMARY_HOVER};
   }
   &.success {
     border: 2px solid ${BG_SUCCESS};

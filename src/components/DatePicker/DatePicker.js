@@ -28,7 +28,6 @@ export const LessonsDatePicker = ({ legend, value, onChange, name }) => {
       <InputFieldStyled>
         <label htmlFor={name}>{legend}</label>
         <InputStyled
-          fluid
           ref={inputRef}
           value={
             value

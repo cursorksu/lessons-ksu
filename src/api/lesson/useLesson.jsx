@@ -39,15 +39,17 @@ export const useGetLessons = () => {
       setLessons(lessonsData.sort((a, b) => a.createdAt - b.createdAt));
       setLoading(false);
     } catch (error) {
-      dispatch(setMessage({
-        type: 'error',
-        message: {
-          title: 'Error fetching lessons:',
-          description: error,
-        }
-      }));
+      dispatch(
+        setMessage({
+          type: 'error',
+          message: {
+            title: 'Error fetching lessons:',
+            description: error.message,
+          },
+        })
+      );
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     fetchLessons();
@@ -63,15 +65,17 @@ export const useDeleteLesson = () => {
       const lessonDocRef = doc(fireStore, 'lessons', lessonId);
       await deleteDoc(lessonDocRef);
     } catch (error) {
-      dispatch(setMessage({
-        type: 'error',
-        message: {
-          title: 'Error deleting lesson:',
-          description: error,
-        }
-      }));
+      dispatch(
+        setMessage({
+          type: 'error',
+          message: {
+            title: 'Error deleting lesson:',
+            description: error.message,
+          },
+        })
+      );
     }
-  }, []);
+  }, [dispatch]);
 
   return { deleteLesson };
 };
@@ -89,16 +93,18 @@ export const useGetLessonById = () => {
         return null;
       }
     } catch (error) {
-      dispatch(setMessage({
-        type: 'error',
-        message: {
-          title: 'Error fetching lesson:',
-          description: error,
-        }
-      }));
+      dispatch(
+        setMessage({
+          type: 'error',
+          message: {
+            title: 'Error fetching lesson:',
+            description: error.message,
+          },
+        })
+      );
       return null;
     }
-  }, []);
+  }, [dispatch]);
 
   return { getLessonById };
 };
@@ -113,15 +119,17 @@ export const useCreateLesson = () => {
         createdAt: new Date(),
       });
     } catch (error) {
-      dispatch(setMessage({
-        type: 'error',
-        message: {
-          title: 'Error creating lesson:',
-          description: error,
-        }
-      }));
+      dispatch(
+        setMessage({
+          type: 'error',
+          message: {
+            title: 'Error creating lesson:',
+            description: error.message,
+          },
+        })
+      );
     }
-  }, []);
+  }, [dispatch]);
 
   return { createLesson: createLessonDock };
 };
@@ -146,16 +154,18 @@ export const useUpdateLesson = () => {
         return null;
       }
     } catch (error) {
-      dispatch(setMessage({
-        type: 'error',
-        message: {
-          title: 'Error updating lesson:',
-          description: error,
-        }
-      }));
+      dispatch(
+        setMessage({
+          type: 'error',
+          message: {
+            title: 'Error updating lesson:',
+            description: error.message,
+          },
+        })
+      );
       return null;
     }
-  }, []);
+  }, [dispatch]);
 
   return { updateLesson };
 };

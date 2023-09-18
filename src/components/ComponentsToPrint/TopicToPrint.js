@@ -1,78 +1,143 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '../Card';
 import { EditTextModal } from '../EditTextModal';
 import { Box, Grid } from '@mui/material';
 import { EditModal } from '../EditModal';
 import { DisplayTopic } from '../DisplayTopic';
-// import { Topic } from "../Topic";
+import { ButtonIconStyled } from '../ButtonStyled';
+import { ReactComponent as ViewIcon } from '../../assets/view.svg';
+import { ReactComponent as ClosedViewIcon } from '../../assets/closed-view.svg';
+import { clsx } from 'clsx';
 
 export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
-  return (
-    <Grid container ref={ref}>
-      <Grid
-        item
-        sm={12}
-        container
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <h1>{lesson?.title}</h1>
-      </Grid>
-      <Grid item sm={3} sx={{ paddingRight: '12px' }}>
-        <Card
-          title="Цель урока"
-          action={
-            <Box className="action">
-              <EditModal fieldName={'goal'} fieldData={lesson?.goal} />
-            </Box>
-          }
-        >
-          {lesson?.goal}
-        </Card>
-        <Card
-          title="Золотой стих"
-          action={
-            <Box className="action">
-              {lesson?.quote}
-              <EditModal fieldName={'bible'} fieldData={lesson?.bible} />
-            </Box>
-          }
-        >
-          {lesson?.bible}
-        </Card>
-        <Card
-          title="Материалы к уроку"
-          action={
-            <Box className="action">
-              <EditModal fieldName={'quote'} fieldData={lesson?.quote} />
-            </Box>
-          }
-        >
-          {lesson?.quote}
-        </Card>
-        <Card
-          title="В этом уроке:"
-          action={
-            <Box className="action">
-              <EditModal fieldName={'list'} fieldData={lesson?.list} />
-            </Box>
-          }
-        >
-          {lesson?.list?.map((el, idx) => (
-            <Box sx={{ textAlign: 'left' }} key={el?.id}>
-              <b>{++idx}</b>.{el?.value}
-            </Box>
-          ))}
-        </Card>
-      </Grid>
-      <Grid item sm={9}>
-        <Card
-          title="История"
-          action={<EditTextModal topicId={lesson?.topic} />}
-        >
-          <DisplayTopic topicId={lesson?.topic} />
-        </Card>
-      </Grid>
+  const [hideElement, showElement] = useState({
+    goal: true,
+    bible: true,
+    material: true,
+    list: true,
+    topic: true,
+  });
+
+  const viewHandler = (name) => {
+    showElement((prev) => ({
+      ...prev,
+      [name]: !prev[name]
+    }));
+  };
+
+  return (<Grid container ref={ref}>
+    <Grid
+      item
+      sm={12}
+      container
+      justifyContent='space-between'
+      alignItems='center'
+    >
+      <h1>{lesson?.title}</h1>
     </Grid>
-  );
+    <Grid
+      item sm={3}
+      sx={{ paddingRight: '12px' }}
+    >
+      <Card
+        className={clsx({'print-hide': !hideElement.goal})}
+        title='Цель урока'
+        action={<Box className='action'>
+          <EditModal fieldName={'goal'} fieldData={lesson?.goal} />
+          <ButtonIconStyled
+            onClick={() => viewHandler('goal')}
+            className='print-hide'>
+            {hideElement.goal
+              ? <ViewIcon />
+              : <ClosedViewIcon />
+            }
+          </ButtonIconStyled>
+        </Box>}
+      >
+        {lesson?.goal}
+      </Card>
+      <Card
+        className={clsx({'print-hide': !hideElement.bible})}
+        title='Золотой стих'
+        action={<Box className='action'>
+          <EditModal fieldName={'bible'} fieldData={lesson?.bible} />
+          <ButtonIconStyled
+            onClick={() => viewHandler('bible')}
+            className='print-hide'>
+            {hideElement.bible
+              ? <ViewIcon />
+              : <ClosedViewIcon />
+            }
+          </ButtonIconStyled>
+        </Box>}
+      >
+        <div>
+          {lesson?.bible}
+          <br />
+          <b>{lesson?.quote}</b>
+        </div>
+      </Card>
+      <Card
+        className={clsx({'print-hide': !hideElement.material})}
+        title='Материалы к уроку'
+        action={<Box className='action'>
+          <EditModal fieldName={'quote'} fieldData={lesson?.quote} />
+          <ButtonIconStyled
+            onClick={() => viewHandler('material')}
+            className='print-hide'>
+            {hideElement.material
+              ? <ViewIcon />
+              : <ClosedViewIcon />
+            }
+          </ButtonIconStyled>
+        </Box>}
+      >
+        {lesson?.quote}
+      </Card>
+      <Card
+        className={clsx({'print-hide': !hideElement.list})}
+        title='В этом уроке:'
+        action={<Box className='action'>
+          <EditModal fieldName={'list'} fieldData={lesson?.list} />
+          <ButtonIconStyled
+            onClick={() => viewHandler('list')}
+            className='print-hide'>
+            {hideElement.list
+              ? <ViewIcon />
+              : <ClosedViewIcon />
+            }
+          </ButtonIconStyled>
+        </Box>}
+      >
+        {lesson?.list?.map((el, idx) => (
+          <Box sx={{ textAlign: 'left' }} key={el?.id}>
+            <b>{++idx}</b>.{el?.value}
+          </Box>))}
+      </Card>
+    </Grid>
+    <Grid
+      item
+      sm={9}
+      className={clsx({'print-fluid': Object.keys(hideElement)
+        .every((el) => !el)})}
+    >
+      <Card
+        className={clsx({'print-hide': !hideElement.topic})}
+        title='История'
+        action={<div className='action'>
+          <EditTextModal topicId={lesson?.topic} />
+          <ButtonIconStyled
+            onClick={() => viewHandler('topic')}
+            className='print-hide'>
+            {hideElement.topic
+              ? <ViewIcon />
+              : <ClosedViewIcon />
+            }
+          </ButtonIconStyled>
+        </div>
+        }>
+        <DisplayTopic topicId={lesson?.topic} />
+      </Card>
+    </Grid>
+  </Grid>);
 });

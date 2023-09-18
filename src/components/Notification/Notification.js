@@ -8,7 +8,7 @@ import { deleteMessage } from '../../store/notificationReducer';
 export const Notification = () => {
   const notification = useSelector((state) => state.notification);
   const dispatch = useDispatch();
-  const duration = 2500;
+  const duration = 15000;
 
   useEffect(() => {
     let timout = setTimeout(() => {
@@ -19,11 +19,10 @@ export const Notification = () => {
   }, [notification, dispatch]);
 
   return (
-    <TransitionablePortal open={notification?.type}>
-      <NotificationStyled className={clsx(
-        notification?.type,
-        {open: notification?.type}
-      )}>
+    <TransitionablePortal open={!!notification?.type}>
+      <NotificationStyled
+        className={clsx(notification?.type, { open: notification?.type })}
+      >
         <Header>{notification?.message.title}</Header>
         <p>{notification?.message.description}</p>
       </NotificationStyled>

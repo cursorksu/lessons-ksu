@@ -112,7 +112,7 @@
 
 @page {
   size: auto;
-  margin: 20mm 15mm 20mm 25mm;
+  margin: 15mm 10mm 15mm 20mm;
 }
 
 @media print {
@@ -133,25 +133,16 @@
   .print-hide {
     display: none !important;
   }
-  .MuiGrid-container {
-    display: block !important;
+
+  .print-fluid {
+    width: 100% !important;
+    flex-basis: 100% !important;
+    min-width: initial !important;
+    max-width: initial !important;
   }
-  .MuiGrid-item {
-    flex-basis: 100%;
-    max-width: 100% !important;
-    display: block !important;
-  }
-  .MuiCardActions-root {
-    display: none !important;
-  }
-  .MuiPaper-root {
-    padding: 0 !important;
-  }
-  .MuiCardContent-root,
-  .MuiCard-root {
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin-bottom: 5px !important;
-  }
+}
+
+.dnd-list {
+  margin: 0;
+  padding: 0;
 }
