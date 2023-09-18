@@ -1,22 +1,24 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { FormGroup } from '@mui/material';
 import { ButtonIconBasisStyled } from '../ButtonStyled';
 import { ReactComponent as AddIcon } from '../../assets/add.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
-import { getRandomNumber } from '../../utils/randomizer';
-import { DynamicListItem } from '../DynamicListItem/DynamicListItem';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import { ReactComponent as RemoveIcon } from '../../assets/minus.svg';
 import { InputStyled } from '../InputStyled';
-
-export const DynamicList = ({ field, initialField }) => {
-  const initialItem = useMemo(() => ({ id: 1, value: '' }), []);
-  const [list, setList] = useState([initialField || initialItem]);
+import { DndItemStyled } from './DndItemStyled';
+import { generateId } from '../../utils/generateId';
+export const DynamicList = ({ field, onChangeField }) => {
+  const initialItem = useMemo(() => ({ id: generateId(), value: '' }), []);
+  const [list, setList] = useState([initialItem]);
 
   useEffect(() => {
-    initialField && setList(initialField || initialItem);
+    field.value && setList(field.value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialField]);
+  }, []);
+
   useEffect(() => {
-    field.onChange(list);
+    onChangeField && onChangeField({ ...field, value: list });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
@@ -28,10 +30,16 @@ export const DynamicList = ({ field, initialField }) => {
     });
   };
   const handleAdd = () => {
-    const min = 1;
-    const max = 10000;
-    const randomNum = getRandomNumber(min, max);
-    setList((prev) => [...prev, { id: randomNum, value: '' }]);
+    const randomNum = generateId();
+    const newItem = { id: randomNum, value: '' };
+    setList([...list, newItem]);
+  };
+
+  const handleKeyDown = (e, id) => {
+    if (e.key === 'Enter' || e.key === 'Tab') {
+      e.preventDefault();
+      handleAdd();
+    }
   };
 
   const handleRemove = (id) => {
@@ -42,14 +50,19 @@ export const DynamicList = ({ field, initialField }) => {
     setList([initialItem]);
   };
 
-  const moveItem = useCallback((dragIndex, hoverIndex) => {
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+
     setList((prevCards) => {
-      const updatedCards = [...prevCards]; // Создаем копию массива prevCards
-      const [draggedCard] = updatedCards.splice(dragIndex, 1); // Удаляем элемент, который нужно переместить
-      updatedCards.splice(hoverIndex, 0, draggedCard); // Вставляем элемент в новую позицию
+      // Создаем копию массива prevCards
+      const updatedCards = [...prevCards];
+      // Удаляем элемент, который нужно переместить
+      const [draggedCard] = updatedCards.splice(result.source.index, 1);
+      // Вставляем элемент в новую позицию
+      updatedCards.splice(result.destination.index, 0, draggedCard);
       return updatedCards; // Обновляем стейт
     });
-  }, []);
+  }
 
   return (
     <FormGroup>
@@ -61,27 +74,43 @@ export const DynamicList = ({ field, initialField }) => {
           <DeleteIcon />
         </ButtonIconBasisStyled>
       </span>
-
-      {list?.map((el, index) => {
-        return (
-          <DynamicListItem
-            key={index}
-            field={el}
-            index={index}
-            onChange={onChange}
-            handleRemove={handleRemove}
-            moveItem={moveItem}
-          >
-            <InputStyled
-              id={`${el?.id}`}
-              name={`${el?.id}`}
-              placeholder="Наступний елемент списку"
-              value={el?.value}
-              onChange={(e) => onChange(e, el?.id)}
-            />
-          </DynamicListItem>
-        );
-      })}
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="dnd-list">
+          {(provided) => (
+            <ul className="dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
+              {list?.map((el, index) => {
+                return (
+                  <Draggable key={index.toString()} draggableId={index.toString()} index={index}>
+                    {(provided) => (
+                      <DndItemStyled
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <InputStyled
+                          id={`${el?.id}`}
+                          name={`${el?.id}`}
+                          placeholder="Наступний елемент списку"
+                          value={el?.value}
+                          onChange={(e) => onChange(e, el?.id)}
+                          onKeyDown={(e) => handleKeyDown(e, el.id)}
+                        />
+                        <ButtonIconBasisStyled
+                          className="remove-handle"
+                          onClick={() => handleRemove(el?.id)}
+                        >
+                          <RemoveIcon />
+                        </ButtonIconBasisStyled>
+                      </DndItemStyled>
+                    )}
+                  </Draggable>
+                );
+              })}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
     </FormGroup>
   );
 };

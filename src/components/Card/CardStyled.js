@@ -5,6 +5,7 @@ import { BORDER_GRAY } from '../../constants/colors';
 export const CardStyled = styled(Card)`
   color: #fff;
   border: 1px solid tomato;
+  box-shadow: none;
   padding: 12px;
   border-radius: 4px;
   background: transparent;
@@ -18,9 +19,13 @@ export const CardStyled = styled(Card)`
 
   .action {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
+    
+    button {
+      margin-right: 8px;
+    }
   }
 
   .MuiCardActions-root,

@@ -9,7 +9,6 @@ export const getBase64Image = (src, callback, outputFormat) => {
     canvas.width = img.naturalWidth;
     ctx.drawImage(img, 0, 0);
     dataURL = canvas.toDataURL(outputFormat);
-    console.log({ dataURL });
     callback(dataURL);
   };
 

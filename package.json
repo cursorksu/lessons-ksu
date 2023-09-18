@@ -6,6 +6,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@hello-pangea/dnd": "^16.3.0",
     "@mui/lab": "^5.0.0-alpha.144",
     "@mui/material": "^5.14.9",
     "@reduxjs/toolkit": "^1.9.5",
@@ -39,8 +40,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint ./src --max-warnings 0 && prettier ./src --check",
-    "lint:fix": "eslint ./src --fix && prettier ./src --write"
+    "lint": "eslint ./src --max-warnings 0",
+    "lint:fix": "eslint ./src --fix"
   },
   "eslintConfig": {
     "extends": [

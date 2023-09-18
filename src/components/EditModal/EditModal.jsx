@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router';
+import { Popup } from 'semantic-ui-react';
 import { Controller, useForm } from 'react-hook-form';
 import { Box, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
@@ -20,14 +21,14 @@ const FieldName = {
 };
 const getTitle = (fieldName) => {
   switch (fieldName) {
-    case 'bible':
-      return 'Додайте місце з Біблії';
-    case 'list':
-      return 'Додайте необхідні матеріали';
-    case 'topic':
-      return 'Додайте історію до уроку';
-    default:
-      return 'Дефолтна назва';
+  case 'bible':
+    return 'Додайте місце з Біблії';
+  case 'list':
+    return 'Додайте необхідні матеріали';
+  case 'topic':
+    return 'Додайте історію до уроку';
+  default:
+    return 'Дефолтна назва';
   }
 };
 
@@ -53,23 +54,24 @@ export const EditModal = ({ fieldName, fieldData }) => {
 
   const onSubmitHandler = useCallback(
     async (data) => {
-      try {
-        await updateLesson(id, data);
-        await getLessonById(id);
-        setIsOpen(false);
-        reset();
-      } catch (e) {
-        console.log(e);
-      }
+      await updateLesson(id, data);
+      await getLessonById(id);
+      setIsOpen(false);
+      reset();
     },
     [setIsOpen, id, getLessonById, updateLesson, reset]
   );
 
   return (
     <EditModalStyled>
-      <ButtonIconStyled onClick={handleOpen} className="print-hide">
-        <EditIcon />
-      </ButtonIconStyled>
+      <Popup
+        trigger={(
+          <ButtonIconStyled onClick={handleOpen} className="print-hide">
+            <EditIcon />
+          </ButtonIconStyled>
+        )}
+        content='Змінити назву уроку'
+      />
       <DialogStyled
         custommaxwidth={600}
         open={isOpen}

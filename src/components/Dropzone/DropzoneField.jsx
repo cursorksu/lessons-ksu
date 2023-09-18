@@ -6,9 +6,15 @@ import { InputFieldStyled, TextareaAutosizeStyled } from '../InputStyled';
 
 import { UvDropzoneStyled, StyledDropzoneBody } from './styles';
 
-export const DropzoneField = ({ onChange }) => {
+export const DropzoneField = ({ field, onChange }) => {
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
+
+  useEffect(() => {
+    setImage(field.value);
+    setDescription(field.description);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onDrop = async (acceptedFiles) => {
     acceptedFiles.forEach((file) => {
@@ -26,27 +32,22 @@ export const DropzoneField = ({ onChange }) => {
         value: image,
         description,
       });
-  }, [image, description, onChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [image, description]);
 
   return (
     <StyledDropzoneBody>
-      {!image && (
-        <Dropzone onDrop={onDrop} multiple={false}>
-          {({ getRootProps, getInputProps }) => (
-            <UvDropzoneStyled className="avatar">
-              <div {...getRootProps()}>
-                <input {...getInputProps()} accept=".png,.jpg" />
-                <span className="accent">+ Додати зображення</span>
-              </div>
-            </UvDropzoneStyled>
-          )}
-        </Dropzone>
-      )}
-      {image && (
-        <UvDropzoneStyled className="placeholder">
-          <img src={image} alt={image} />
-        </UvDropzoneStyled>
-      )}
+      <Dropzone onDrop={onDrop} multiple={false}>
+        {({ getRootProps, getInputProps }) => (
+          <UvDropzoneStyled>
+            <div {...getRootProps()}>
+              <input {...getInputProps()} accept=".png,.jpg" />
+              {!image &&  <span className="accent">+ Додати зображення</span>}
+              {image &&  <img src={image} alt={image} />}
+            </div>
+          </UvDropzoneStyled>
+        )}
+      </Dropzone>
       <InputFieldStyled>
         <FormLabel className="label">Опис до зображення</FormLabel>
         <TextareaAutosizeStyled

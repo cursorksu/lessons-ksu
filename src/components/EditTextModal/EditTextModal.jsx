@@ -1,28 +1,31 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
+import {
+  ButtonIconStyled,
+  ButtonStyled
+} from '../ButtonStyled';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { DialogStyled } from '../DialogStyled';
+import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import {
-  Box, DialogActions, DialogContent, DialogTitle, FormLabel,
+  Box, DialogActions, DialogContent, DialogTitle,
 } from '@mui/material';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { useUpdateLesson } from '../../api/lesson';
-import { BlockWrapperStyled } from './style';
-import {
-  InputFieldStyled, InputStyled, TextareaAutosizeStyled,
-} from '../InputStyled';
 import { HandleBar } from './components/HandleBar';
-import { LessonsDatePicker } from '../DatePicker/DatePicker';
-import { getRandomNumber } from '../../utils/randomizer';
 import {
   useCreateTopic, useGetTopicById, useUpdateTopic,
 } from '../../api/topic';
-import { DropzoneField } from '../Dropzone/DropzoneField';
-import { Link } from './components/Link';
 import { Transition } from '../Transition';
-import { DynamicList } from '../DynamicList/DynamicList';
-import { DynamicListItem } from '../DynamicListItem/DynamicListItem';
+import { List } from './components/List';
+import { DateItem } from './components/DateItem';
+import { generateId } from '../../utils/generateId';
+import { TitleItem } from './components/TitleItem';
+import { ParagraphItem } from './components/ParagraphItem';
+import { DividerItem } from './components/DividerItem';
+import { ImageItem } from './components/ImageItem';
+import { LinkItem } from './components/LinkItem';
+import { MediaItem } from './components/MediaItem';
 
 export const EditTextModal = ({ topicId }) => {
   const { id } = useParams();
@@ -69,33 +72,32 @@ export const EditTextModal = ({ topicId }) => {
 
   const addEntity = useCallback((entityName) => {
     setTopic((prev) => [...prev, {
-      id: getRandomNumber(0, 10000), value: '', type: entityName,
+      id: generateId(), value: '', type: entityName,
     },
     ]);
   }, []);
 
   const handleChangeField = (target, type) => {
-    const updatedData = {
-      id: +target.id, value: target.value, type: target.name || type,
-    };
+    const { id, value, name } = target;
+    const updatedData = { id, value, type: name || type};
 
-    setTopic((prev) => prev.map((el) => (el.id === +target.id
+    setTopic((prev) => prev.map((el) => (el.id === id
       ? updatedData
       : el)));
   };
 
-  const handleChangeParagraph = (e) => {
+  const handleChangeParagraph = ({ target , ...e}) => {
     setTopic((prev) => {
-      let value = prev.find((el) => el.id === +e.target.id).value;
+      let value = prev.find((el) => el.id === target.id)?.value;
       const updatedData = {
-        id: +e.target.id, value: e.target.value, type: 'paragraph',
+        id: target.id, value: target.value, type: 'paragraph',
       };
       if (e.keyCode === 13 && !e.shiftKey) {
         e.preventDefault();
         updatedData.value = value + '\n';
       }
 
-      return prev.map((el) => (el.id === +e.target.id
+      return prev.map((el) => (el.id === target.id
         ? updatedData
         : el));
     });
@@ -106,21 +108,23 @@ export const EditTextModal = ({ topicId }) => {
   }, []);
 
   const handleChange = useCallback((data) => {
-    setTopic((prev) => prev.map((el) => (el.id === +data.id
+    setTopic((prev) => prev.map((el) => (el.id === data.id
       ? data
       : el)));
   }, []);
 
-  const moveItem = (dragIndex, hoverIndex) => {
-    setTopic((prevItem) => {
-      const updatedCards = [...prevItem];
-      // Удаляемэлемент, который нужно переместить
-      const [draggedCard] = updatedCards.splice(dragIndex, 1);
-      // Вставляем элемент в новую позицию
-      updatedCards.splice(hoverIndex, 0, draggedCard);
-      return updatedCards; // Обновляем стейт
-    });
-  };
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+    // Создаем копию массива prevCards
+    const updatedCards = [...topic];
+    // Удаляем элемент, который нужно переместить
+    const [draggedCard] = updatedCards.splice(result.source.index, 1);
+    // Вставляем элемент в новую позицию
+    updatedCards.splice(result.destination.index, 0, draggedCard);
+
+    return setTopic(updatedCards); // Обновляем стейт
+  }
+
 
   return (<Box className='action'>
     <ButtonIconStyled onClick={handleOpen} className='print-hide'>
@@ -143,234 +147,156 @@ export const EditTextModal = ({ topicId }) => {
           </ButtonIconStyled>
         </DialogTitle>
         <DialogContent className='dynamic-list'>
-          <Box>
-            {topic.length > 0
-              ? (topic?.map((el, idx) => (<div>
-                {el.type === 'list' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <DynamicList
-                      id={el.id}
-                      field={{
-                        id: el.id,
-                        value: el.value,
-                        onChange: (data) => handleChange({
-                          id: el.id || getRandomNumber(0, 10000),
-                          value: data,
-                          type: 'list',
-                        }),
-                      }}
-                    />
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="dnd-edit-text-list">
+              {(provided) => (
+                <ul className="dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
+                  {topic?.map((el, index) => {
+                    if ( el.type === 'list') {
+                      return (
+                        <List
+                          key={el.id}
+                          field={el}
+                          index={index}
+                          handleChange={handleChange}
+                          handleRemove={handleRemove}
+                        />
+                      );
+                    }
 
-                {el.type === 'date' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <LessonsDatePicker
-                      id={el.id}
-                      legend={'Дата'}
-                      value={el.value}
-                      onChange={(data) => handleChange({
-                        id: el.id, value: data, type: el.type,
-                      })}
-                    />
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
-                {el.type === 'title' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <InputFieldStyled>
-                      <label htmlFor={el.id}>Заголовок</label>
-                      <InputStyled
-                        fluid
+                    if (el.type === 'date') {
+                      return <DateItem
                         key={el.id}
-                        id={el.id}
-                        name={el.type}
-                        placeholder='Введіть заголовок'
-                        value={el.value}
-                        onChange={(e) => handleChangeField(e.currentTarget)}
-                      />
-                    </InputFieldStyled>
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
-                {el.type === 'subtitle' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <InputFieldStyled>
-                      <label htmlFor={el.id}>Підзаголовок</label>
-                      <InputStyled
-                        fluid
-                        key={el.id}
-                        id={el.id}
-                        name={el.type}
-                        placeholder='Введіть заголовок другого рівня'
-                        value={el.value}
-                        onChange={(e) => handleChangeField(e.currentTarget)}
-                      />
-                    </InputFieldStyled>
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
-                {el.type === 'paragraph' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <InputFieldStyled>
-                      <FormLabel className='label'>Параграф</FormLabel>
-                      <TextareaAutosizeStyled
-                        rows={4}
-                        id={el.id}
-                        name='paragraph'
-                        placeholder='Введіть параграф тектсу'
-                        value={el.value}
-                        onChange={(e) => handleChangeParagraph(e)}
-                      />
-                    </InputFieldStyled>
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
-                {el.type === 'code' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <InputFieldStyled>
-                      <FormLabel className='label'>
-                                Додайте html
-                      </FormLabel>
-                      <TextareaAutosizeStyled
-                        rows={4}
-                        id={el.id}
-                        name='code'
-                        placeholder='Введіть html'
-                        value={el.value}
-                        onChange={(e) => handleChangeField(e.target)}
-                      />
-                    </InputFieldStyled>
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
-                {el.type === 'dev' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled className='hr'>
-                    <label htmlFor={el.id}>Розділювач</label>
-                    <hr id={el.id} />
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
-                {el.type === 'link' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <Link
-                      onChange={(data) => handleChange({
-                        id: el.id || getRandomNumber(0, 10000),
-                        type: 'link', ...data,
-                      })}
-                    />
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
-                {el.type === 'dict' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <Link
-                      onChange={(data) => handleChange({
-                        id: el.id || getRandomNumber(0, 10000),
-                        type: 'dict', ...data,
-                      })}
-                    />
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
+                        field={el}
+                        index={index}
+                        handleRemove={handleRemove}
+                        handleChange={handleChange}
+                      />;
+                    }
 
-                {el.type === 'media' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <InputFieldStyled>
-                      <label htmlFor={el.id}>
-                                Ми не можемо зберігати повні відео у нашій базі
-                                даних, яка фінансується на кошти волотнерів і
-                                власні кошти розробніків
-                      </label>
-                      <br />
-                      <label htmlFor={el.id}>
-                                Але ви можете розмістити своє відео в YouTube і
-                                додати посилання на нього тут
-                      </label>
-                      <InputStyled
-                        fluid
+                    if (el.type === 'title') {
+                      return <TitleItem
                         key={el.id}
-                        id={el.id}
-                        name={el.type}
-                        placeholder='Додайте посилання на відео'
-                        value={el.value}
-                        onChange={(e) => handleChangeField(e.currentTarget)}
-                      />
-                    </InputFieldStyled>
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
+                        field={el}
+                        index={index}
+                        handleRemove={handleRemove}
+                        handleChange={handleChangeField}
+                        placeholder={'Введіть заголовок'}
+                        label={'Заголовок'}
+                      />;
+                    }
 
-                {el.type === 'image' && (<DynamicListItem
-                  key={el.id}
-                  field={el}
-                  index={idx}
-                  handleRemove={handleRemove}
-                  moveItem={moveItem}
-                >
-                  <BlockWrapperStyled>
-                    <DropzoneField
-                      onChange={(data) => handleChange({
-                        id: el.id || getRandomNumber(0, 10000),
-                        type: el.type, ...data,
-                      })}
-                    />
-                  </BlockWrapperStyled>
-                </DynamicListItem>)}
-              </div>)))
-              : (<></>)}
-          </Box>
+                    if (el.type === 'subtitle') {
+                      return <TitleItem
+                        field={el}
+                        index={index}
+                        handleRemove={handleRemove}
+                        handleChange={handleChangeField}
+                        placeholder={'Введіть підзаголовок'}
+                        label={'Підзаголовок'}
+                      />;
+                    }
+
+                    if (el.type === 'paragraph') {
+                      return <ParagraphItem
+                        key={el.id}
+                        field={el}
+                        index={index}
+                        handleRemove={handleRemove}
+                        handleChange={handleChangeParagraph}
+                        placeholder={'Введіть параграф тексту'}
+                        label={'Текст'}
+                      />;
+                    }
+
+                    if (el.type === 'dev') {
+                      return <DividerItem
+                        key={el.id}
+                        field={el}
+                        index={index}
+                        handleRemove={handleRemove}
+                      />;
+                    }
+
+                    if (el.type === 'image') {
+                      return <ImageItem
+                        key={el.id}
+                        field={el}
+                        index={index}
+                        handleRemove={handleRemove}
+                        handleChange={(data) => handleChange({
+                          id: el.id,
+                          type: el.type,
+                          ...data,
+                        })}
+                      />;
+                    }
+
+                    if (el.type === 'link') {
+                      return <LinkItem
+                        key={el.id}
+                        field={el}
+                        index={index}
+                        label={{
+                          value: "Посилання",
+                          text: "Текст посилання",
+                        }}
+                        placeholder={{
+                          value: "Додайте посилання",
+                          text: "Додайте текст посилання",
+                        }}
+                        handleRemove={handleRemove}
+                        handleChange={(data) => handleChange({
+                          id: el.id,
+                          type: el.type,
+                          ...data,
+                        })}
+                      />;
+                    }
+
+                    if (el.type === 'media') {
+                      return <MediaItem
+                        key={el.id}
+                        field={el}
+                        index={index}
+                        handleRemove={handleRemove}
+                        handleChange={(data) => handleChange({
+                          id: el.id,
+                          type: el.type,
+                          ...data,
+                        })}
+                      />;
+                    }
+
+                    if (el.type === 'dict') {
+                      return <LinkItem
+                        key={el.id}
+                        field={el}
+                        index={index}
+                        label={{
+                          value: "Слово",
+                          text: "Визначення",
+                        }}
+                        placeholder={{
+                          value: "Додайте слово",
+                          text: "Додайте визначення",
+                        }}
+                        handleRemove={handleRemove}
+                        handleChange={(data) => handleChange({
+                          id: el.id,
+                          type: el.type,
+                          ...data,
+                        })}
+                      />;
+                    }
+
+                    return  <></>;
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
         </DialogContent>
         <DialogActions style={{ padding: '0 25px 25px' }}>
           <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>

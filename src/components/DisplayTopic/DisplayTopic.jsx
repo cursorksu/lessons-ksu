@@ -20,31 +20,33 @@ export const DisplayTopic = ({ topicId }) => {
         if (el.type === 'list') {
           return (
             <ul key={el.id}>
-              {el.value.map((item) => (
-                <li> {item.value}</li>
+              {el.value && el.value.map((item) => (
+                <li key={item.value.split(' ').join('')}>
+                  {item.value}
+                </li>
               ))}
             </ul>
           );
         }
 
         if (el.type === 'dev') {
-          return <hr key={el.id} />;
+          return <div className='hr' key={el.id} />;
         }
 
         if (el.type === 'dict') {
           return (
-            <div key={el.id}>
-              <div className="declaration">{el.value}</div>
+            <div className="dictionary" key={el.id}>
+              <b className="declaration">{el.value}</b>
               <div className="text">{el.text}</div>
             </div>
           );
         }
 
         if (el.type === 'title') {
-          return <h2 key={el.id}>{el.value}</h2>;
+          return <h1 key={el.id}>{el.value}</h1>;
         }
         if (el.type === 'subtitle') {
-          return <h4 key={el.id}>{el.value}</h4>;
+          return <h2 key={el.id}>{el.value}</h2>;
         }
 
         if (el.type === 'paragraph') {
@@ -55,26 +57,30 @@ export const DisplayTopic = ({ topicId }) => {
         }
 
         if (el.type === 'date') {
-          return <i key={el.id}>{el.value}</i>;
+          const date = new Date(el.value);
+          const userLocale = navigator.language;
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const formattedDate = date.toLocaleDateString(userLocale, options);
+          return (
+            <p className='date-holder' key={el.id}>
+              {formattedDate}
+            </p>
+          );
         }
 
         if (el.type === 'image') {
           return (
-            <div key={el.id}>
-              <div>
-                <img src={el.value} alt={el.description} />
-              </div>
-              <div>
-                <label>{el.description}</label>
-              </div>
+            <div className='image-holder' key={el.id}>
+              <img src={el.value} alt={el.description} />
+              <label>{el.description}</label>
             </div>
           );
         }
 
         if (el.type === 'link') {
           return (
-            <a key={el.id} href={el.value}>
-              {el.text}
+            <a key={el.id} href={el.value} className='link-holder'>
+              {el.text || el.value}
             </a>
           );
         }
@@ -94,17 +100,6 @@ export const DisplayTopic = ({ topicId }) => {
                 />
               </div>
             </div>
-          );
-        }
-
-        if (el.type === 'code') {
-          const htmlContent = el.value;
-
-          return (
-            <div
-              key={el.id}
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
-            />
           );
         }
 

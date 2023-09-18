@@ -40,13 +40,9 @@ export const CreateLessonModal = ({ onSubmit }) => {
 
   const onSubmitHandler = useCallback(
     async (data) => {
-      try {
-        await onSubmit(data);
-        setIsOpen(false);
-        reset();
-      } catch (e) {
-        console.log(e);
-      }
+      await onSubmit(data);
+      setIsOpen(false);
+      reset();
     },
     [onSubmit, setIsOpen, reset]
   );

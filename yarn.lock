@@ -1844,6 +1844,19 @@
     "protobufjs" "^7.2.4"
     "yargs" "^17.7.2"
 
+"@hello-pangea/dnd@^16.3.0":
+  "integrity" "sha512-RYQ/K8shtJoyNPvFWz0gfXIK7HF3P3mL9UZFGMuHB0ljRSXVgMjVFI/FxcZmakMzw6tO7NflWLriwTNBow/4vw=="
+  "resolved" "https://registry.npmjs.org/@hello-pangea/dnd/-/dnd-16.3.0.tgz"
+  "version" "16.3.0"
+  dependencies:
+    "@babel/runtime" "^7.22.5"
+    "css-box-model" "^1.2.1"
+    "memoize-one" "^6.0.0"
+    "raf-schd" "^4.0.3"
+    "react-redux" "^8.1.1"
+    "redux" "^4.2.1"
+    "use-memo-one" "^1.1.3"
+
 "@humanwhocodes/config-array@^0.11.11":
   "integrity" "sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA=="
   "resolved" "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.11.tgz"
@@ -4370,7 +4383,7 @@
   dependencies:
     "postcss-selector-parser" "^6.0.9"
 
-"css-box-model@^1.2.0":
+"css-box-model@^1.2.0", "css-box-model@^1.2.1":
   "integrity" "sha512-a7Vr4Q/kd/aw96bnJG332W9V9LkJO69JRcaCYDUqjp6/z0w6VcZjgAcTbgFxEPfBgdnAwlh3iwu+hLopa+flJw=="
   "resolved" "https://registry.npmjs.org/css-box-model/-/css-box-model-1.2.1.tgz"
   "version" "1.2.1"
@@ -7697,6 +7710,11 @@
   "resolved" "https://registry.npmjs.org/memoize-one/-/memoize-one-5.2.1.tgz"
   "version" "5.2.1"
 
+"memoize-one@^6.0.0":
+  "integrity" "sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw=="
+  "resolved" "https://registry.npmjs.org/memoize-one/-/memoize-one-6.0.0.tgz"
+  "version" "6.0.0"
+
 "merge-descriptors@1.0.1":
   "integrity" "sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w=="
   "resolved" "https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-1.0.1.tgz"
@@ -9013,7 +9031,7 @@
   "resolved" "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
 
-"raf-schd@^4.0.2":
+"raf-schd@^4.0.2", "raf-schd@^4.0.3":
   "integrity" "sha512-tQkJl2GRWh83ui2DiPTJz9wEiMN20syf+5oKfB03yYP7ioZcJwsIK8FjrtLwH1m7C7e+Tt2yYBlrOpdT+dyeIQ=="
   "resolved" "https://registry.npmjs.org/raf-schd/-/raf-schd-4.0.3.tgz"
   "version" "4.0.3"
@@ -9241,7 +9259,7 @@
     "prop-types" "^15.7.2"
     "react-is" "^17.0.2"
 
-"react-redux@^7.2.1 || ^8.0.2", "react-redux@^8.1.2":
+"react-redux@^7.2.1 || ^8.0.2", "react-redux@^8.1.1", "react-redux@^8.1.2":
   "integrity" "sha512-xJKYI189VwfsFc4CJvHqHlDrzyFTY/3vZACbE+rr/zQ34Xx1wQfB4OTOSeOSNrF6BDVe8OOdxIrAnMGXA3ggfw=="
   "resolved" "https://registry.npmjs.org/react-redux/-/react-redux-8.1.2.tgz"
   "version" "8.1.2"
@@ -10782,7 +10800,7 @@
     "querystringify" "^2.1.1"
     "requires-port" "^1.0.0"
 
-"use-memo-one@^1.1.1":
+"use-memo-one@^1.1.1", "use-memo-one@^1.1.3":
   "integrity" "sha512-g66/K7ZQGYrI6dy8GLpVcMsBp4s17xNkYJVSMvTEevGy3nDxHOfE6z8BVE22+5G5x7t3+bhzrlTDB7ObrEE0cQ=="
   "resolved" "https://registry.npmjs.org/use-memo-one/-/use-memo-one-1.1.3.tgz"
   "version" "1.1.3"

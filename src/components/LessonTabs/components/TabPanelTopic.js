@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
+import { Popup } from 'semantic-ui-react';
 import { useReactToPrint } from 'react-to-print';
-import { Tooltip } from '@mui/material';
 import { EditModal } from '../../EditModal';
 import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
@@ -16,14 +16,15 @@ export const TabPanelTopic = ({ value, show, lesson }) => {
     ? (
       <div>
         <div className="btn-wrapper">
-          <Tooltip title="Змінити цей урок">
-            <EditModal fieldName="title" />
-          </Tooltip>
-          <Tooltip title="Надрукувати цей урок">
-            <ButtonIconStyled onClick={handlePrint}>
-              <PrintIcon />
-            </ButtonIconStyled>
-          </Tooltip>
+          <EditModal fieldName="title" />
+          <Popup
+            trigger={(
+              <ButtonIconStyled onClick={handlePrint}>
+                <PrintIcon />
+              </ButtonIconStyled>
+            )}
+            content='Надрукувати цей урок'
+          />
         </div>
         <TopicToPrint ref={componentRef} lesson={lesson} />
       </div>
