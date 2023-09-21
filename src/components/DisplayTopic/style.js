@@ -63,10 +63,30 @@ export const TopicStyled = styled.div`
     font-style: italic;
   }
   
-  .image-holder img{
-    width: 100%;
-    height: 380px;
-    object-fit: cover;
+  .image-holder {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid ${GOLD};
+    color: ${GOLD};
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      padding: 5px;
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      height: 320px;
+    }
+    
+    label {
+      display: block;
+      padding: 5px;
+    }
   }
   
   ul {

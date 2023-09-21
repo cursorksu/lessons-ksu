@@ -10,7 +10,13 @@ import {
   updateDoc,
 } from 'firebase/firestore/lite';
 import { setMessage } from '../../store/notificationReducer';
+import {
+  setLessons as setLessonsInStore,
+  setLesson as setLessonInStore,
+} from '../../store/dataReducer';
 import { useDispatch } from 'react-redux';
+import { useGetTopicById } from '../topic';
+import { getDataFromTimeStep } from '../../utils/getDataFromTimeStep';
 
 // const Topic = {
 //   id,
@@ -25,19 +31,24 @@ import { useDispatch } from 'react-redux';
 
 export const useGetLessons = () => {
   const dispatch = useDispatch();
-  const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchLessons = useCallback(async () => {
     try {
       const lessonsCollection = collection(fireStore, 'lessons');
       const querySnapshot = await getDocs(lessonsCollection);
-      const lessonsData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setLessons(lessonsData.sort((a, b) => a.createdAt - b.createdAt));
+      const lessonsData = querySnapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+          createdAt: getDataFromTimeStep(doc.data().createdAt)
+        };
+      });
       setLoading(false);
+      dispatch(
+        setLessonsInStore(lessonsData
+          .sort((a, b) => a.createdAt - b.createdAt))
+      );
     } catch (error) {
       dispatch(
         setMessage({
@@ -55,7 +66,7 @@ export const useGetLessons = () => {
     fetchLessons();
   }, [fetchLessons]);
 
-  return { lessons, loading, getLessons: fetchLessons };
+  return { loading, getLessons: fetchLessons };
 };
 
 export const useDeleteLesson = () => {
@@ -82,12 +93,19 @@ export const useDeleteLesson = () => {
 
 export const useGetLessonById = () => {
   const dispatch = useDispatch();
+  const { getTopicById } = useGetTopicById();
   const getLessonById = useCallback(async (lessonId) => {
     try {
       const lessonDocRef = doc(fireStore, 'lessons', lessonId);
       const lessonSnapshot = await getDoc(lessonDocRef);
-
       if (lessonSnapshot.exists()) {
+        dispatch(setLessonInStore({
+          id: lessonSnapshot.id,
+          ...lessonSnapshot.data(),
+          createdAt: getDataFromTimeStep(lessonSnapshot.data().createdAt),
+        }));
+        await getTopicById(lessonSnapshot.data().topic);
+
         return { id: lessonSnapshot.id, ...lessonSnapshot.data() };
       } else {
         return null;
@@ -104,7 +122,7 @@ export const useGetLessonById = () => {
       );
       return null;
     }
-  }, [dispatch]);
+  }, [dispatch, getTopicById]);
 
   return { getLessonById };
 };
@@ -136,6 +154,7 @@ export const useCreateLesson = () => {
 
 export const useUpdateLesson = () => {
   const dispatch = useDispatch();
+  const { getLessonById } = useGetLessonById();
   const updateLesson = useCallback(async (lessonId, updatedFields) => {
     try {
       const lessonDocRef = doc(fireStore, 'lessons', lessonId);
@@ -148,7 +167,7 @@ export const useUpdateLesson = () => {
           ...updatedFields,
         };
         await updateDoc(lessonDocRef, updatedLessonData);
-
+        await getLessonById(lessonId);
         return { id: lessonSnapshot.id, ...updatedLessonData };
       } else {
         return null;
@@ -165,7 +184,7 @@ export const useUpdateLesson = () => {
       );
       return null;
     }
-  }, [dispatch]);
+  }, [dispatch, getLessonById]);
 
   return { updateLesson };
 };

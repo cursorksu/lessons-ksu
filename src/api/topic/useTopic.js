@@ -11,6 +11,9 @@ import {
 } from 'firebase/firestore/lite';
 import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/notificationReducer';
+import {
+  setTopic as setTopicInStore,
+} from '../../store/dataReducer';
 
 // const Topic = [{
 //   id,
@@ -90,8 +93,11 @@ export const useGetTopicById = () => {
       try {
         const topicDocRef = doc(fireStore, 'topics', topicId);
         const topicSnapshot = await getDoc(topicDocRef);
-
         if (topicSnapshot.exists()) {
+          const dataTopic = topicSnapshot.data();
+
+          dispatch(setTopicInStore( JSON.parse(dataTopic.topic)));
+
           return { id: topicSnapshot.id, ...topicSnapshot.data() };
         } else {
           return null;

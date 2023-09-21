@@ -10,14 +10,15 @@ import { TabPanelGame } from './components/TabPanelGame';
 import { TabPanelMemory } from './components/TabPanelMemory';
 import { useParams } from 'react-router';
 import { useGetLessonById } from '../../api/lesson';
+import { useSelector } from 'react-redux';
 
 export const LessonTabs = () => {
   const { id } = useParams();
   const { getLessonById } = useGetLessonById();
-  const [lesson, setLesson] = useState(null);
+  const { lesson } = useSelector((state) => state.lessonData);
 
-  useEffect(() => {
-    getLessonById(id).then((data) => setLesson(data));
+  useEffect( () => {
+    getLessonById(id);
   }, [id, getLessonById]);
 
   const [value, setValue] = useState('1');

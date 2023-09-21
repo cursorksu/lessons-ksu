@@ -12,9 +12,10 @@ export const DndItemStyled = styled.li`
   align-items: center;
   
   .input {
-    flex-basis: calc(100% - 45px);
-    width: calc(100% - 45px);
+    flex-basis: calc(100% - 50px);
+    width: calc(100% - 50px);
     position: relative;
+    margin-right: 20px;
     
     &:after {
       content: '';
@@ -23,7 +24,6 @@ export const DndItemStyled = styled.li`
       border-radius: 50%;
       background: ${GOLD};
       display: block;
-      
       box-shadow: 0 -11px ${GOLD}, 0 11px ${GOLD};
       margin: -3px auto;
       position: absolute;
@@ -31,19 +31,4 @@ export const DndItemStyled = styled.li`
       top: 50%;
     }
   }
-  
-
-  //.drag-handle,
-  //.remove-handle {
-  //  position: absolute;
-  //  top: 3px;
-  //}
-  //
-  //.remove-handle {
-  //  right: 30px;
-  //}
-  //
-  //.drag-handle {
-  //  right: 0px;
-  //}
 `;
