@@ -1,18 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Dropzone from 'react-dropzone';
-import { FormLabel } from '@mui/material';
+import { Checkbox, Grid, Radio, Image } from 'semantic-ui-react';
 import { resizeFile } from '../../utils/resizeFile';
-import { InputFieldStyled, TextareaAutosizeStyled } from '../InputStyled';
-
+import { LabelStyled, TextareaAutosizeStyled } from '../InputStyled';
+import { ReactComponent as ViewIcon } from '../../assets/view.svg';
+import { ReactComponent as ClosedViewIcon } from '../../assets/closed-view.svg';
+import { ReactComponent as AddToSlider } from '../../assets/album.svg';
+import { ReactComponent as NotAddToSlider } from '../../assets/folder.svg';
+import { ReactComponent as ImageIcon } from '../../assets/image.svg';
 import { UvDropzoneStyled, StyledDropzoneBody } from './styles';
+import { ButtonIconBasisStyled } from '../ButtonStyled';
+import clsx from 'clsx';
 
 export const DropzoneField = ({ field, onChange }) => {
   const [image, setImage] = useState('');
   const [description, setDescription] = useState('');
+  const [size, setSize] = useState('100');
+  const [hideElement, setHideElement] = useState(false);
+  const [addToSlideShow, setAddToSlideShow] = useState(false);
 
   useEffect(() => {
-    setImage(field.value);
-    setDescription(field.description);
+    field.value && setImage(field.value);
+    field.description && setDescription(field.description);
+    field.size && setSize(field.size);
+    field.hideElement && setHideElement(field.hideElement);
+    field.addToSlideShow && setAddToSlideShow(field.addToSlideShow);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -31,33 +43,144 @@ export const DropzoneField = ({ field, onChange }) => {
       onChange({
         value: image,
         description,
+        size,
+        hideElement,
+        addToSlideShow,
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [image, description]);
+  }, [image, description, size, hideElement, addToSlideShow]);
 
+  const viewHandler = useCallback(() => {
+    setHideElement((prev) => !prev);
+  }, []);
+  const slideShowHandler = useCallback(() => {
+    setAddToSlideShow((prev) => !prev);
+  }, []);
   return (
     <StyledDropzoneBody>
-      <Dropzone onDrop={onDrop} multiple={false}>
-        {({ getRootProps, getInputProps }) => (
-          <UvDropzoneStyled>
-            <div {...getRootProps()}>
-              <input {...getInputProps()} accept=".png,.jpg" />
-              {!image &&  <span className="accent">+ Додати зображення</span>}
-              {image &&  <img src={image} alt={image} />}
-            </div>
-          </UvDropzoneStyled>
-        )}
-      </Dropzone>
-      <InputFieldStyled>
-        <FormLabel className="label">Опис до зображення</FormLabel>
-        <TextareaAutosizeStyled
-          rows={4}
-          name="img-description"
-          placeholder="Додайте опис, якщо треба"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </InputFieldStyled>
+      <Grid.Row className='dz-row'>
+        <Grid.Column width={4}>
+          <LabelStyled className='label'>Зображення</LabelStyled>
+          <Dropzone onDrop={onDrop} multiple={false}>
+            {({ getRootProps, getInputProps }) => (
+              <UvDropzoneStyled>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} accept=".png,.jpg" />
+                  {!image &&  <span className="accent">+ Додати зображення</span>}
+                  {image &&  <img src={image} alt={image} />}
+                </div>
+              </UvDropzoneStyled>
+            )}
+          </Dropzone>
+        </Grid.Column>
+        <Grid.Column width={12}>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={7}>
+                <LabelStyled>Додаткові налаштування</LabelStyled>
+                <Grid.Row>
+                  <ButtonIconBasisStyled
+                    id={'viewButton'}
+                    onClick={viewHandler}
+                    className='print-hide'>
+                    {hideElement
+                      ? <ClosedViewIcon />
+                      : <ViewIcon />
+                    }
+                  </ButtonIconBasisStyled>
+                  <Checkbox
+                    label={hideElement
+                      ? 'Відображати під час друку'
+                      : 'Приховати під час друку'
+                    }
+                    onChange={(e, data) => setHideElement(data.checked)}
+                    checked={hideElement}
+                  />
+                </Grid.Row>
+                <Grid.Row>
+                  <ButtonIconBasisStyled
+                    id={'sliderButton'}
+                    onClick={slideShowHandler}
+                    className='print-hide'>
+                    {addToSlideShow
+                      ? <NotAddToSlider />
+                      : <AddToSlider />
+                    }
+                  </ButtonIconBasisStyled>
+                  <Checkbox
+                    label={addToSlideShow
+                      ? 'Не додавати до презентації'
+                      : 'Додати до презентації'
+                    }
+                    onChange={(e, data) => setAddToSlideShow(data.checked)}
+                    checked={addToSlideShow}
+                  />
+                </Grid.Row>
+                <hr/>
+                <Grid.Row>
+                  <LabelStyled>Ширина зображення на сторінці</LabelStyled>
+                  <Grid>
+                    <Grid.Row className='size-box'>
+                      <Grid.Column width={4}>
+                        <Radio
+                          label={() => (
+                            <Image className={clsx({active: size === '100'})}>
+                              <ImageIcon />
+                            </Image>
+                          )}
+                          name='radioGroup'
+                          value={'100'}
+                          checked={size === '100'}
+                          onChange={() => setSize('100')}
+                        />
+                        <LabelStyled>100%</LabelStyled>
+                      </Grid.Column>
+                      <Grid.Column width={3}>
+                        <Radio
+                          label={() => (
+                            <Image className={clsx({active: size === '60'})}>
+                              <ImageIcon />
+                            </Image>
+                          )}
+                          name='radioGroup'
+                          value='60'
+                          checked={size === '60'}
+                          onChange={() => setSize('60')}
+                        />
+                        <LabelStyled>50%</LabelStyled>
+                      </Grid.Column>
+                      <Grid.Column width={2}>
+                        <Radio
+                          label={() => (
+                            <Image className={clsx({active: size === '30'})}>
+                              <ImageIcon />
+                            </Image>
+                          )}
+                          name='radioGroup'
+                          value='30'
+                          checked={size === '30'}
+                          onChange={() => setSize('30')}
+                        />
+                        <LabelStyled>30%</LabelStyled>
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                </Grid.Row>
+              </Grid.Column>
+              <Grid.Column width={9}>
+                <LabelStyled>Опис до зображення</LabelStyled>
+                <TextareaAutosizeStyled
+                  rows={9}
+                  name="img-description"
+                  placeholder="Додайте опис, якщо треба"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Grid.Column>
+      </Grid.Row>
     </StyledDropzoneBody>
   );
 };

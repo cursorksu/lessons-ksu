@@ -23,6 +23,13 @@
   align-items: center;
 }
 
+h1 {
+  margin: 24px 0 !important;
+}
+h3 {
+  margin: 0 0 15px !important;
+}
+
 .MuiDrawer-root {
   max-width: 25%;
   left: initial !important;
@@ -146,3 +153,5 @@
   margin: 0;
   padding: 0;
 }
+
+

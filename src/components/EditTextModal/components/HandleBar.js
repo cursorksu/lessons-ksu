@@ -13,7 +13,10 @@ import { ReactComponent as TitleIcon } from '../../../assets/title.svg';
 import { ReactComponent as LinkIcon } from '../../../assets/link.svg';
 import { ReactComponent as SubtitleIcon } from '../../../assets/subtitle.svg';
 
-export const HandleBar = React.forwardRef(({ addEntity, clearRenderList }) => {
+export const HandleBar = (({
+  addEntity,
+  clearRenderList
+}) => {
   const buttonList = [
     {id: 100, icon: <TitleIcon />, tooltip: 'Додати заголовок', type: 'title'},
     {id: 200, icon: <SubtitleIcon />, tooltip: 'Додати підзаголовок', type: 'subtitle'},

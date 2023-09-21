@@ -6,7 +6,7 @@ import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
 import { TopicToPrint } from '../../ComponentsToPrint';
 
-export const TabPanelTopic = ({ value, show, lesson }) => {
+export const TabPanelTopic = ({ show, lesson }) => {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,

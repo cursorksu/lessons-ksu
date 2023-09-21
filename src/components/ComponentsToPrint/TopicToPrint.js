@@ -136,7 +136,7 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
           </ButtonIconStyled>
         </div>
         }>
-        <DisplayTopic topicId={lesson?.topic} />
+        <DisplayTopic />
       </Card>
     </Grid>
   </Grid>);

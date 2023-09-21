@@ -32,8 +32,8 @@ export const BlockWrapperStyled = styled.div`
 export const BlockWrapperInputStyled = styled.div`
   position: relative;
   border: 1px solid ${BG_GOLD};
+  background: white;
   border-radius: 4px;
-  background: transparent;
   box-shadow: none;
   width: 100%;
   padding: 4px 46px 8px 8px;

@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useGetTopicById } from '../../api/topic';
+import React from 'react';
 import { TopicStyled } from './style';
+import { useSelector } from 'react-redux';
+import { clsx } from 'clsx';
 
-export const DisplayTopic = ({ topicId }) => {
-  const [currentTopic, setCurrentTopic] = useState(null);
-
-  const { getTopicById } = useGetTopicById();
-
-  useEffect(() => {
-    topicId &&
-      getTopicById(topicId).then((data) =>
-        setCurrentTopic(JSON.parse(data.topic))
-      );
-  }, [topicId, getTopicById]);
+export const DisplayTopic = () => {
+  const { topic } = useSelector((state) => state.lessonData);
 
   return (
     <TopicStyled>
-      {currentTopic?.map((el) => {
+      {topic?.map((el) => {
         if (el.type === 'list') {
           return (
             <ul key={el.id}>
               {el.value && el.value.map((item) => (
-                <li key={item.value.split(' ').join('')}>
+                <li key={item.id}>
                   {item.value}
                 </li>
               ))}
@@ -70,8 +62,21 @@ export const DisplayTopic = ({ topicId }) => {
 
         if (el.type === 'image') {
           return (
-            <div className='image-holder' key={el.id}>
-              <img src={el.value} alt={el.description} />
+            <div
+              style={{
+                width: `${el.size}%`,
+              }}
+              className={clsx(
+                'image-holder',
+                { 'print-hide': el.hideElement })
+              }
+              key={el.id}
+            >
+              <img
+                src={el.value}
+                alt={el.description}
+                style={{ height: `${+el.size * 5 / 1}px`}}
+              />
               <label>{el.description}</label>
             </div>
           );

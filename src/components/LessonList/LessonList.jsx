@@ -7,12 +7,14 @@ import {
 import { Loader } from '../Loader';
 import { LessonCard } from '../LessonCard';
 import { CreateLessonModal } from '../CreateLessonModal';
+import { useSelector } from 'react-redux';
 
 export const LessonList = () => {
   const navigate = useNavigate();
   const { deleteLesson } = useDeleteLesson();
-  const { lessons, loading, getLessons } = useGetLessons();
+  const { loading, getLessons } = useGetLessons();
   const { createLesson } = useCreateLesson();
+  const { lessons } = useSelector((state) => state.lessonData);
 
   const handleAddLesson = async (data) => {
     await createLesson(data);

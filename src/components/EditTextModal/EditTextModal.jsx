@@ -7,48 +7,42 @@ import {
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { DialogStyled } from '../DialogStyled';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
-import {
-  Box, DialogActions, DialogContent, DialogTitle,
-} from '@mui/material';
+import { Box, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { useUpdateLesson } from '../../api/lesson';
 import { HandleBar } from './components/HandleBar';
-import {
-  useCreateTopic, useGetTopicById, useUpdateTopic,
-} from '../../api/topic';
+import { useCreateTopic, useUpdateTopic } from '../../api/topic';
 import { Transition } from '../Transition';
 import { List } from './components/List';
 import { DateItem } from './components/DateItem';
-import { generateId } from '../../utils/generateId';
 import { TitleItem } from './components/TitleItem';
 import { ParagraphItem } from './components/ParagraphItem';
 import { DividerItem } from './components/DividerItem';
 import { ImageItem } from './components/ImageItem';
 import { LinkItem } from './components/LinkItem';
 import { MediaItem } from './components/MediaItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTopic as updateTopicInStore } from '../../store/dataReducer';
+import { generateId } from '../../utils/generateId';
 
 export const EditTextModal = ({ topicId }) => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const { updateLesson } = useUpdateLesson();
-  const { getTopicById } = useGetTopicById();
   const { createTopic } = useCreateTopic();
   const { updateTopic } = useUpdateTopic();
+  const { topic } = useSelector((state) => state.lessonData);
+  const [updatedTopic, setUpdatedTopic] = useState(topic);
+  useEffect(() => {
+    topic && setUpdatedTopic(topic);
+  }, [topic]);
+
   const handleOpen = useCallback(() => {
     setIsOpen(true);
   }, []);
-
-  useEffect(() => {
-    (isOpen && topicId) && getTopicById(topicId)
-      .then((data) => {
-        data && setTopic(JSON.parse(data.topic));
-      });
-  }, [getTopicById, topicId, isOpen]);
-
-  const [topic, setTopic] = useState([]);
-
   const reset = () => {
-    setTopic([]);
+    setUpdatedTopic([]);
   };
 
   const handleClose = useCallback(() => {
@@ -57,21 +51,41 @@ export const EditTextModal = ({ topicId }) => {
   }, []);
 
   const onSubmitHandler = useCallback(async () => {
+    const list = updatedTopic?.filter((el) => el.value || el.type === 'dev');
+    const updatedList = list
+      .map((item) => item.type === 'list'
+        ? ({
+          ...item,
+          value: item.value.filter((listItem) => listItem.value)
+        })
+        : item
+      );
+
     try {
       if (!topicId) {
-        const newTopicId = await createTopic(topic);
+        const newTopicId = await createTopic(updatedList);
         await updateLesson(id, { topic: newTopicId });
         return;
       }
-      await updateTopic(topicId, topic);
-      return;
+
+      await updateTopic(topicId, updatedList);
+      dispatch(updateTopicInStore(updatedList));
     } finally {
       handleClose();
     }
-  }, [topic, createTopic, updateLesson, handleClose, id, topicId, updateTopic]);
+  }, [
+    dispatch,
+    updatedTopic,
+    createTopic,
+    updateLesson,
+    handleClose,
+    id,
+    topicId,
+    updateTopic
+  ]);
 
   const addEntity = useCallback((entityName) => {
-    setTopic((prev) => [...prev, {
+    setUpdatedTopic((prev) => [...prev, {
       id: generateId(), value: '', type: entityName,
     },
     ]);
@@ -81,13 +95,13 @@ export const EditTextModal = ({ topicId }) => {
     const { id, value, name } = target;
     const updatedData = { id, value, type: name || type};
 
-    setTopic((prev) => prev.map((el) => (el.id === id
+    setUpdatedTopic((prev) => prev.map((el) => (el.id === id
       ? updatedData
       : el)));
   };
 
   const handleChangeParagraph = ({ target , ...e}) => {
-    setTopic((prev) => {
+    setUpdatedTopic((prev) => {
       let value = prev.find((el) => el.id === target.id)?.value;
       const updatedData = {
         id: target.id, value: target.value, type: 'paragraph',
@@ -104,11 +118,11 @@ export const EditTextModal = ({ topicId }) => {
   };
 
   const handleRemove = useCallback((id) => {
-    setTopic((prev) => prev?.filter((el) => el.id !== id));
+    setUpdatedTopic((prev) => prev?.filter((el) => el.id !== id));
   }, []);
 
   const handleChange = useCallback((data) => {
-    setTopic((prev) => prev.map((el) => (el.id === data.id
+    setUpdatedTopic((prev) => prev.map((el) => (el.id === data.id
       ? data
       : el)));
   }, []);
@@ -116,13 +130,13 @@ export const EditTextModal = ({ topicId }) => {
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     // Создаем копию массива prevCards
-    const updatedCards = [...topic];
+    const updatedCards = [...updatedTopic];
     // Удаляем элемент, который нужно переместить
     const [draggedCard] = updatedCards.splice(result.source.index, 1);
     // Вставляем элемент в новую позицию
     updatedCards.splice(result.destination.index, 0, draggedCard);
 
-    return setTopic(updatedCards); // Обновляем стейт
+    return setUpdatedTopic(updatedCards); // Обновляем стейт
   }
 
 
@@ -140,7 +154,7 @@ export const EditTextModal = ({ topicId }) => {
     >
       <form>
         <DialogTitle className='title'>
-            Створіть свою історію
+              Створіть свою історію
           <HandleBar addEntity={addEntity} clearRenderList={reset} />
           <ButtonIconStyled onClick={handleClose}>
             <CloseIcon />
@@ -151,7 +165,7 @@ export const EditTextModal = ({ topicId }) => {
             <Droppable droppableId="dnd-edit-text-list">
               {(provided) => (
                 <ul className="dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
-                  {topic?.map((el, index) => {
+                  {updatedTopic?.map((el, index) => {
                     if ( el.type === 'list') {
                       return (
                         <List
@@ -188,6 +202,7 @@ export const EditTextModal = ({ topicId }) => {
 
                     if (el.type === 'subtitle') {
                       return <TitleItem
+                        key={el.id}
                         field={el}
                         index={index}
                         handleRemove={handleRemove}

@@ -55,7 +55,6 @@ export const EditModal = ({ fieldName, fieldData }) => {
   const onSubmitHandler = useCallback(
     async (data) => {
       await updateLesson(id, data);
-      await getLessonById(id);
       setIsOpen(false);
       reset();
     },

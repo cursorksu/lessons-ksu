@@ -1,8 +1,22 @@
 import { TextArea } from 'semantic-ui-react';
 import styled from '@emotion/styled';
-import { Input } from 'semantic-ui-react';
 import { BG_GOLD, PRIMARY_MAIN } from '../constants/colors';
 
+export const LabelStyled = styled.label`
+  &.label {
+    padding: 0;
+    background: transparent;
+    font-family: Montserrat, sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+    display: block;
+    
+    &.inline {
+      display: inline-block;
+    }
+  }
+`;
 export const InputFieldStyled = styled.div`
   width: 100%;
   display: block;
@@ -17,13 +31,7 @@ export const InputFieldStyled = styled.div`
   }
 `;
 
-export const InputStyled = styled(Input)`
-  &:focus {
-    outline: none;
-    border: none;
-  }
-  
-  input {
+export const InputStyled = styled.input`
     width: 100%;
     border-radius: 4px;
     padding: 5px 12px;
@@ -40,7 +48,6 @@ export const InputStyled = styled(Input)`
       border: 1px solid ${PRIMARY_MAIN};
       background-color: ${BG_GOLD};
     }
-  }
 `;
 
 export const TextareaAutosizeStyled = styled(TextArea)`

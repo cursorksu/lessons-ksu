@@ -4,6 +4,7 @@ import { Grid, ThemeProvider } from '@mui/material';
 import { AppRouter } from './router';
 import { theme } from './theme';
 import { Notification } from './components/Notification';
+import 'semantic-ui-css/semantic.min.css';
 import { Provider } from 'react-redux';
 import store from './store';
 
