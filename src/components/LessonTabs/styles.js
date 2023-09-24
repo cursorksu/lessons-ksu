@@ -7,9 +7,9 @@ export const TabStyled = styled(FormControl)`
   position: relative;
 
   .btn-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 8px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
     position: absolute;
     right: 12px;
     top: 30px;
@@ -40,5 +40,16 @@ export const TabStyled = styled(FormControl)`
     margin-right: 12px;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    svg {
+      width: 26px;
+      height: 26px;
+      display: inline;
+      margin-right: 20px;
+    }
   }
 `;

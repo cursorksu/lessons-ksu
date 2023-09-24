@@ -7,7 +7,7 @@ import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { DialogStyled } from '../DialogStyled';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
-import { useGetLessonById, useUpdateLesson } from '../../api/lesson';
+import { useUpdateLesson } from '../../api/lesson';
 import { Bible } from './components/Bible';
 import { Topic } from './components/Topic';
 import { EditModalStyled } from './style';
@@ -45,7 +45,6 @@ export const EditModal = ({ fieldName, fieldData }) => {
       [fieldName]: fieldData,
     },
   });
-  const { getLessonById } = useGetLessonById();
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
@@ -58,7 +57,7 @@ export const EditModal = ({ fieldName, fieldData }) => {
       setIsOpen(false);
       reset();
     },
-    [setIsOpen, id, getLessonById, updateLesson, reset]
+    [setIsOpen, id, updateLesson, reset]
   );
 
   return (

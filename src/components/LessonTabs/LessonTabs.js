@@ -11,17 +11,35 @@ import { TabPanelMemory } from './components/TabPanelMemory';
 import { useParams } from 'react-router';
 import { useGetLessonById } from '../../api/lesson';
 import { useSelector } from 'react-redux';
+import { ReactComponent as PalletIcon } from '../../assets/pallete.svg';
+import { ReactComponent as TopicIcon } from '../../assets/topic.svg';
+import { ReactComponent as GameIcon } from '../../assets/game.svg';
+import { ReactComponent as FoodIcon } from '../../assets/food.svg';
+import { ReactComponent as MemoryIcon } from '../../assets/memory.svg';
+import { ReactComponent as BookmarkIcon } from '../../assets/bookmark.svg';
+import { useGetCraftById } from '../../api/craft/useCraft';
+
 
 export const LessonTabs = () => {
   const { id } = useParams();
   const { getLessonById } = useGetLessonById();
-  const { lesson } = useSelector((state) => state.lessonData);
+  const { getCraftIdById } = useGetCraftById();
 
   useEffect( () => {
-    getLessonById(id);
-  }, [id, getLessonById]);
+    getLessonById(id).then((data) => {
+      if (data.craft && Array.isArray(data.craft)) {
+        data.craft
+          .forEach(async (item) => await getCraftIdById(item));
+      }
+    });
+  }, [id, getLessonById, getCraftIdById]);
 
-  const [value, setValue] = useState('1');
+  const {
+    lesson,
+    craft,
+  } = useSelector((state) => state.lessonData);
+
+  const [value, setValue] = useState('3');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -31,11 +49,12 @@ export const LessonTabs = () => {
     <TabStyled sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
         <Tabs value={value} onChange={handleChange}>
-          <Tab label="Тема" value={'1'} />
-          <Tab label="Предметный урок" value={'2'} />
-          <Tab label="Поделка" value={'3'} />
-          <Tab label="Игра" value={'4'} />
-          <Tab label="Запоминание" value={'5'} />
+          <Tab label={<><TopicIcon /> Тема </>} value={'1'} />
+          <Tab label={<><BookmarkIcon /> Предметний урок </>} value={'2'} />
+          <Tab label={<><PalletIcon /> Саморобка </>} value={'3'} />
+          <Tab label={<><GameIcon /> Гра </>} value={'4'} />
+          <Tab label={<><MemoryIcon />Запам'ятовування</>} value={'5'} />
+          <Tab label={<><FoodIcon />Смаколик</>} value={'6'} />
         </Tabs>
         <Scrollbars
           style={{
@@ -47,9 +66,15 @@ export const LessonTabs = () => {
           <Box sx={{ marginRight: '12px' }}>
             <TabPanelTopic value={'1'} show={value === '1'} lesson={lesson} />
             <TabPanelSubject value={'2'} show={value === '2'} />
-            <TabPanelCreativity value={'3'} show={value === '3'} />
+            <TabPanelCreativity
+              value={'3'}
+              show={value === '3'}
+              craft={craft}
+              lesson={lesson}
+            />
             <TabPanelGame value={'4'} show={value === '4'} />
             <TabPanelMemory value={'5'} show={value === '5'} />
+            <TabPanelMemory value={'6'} show={value === '6'} />
           </Box>
         </Scrollbars>
       </TabContext>
