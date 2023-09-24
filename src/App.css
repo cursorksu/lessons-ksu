@@ -117,6 +117,10 @@ h3 {
   object-fit: cover;
 }
 
+.lesson-title {
+  min-height: 40px;
+}
+
 @page {
   size: auto;
   margin: 15mm 10mm 15mm 20mm;
@@ -140,7 +144,6 @@ h3 {
   .print-hide {
     display: none !important;
   }
-
   .print-fluid {
     width: 100% !important;
     flex-basis: 100% !important;

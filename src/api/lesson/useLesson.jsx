@@ -16,7 +16,7 @@ import {
 } from '../../store/dataReducer';
 import { useDispatch } from 'react-redux';
 import { useGetTopicById } from '../topic';
-import { getDataFromTimeStep } from '../../utils/getDataFromTimeStep';
+import { getDateFromTimeStep } from '../../utils/getDateFromTimeStep';
 
 // const Topic = {
 //   id,
@@ -41,7 +41,7 @@ export const useGetLessons = () => {
         return {
           id: doc.id,
           ...doc.data(),
-          createdAt: getDataFromTimeStep(doc.data().createdAt)
+          createdAt: getDateFromTimeStep(doc.data().createdAt)
         };
       });
       setLoading(false);
@@ -102,7 +102,7 @@ export const useGetLessonById = () => {
         dispatch(setLessonInStore({
           id: lessonSnapshot.id,
           ...lessonSnapshot.data(),
-          createdAt: getDataFromTimeStep(lessonSnapshot.data().createdAt),
+          createdAt: getDateFromTimeStep(lessonSnapshot.data().createdAt),
         }));
         await getTopicById(lessonSnapshot.data().topic);
 

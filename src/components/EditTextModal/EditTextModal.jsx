@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import {
-  ButtonIconStyled,
-  ButtonStyled
+  ButtonIconStyled, ButtonStyled
 } from '../ButtonStyled';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { DialogStyled } from '../DialogStyled';
@@ -24,25 +23,46 @@ import { MediaItem } from './components/MediaItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTopic as updateTopicInStore } from '../../store/dataReducer';
 import { generateId } from '../../utils/generateId';
+import { useUpdateCraft } from '../../api/craft/useCraft';
+import { getDateLocalString } from '../../utils/getDateLocalString';
 
-export const EditTextModal = ({ topicId }) => {
+const getTitle = (name) => {
+  switch (name) {
+  case 'craft':
+    return 'Додайте нову творчу активність';
+  case 'game':
+    return 'Додайте нову гру';
+  default :
+    return 'Створіть свою історію';
+  }
+};
+
+export const EditTextModal = ({ entityId, entityName }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [isOpen, setIsOpen] = useState(false);
   const { updateLesson } = useUpdateLesson();
   const { createTopic } = useCreateTopic();
   const { updateTopic } = useUpdateTopic();
-  const { topic } = useSelector((state) => state.lessonData);
-  const [updatedTopic, setUpdatedTopic] = useState(topic);
+  const { updateCraft } = useUpdateCraft();
+  const { topic, craft } = useSelector((state) => state.lessonData);
+  const [updatedEntity, setUpdatedEntity] = useState(null);
+
   useEffect(() => {
-    topic && setUpdatedTopic(topic);
-  }, [topic]);
+    if (entityName === 'topic') {
+      isOpen && setUpdatedEntity(topic);
+    }
+    if (entityName === 'craft') {
+      isOpen && setUpdatedEntity(craft?.list);
+    }
+
+  }, [isOpen, topic, craft, entityName, updateCraft]);
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
   }, []);
   const reset = () => {
-    setUpdatedTopic([]);
+    setUpdatedEntity([]);
   };
 
   const handleClose = useCallback(() => {
@@ -50,58 +70,69 @@ export const EditTextModal = ({ topicId }) => {
     reset();
   }, []);
 
-  const onSubmitHandler = useCallback(async () => {
-    const list = updatedTopic?.filter((el) => el.value || el.type === 'dev');
-    const updatedList = list
-      .map((item) => item.type === 'list'
-        ? ({
-          ...item,
-          value: item.value.filter((listItem) => listItem.value)
-        })
-        : item
-      );
+  const onSubmitHandler = useCallback(
+    async () => {
+      const list = updatedEntity?.filter((el) => el.value || el.type === 'dev');
+      const updatedList = list
+        .map((item) => item.type === 'list'
+          ? ({
+            ...item, value: item.value.filter((listItem) => listItem.value)
+          })
+          : item);
 
-    try {
-      if (!topicId) {
-        const newTopicId = await createTopic(updatedList);
-        await updateLesson(id, { topic: newTopicId });
-        return;
+      try {
+        if (entityName === 'topic') {
+          if (!entityId) {
+            const newTopicId = await createTopic(updatedList);
+            await updateLesson(id, { topic: newTopicId });
+            return;
+          }
+
+          await updateTopic(entityId, updatedList);
+          dispatch(updateTopicInStore(updatedList));
+        }
+
+        if (entityName === 'craft') {
+          await updateCraft(entityId, updatedList);
+        }
+
+      } finally {
+        handleClose();
       }
-
-      await updateTopic(topicId, updatedList);
-      dispatch(updateTopicInStore(updatedList));
-    } finally {
-      handleClose();
-    }
-  }, [
-    dispatch,
-    updatedTopic,
-    createTopic,
-    updateLesson,
-    handleClose,
-    id,
-    topicId,
-    updateTopic
-  ]);
+    },
+    [dispatch,
+      updatedEntity,
+      createTopic,
+      updateLesson,
+      handleClose,
+      id,
+      entityId,
+      entityName,
+      updateTopic,
+      updateCraft,
+    ]
+  );
 
   const addEntity = useCallback((entityName) => {
-    setUpdatedTopic((prev) => [...prev, {
-      id: generateId(), value: '', type: entityName,
-    },
-    ]);
+    setUpdatedEntity((prev) => Array.isArray(prev)
+      ? [...prev, {
+        id: generateId(), value: '', type: entityName,
+      },
+      ]
+      : []);
   }, []);
 
   const handleChangeField = (target, type) => {
     const { id, value, name } = target;
-    const updatedData = { id, value, type: name || type};
+    const updatedData = { id, value, type: name || type };
 
-    setUpdatedTopic((prev) => prev.map((el) => (el.id === id
+    setUpdatedEntity((prev) => prev.map((el) => (el.id === id
       ? updatedData
       : el)));
   };
 
-  const handleChangeParagraph = ({ target , ...e}) => {
-    setUpdatedTopic((prev) => {
+  const handleChangeParagraph = ({ target, ...e }) => {
+    setUpdatedEntity((prev) => {
       let value = prev.find((el) => el.id === target.id)?.value;
       const updatedData = {
         id: target.id, value: target.value, type: 'paragraph',
@@ -118,11 +149,15 @@ export const EditTextModal = ({ topicId }) => {
   };
 
   const handleRemove = useCallback((id) => {
-    setUpdatedTopic((prev) => prev?.filter((el) => el.id !== id));
+    setUpdatedEntity((prev) => prev?.filter((el) => el.id !== id));
   }, []);
 
   const handleChange = useCallback((data) => {
-    setUpdatedTopic((prev) => prev.map((el) => (el.id === data.id
+    // if (data.type === 'date') {
+    //   data.value = data.value.toString();
+    // }
+
+    setUpdatedEntity((prev) => prev.map((el) => (el.id === data.id
       ? data
       : el)));
   }, []);
@@ -130,15 +165,14 @@ export const EditTextModal = ({ topicId }) => {
   function handleOnDragEnd(result) {
     if (!result.destination) return;
     // Создаем копию массива prevCards
-    const updatedCards = [...updatedTopic];
+    const updatedCards = [...updatedEntity];
     // Удаляем элемент, который нужно переместить
     const [draggedCard] = updatedCards.splice(result.source.index, 1);
     // Вставляем элемент в новую позицию
     updatedCards.splice(result.destination.index, 0, draggedCard);
 
-    return setUpdatedTopic(updatedCards); // Обновляем стейт
+    return setUpdatedEntity(updatedCards); // Обновляем стейт
   }
-
 
   return (<Box className='action'>
     <ButtonIconStyled onClick={handleOpen} className='print-hide'>
@@ -154,162 +188,153 @@ export const EditTextModal = ({ topicId }) => {
     >
       <form>
         <DialogTitle className='title'>
-              Створіть свою історію
-          <HandleBar addEntity={addEntity} clearRenderList={reset} />
+          {getTitle(entityName)}
+          <HandleBar
+            addEntity={addEntity}
+            clearRenderList={reset}
+            mode={entityName}
+          />
           <ButtonIconStyled onClick={handleClose}>
             <CloseIcon />
           </ButtonIconStyled>
         </DialogTitle>
         <DialogContent className='dynamic-list'>
           <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="dnd-edit-text-list">
-              {(provided) => (
-                <ul className="dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
-                  {updatedTopic?.map((el, index) => {
-                    if ( el.type === 'list') {
-                      return (
-                        <List
-                          key={el.id}
-                          field={el}
-                          index={index}
-                          handleChange={handleChange}
-                          handleRemove={handleRemove}
-                        />
-                      );
-                    }
+            <Droppable droppableId='dnd-edit-text-list'>
+              {(provided) => (<ul
+                className='dnd-list' {...provided.droppableProps}
+                ref={provided.innerRef}>
+                {updatedEntity?.map((el, index) => {
+                  if (el.type === 'list') {
+                    return (<List
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      handleChange={handleChange}
+                      handleRemove={handleRemove}
+                    />);
+                  }
 
-                    if (el.type === 'date') {
-                      return <DateItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        handleRemove={handleRemove}
-                        handleChange={handleChange}
-                      />;
-                    }
+                  if (el.type === 'date') {
+                    return <DateItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      handleRemove={handleRemove}
+                      handleChange={handleChange}
+                    />;
+                  }
 
-                    if (el.type === 'title') {
-                      return <TitleItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        handleRemove={handleRemove}
-                        handleChange={handleChangeField}
-                        placeholder={'Введіть заголовок'}
-                        label={'Заголовок'}
-                      />;
-                    }
+                  if (el.type === 'title') {
+                    return <TitleItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      handleRemove={handleRemove}
+                      handleChange={handleChangeField}
+                      placeholder={'Введіть заголовок'}
+                      label={'Заголовок'}
+                    />;
+                  }
 
-                    if (el.type === 'subtitle') {
-                      return <TitleItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        handleRemove={handleRemove}
-                        handleChange={handleChangeField}
-                        placeholder={'Введіть підзаголовок'}
-                        label={'Підзаголовок'}
-                      />;
-                    }
+                  if (el.type === 'subtitle') {
+                    return <TitleItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      handleRemove={handleRemove}
+                      handleChange={handleChangeField}
+                      placeholder={'Введіть підзаголовок'}
+                      label={'Підзаголовок'}
+                    />;
+                  }
 
-                    if (el.type === 'paragraph') {
-                      return <ParagraphItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        handleRemove={handleRemove}
-                        handleChange={handleChangeParagraph}
-                        placeholder={'Введіть параграф тексту'}
-                        label={'Текст'}
-                      />;
-                    }
+                  if (el.type === 'paragraph') {
+                    return <ParagraphItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      handleRemove={handleRemove}
+                      handleChange={handleChangeParagraph}
+                      placeholder={'Введіть параграф тексту'}
+                      label={'Текст'}
+                    />;
+                  }
 
-                    if (el.type === 'dev') {
-                      return <DividerItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        handleRemove={handleRemove}
-                      />;
-                    }
+                  if (el.type === 'dev') {
+                    return <DividerItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      handleRemove={handleRemove}
+                    />;
+                  }
 
-                    if (el.type === 'image') {
-                      return <ImageItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        handleRemove={handleRemove}
-                        handleChange={(data) => handleChange({
-                          id: el.id,
-                          type: el.type,
-                          ...data,
-                        })}
-                      />;
-                    }
+                  if (el.type === 'image') {
+                    return <ImageItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      handleRemove={handleRemove}
+                      handleChange={(data) => handleChange({
+                        id: el.id, type: el.type, ...data,
+                      })}
+                    />;
+                  }
 
-                    if (el.type === 'link') {
-                      return <LinkItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        label={{
-                          value: "Посилання",
-                          text: "Текст посилання",
-                        }}
-                        placeholder={{
-                          value: "Додайте посилання",
-                          text: "Додайте текст посилання",
-                        }}
-                        handleRemove={handleRemove}
-                        handleChange={(data) => handleChange({
-                          id: el.id,
-                          type: el.type,
-                          ...data,
-                        })}
-                      />;
-                    }
+                  if (el.type === 'link') {
+                    return <LinkItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      label={{
+                        value: 'Посилання', text: 'Текст посилання',
+                      }}
+                      placeholder={{
+                        value: 'Додайте посилання',
+                        text: 'Додайте текст посилання',
+                      }}
+                      handleRemove={handleRemove}
+                      handleChange={(data) => handleChange({
+                        id: el.id, type: el.type, ...data,
+                      })}
+                    />;
+                  }
 
-                    if (el.type === 'media') {
-                      return <MediaItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        handleRemove={handleRemove}
-                        handleChange={(data) => handleChange({
-                          id: el.id,
-                          type: el.type,
-                          ...data,
-                        })}
-                      />;
-                    }
+                  if (el.type === 'media') {
+                    return <MediaItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      handleRemove={handleRemove}
+                      handleChange={(data) => handleChange({
+                        id: el.id, type: el.type, ...data,
+                      })}
+                    />;
+                  }
 
-                    if (el.type === 'dict') {
-                      return <LinkItem
-                        key={el.id}
-                        field={el}
-                        index={index}
-                        label={{
-                          value: "Слово",
-                          text: "Визначення",
-                        }}
-                        placeholder={{
-                          value: "Додайте слово",
-                          text: "Додайте визначення",
-                        }}
-                        handleRemove={handleRemove}
-                        handleChange={(data) => handleChange({
-                          id: el.id,
-                          type: el.type,
-                          ...data,
-                        })}
-                      />;
-                    }
+                  if (el.type === 'dict') {
+                    return <LinkItem
+                      key={el.id}
+                      field={el}
+                      index={index}
+                      label={{
+                        value: 'Слово', text: 'Визначення',
+                      }}
+                      placeholder={{
+                        value: 'Додайте слово', text: 'Додайте визначення',
+                      }}
+                      handleRemove={handleRemove}
+                      handleChange={(data) => handleChange({
+                        id: el.id, type: el.type, ...data,
+                      })}
+                    />;
+                  }
 
-                    return  <></>;
-                  })}
-                  {provided.placeholder}
-                </ul>
-              )}
+                  return <></>;
+                })}
+                {provided.placeholder}
+              </ul>)}
             </Droppable>
           </DragDropContext>
         </DialogContent>

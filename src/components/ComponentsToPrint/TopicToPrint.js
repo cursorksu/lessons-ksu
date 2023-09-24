@@ -3,11 +3,12 @@ import { Card } from '../Card';
 import { EditTextModal } from '../EditTextModal';
 import { Box, Grid } from '@mui/material';
 import { EditModal } from '../EditModal';
-import { DisplayTopic } from '../DisplayTopic';
+import { DisplayEntity } from '../DisplayEntity';
 import { ButtonIconStyled } from '../ButtonStyled';
 import { ReactComponent as ViewIcon } from '../../assets/view.svg';
 import { ReactComponent as ClosedViewIcon } from '../../assets/closed-view.svg';
 import { clsx } from 'clsx';
+import { useSelector } from 'react-redux';
 
 export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
   const [hideElement, showElement] = useState({
@@ -15,8 +16,8 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
     bible: true,
     material: true,
     list: true,
-    topic: true,
   });
+  const { topic } = useSelector((state) => state.lessonData);
 
   const viewHandler = (name) => {
     showElement((prev) => ({
@@ -119,24 +120,16 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
       item
       sm={9}
       className={clsx({'print-fluid': Object.keys(hideElement)
-        .every((el) => !el)})}
+        .every((el) => !hideElement[el])})}
     >
       <Card
-        className={clsx({'print-hide': !hideElement.topic})}
         title='История'
-        action={<div className='action'>
-          <EditTextModal topicId={lesson?.topic} />
-          <ButtonIconStyled
-            onClick={() => viewHandler('topic')}
-            className='print-hide'>
-            {hideElement.topic
-              ? <ViewIcon />
-              : <ClosedViewIcon />
-            }
-          </ButtonIconStyled>
-        </div>
+        action={
+          <div className='action'>
+            <EditTextModal entityId={lesson.id} entityName='topic' />
+          </div>
         }>
-        <DisplayTopic />
+        <DisplayEntity entity={topic}/>
       </Card>
     </Grid>
   </Grid>);

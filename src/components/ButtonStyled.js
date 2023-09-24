@@ -8,6 +8,7 @@ export const ButtonStyled = styled(MuiButton)`
   margin: 0;
   padding: 8px 20px;
   font-weight: 600;
+  max-height: 36px;
   transition: background-color 0.3s ease-in-out;
   border: none;
   min-width: 148px;

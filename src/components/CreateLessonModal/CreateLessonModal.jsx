@@ -197,9 +197,9 @@ export const CreateLessonModal = ({ onSubmit }) => {
             </Box>
           </DialogContent>
           <DialogActions style={{ padding: '0 25px 25px' }}>
-            <ButtonStyled onClick={handleClose}>Отменить</ButtonStyled>
+            <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
             <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
-              Создать
+              Зберегти
             </ButtonStyled>
           </DialogActions>
         </form>
