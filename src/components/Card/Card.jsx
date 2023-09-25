@@ -1,12 +1,19 @@
 import { CardActions, CardContent } from '@mui/material';
 import { CardStyled } from './CardStyled';
 
-export const Card = ({ title, action, children, className }) => {
+export const Card = ({
+  title,
+  action,
+  children,
+  className,
+  hideTitle,
+  hideAction,
+}) => {
   return (
     <CardStyled className={className}>
-      <h3>{title}</h3>
+      {!hideTitle && <h3>{title}</h3>}
       <CardContent>{children}</CardContent>
-      <CardActions>{action}</CardActions>
+      {!hideAction && <CardActions>{action}</CardActions>}
     </CardStyled>
   );
 };

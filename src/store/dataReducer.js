@@ -6,6 +6,8 @@ const initialState = {
   topic: [],
   crafts: [],
   craft: null,
+  foodList: [],
+  food: null,
 };
 
 export const dataSlice = createSlice({
@@ -32,6 +34,14 @@ export const dataSlice = createSlice({
       ...state,
       craft: {...state.craft, ...action.payload}
     }),
+    setFoodList: (state, action) => ({
+      ...state,
+      foodList: action.payload
+    }),
+    setFood: (state, action) => ({
+      ...state,
+      food: {...state.craft, ...action.payload}
+    }),
   },
 });
 
@@ -42,6 +52,8 @@ export const {
   setTopic,
   setCrafts,
   setCraft,
+  setFoodList,
+  setFood,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

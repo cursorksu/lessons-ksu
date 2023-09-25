@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { Box, Grid } from '@mui/material';
+import { clsx } from 'clsx';
 import { Card } from '../Card';
 import { EditTextModal } from '../EditTextModal';
-import { Box, Grid } from '@mui/material';
 import { EditModal } from '../EditModal';
 import { DisplayEntity } from '../DisplayEntity';
 import { ButtonIconStyled } from '../ButtonStyled';
 import { ReactComponent as ViewIcon } from '../../assets/view.svg';
 import { ReactComponent as ClosedViewIcon } from '../../assets/closed-view.svg';
-import { clsx } from 'clsx';
+import { SlideShow } from '../SlideShow';
 
 export const CreativityToPrint = React.forwardRef(({
   lesson,
@@ -27,6 +28,10 @@ export const CreativityToPrint = React.forwardRef(({
       [name]: !prev[name]
     }));
   };
+
+  const slideList = useMemo(() => {
+    return craft?.list?.filter((el) => el.type === 'image');
+  }, [craft]);
 
   return (
     <Grid container ref={ref}>
@@ -66,6 +71,13 @@ export const CreativityToPrint = React.forwardRef(({
         className={clsx({'print-fluid': Object.keys(hideElement)
           .every((el) => !el)})}
       >
+        {slideList?.length > 0 && (
+          <Card hideTitle hideAction className='single-content'>
+            <SlideShow
+              slideList={slideList}
+            />
+          </Card>
+        )}
         <Card
           className={clsx({'print-hide': !hideElement.topic})}
           title={craft?.title}
