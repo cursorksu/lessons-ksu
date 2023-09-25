@@ -10,6 +10,7 @@ export const CardStyled = styled(Card)`
   border-radius: 4px;
   background: transparent;
   margin-bottom: 12px;
+  position: relative;
 
   h3 {
     border-bottom: 1px solid ${BORDER_GRAY};
@@ -35,5 +36,9 @@ export const CardStyled = styled(Card)`
 
   .MuiCardActions-root {
     padding-top: 20px;
+  }
+  
+  &.single-content .MuiCardContent-root{
+    padding-bottom: 0 !important;
   }
 `;
