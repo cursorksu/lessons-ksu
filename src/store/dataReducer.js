@@ -8,6 +8,9 @@ const initialState = {
   craft: null,
   foodList: [],
   food: null,
+  memory: null,
+  subject: null,
+  game: null,
 };
 
 export const dataSlice = createSlice({

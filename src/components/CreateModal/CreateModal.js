@@ -21,7 +21,14 @@ const INITIAL_LESSON = {
   title: '',
 };
 
-export const CreateCraftModal = ({ onSubmit }) => {
+export const CreateModal = ({
+  onSubmit,
+  buttonText,
+  modalTitle,
+  label,
+  placeholder,
+  entity,
+}) => {
   const { lesson } = useSelector((state) => state.lessonData);
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = useCallback(() => {
@@ -48,10 +55,10 @@ export const CreateCraftModal = ({ onSubmit }) => {
 
   return (
     <>
-      {!lesson?.craft?.length && (
+      {!(lesson?.[entity]?.length) && (
         <ButtonStyled onClick={handleOpen}>
           <AddCraftIcon style={{ marginRight: '12px' }} />
-            Додати Творчу Активність
+          {buttonText}
         </ButtonStyled>
       )}
       <DialogStyled
@@ -63,7 +70,7 @@ export const CreateCraftModal = ({ onSubmit }) => {
       >
         <form>
           <DialogTitle>
-            Створити нову творчу активність
+            {modalTitle}
             <ButtonIconStyled onClick={handleClose}>
               <CloseIcon />
             </ButtonIconStyled>
@@ -76,12 +83,12 @@ export const CreateCraftModal = ({ onSubmit }) => {
                 render={({ field }) => (
                   <FormGroup>
                     <FormHelperText htmlFor="title" color="secondary">
-                      Назва виробу
+                      {label}
                     </FormHelperText>
                     <InputStyled
                       id="title"
                       name="title"
-                      placeholder="Назва саморобки"
+                      placeholder={placeholder}
                       value={field.value}
                       onChange={field.onChange}
                     />

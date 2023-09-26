@@ -25,6 +25,7 @@ import { setTopic as updateTopicInStore } from '../../store/dataReducer';
 import { generateId } from '../../utils/generateId';
 import { useUpdateCraft } from '../../api/craft/useCraft';
 import { getDateLocalString } from '../../utils/getDateLocalString';
+import { useUpdateFood } from '../../api/food/useUpdateFood';
 
 const getTitle = (name) => {
   switch (name) {
@@ -45,7 +46,12 @@ export const EditTextModal = ({ entityId, entityName }) => {
   const { createTopic } = useCreateTopic();
   const { updateTopic } = useUpdateTopic();
   const { updateCraft } = useUpdateCraft();
-  const { topic, craft } = useSelector((state) => state.lessonData);
+  const { updateFood } = useUpdateFood();
+  const {
+    topic,
+    craft,
+    food,
+  } = useSelector((state) => state.lessonData);
   const [updatedEntity, setUpdatedEntity] = useState(null);
 
   useEffect(() => {
@@ -54,6 +60,10 @@ export const EditTextModal = ({ entityId, entityName }) => {
     }
     if (entityName === 'craft') {
       isOpen && setUpdatedEntity(craft?.list);
+    }
+
+    if (entityName === 'food') {
+      isOpen && setUpdatedEntity(food?.list);
     }
 
   }, [isOpen, topic, craft, entityName, updateCraft]);
@@ -96,20 +106,26 @@ export const EditTextModal = ({ entityId, entityName }) => {
           await updateCraft(entityId, updatedList);
         }
 
+        if (entityName === 'food') {
+          await updateFood(entityId, updatedList);
+        }
+
       } finally {
         handleClose();
       }
     },
-    [dispatch,
+    [
+      id,
+      dispatch,
       updatedEntity,
       createTopic,
       updateLesson,
       handleClose,
-      id,
       entityId,
       entityName,
       updateTopic,
       updateCraft,
+      updateFood,
     ]
   );
 
@@ -153,10 +169,6 @@ export const EditTextModal = ({ entityId, entityName }) => {
   }, []);
 
   const handleChange = useCallback((data) => {
-    // if (data.type === 'date') {
-    //   data.value = data.value.toString();
-    // }
-
     setUpdatedEntity((prev) => prev.map((el) => (el.id === data.id
       ? data
       : el)));

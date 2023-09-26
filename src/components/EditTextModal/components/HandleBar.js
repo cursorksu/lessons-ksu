@@ -15,6 +15,7 @@ import { ReactComponent as SubtitleIcon } from '../../../assets/subtitle.svg';
 
 const modeSettings = {
   craft: [200, 700, 900, 1000],
+  food: [200, 700, 900, 1000],
 };
 
 const buttonList = [

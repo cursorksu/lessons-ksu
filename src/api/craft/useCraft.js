@@ -63,7 +63,8 @@ export const useGetCraftById = () => {
     } catch (error) {
       dispatch(setMessage({
         type: 'error', message: {
-          title: 'Error fetching lesson:', description: error.message,
+          title: 'Error fetching craft:',
+          description: error.message,
         },
       }));
       return null;
@@ -128,7 +129,7 @@ export const useUpdateCraft = () => {
         setMessage({
           type: 'error',
           message: {
-            title: 'Error updating lesson:',
+            title: 'Error updating craft:',
             description: error.message,
           },
         })
