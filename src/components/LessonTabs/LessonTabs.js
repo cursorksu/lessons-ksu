@@ -17,29 +17,19 @@ import { ReactComponent as GameIcon } from '../../assets/game.svg';
 import { ReactComponent as FoodIcon } from '../../assets/food.svg';
 import { ReactComponent as MemoryIcon } from '../../assets/memory.svg';
 import { ReactComponent as BookmarkIcon } from '../../assets/bookmark.svg';
-import { useGetCraftById } from '../../api/craft/useCraft';
-
+import { TabPanelFood } from './components/TabPanelFood';
 
 export const LessonTabs = () => {
   const { id } = useParams();
   const { getLessonById } = useGetLessonById();
-  const { getCraftIdById } = useGetCraftById();
 
   useEffect( () => {
-    getLessonById(id).then((data) => {
-      if (data.craft && Array.isArray(data.craft)) {
-        data.craft
-          .forEach(async (item) => await getCraftIdById(item));
-      }
-    });
-  }, [id, getLessonById, getCraftIdById]);
+    getLessonById(id);
+  }, [id, getLessonById]);
 
-  const {
-    lesson,
-    craft,
-  } = useSelector((state) => state.lessonData);
+  const { lesson } = useSelector((state) => state.lessonData);
 
-  const [value, setValue] = useState('3');
+  const [value, setValue] = useState('6');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -69,12 +59,15 @@ export const LessonTabs = () => {
             <TabPanelCreativity
               value={'3'}
               show={value === '3'}
-              craft={craft}
               lesson={lesson}
             />
             <TabPanelGame value={'4'} show={value === '4'} />
             <TabPanelMemory value={'5'} show={value === '5'} />
-            <TabPanelMemory value={'6'} show={value === '6'} />
+            <TabPanelFood
+              value={'6'}
+              show={value === '6'}
+              lesson={lesson}
+            />
           </Box>
         </Scrollbars>
       </TabContext>
