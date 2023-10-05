@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { EditModal } from '../../EditModal';
 import { Popup } from 'semantic-ui-react';
 import { ButtonIconStyled } from '../../ButtonStyled';
-import { CreativityToPrint } from '../../ComponentsToPrint';
+import { EntityToPrint } from '../../ComponentsToPrint';
 import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
 import { useReactToPrint } from 'react-to-print';
 import { useCreateCraft, useGetCraftById } from '../../../api/craft/useCraft';
@@ -52,10 +52,11 @@ export const TabPanelCreativity = ({ lesson, show }) => {
             content='Надрукувати інструкцію'
           />
         </div>
-        <CreativityToPrint
+        <EntityToPrint
           ref={componentRef}
           lesson={lesson}
-          craft={craft}
+          entity={craft}
+          entityName={'craft'}
         />
       </div>
     )

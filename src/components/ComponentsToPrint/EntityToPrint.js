@@ -5,13 +5,14 @@ import { EditTextModal } from '../EditTextModal';
 import { DisplayEntity } from '../DisplayEntity';
 import { SlideShow } from '../SlideShow';
 
-export const FoodToPrint = React.forwardRef(({
+export const EntityToPrint = React.forwardRef(({
   lesson,
-  food,
+  entity,
+  entityName,
 }, ref) => {
   const slideList = useMemo(() => {
-    return food?.list?.filter((el) => el.type === 'image');
-  }, [food]);
+    return entity?.list?.filter((el) => el.type === 'image');
+  }, [entity]);
 
   return (
     <Grid container ref={ref}>
@@ -22,29 +23,27 @@ export const FoodToPrint = React.forwardRef(({
         justifyContent='space-between'
         alignItems='center'
       >
-        <h1 className='lesson-title'>{lesson?.title}</h1>
+        <h1 className='lesson-title title'>{lesson?.title}</h1>
       </Grid>
-      <Grid
-        item
-        sm={12}
-      >
+      <Grid item sm={12}>
         {slideList?.length > 0 && (
-          <Card hideTitle hideAction className='single-content print-fluid'>
+          <Card hideTitle hideAction className='single-content'>
             <SlideShow
               slideList={slideList}
             />
           </Card>
         )}
         <Card
-          title={food?.title}
-          action={<div className='action'>
-            <EditTextModal
-              entityId={lesson?.food && lesson.food[0]}
-              entityName='food'
-            />
-          </div>
+          title={entity?.title}
+          action={
+            <div className='action'>
+              <EditTextModal
+                entityId={lesson?.craft && lesson.craft[0]}
+                entityName={entityName}
+              />
+            </div>
           }>
-          <DisplayEntity entity={food} />
+          <DisplayEntity entity={entity} />
         </Card>
       </Grid>
     </Grid>);

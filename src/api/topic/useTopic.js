@@ -36,7 +36,7 @@ export const useGetTopic = () => {
       const topicsCollection = collection(fireStore, 'topics');
       const querySnapshot = await getDocs(topicsCollection);
       const topicsData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
+        id: doc?.id,
         ...doc.data(),
       }));
       setTopic(topicsData.sort((a, b) => a.createdAt - b.createdAt));
@@ -98,7 +98,7 @@ export const useGetTopicById = () => {
 
           dispatch(setTopicInStore( JSON.parse(dataTopic.topic)));
 
-          return { id: topicSnapshot.id, ...topicSnapshot.data() };
+          return { id: topicSnapshot?.id, ...topicSnapshot.data() };
         } else {
           return null;
         }
@@ -131,7 +131,7 @@ export const useCreateTopic = () => {
           topic: JSON.stringify(topic),
           createdAt: new Date(),
         });
-        const id = docRef.id;
+        const id = docRef?.id;
         return id;
       } catch (error) {
         dispatch(
@@ -167,7 +167,7 @@ export const useUpdateTopic = () => {
           };
           await updateDoc(topicDocRef, updatedTopicData);
 
-          return { id: topicSnapshot.id, ...updatedTopicData };
+          return { id: topicSnapshot?.id, ...updatedTopicData };
         } else {
           return null;
         }

@@ -22,10 +22,10 @@ export const TitleItem = ({
           {...provided.dragHandleProps}
         >
           <InputFieldStyled>
-            <label htmlFor={field.id}>{label}</label>
+            <label htmlFor={field?.id}>{label}</label>
             <InputStyled
-              key={field.id}
-              id={field.id}
+              key={field?.id}
+              id={field?.id}
               name={field.type}
               placeholder={placeholder}
               value={field.value}

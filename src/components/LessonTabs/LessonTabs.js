@@ -29,7 +29,7 @@ export const LessonTabs = () => {
 
   const { lesson } = useSelector((state) => state.lessonData);
 
-  const [value, setValue] = useState('6');
+  const [value, setValue] = useState('1');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -55,13 +55,17 @@ export const LessonTabs = () => {
         >
           <Box sx={{ marginRight: '12px' }}>
             <TabPanelTopic value={'1'} show={value === '1'} lesson={lesson} />
-            <TabPanelSubject value={'2'} show={value === '2'} />
+            <TabPanelSubject
+              value={'2'}
+              show={value === '2'}
+              lesson={lesson}
+            />
             <TabPanelCreativity
               value={'3'}
               show={value === '3'}
               lesson={lesson}
             />
-            <TabPanelGame value={'4'} show={value === '4'} />
+            <TabPanelGame value={'4'} show={value === '4'} lesson={lesson}/>
             <TabPanelMemory value={'5'} show={value === '5'} />
             <TabPanelFood
               value={'6'}

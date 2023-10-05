@@ -5,7 +5,7 @@ import {
 } from 'firebase/firestore/lite';
 import { fireStore } from '../index';
 import {
-  setCrafts as setCraftsInStore,
+  setCraftList as setCraftsInStore,
   setLesson as setLessonInStore,
   setCraft as setCraftInStore,
 } from '../../store/dataReducer';
@@ -22,7 +22,7 @@ export const useGetAllCrafts = (callback, deps) => {
       const querySnapshot = await getDocs(craftsCollection);
       const craftsData = querySnapshot.docs.map((doc) => {
         return {
-          id: doc.id, ...doc.data(),
+          id: doc?.id, ...doc.data(),
         };
       });
       setLoading(false);
@@ -52,11 +52,11 @@ export const useGetCraftById = () => {
       const craftSnapshot = await getDoc(craftDocRef);
       if (craftSnapshot.exists()) {
         dispatch(setCraftInStore({
-          id: craftSnapshot.id,
+          id: craftSnapshot?.id,
           ...craftSnapshot.data(),
         }));
 
-        return { id: craftSnapshot.id, ...craftSnapshot.data() };
+        return { id: craftSnapshot?.id, ...craftSnapshot.data() };
       } else {
         return null;
       }
@@ -86,11 +86,11 @@ export const useCreateCraft = () => {
         ...craftFormData, createdAt,
       });
 
-      await updateLesson(lessonId, { craft: [craftData.id] });
+      await updateLesson(lessonId, { craft: [craftData?.id] });
       dispatch(setCraftInStore({ ...craftFormData, createdAt }));
-      dispatch(setLessonInStore({ ...lesson, craft: [craftData.id]}));
+      dispatch(setLessonInStore({ ...lesson, craft: [craftData?.id]}));
 
-      return craftData.id;
+      return craftData?.id;
     } catch (error) {
       dispatch(setMessage({
         type: 'error', message: {

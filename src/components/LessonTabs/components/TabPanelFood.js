@@ -3,11 +3,11 @@ import { Popup } from 'semantic-ui-react';
 import { useReactToPrint } from 'react-to-print';
 import { EditModal } from '../../EditModal';
 import { ButtonIconStyled } from '../../ButtonStyled';
-import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
-import { FoodToPrint } from '../../ComponentsToPrint';
+import { EntityToPrint } from '../../ComponentsToPrint';
 import { useCreateFood, useGetFoodById } from '../../../api/food';
 import { CreateModal } from '../../CreateModal';
 import { useSelector } from 'react-redux';
+import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
 
 export const TabPanelFood = ({ show, lesson }) => {
   const componentRef = useRef();
@@ -52,7 +52,12 @@ export const TabPanelFood = ({ show, lesson }) => {
             content='Надрукувати цей урок'
           />
         </div>
-        <FoodToPrint ref={componentRef} lesson={lesson} food={food}/>
+        <EntityToPrint
+          ref={componentRef}
+          lesson={lesson}
+          entity={food}
+          entityName={'food'}
+        />
       </div>
     )
     : (

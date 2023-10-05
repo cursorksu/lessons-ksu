@@ -14,11 +14,11 @@ export const DateItem = ({ field, index, handleChange, handleRemove }) => {
         {...provided.dragHandleProps}
       >
         <LessonsDatePicker
-          id={field.id}
+          id={field?.id}
           legend={'Дата'}
           value={field.value}
           onChange={(data) => handleChange({
-            id: field.id, value: data, type: field.type,
+            id: field?.id, value: data, type: field.type,
           })}
         />
 

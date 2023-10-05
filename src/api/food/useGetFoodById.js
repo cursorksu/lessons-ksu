@@ -13,11 +13,11 @@ export const useGetFoodById = () => {
       const foodSnapshot = await getDoc(foodDocRef);
       if (foodSnapshot.exists()) {
         dispatch(setFoodInStore({
-          id: foodSnapshot.id,
+          id: foodSnapshot?.id,
           ...foodSnapshot.data(),
         }));
 
-        return { id: foodSnapshot.id, ...foodSnapshot.data() };
+        return { id: foodSnapshot?.id, ...foodSnapshot.data() };
       } else {
         return null;
       }

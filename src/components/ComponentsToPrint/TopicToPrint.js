@@ -34,7 +34,7 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
       justifyContent='space-between'
       alignItems='center'
     >
-      <h1>{lesson?.title}</h1>
+      <h1 className='title'>{lesson?.title}</h1>
     </Grid>
     <Grid
       item sm={3}
@@ -126,7 +126,7 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
         title='История'
         action={
           <div className='action'>
-            <EditTextModal entityId={lesson.id} entityName='topic' />
+            <EditTextModal entityId={lesson?.id} entityName='topic' />
           </div>
         }>
         <DisplayEntity entity={topic}/>
