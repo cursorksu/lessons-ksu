@@ -15,7 +15,7 @@ export const useGetAllFood = () => {
       const querySnapshot = await getDocs(foodCollection);
       const foodData = querySnapshot.docs.map((doc) => {
         return {
-          id: doc.id,
+          id: doc?.id,
           ...doc.data(),
           createdAt: new Date().toLocaleDateString(),
         };

@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import { GOLD, PRIMARY_MAIN, TOMATO } from '../../constants/colors';
 
 export const TopicStyled = styled.div`
-  text-align: left;
-  
   h3 {
     border-bottom: none;
   }

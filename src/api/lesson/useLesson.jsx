@@ -39,7 +39,7 @@ export const useGetLessons = () => {
       const querySnapshot = await getDocs(lessonsCollection);
       const lessonsData = querySnapshot.docs.map((doc) => {
         return {
-          id: doc.id,
+          id: doc?.id,
           ...doc.data(),
           createdAt: getDateFromTimeStep(doc.data().createdAt)
         };
@@ -100,13 +100,13 @@ export const useGetLessonById = () => {
       const lessonSnapshot = await getDoc(lessonDocRef);
       if (lessonSnapshot.exists()) {
         dispatch(setLessonInStore({
-          id: lessonSnapshot.id,
+          id: lessonSnapshot?.id,
           ...lessonSnapshot.data(),
           createdAt: getDateFromTimeStep(lessonSnapshot.data().createdAt),
         }));
         await getTopicById(lessonSnapshot.data().topic);
 
-        return { id: lessonSnapshot.id, ...lessonSnapshot.data() };
+        return { id: lessonSnapshot?.id, ...lessonSnapshot.data() };
       } else {
         return null;
       }
@@ -168,7 +168,7 @@ export const useUpdateLesson = () => {
         };
         await updateDoc(lessonDocRef, updatedLessonData);
         await getLessonById(lessonId);
-        return { id: lessonSnapshot.id, ...updatedLessonData };
+        return { id: lessonSnapshot?.id, ...updatedLessonData };
       } else {
         return null;
       }

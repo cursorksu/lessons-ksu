@@ -48,7 +48,7 @@ export function moveBetween({ list1, list2, source, destination }) {
   const newFirst = Array.from(list1.values);
   const newSecond = Array.from(list2.values);
 
-  const moveFrom = source.droppableId === list1.id ? newFirst : newSecond;
+  const moveFrom = source.droppableId === list1?.id ? newFirst : newSecond;
   const moveTo = moveFrom === newFirst ? newSecond : newFirst;
 
   const [moved] = moveFrom.splice(source.index, 1);

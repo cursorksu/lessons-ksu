@@ -35,38 +35,38 @@ export const MediaItem = ({
           {...provided.dragHandleProps}
         >
           <InputFieldStyled>
-            <label htmlFor={field.id}>
+            <label htmlFor={field?.id}>
               Ми не можемо зберігати повні відео у нашій базі
               даних, яка фінансується на кошти волотнерів і
               власні кошти розробніків
             </label>
             <br />
-            <label htmlFor={field.id}>
+            <label htmlFor={field?.id}>
               Але ви можете розмістити своє відео в YouTube і
               додати посилання на нього тут.
             </label>
             <br />
-            <label htmlFor={field.id}>
+            <label htmlFor={field?.id}>
               На даний момент платформа корректно працює
               тільки з посиланнями з YouTube.
             </label>
             <br />
-            <label htmlFor={field.id}>
+            <label htmlFor={field?.id}>
               Для вставки відео використовуйте посилання,
               яке з'являється після натискання кнопки "Поділитися"
             </label>
             <br />
             <br />
             <InputStyled
-              key={field.id}
-              id={field.id}
+              key={field?.id}
+              id={field?.id}
               name={field.type}
               placeholder='Додайте посилання на відео'
               value={field.value}
               onChange={(e) => setMedia(e.target.value)}
             />
             <br />
-            <label htmlFor={field.id}>
+            <label htmlFor={field?.id}>
               Додайте опис до відео
             </label>
             <TextareaAutosizeStyled

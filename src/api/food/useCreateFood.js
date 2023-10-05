@@ -20,11 +20,11 @@ export const useCreateFood = () => {
         ...foodFormData, createdAt,
       });
 
-      await updateLesson(lessonId, { food: [foodData.id] });
+      await updateLesson(lessonId, { food: [foodData?.id] });
       dispatch(setFoodInStore({ ...foodFormData, createdAt }));
-      dispatch(setLessonInStore({ ...lesson, food: [foodData.id]}));
+      dispatch(setLessonInStore({ ...lesson, food: [foodData?.id]}));
 
-      return foodData.id;
+      return foodData?.id;
     } catch (error) {
       dispatch(setMessage({
         type: 'error', message: {

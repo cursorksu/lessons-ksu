@@ -16,6 +16,9 @@ import { ReactComponent as SubtitleIcon } from '../../../assets/subtitle.svg';
 const modeSettings = {
   craft: [200, 700, 900, 1000],
   food: [200, 700, 900, 1000],
+  game: [200, 700, 900, 1000],
+  subject: [200, 700, 900, 1000],
+  memory: [200, 700, 900, 1000],
 };
 
 const buttonList = [
@@ -39,7 +42,7 @@ export const HandleBar = (({
   useEffect(() => {
     if (mode === 'topic') return;
     setModeButtonList(
-      buttonList.filter((el) =>  modeSettings[mode].includes(el.id))
+      buttonList.filter((el) => modeSettings[mode] && modeSettings[mode].includes(el?.id))
     );
   }, [mode]);
 

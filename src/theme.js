@@ -12,21 +12,25 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Montserrat, sans-serif',
+    fontFamily: "'Coco Gothic Alternate', sans-serif",
+    fontWeight: 100,
+    fontSize: 14,
+    lineHeight: 1.3,
     button: {
-      fontFamily: 'Montserrat, sans-serif',
+      fontFamily: "'Coco Gothic Small Caps', sans-serif",
+      fontWeight: 100,
+      fontSize: 14,
+      lineHeight: 1.3,
       textTransform: 'none',
       letterSpacing: 0,
-      fontSize: 14,
-      lineHeight: '16px',
-      fontWeight: 100,
     },
 
     body: {
       component: 'p',
-      fontSize: 12,
-      lineHeight: 1.5,
-      fontWeight: 300,
+      fontFamily: "'Coco Gothic Alternate', sans-serif",
+      fontWeight: 100,
+      fontSize: 14,
+      lineHeight: 1.3,
     },
   },
   palette: {

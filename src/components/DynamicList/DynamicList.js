@@ -93,7 +93,7 @@ export const DynamicList = ({ field, onChangeField }) => {
                           placeholder="Наступний елемент списку"
                           value={el?.value}
                           onChange={(e) => onChange(e, el?.id)}
-                          onKeyDown={(e) => handleKeyDown(e, el.id)}
+                          onKeyDown={(e) => handleKeyDown(e, el?.id)}
                         />
                         <ButtonIconBasisStyled
                           className="remove-handle"

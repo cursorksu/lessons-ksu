@@ -53,7 +53,7 @@ export const SlideShow = ({ slideList }) => {
         content={`${fullScreen ? 'Вимкнути' : 'Встановити'} повноекранний режим`}
       />
 
-      {slideList?.map((el) => (<SwiperSlide key={el.id}>
+      {slideList?.map((el) => (<SwiperSlide key={el?.id}>
         <img src={el.value} alt={el.description} />
         <div className='description'>
           <p>{el.description}</p>

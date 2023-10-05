@@ -4,13 +4,15 @@ const initialState = {
   lessons: [],
   lesson: null,
   topic: [],
-  crafts: [],
   craft: null,
-  foodList: [],
+  craftList: [],
   food: null,
+  foodList: [],
   memory: null,
   subject: null,
+  subjectList: [],
   game: null,
+  gameList: [],
 };
 
 export const dataSlice = createSlice({
@@ -29,21 +31,41 @@ export const dataSlice = createSlice({
       ...state,
       topic: action.payload
     }),
-    setCrafts: (state, action) => ({
-      ...state,
-      crafts: action.payload
-    }),
     setCraft: (state, action) => ({
       ...state,
       craft: {...state.craft, ...action.payload}
     }),
-    setFoodList: (state, action) => ({
+    setCraftList: (state, action) => ({
       ...state,
-      foodList: action.payload
+      craftList: [...state.craftList, ...action.payload]
     }),
     setFood: (state, action) => ({
       ...state,
-      food: {...state.craft, ...action.payload}
+      food: {...state.food, ...action.payload}
+    }),
+    setFoodList: (state, action) => ({
+      ...state,
+      foodList: [...state.foodList, ...action.payload]
+    }),
+    setSubject: (state, action) => ({
+      ...state,
+      subject: {...state.subject, ...action.payload}
+    }),
+    setSubjectList: (state, action) => ({
+      ...state,
+      subject: [...state.subject, ...action.payload]
+    }),
+    setMemory: (state, action) => ({
+      ...state,
+      memory: {...state.memory, ...action.payload}
+    }),
+    setGame: (state, action) => ({
+      ...state,
+      game: {...state.game, ...action.payload}
+    }),
+    setGameList: (state, action) => ({
+      ...state,
+      gameList: action.payload
     }),
   },
 });
@@ -53,10 +75,15 @@ export const {
   setLessons,
   setLesson,
   setTopic,
-  setCrafts,
   setCraft,
-  setFoodList,
   setFood,
+  setMemory,
+  setSubject,
+  setSubjectList,
+  setGame,
+  setGameList,
+  setFoodList,
+  setCraftList,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

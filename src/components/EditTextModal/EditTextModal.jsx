@@ -24,8 +24,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTopic as updateTopicInStore } from '../../store/dataReducer';
 import { generateId } from '../../utils/generateId';
 import { useUpdateCraft } from '../../api/craft/useCraft';
-import { getDateLocalString } from '../../utils/getDateLocalString';
 import { useUpdateFood } from '../../api/food/useUpdateFood';
+import { useUpdateGame } from '../../api/game';
 
 const getTitle = (name) => {
   switch (name) {
@@ -47,10 +47,12 @@ export const EditTextModal = ({ entityId, entityName }) => {
   const { updateTopic } = useUpdateTopic();
   const { updateCraft } = useUpdateCraft();
   const { updateFood } = useUpdateFood();
+  const { updateGame } = useUpdateGame();
   const {
     topic,
     craft,
     food,
+    game,
   } = useSelector((state) => state.lessonData);
   const [updatedEntity, setUpdatedEntity] = useState(null);
 
@@ -66,7 +68,19 @@ export const EditTextModal = ({ entityId, entityName }) => {
       isOpen && setUpdatedEntity(food?.list);
     }
 
-  }, [isOpen, topic, craft, entityName, updateCraft]);
+    if (entityName === 'game') {
+      isOpen && setUpdatedEntity(game?.list);
+    }
+
+  }, [
+    isOpen,
+    topic,
+    craft,
+    entityName,
+    updateCraft,
+    food?.list,
+    game?.list,
+  ]);
 
   const handleOpen = useCallback(() => {
     setIsOpen(true);
@@ -110,6 +124,9 @@ export const EditTextModal = ({ entityId, entityName }) => {
           await updateFood(entityId, updatedList);
         }
 
+        if (entityName === 'game') {
+          await updateGame(entityId, updatedList);
+        }
       } finally {
         handleClose();
       }
@@ -126,6 +143,7 @@ export const EditTextModal = ({ entityId, entityName }) => {
       updateTopic,
       updateCraft,
       updateFood,
+      updateGame,
     ]
   );
 
@@ -142,34 +160,34 @@ export const EditTextModal = ({ entityId, entityName }) => {
     const { id, value, name } = target;
     const updatedData = { id, value, type: name || type };
 
-    setUpdatedEntity((prev) => prev.map((el) => (el.id === id
+    setUpdatedEntity((prev) => prev.map((el) => (el?.id === id
       ? updatedData
       : el)));
   };
 
   const handleChangeParagraph = ({ target, ...e }) => {
     setUpdatedEntity((prev) => {
-      let value = prev.find((el) => el.id === target.id)?.value;
+      let value = prev.find((el) => el?.id === target.id)?.value;
       const updatedData = {
-        id: target.id, value: target.value, type: 'paragraph',
+        id: target?.id, value: target.value, type: 'paragraph',
       };
       if (e.keyCode === 13 && !e.shiftKey) {
         e.preventDefault();
         updatedData.value = value + '\n';
       }
 
-      return prev.map((el) => (el.id === target.id
+      return prev.map((el) => (el?.id === target.id
         ? updatedData
         : el));
     });
   };
 
   const handleRemove = useCallback((id) => {
-    setUpdatedEntity((prev) => prev?.filter((el) => el.id !== id));
+    setUpdatedEntity((prev) => prev?.filter((el) => el?.id !== id));
   }, []);
 
   const handleChange = useCallback((data) => {
-    setUpdatedEntity((prev) => prev.map((el) => (el.id === data.id
+    setUpdatedEntity((prev) => prev.map((el) => (el?.id === data.id
       ? data
       : el)));
   }, []);
@@ -219,7 +237,7 @@ export const EditTextModal = ({ entityId, entityName }) => {
                 {updatedEntity?.map((el, index) => {
                   if (el.type === 'list') {
                     return (<List
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       handleChange={handleChange}
@@ -229,7 +247,7 @@ export const EditTextModal = ({ entityId, entityName }) => {
 
                   if (el.type === 'date') {
                     return <DateItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       handleRemove={handleRemove}
@@ -239,7 +257,7 @@ export const EditTextModal = ({ entityId, entityName }) => {
 
                   if (el.type === 'title') {
                     return <TitleItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       handleRemove={handleRemove}
@@ -251,7 +269,7 @@ export const EditTextModal = ({ entityId, entityName }) => {
 
                   if (el.type === 'subtitle') {
                     return <TitleItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       handleRemove={handleRemove}
@@ -263,7 +281,7 @@ export const EditTextModal = ({ entityId, entityName }) => {
 
                   if (el.type === 'paragraph') {
                     return <ParagraphItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       handleRemove={handleRemove}
@@ -275,7 +293,7 @@ export const EditTextModal = ({ entityId, entityName }) => {
 
                   if (el.type === 'dev') {
                     return <DividerItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       handleRemove={handleRemove}
@@ -284,19 +302,19 @@ export const EditTextModal = ({ entityId, entityName }) => {
 
                   if (el.type === 'image') {
                     return <ImageItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       handleRemove={handleRemove}
                       handleChange={(data) => handleChange({
-                        id: el.id, type: el.type, ...data,
+                        id: el?.id, type: el.type, ...data,
                       })}
                     />;
                   }
 
                   if (el.type === 'link') {
                     return <LinkItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       label={{
@@ -308,26 +326,26 @@ export const EditTextModal = ({ entityId, entityName }) => {
                       }}
                       handleRemove={handleRemove}
                       handleChange={(data) => handleChange({
-                        id: el.id, type: el.type, ...data,
+                        id: el?.id, type: el.type, ...data,
                       })}
                     />;
                   }
 
                   if (el.type === 'media') {
                     return <MediaItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       handleRemove={handleRemove}
                       handleChange={(data) => handleChange({
-                        id: el.id, type: el.type, ...data,
+                        id: el?.id, type: el.type, ...data,
                       })}
                     />;
                   }
 
                   if (el.type === 'dict') {
                     return <LinkItem
-                      key={el.id}
+                      key={el?.id}
                       field={el}
                       index={index}
                       label={{
@@ -338,7 +356,7 @@ export const EditTextModal = ({ entityId, entityName }) => {
                       }}
                       handleRemove={handleRemove}
                       handleChange={(data) => handleChange({
-                        id: el.id, type: el.type, ...data,
+                        id: el?.id, type: el.type, ...data,
                       })}
                     />;
                   }
