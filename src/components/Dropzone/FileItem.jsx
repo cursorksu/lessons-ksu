@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '@mui/material';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { ButtonIconStyled } from '../ButtonStyled';
 
@@ -12,7 +11,7 @@ export const UvFileItem = ({ file, handleRemove = () => null }) => {
 
   return (
     <div>
-      <Box
+      <div
         sx={{
           display: 'flex',
           justifyContent: 'flex-start',
@@ -20,21 +19,21 @@ export const UvFileItem = ({ file, handleRemove = () => null }) => {
         }}
       >
         <h2>
-          <Box component="span" mb={0.5}>
+          <div component="span" mb={0.5}>
             {file?.file?.name?.split('.')[0]}
-          </Box>
-          <Box component="span" className="secondaryGray">
+          </div>
+          <div component="span" className="secondaryGray">
             .{file?.file?.name && getExe(file?.file?.name)}
-          </Box>
+          </div>
         </h2>
-      </Box>
-      <Box>
+      </div>
+      <div>
         {!file.progress || file?.progress === 100
           ? Math.round((file.file?.size / 1000000 + Number.EPSILON) * 100) /
               100 +
             'MB'
           : `${file.bytesTransferred} Kb of ${file.totalBytes} Kb`}
-      </Box>
+      </div>
 
       <ButtonIconStyled onClick={handleRemove}>
         <CloseIcon />

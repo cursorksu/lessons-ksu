@@ -1,14 +1,11 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { TabPane } from 'semantic-ui-react';
 
-export const TabPanelMemory = ({ value, show }) => {
-  return show
-    ? (
-      <Box value={value}>
-        <h1>Memory</h1>
-      </Box>
-    )
-    : (
-      <></>
-    );
+export const TabPanelMemory = ({ lesson }) => {
+  return (
+    <TabPane>
+      <h1>Memory</h1>
+      {JSON.stringify(lesson)}
+    </TabPane>
+  );
 };

@@ -1,17 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { useParams } from 'react-router';
-import { Popup } from 'semantic-ui-react';
+import { Modal, ModalActions, ModalContent, ModalHeader } from 'semantic-ui-react';
 import { Controller, useForm } from 'react-hook-form';
-import { Box, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
-import { DialogStyled } from '../DialogStyled';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { useUpdateLesson } from '../../api/lesson';
 import { Bible } from './components/Bible';
 import { Topic } from './components/Topic';
 import { EditModalStyled } from './style';
-import { Transition } from '../Transition';
 import { DynamicList } from '../DynamicList/DynamicList';
 
 const FieldName = {
@@ -62,60 +59,51 @@ export const EditModal = ({ fieldName, fieldData }) => {
 
   return (
     <EditModalStyled>
-      <Popup
-        trigger={(
+      <Modal
+        keepMounted
+        onClose={handleClose}
+        onOpen={handleOpen}
+        trigger={
           <ButtonIconStyled onClick={handleOpen} className="print-hide">
             <EditIcon />
           </ButtonIconStyled>
-        )}
-        content='Змінити назву уроку'
-      />
-      <DialogStyled
-        custommaxwidth={600}
+        }
         open={isOpen}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
       >
-        <form>
-          <DialogTitle className="title">
-            {getTitle(fieldName)}
-            <ButtonIconStyled onClick={handleClose}>
-              <CloseIcon />
-            </ButtonIconStyled>
-          </DialogTitle>
-          <DialogContent>
-            <Box>
-              <Controller
-                name={fieldName}
-                control={control}
-                render={({ field }) => {
-                  if (field.name === FieldName.bible) {
-                    return <Bible field={field} />;
-                  }
-                  if (field.name === FieldName.list) {
-                    return (
-                      <DynamicList field={field} initialField={fieldData} />
-                    );
-                  }
-                  if (field.name === FieldName.topic) {
-                    return <Topic field={field} />;
-                  }
+        <ModalHeader className='title'>
+          {getTitle(fieldName)}
+          <ButtonIconStyled onClick={handleClose}>
+            <CloseIcon />
+          </ButtonIconStyled>
+        </ModalHeader>
+        <ModalContent image className='dynamic-list'>
+          <Controller
+            name={fieldName}
+            control={control}
+            render={({ field }) => {
+              if (field.name === FieldName.bible) {
+                return <Bible field={field} />;
+              }
+              if (field.name === FieldName.list) {
+                return (
+                  <DynamicList field={field} initialField={fieldData} />
+                );
+              }
+              if (field.name === FieldName.topic) {
+                return <Topic field={field} />;
+              }
 
-                  return <></>;
-                }}
-              />
-            </Box>
-          </DialogContent>
-          <DialogActions style={{ padding: '0 25px 25px' }}>
-            <ButtonStyled onClick={handleClose}>Отменить</ButtonStyled>
-            <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
-              Сохранить
-            </ButtonStyled>
-          </DialogActions>
-        </form>
-      </DialogStyled>
+              return <></>;
+            }}
+          />
+        </ModalContent>
+        <ModalActions>
+          <ButtonStyled onClick={handleClose}>Отменить</ButtonStyled>
+          <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
+            Сохранить
+          </ButtonStyled>
+        </ModalActions>
+      </Modal>
     </EditModalStyled>
   );
 };

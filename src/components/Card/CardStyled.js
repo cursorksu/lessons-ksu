@@ -1,4 +1,4 @@
-import { Card } from '@mui/material';
+import { Card } from 'semantic-ui-react';
 import styled from '@emotion/styled';
 import { BORDER_GRAY } from '../../constants/colors';
 

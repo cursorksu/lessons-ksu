@@ -1,8 +1,7 @@
-import { Button as MuiButton } from '@mui/material';
 import styled from '@emotion/styled';
 import { BG_GRAY, PRIMARY_MAIN, TEXT_MAIN, TOMATO } from '../constants/colors';
 
-export const ButtonStyled = styled(MuiButton)`
+export const ButtonStyled = styled('button')`
   color: #fff;
   background-color: tomato;
   margin: 0;
@@ -56,7 +55,7 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   }
 `;
 
-export const ButtonIconBasisStyled = styled(MuiButton)`
+export const ButtonIconBasisStyled = styled('button')`
   cursor: pointer;
   width: 36px;
   flex-basis: 36px;

@@ -1,15 +1,10 @@
 import styled from '@emotion/styled';
-import { FormControl } from '@mui/material';
 import { BORDER_GRAY } from '../../constants/colors';
 
-export const DatePickerStyled = styled(FormControl)`
+export const DatePickerStyled = styled('input')`
   min-width: 100%;
   margin-top: 10px;
-
-  .MuiFormHelperText-root {
-    margin: 0;
-  }
-
+  
   input {
     padding: 8px 12px;
     border-radius: 4px;

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { FormControl } from '@mui/material';
+import { FormField } from 'semantic-ui-react';
 
-export const TabStyled = styled(FormControl)`
+export const TabStyled = styled(FormField)`
   margin-top: 30px;
   margin-bottom: 30px;
   position: relative;

@@ -1,19 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { DialogStyled } from '../DialogStyled';
-import {
-  Box,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormGroup,
-  FormHelperText,
-} from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { InputStyled, TextareaAutosizeStyled } from '../InputStyled';
 import { PRIMARY_MAIN } from '../../constants/colors';
-import { Transition } from '../Transition';
+import { Modal, ModalActions, ModalContent, ModalHeader, FormField } from 'semantic-ui-react';
 
 const INITIAL_LESSON = {
   title: '',
@@ -48,35 +40,36 @@ export const CreateLessonModal = ({ onSubmit }) => {
   );
 
   return (
-    <>
-      <ButtonStyled variant="outlined" onClick={handleOpen}>
-        + Добавить урок
-      </ButtonStyled>
-      <DialogStyled
-        maxWidth={'600'}
-        open={isOpen}
-        TransitionComponent={Transition}
-        keepMounted
+    <DialogStyled>
+      <Modal
         onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
+        onOpen={handleOpen}
+        trigger={
+          <ButtonStyled variant="outlined" onClick={handleOpen}>
+              + Добавить урок
+          </ButtonStyled>
+        }
+        custommaxwidth={1000}
+        open={isOpen}
+        aria-describedby='alert-dialog-slide-description'
       >
-        <form>
-          <DialogTitle>
+        <ModalHeader className='title'>
             Название урока {}
-            <ButtonIconStyled onClick={handleClose}>
-              <CloseIcon />
-            </ButtonIconStyled>
-          </DialogTitle>
-          <DialogContent>
-            <Box>
+          <ButtonIconStyled onClick={handleClose}>
+            <CloseIcon />
+          </ButtonIconStyled>
+        </ModalHeader>
+        <ModalContent image className='dynamic-list'>
+          <form>
+            <div>
               <Controller
                 name="title"
                 control={control}
                 render={({ field }) => (
-                  <FormGroup>
-                    <FormHelperText htmlFor="title" color="secondary">
-                      Название урока
-                    </FormHelperText>
+                  <FormField>
+                    <label htmlFor="title" color="secondary">
+                        Название урока
+                    </label>
                     <InputStyled
                       id="title"
                       name="title"
@@ -85,23 +78,23 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       onChange={field.onChange}
                     />
                     {formState.errors['title'] && (
-                      <FormHelperText sx={{ color: PRIMARY_MAIN }}>
-                        Поле не должно быть пустым
-                      </FormHelperText>
+                      <label sx={{ color: PRIMARY_MAIN }}>
+                          Поле не должно быть пустым
+                      </label>
                     )}
-                  </FormGroup>
+                  </FormField>
                 )}
               />
-            </Box>
-            <Box>
+            </div>
+            <div>
               <Controller
                 name="img"
                 control={control}
                 render={({ field }) => (
-                  <FormGroup>
-                    <FormHelperText htmlFor="img" color="secondary">
-                      Изображение
-                    </FormHelperText>
+                  <FormField>
+                    <label htmlFor="img" color="secondary">
+                        Изображение
+                    </label>
                     <InputStyled
                       id="img"
                       name="img"
@@ -110,23 +103,23 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       onChange={field.onChange}
                     />
                     {formState.errors['img'] && (
-                      <FormHelperText sx={{ color: PRIMARY_MAIN }}>
-                        Поле не должно быть пустым
-                      </FormHelperText>
+                      <label sx={{ color: PRIMARY_MAIN }}>
+                          Поле не должно быть пустым
+                      </label>
                     )}
-                  </FormGroup>
+                  </FormField>
                 )}
               />
-            </Box>
-            <Box>
+            </div>
+            <div>
               <Controller
                 name="goal"
                 control={control}
                 render={({ field }) => (
-                  <FormGroup>
-                    <FormHelperText htmlFor="goal" color="secondary">
-                      Название урока
-                    </FormHelperText>
+                  <FormField>
+                    <label htmlFor="goal" color="secondary">
+                        Название урока
+                    </label>
                     <TextareaAutosizeStyled
                       rows={4}
                       id="goal"
@@ -136,23 +129,23 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       onChange={field.onChange}
                     />
                     {formState.errors['goal'] && (
-                      <FormHelperText sx={{ color: PRIMARY_MAIN }}>
-                        Поле не должно быть пустым
-                      </FormHelperText>
+                      <label sx={{ color: PRIMARY_MAIN }}>
+                          Поле не должно быть пустым
+                      </label>
                     )}
-                  </FormGroup>
+                  </FormField>
                 )}
               />
-            </Box>
-            <Box>
+            </div>
+            <div>
               <Controller
                 name="bible"
                 control={control}
                 render={({ field }) => (
-                  <FormGroup>
-                    <FormHelperText htmlFor="bible" color="secondary">
-                      Место из бибилии
-                    </FormHelperText>
+                  <FormField>
+                    <label htmlFor="bible" color="secondary">
+                        Место из бибилии
+                    </label>
                     <TextareaAutosizeStyled
                       rows={4}
                       id="bible"
@@ -162,23 +155,23 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       onChange={field.onChange}
                     />
                     {formState.errors['bible'] && (
-                      <FormHelperText sx={{ color: PRIMARY_MAIN }}>
-                        Поле не должно быть пустым
-                      </FormHelperText>
+                      <label sx={{ color: PRIMARY_MAIN }}>
+                          Поле не должно быть пустым
+                      </label>
                     )}
-                  </FormGroup>
+                  </FormField>
                 )}
               />
-            </Box>
-            <Box>
+            </div>
+            <div>
               <Controller
                 name="quote"
                 control={control}
                 render={({ field }) => (
-                  <FormGroup>
-                    <FormHelperText htmlFor="quote" color="secondary">
-                      Ссылка
-                    </FormHelperText>
+                  <FormField>
+                    <label htmlFor="quote" color="secondary">
+                        Ссылка
+                    </label>
                     <InputStyled
                       id="quote"
                       name="quote"
@@ -187,23 +180,23 @@ export const CreateLessonModal = ({ onSubmit }) => {
                       onChange={field.onChange}
                     />
                     {formState.errors['quote'] && (
-                      <FormHelperText sx={{ color: PRIMARY_MAIN }}>
-                        Поле не должно быть пустым
-                      </FormHelperText>
+                      <label sx={{ color: PRIMARY_MAIN }}>
+                          Поле не должно быть пустым
+                      </label>
                     )}
-                  </FormGroup>
+                  </FormField>
                 )}
               />
-            </Box>
-          </DialogContent>
-          <DialogActions style={{ padding: '0 25px 25px' }}>
-            <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
-            <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
+            </div>
+          </form>
+        </ModalContent>
+        <ModalActions>
+          <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
+          <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
               Зберегти
-            </ButtonStyled>
-          </DialogActions>
-        </form>
-      </DialogStyled>
-    </>
+          </ButtonStyled>
+        </ModalActions>
+      </Modal>
+    </DialogStyled>
   );
 };

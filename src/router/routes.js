@@ -3,6 +3,7 @@ import { routes } from './constants';
 import { Home } from '../pages/Home';
 import { LessonsPage } from '../pages/Lessons';
 import { Lesson } from '../pages/Lesson';
+import { Games } from '../pages/Games';
 
 export const publicRoutes = [
   {
@@ -19,6 +20,11 @@ export const publicRoutes = [
     path: `${routes.lesson}/:id`,
     title: 'Lesson',
     component: <Lesson />,
+  },
+  {
+    path: '*',
+    title: 'Games',
+    component: <Games />,
   },
 ];
 export const authRouts = [];

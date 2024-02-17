@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Grid } from '@mui/material';
+import { Grid, GridColumn, GridRow } from 'semantic-ui-react';
 import { Card } from '../Card';
 import { EditTextModal } from '../EditTextModal';
 import { DisplayEntity } from '../DisplayEntity';
@@ -9,42 +9,41 @@ export const EntityToPrint = React.forwardRef(({
   lesson,
   entity,
   entityName,
-}, ref) => {
+}) => {
   const slideList = useMemo(() => {
     return entity?.list?.filter((el) => el.type === 'image');
   }, [entity]);
 
   return (
-    <Grid container ref={ref}>
-      <Grid
-        item
-        sm={12}
-        container
-        justifyContent='space-between'
-        alignItems='center'
-      >
+    <Grid divided>
+      <GridRow>
         <h1 className='lesson-title title'>{lesson?.title}</h1>
-      </Grid>
-      <Grid item sm={12}>
-        {slideList?.length > 0 && (
-          <Card hideTitle hideAction className='single-content'>
-            <SlideShow
-              slideList={slideList}
-            />
-          </Card>
-        )}
-        <Card
-          title={entity?.title}
-          action={
-            <div className='action'>
-              <EditTextModal
-                entityId={lesson?.craft && lesson.craft[0]}
-                entityName={entityName}
+      </GridRow>
+      <GridRow>
+        <GridColumn width={4}>
+          {slideList?.length > 0 && (
+            <Card hideTitle hideAction className='single-content'>
+              <SlideShow
+                slideList={slideList}
               />
-            </div>
-          }>
-          <DisplayEntity entity={entity} />
-        </Card>
-      </Grid>
-    </Grid>);
+            </Card>
+          )}
+        </GridColumn>
+        <GridColumn width={14}>
+          <Card
+            title={entity?.title}
+            action={
+              <div className='action'>
+                <EditTextModal
+                  entityId={lesson?.craft && lesson.craft[0]}
+                  entityName={entityName}
+                />
+              </div>
+            }>
+            <DisplayEntity entity={entity} />
+          </Card>
+        </GridColumn>
+      </GridRow>
+    </Grid>
+  );
 });

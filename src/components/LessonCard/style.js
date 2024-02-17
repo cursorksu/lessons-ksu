@@ -39,13 +39,6 @@ export const LessonCardStyled = styled.div`
     border-radius: 16px;
     z-index: 0;
   }
-  
-  .MuiButton-root {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1;
-  }
 
   .img-wrapper {
     overflow: visible;

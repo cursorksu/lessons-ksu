@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { EditModal } from '../../EditModal';
-import { Popup } from 'semantic-ui-react';
+import { Popup, TabPane } from 'semantic-ui-react';
 import { ButtonIconStyled } from '../../ButtonStyled';
 import { EntityToPrint } from '../../ComponentsToPrint';
 import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
@@ -30,37 +30,33 @@ export const TabPanelCreativity = ({ lesson, show }) => {
     return await createCraft(lesson.id, craftFormData);
   }, [createCraft, lesson]);
 
-  return show
-    ? (
-      <div>
-        <div className="btn-wrapper">
-          <CreateModal
-            onSubmit={handleAddCraft}
-            buttonText='Додати творчу активність'
-            modalTitle='Створити нову інструкцію виготовлення саморобки'
-            label='Назва саморобки'
-            placeholder='Введіть назву саморобки'
-            entity='craft'
-          />
-          <EditModal fieldName="title" />
-          <Popup
-            trigger={(
-              <ButtonIconStyled onClick={handlePrint}>
-                <PrintIcon />
-              </ButtonIconStyled>
-            )}
-            content='Надрукувати інструкцію'
-          />
-        </div>
-        <EntityToPrint
-          ref={componentRef}
-          lesson={lesson}
-          entity={craft}
-          entityName={'craft'}
+  return (
+    <TabPane>
+      <div className="btn-wrapper">
+        <CreateModal
+          onSubmit={handleAddCraft}
+          buttonText='Додати творчу активність'
+          modalTitle='Створити нову інструкцію виготовлення саморобки'
+          label='Назва саморобки'
+          placeholder='Введіть назву саморобки'
+          entity='craft'
+        />
+        <EditModal fieldName="title" />
+        <Popup
+          trigger={(
+            <ButtonIconStyled onClick={handlePrint}>
+              <PrintIcon />
+            </ButtonIconStyled>
+          )}
+          content='Надрукувати інструкцію'
         />
       </div>
-    )
-    : (
-      <></>
-    );
+      <EntityToPrint
+        ref={componentRef}
+        lesson={lesson}
+        entity={craft}
+        entityName={'craft'}
+      />
+    </TabPane>
+  );
 };

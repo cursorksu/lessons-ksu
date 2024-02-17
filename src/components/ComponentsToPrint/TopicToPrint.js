@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card } from '../Card';
 import { EditTextModal } from '../EditTextModal';
-import { Box, Grid } from '@mui/material';
+import { Grid } from 'semantic-ui-react';
 import { EditModal } from '../EditModal';
 import { DisplayEntity } from '../DisplayEntity';
 import { ButtonIconStyled } from '../ButtonStyled';
@@ -27,23 +27,14 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
   };
 
   return (<Grid container ref={ref}>
-    <Grid
-      item
-      sm={12}
-      container
-      justifyContent='space-between'
-      alignItems='center'
-    >
+    <Grid>
       <h1 className='title'>{lesson?.title}</h1>
     </Grid>
-    <Grid
-      item sm={3}
-      sx={{ paddingRight: '12px' }}
-    >
+    <Grid>
       <Card
         className={clsx({'print-hide': !hideElement.goal})}
         title='Цель урока'
-        action={<Box className='action'>
+        action={<div className='action'>
           <EditModal fieldName={'goal'} fieldData={lesson?.goal} />
           <ButtonIconStyled
             onClick={() => viewHandler('goal')}
@@ -53,14 +44,14 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
               : <ClosedViewIcon />
             }
           </ButtonIconStyled>
-        </Box>}
+        </div>}
       >
         {lesson?.goal}
       </Card>
       <Card
         className={clsx({'print-hide': !hideElement.bible})}
         title='Золотой стих'
-        action={<Box className='action'>
+        action={<div className='action'>
           <EditModal fieldName={'bible'} fieldData={lesson?.bible} />
           <ButtonIconStyled
             onClick={() => viewHandler('bible')}
@@ -70,7 +61,7 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
               : <ClosedViewIcon />
             }
           </ButtonIconStyled>
-        </Box>}
+        </div>}
       >
         <div>
           {lesson?.bible}
@@ -81,7 +72,7 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
       <Card
         className={clsx({'print-hide': !hideElement.material})}
         title='Материалы к уроку'
-        action={<Box className='action'>
+        action={<div className='action'>
           <EditModal fieldName={'quote'} fieldData={lesson?.quote} />
           <ButtonIconStyled
             onClick={() => viewHandler('material')}
@@ -91,14 +82,14 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
               : <ClosedViewIcon />
             }
           </ButtonIconStyled>
-        </Box>}
+        </div>}
       >
         {lesson?.quote}
       </Card>
       <Card
         className={clsx({'print-hide': !hideElement.list})}
         title='В этом уроке:'
-        action={<Box className='action'>
+        action={<div className='action'>
           <EditModal fieldName={'list'} fieldData={lesson?.list} />
           <ButtonIconStyled
             onClick={() => viewHandler('list')}
@@ -108,12 +99,12 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
               : <ClosedViewIcon />
             }
           </ButtonIconStyled>
-        </Box>}
+        </div>}
       >
         {lesson?.list?.map((el, idx) => (
-          <Box sx={{ textAlign: 'left' }} key={el?.id}>
+          <div key={el?.id}>
             <b>{++idx}</b>.{el?.value}
-          </Box>))}
+          </div>))}
       </Card>
     </Grid>
     <Grid
