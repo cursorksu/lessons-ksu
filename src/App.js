@@ -7,16 +7,14 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import './i18n';
-import { Control } from './pages/Control';
 
 function Situations() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <Control />
+      <>
         <AppRouter />
         <Notification />
-      </div>
+      </>
     </Provider>
   );
 }

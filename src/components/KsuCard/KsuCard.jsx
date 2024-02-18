@@ -1,7 +1,7 @@
-import { CardStyled } from './CardStyled';
-import { Image, CardContent, CardMeta, CardDescription, CardHeader } from 'semantic-ui-react';
+import { KsuCardStyled } from './KsuCardStyled';
+import { Card, Image, CardContent, CardMeta, CardDescription, CardHeader } from 'semantic-ui-react';
 
-export const Card = ({
+export const KsuCard = ({
   title,
   image,
   extra,
@@ -13,7 +13,7 @@ export const Card = ({
 }) => {
   return (
     <Card className={className}>
-      <CardStyled>
+      <KsuCardStyled>
         {image && <Image src={image} wrapped ui={false} />}
       
         <CardContent>
@@ -30,7 +30,7 @@ export const Card = ({
           {extra}
         </CardContent>
         {!hideAction && <div className="card-actions">{action}</div>}
-      </CardStyled>
+      </KsuCardStyled>
     </Card>
   );
 };

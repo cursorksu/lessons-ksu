@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { FormGroup } from '@mui/material';
 import { ButtonIconBasisStyled } from '../ButtonStyled';
 import { ReactComponent as AddIcon } from '../../assets/add.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
@@ -8,6 +7,8 @@ import { ReactComponent as RemoveIcon } from '../../assets/minus.svg';
 import { InputStyled } from '../InputStyled';
 import { DndItemStyled } from './DndItemStyled';
 import { generateId } from '../../utils/generateId';
+import { FormField } from 'semantic-ui-react';
+
 export const DynamicList = ({ field, onChangeField }) => {
   const initialItem = useMemo(() => ({ id: generateId(), value: '' }), []);
   const [list, setList] = useState([initialItem]);
@@ -65,7 +66,7 @@ export const DynamicList = ({ field, onChangeField }) => {
   }
 
   return (
-    <FormGroup>
+    <FormField>
       <span className="btn-wrapper">
         <ButtonIconBasisStyled onClick={handleAdd}>
           <AddIcon />
@@ -111,6 +112,6 @@ export const DynamicList = ({ field, onChangeField }) => {
           )}
         </Droppable>
       </DragDropContext>
-    </FormGroup>
+    </FormField>
   );
 };

@@ -64,7 +64,7 @@ function Situations() {
   };
 
   return (
-    <div className="App">
+    <div className="situations">
       <header className="grid">
         {cards.map(el => (
           <Card

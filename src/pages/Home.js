@@ -3,6 +3,7 @@ import { ButtonStyled } from '../components/ButtonStyled';
 import { ReactComponent as BookIcon } from '../assets/open-book.svg';
 import { routes } from '../router/constants';
 import { useNavigate } from 'react-router';
+import { MainLayout } from './MainLayout';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -12,13 +13,13 @@ export const Home = () => {
   };
 
   return (
-    <div className="button-wrapper">
-      <ButtonStyled onClick={lessonsHandler}>
-        <span>
-          Передріздвяний спринт
-        </span>
-        <BookIcon />
-      </ButtonStyled>
-    </div>
+    <MainLayout>
+      <div className="button-wrapper">
+        <ButtonStyled onClick={lessonsHandler}>
+          <span>Передріздвяний спринт</span>
+          <BookIcon />
+        </ButtonStyled>
+      </div>
+    </MainLayout>
   );
 };

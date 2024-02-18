@@ -1,15 +1,17 @@
 import styled from '@emotion/styled';
-import { BG_GRAY, PRIMARY_MAIN, TEXT_MAIN, TOMATO } from '../constants/colors';
+import { BG_GRAY, ERROR_MAIN, PRIMARY_MAIN, TEXT_MAIN, TOMATO } from '../constants/colors';
 
 export const ButtonStyled = styled('button')`
   color: #fff;
-  background-color: tomato;
+  background-color: ${ERROR_MAIN};
   margin: 0;
-  padding: 8px 20px;
-  font-weight: 600;
+  padding: 10px 20px;
+  font-weight: 300;
+  text-transform: uppercase;
   max-height: 36px;
   transition: background-color 0.3s ease-in-out;
   border: none;
+  border-radius: 4px;
   min-width: 148px;
 
   span {
@@ -66,7 +68,7 @@ export const ButtonIconBasisStyled = styled('button')`
   align-items: center;
   padding: 0;
   margin: 0;
-  color: ${TOMATO}
+  color: ${ERROR_MAIN}
   background: transparent;
   transition: color 3s linear;
   font-size: 40px;

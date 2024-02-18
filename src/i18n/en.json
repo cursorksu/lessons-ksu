@@ -1,4 +1,16 @@
 {
+  "mainMenu": {
+    "lang": "Select Language",
+    "en": "English",
+    "ua": "Ukrainian",
+    "ru": "Russian",
+    "settings": "Settings",
+    "community": "Community",
+    "cabinet": "User Profile",
+    "collapse": "Collapse",
+    "goBack": "Go back",
+    "sharedBoard": "Shared Panel"
+  },
   "button": {
     "createProject": "Create Project",
     "deleteProject": "Delete project",

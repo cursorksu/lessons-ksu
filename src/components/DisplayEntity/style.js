@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { GOLD, PRIMARY_MAIN, TOMATO } from '../../constants/colors';
+import { GOLD, PRIMARY_MAIN, ERROR_MAIN } from '../../constants/colors';
 
 export const TopicStyled = styled.div`
   h3 {
@@ -9,7 +9,7 @@ export const TopicStyled = styled.div`
   .hr {
     width: calc(100% - 40px);
     height: 1px;
-    background-color: ${TOMATO};
+    background-color: ${ERROR_MAIN};
     margin: 20px;
   }
 
@@ -47,7 +47,7 @@ export const TopicStyled = styled.div`
   .date-holder {
     width: auto;
     display: inline-block;
-    background: ${TOMATO};
+    background: ${ERROR_MAIN};
     padding: 8px;
     color: white;
     font-style: italic;

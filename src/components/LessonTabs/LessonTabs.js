@@ -28,23 +28,33 @@ export const LessonTabs = () => {
 
   const { lesson } = useSelector((state) => state.lessonData);
   const panes = [
-    { menuItem: 'tema', render: () =>  <TabPanelTopic lesson={lesson} /> },
-    // { menuItem: <TabStyled><TopicIcon /> Тема </TabStyled>, render: () =>  <TabPanelTopic lesson={lesson} /> },
-    // {
-    //   menuItem: <TabStyled><BookmarkIcon /> Предметний урок </TabStyled>,
-    //   render: () => <TabPanelSubject lesson={lesson}/>,
-    // },
-    // { menuItem: <TabStyled><PalletIcon /> Саморобка </TabStyled>, render: () => (
-    //   <TabPanelCreativity lesson={lesson}/>
-    // )},
-    // { menuItem: <TabStyled><GameIcon /> Гра </TabStyled>, render: () =>   <TabPanelGame lesson={lesson}/> },
-    // { menuItem: <TabStyled><MemoryIcon />Запам'ятовування</TabStyled>, render: () => <TabPanelMemory lesson={lesson}/> },
-    // { menuItem: <TabStyled><FoodIcon />Смаколик</TabStyled>, render: () => (
-    //   <TabPanelFood lesson={lesson}/>
-    // ) },
+    {
+      menuItem: { key: 'topic', icon: <TopicIcon />, content: 'Тема' },
+      render: () =>  <TabPanelTopic lesson={lesson} />,
+    },
+    {
+      menuItem: { key: 'subject', icon: <BookmarkIcon />, content: 'Предметний урок' },
+      render: () =>  <TabPanelSubject lesson={lesson}/>,
+    },
+    {
+      menuItem: { key: 'creative', icon: <PalletIcon />, content: 'Саморобка' },
+      render: () => <TabPanelCreativity lesson={lesson}/>,
+    },
+    {
+      menuItem: { key: 'game', icon: <GameIcon />, content: 'Гра' },
+      render: () =>   <TabPanelGame lesson={lesson}/>,
+    },
+    {
+      menuItem: { key: 'memory', icon: <MemoryIcon />, content: 'Запам`ятовування' },
+      render: () =>  <TabPanelMemory lesson={lesson} />,
+    },
+    {
+      menuItem: { key: 'food', icon: <FoodIcon />, content: 'Смаколик' },
+      render: () => <TabPanelFood lesson={lesson}/> ,
+    },
   ];
 
   return (
-    <Tab panes={panes} />
+    <TabStyled><Tab panes={panes} /></TabStyled>
   );
 };

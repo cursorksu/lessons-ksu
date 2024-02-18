@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import { Card } from '@mui/material';
 
-export const LoaderStyled = styled(Card)`
+export const LoaderStyled = styled('div')`
   min-height: 300px;
   min-width: 300px;
   display: flex;

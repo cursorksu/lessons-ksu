@@ -11,9 +11,9 @@ export const AppRouter = () => {
           <Route path={path} element={component} key={path} />
         ))}
         {true &&
-          authRouts.map(({ path, component }) => (
-            <Route path={path} element={component} key={path} />
-          ))}
+            authRouts.map(({ path, component }) => (
+              <Route path={path} element={component} key={path} />
+            ))}
         {/*{!false?.uid && <Route path="*" element={<Navigate to="/" />} />}*/}
       </Routes>
     </Router>

@@ -1,8 +1,8 @@
-body {
+.situations {
   overflow: hidden;
 }
 
-.grid {
+.situations .grid {
   background-color: #282c34;
   min-height: 100vh;
   display: grid;

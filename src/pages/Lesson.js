@@ -1,12 +1,11 @@
 import React from 'react';
-import { GoBackButton } from '../components/GoBackButton';
 import { LessonTabs } from '../components/LessonTabs/LessonTabs';
+import { MainLayout } from './MainLayout';
 
 export const Lesson = () => {
   return (
-    <>
-      <GoBackButton />
+    <MainLayout>
       <LessonTabs />
-    </>
+    </MainLayout>
   );
 };

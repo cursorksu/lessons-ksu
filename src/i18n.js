@@ -7,13 +7,13 @@ import * as ua from './i18n/ua.json';
 
 const resources = {
   ua: {
-    translation: ua,
+    tr: ua,
   },
   ru: {
-    translation: ru,
+    tr: ru,
   },
   en: {
-    translation: en,
+    tr: en,
   },
 };
 

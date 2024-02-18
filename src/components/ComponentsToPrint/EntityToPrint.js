@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Grid, GridColumn, GridRow } from 'semantic-ui-react';
-import { Card } from '../Card';
+import { KsuCard } from '../KsuCard';
 import { EditTextModal } from '../EditTextModal';
 import { DisplayEntity } from '../DisplayEntity';
 import { SlideShow } from '../SlideShow';
@@ -22,15 +22,15 @@ export const EntityToPrint = React.forwardRef(({
       <GridRow>
         <GridColumn width={4}>
           {slideList?.length > 0 && (
-            <Card hideTitle hideAction className='single-content'>
+            <KsuCard hideTitle hideAction className='single-content'>
               <SlideShow
                 slideList={slideList}
               />
-            </Card>
+            </KsuCard>
           )}
         </GridColumn>
         <GridColumn width={14}>
-          <Card
+          <KsuCard
             title={entity?.title}
             action={
               <div className='action'>
@@ -41,7 +41,7 @@ export const EntityToPrint = React.forwardRef(({
               </div>
             }>
             <DisplayEntity entity={entity} />
-          </Card>
+          </KsuCard>
         </GridColumn>
       </GridRow>
     </Grid>
