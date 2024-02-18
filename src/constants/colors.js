@@ -11,6 +11,7 @@ export const YELLOW_MAIN = '#f7a106';
 export const BLUE_MAIN = '#3366FF';
 export const PERPLE_MAIN = '#8E44AD';
 export const PRIMARY_MAIN = '#a39367';
+export const CHOCO = 'rgb(96,81,71)';
 export const GOLD = '#a39367';
 export const CREAM = '#faebd7ff';
 export const BG_GOLD = 'rgba(163, 147,103, 0.3)';

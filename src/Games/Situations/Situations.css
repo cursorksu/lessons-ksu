@@ -1,14 +1,15 @@
 .situations {
   overflow: hidden;
-}
-
-.situations .grid {
+  position: relative;
+  padding: 40px;
   background-color: #282c34;
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  color: white;
+}
+
+.situations .column,
+.situations .row,
+.situations .grid {
+  position: static !important;
 }
 
 .hammer {
@@ -24,11 +25,12 @@
 
 .hammer-holder.active {
   transition: top 2s ease, left 2s ease;
+  z-index: 100;
 }
 
 .hammer.active {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   background-image: url("assets/images/hammer.com.png");
   background-repeat: no-repeat;
   background-size: 100%;

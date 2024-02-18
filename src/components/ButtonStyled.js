@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { BG_GRAY, ERROR_MAIN, PRIMARY_MAIN, TEXT_MAIN, TOMATO } from '../constants/colors';
+import { BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN } from '../constants/colors';
 
 export const ButtonStyled = styled('button')`
   color: #fff;
-  background-color: ${ERROR_MAIN};
+  background-color: rgb(96,81,71);
   margin: 0;
   padding: 10px 20px;
   font-weight: 300;
@@ -68,7 +68,7 @@ export const ButtonIconBasisStyled = styled('button')`
   align-items: center;
   padding: 0;
   margin: 0;
-  color: ${ERROR_MAIN}
+  color: ${CHOCO};
   background: transparent;
   transition: color 3s linear;
   font-size: 40px;

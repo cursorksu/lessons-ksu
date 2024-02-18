@@ -4,6 +4,7 @@ import './Situations.css';
 import { Card } from './components/Card';
 import data from './data.json';
 import Udar from './assets/sounds/hit-effekt-quotstrela-smertiquot-25207.mp3';
+import { Grid, GridColumn, GridRow } from 'semantic-ui-react';
 
 function Situations() {
   const [cards, setCards] = useState(data);
@@ -65,16 +66,20 @@ function Situations() {
 
   return (
     <div className="situations">
-      <header className="grid">
-        {cards.map(el => (
-          <Card
-            key={el.id}
-            card={el}
-            onClick={onCardClick}
-            alertClick={onAlertClick}
-          />
-        ))}
-      </header>
+      <Grid>
+        <GridRow>
+          {cards.map(el => (
+            <GridColumn width={4}>
+              <Card
+                key={el.id}
+                card={el}
+                onClick={onCardClick}
+                alertClick={onAlertClick}
+              />
+            </GridColumn>
+          ))}
+        </GridRow>
+      </Grid>
       <div
         style={{ top: `${selectedCardPosition.y - 100}px`, left: `${selectedCardPosition.x}px`}}
         className={clsx({

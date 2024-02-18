@@ -5,6 +5,10 @@ export const MainContentStyled = styled('div')`
   position: relative;
   min-height: 100vh;
   
+  .button-wrapper {
+    padding: 40px;
+  }
+  
   .topic-title {
     display: flex;
     justify-content: space-between;
@@ -15,7 +19,13 @@ export const MainContentStyled = styled('div')`
   .title {
     font-family: 'Nexa Script', sans-serif;
     font-size: 3rem;
-    font-weight: 600;
+    font-weight: 500;
+    margin: 0 !important;
+  }
+
+  .card {
+    width: 100%;
+    color: white;
   }
   
   .main-content {

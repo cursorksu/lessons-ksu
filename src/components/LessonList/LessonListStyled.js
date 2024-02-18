@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { CREAM } from '../../constants/colors';
 
 export const LessonListStyled = styled('div')`
   & > .grid {
@@ -7,7 +8,11 @@ export const LessonListStyled = styled('div')`
   }
   
   .cards-grid {
-    width: 340px !important;
+    width: 320px !important;
     padding-bottom: 30px !important;
+  }
+  
+  .card:hover {
+    outline: ${CREAM} 4px solid;
   }
 `;

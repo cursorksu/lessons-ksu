@@ -1,11 +1,8 @@
 import { Grid, GridColumn, GridRow } from 'semantic-ui-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import {
-  useGetLessons, useDeleteLesson, useCreateLesson,
-} from '../../api/lesson';
+import { useGetLessons, useDeleteLesson, } from '../../api/lesson';
 import { Loader } from '../Loader';
-import { CreateLessonModal } from '../CreateLessonModal';
 import { useSelector } from 'react-redux';
 import { LessonCard } from '../LessonCard';
 import { LessonListStyled } from './LessonListStyled';

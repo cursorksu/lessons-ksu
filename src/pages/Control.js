@@ -33,8 +33,8 @@ export const Control = () => {
               <MenuItem onClick={() => i18n.changeLanguage('en')}>{t('mainMenu.en')}</MenuItem>
               <MenuItem onClick={() => i18n.changeLanguage('ru')}>{t('mainMenu.ru')}</MenuItem>
             </SubMenu>
-            <MenuItem icon={<SettingsIcon />}>{t('mainMenu.settings')}</MenuItem>
-            <MenuItem icon={<UsersIcon />}>{t('mainMenu.community')}</MenuItem>
+            <MenuItem icon={<SettingsIcon />} onClick={() => navigate('/games/situations')}>{t('mainMenu.settings')}</MenuItem>
+            <MenuItem icon={<UsersIcon />} onClick={() => navigate('/lessons')}>{t('mainMenu.community')}</MenuItem>
             <MenuItem icon={<UserIcon />}>{t('mainMenu.cabinet')}</MenuItem>
           </div>
           <div>

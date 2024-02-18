@@ -1,17 +1,19 @@
 .card {
-    margin: 10px;
+    min-height: 30vh;
     border-radius: 20px;
     padding: 20px;
-    font-family: 'Russo One', sans-serif;
+    margin-bottom: 30px;
     font-size: 13px;
     display: flex;
     position: relative;
     background-image: url("../assets/images/glass-blue.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    color: #282c34;
+    color: #282c34 !important;
     overflow: hidden;
     z-index: 0;
+    font-family: 'Coco Gothic Alternate', sans-serif;
+    font-weight: 400;
 }
 
 .card:hover {
@@ -19,14 +21,18 @@
     transition: outline-width 0.3s ease, outline-color 0.3s ease;
 }
 .card.is-active {
-    transform: scale(2) translate(-75%, -50%);
+    max-width: 600px;
+    font-size: 30px;
+    line-height: 1.2;
+    transform: scale(1.5) translate(-60%, -50%);
     transition: transform 0.4s ease;
     position: absolute;
     top: 50%;
-    left: 75%;
+    left: 60%;
     z-index: 10;
 }
 .card.is-used {
+    font-size: 13px;
     opacity: 0.5;
     top: 0;
     left: 0;
