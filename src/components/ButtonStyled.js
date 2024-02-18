@@ -1,16 +1,17 @@
-import { Button as MuiButton } from '@mui/material';
 import styled from '@emotion/styled';
-import { BG_GRAY, PRIMARY_MAIN, TEXT_MAIN, TOMATO } from '../constants/colors';
+import { BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN } from '../constants/colors';
 
-export const ButtonStyled = styled(MuiButton)`
+export const ButtonStyled = styled('button')`
   color: #fff;
-  background-color: tomato;
+  background-color: rgb(96,81,71);
   margin: 0;
-  padding: 8px 20px;
-  font-weight: 600;
+  padding: 10px 20px;
+  font-weight: 300;
+  text-transform: uppercase;
   max-height: 36px;
   transition: background-color 0.3s ease-in-out;
   border: none;
+  border-radius: 4px;
   min-width: 148px;
 
   span {
@@ -56,7 +57,7 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   }
 `;
 
-export const ButtonIconBasisStyled = styled(MuiButton)`
+export const ButtonIconBasisStyled = styled('button')`
   cursor: pointer;
   width: 36px;
   flex-basis: 36px;
@@ -67,7 +68,7 @@ export const ButtonIconBasisStyled = styled(MuiButton)`
   align-items: center;
   padding: 0;
   margin: 0;
-  color: ${TOMATO}
+  color: ${CHOCO};
   background: transparent;
   transition: color 3s linear;
   font-size: 40px;

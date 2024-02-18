@@ -1,30 +1,14 @@
 @import url("./fonts/style.css");
-
-.App {
-  text-align: center;
-  background: url('https://bogatyr.club/uploads/posts/2023-03/1678400371_bogatyr-club-p-drevnyaya-bumaga-fon-foni-pinterest-52.jpg');
-}
-
+@import "react-image-gallery/styles/css/image-gallery.css";
 * {
   box-sizing: border-box;
 }
 
-.App-header {
-  position: relative;
-  background-image: url('https://age-info.com/wp-content/uploads/2019/06/5-19-scaled.jpg');
+.main-content {
+  background: url("https://cdn.pixabay.com/photo/2017/02/06/22/50/background-2044512_1280.jpg");
   background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
   min-height: 100vh;
-  overflow: auto;
-  padding: 0 60px;
-  color: white;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-
 h1 {
   margin: 24px 0 !important;
 }
@@ -33,19 +17,9 @@ h3 {
   margin: 0 0 15px !important;
 }
 
-.MuiDrawer-root {
-  max-width: 25%;
-  left: initial !important;
-}
-
-.MuiDrawer-root .MuiModal-backdrop {
-  left: initial !important;
-  background: transparent;
-}
-
-.MuiDrawer-paper {
-  width: 25%;
-  background: rgba(255, 255, 255, 0.75) !important;
+.divider {
+  margin: 0 !important;
+  border-top-color: #a39367 !important;
 }
 
 .lessons {
@@ -62,29 +36,9 @@ h3 {
   padding: 40px;
 }
 
-.MuiFormControlLabel-label {
-  color: rgba(0, 0, 0, 0.6) !important;
-}
-
-.MuiFormControlLabel-label,
-.MuiFormHelperText-root {
-  font-size: 0.75rem !important;
-  line-height: 1.66 !important;
-  margin: 0 !important;
-}
-
-.MuiSlider-markLabel {
-  top: 20px !important;
-  font-size: 10px !important;
-}
-
-.MuiMenuItem-root {
-  display: block !important;
-}
 h1.title,
 .title,
-.subtitle,
-.MuiMenuItem-root .title {
+.subtitle {
   font-family: 'Nexa Script', sans-serif;
   white-space: nowrap;
   overflow: hidden;
@@ -96,6 +50,8 @@ h1.title,
 
 h1.title {
   font-size: 3rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 p, label, a, span {
@@ -104,8 +60,7 @@ p, label, a, span {
   font-size: 16px;
   font-weight: 300;
 }
-.description,
-.MuiMenuItem-root .description {
+.description {
   display: -webkit-box;
   -webkit-line-clamp: 9;
   -webkit-box-orient: vertical;
@@ -159,8 +114,7 @@ p, label, a, span {
 
   h1.title,
   .title,
-  .subtitle,
-  .MuiMenuItem-root .title {
+  .subtitle {
     font-size: 1.2rem;
   }
 

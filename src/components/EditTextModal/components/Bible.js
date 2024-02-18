@@ -1,12 +1,12 @@
-import { FormGroup } from '@mui/material';
+import { FormField } from 'semantic-ui-react';
 import { InputStyled, TextareaAutosizeStyled } from '../../InputStyled';
 import React from 'react';
 
 export const Bible = ({ field }) => {
   return (
-    <FormGroup>
+    <FormField>
       <InputStyled
-        id="quote"
+        id="quote"F
         name="quote"
         placeholder="Місце з Писання"
         value={field.value}
@@ -18,6 +18,6 @@ export const Bible = ({ field }) => {
         placeholder="Біблійний текст"
         {...field}
       />
-    </FormGroup>
+    </FormField>
   );
 };

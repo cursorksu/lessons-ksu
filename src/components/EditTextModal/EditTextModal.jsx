@@ -4,14 +4,11 @@ import {
   ButtonIconStyled, ButtonStyled
 } from '../ButtonStyled';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
-import { DialogStyled } from '../DialogStyled';
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
-import { Box, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { useUpdateLesson } from '../../api/lesson';
 import { HandleBar } from './components/HandleBar';
 import { useCreateTopic, useUpdateTopic } from '../../api/topic';
-import { Transition } from '../Transition';
 import { List } from './components/List';
 import { DateItem } from './components/DateItem';
 import { TitleItem } from './components/TitleItem';
@@ -26,6 +23,8 @@ import { generateId } from '../../utils/generateId';
 import { useUpdateCraft } from '../../api/craft/useCraft';
 import { useUpdateFood } from '../../api/food/useUpdateFood';
 import { useUpdateGame } from '../../api/game';
+import { Modal, ModalActions, ModalContent, ModalHeader } from 'semantic-ui-react';
+import { DialogStyled } from '../DialogStyled';
 
 const getTitle = (name) => {
   switch (name) {
@@ -204,20 +203,19 @@ export const EditTextModal = ({ entityId, entityName }) => {
     return setUpdatedEntity(updatedCards); // Обновляем стейт
   }
 
-  return (<Box className='action'>
-    <ButtonIconStyled onClick={handleOpen} className='print-hide'>
-      <EditIcon />
-    </ButtonIconStyled>
-    <DialogStyled
-      custommaxwidth={1000}
-      open={isOpen}
-      TransitionComponent={Transition}
-      keepMounted
-      onClose={handleClose}
-      aria-describedby='alert-dialog-slide-description'
-    >
-      <form>
-        <DialogTitle className='title'>
+  return (
+    <DialogStyled>
+      <Modal
+        onClose={handleClose}
+        onOpen={handleOpen}
+        trigger={
+          <ButtonIconStyled className='print-hide'>
+            <EditIcon />
+          </ButtonIconStyled>
+        }
+        open={isOpen}
+      >
+        <ModalHeader className='title'>
           {getTitle(entityName)}
           <HandleBar
             addEntity={addEntity}
@@ -227,8 +225,8 @@ export const EditTextModal = ({ entityId, entityName }) => {
           <ButtonIconStyled onClick={handleClose}>
             <CloseIcon />
           </ButtonIconStyled>
-        </DialogTitle>
-        <DialogContent className='dynamic-list'>
+        </ModalHeader>
+        <ModalContent image className='dynamic-list'>
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId='dnd-edit-text-list'>
               {(provided) => (<ul
@@ -367,12 +365,12 @@ export const EditTextModal = ({ entityId, entityName }) => {
               </ul>)}
             </Droppable>
           </DragDropContext>
-        </DialogContent>
-        <DialogActions style={{ padding: '0 25px 25px' }}>
+        </ModalContent>
+        <ModalActions>
           <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
           <ButtonStyled onClick={onSubmitHandler}>Зберегти</ButtonStyled>
-        </DialogActions>
-      </form>
+        </ModalActions>
+      </Modal>
     </DialogStyled>
-  </Box>);
+  );
 };

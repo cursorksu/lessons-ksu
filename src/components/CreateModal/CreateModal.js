@@ -1,21 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
-import { DialogStyled } from '../DialogStyled';
-import {
-  Box,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormGroup,
-  FormHelperText,
-} from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { ReactComponent as AddCraftIcon } from '../../assets/addCreativity.svg';
 import { InputStyled } from '../InputStyled';
 import { PRIMARY_MAIN } from '../../constants/colors';
-import { Transition } from '../Transition';
 import { useSelector } from 'react-redux';
+import { EditModalStyled } from '../EditModal/style';
+import { FormField, Modal, ModalActions, ModalContent, ModalHeader } from 'semantic-ui-react';
 
 const INITIAL_LESSON = {
   title: '',
@@ -54,62 +46,57 @@ export const CreateModal = ({
   );
 
   return (
-    <>
-      {!(lesson?.[entity]?.length) && (
-        <ButtonStyled onClick={handleOpen}>
-          <AddCraftIcon style={{ marginRight: '12px' }} />
-          {buttonText}
-        </ButtonStyled>
-      )}
-      <DialogStyled
-        maxWidth={'600'}
-        open={isOpen}
-        TransitionComponent={Transition}
+    <EditModalStyled>
+      <Modal
         keepMounted
         onClose={handleClose}
+        onOpen={handleOpen}
+        trigger={!(lesson?.[entity]?.length) && (
+          <ButtonStyled onClick={handleOpen}>
+            <AddCraftIcon style={{ marginRight: '12px' }} />
+            {buttonText}
+          </ButtonStyled>
+        )}
+        open={isOpen}
       >
-        <form>
-          <DialogTitle>
-            {modalTitle}
-            <ButtonIconStyled onClick={handleClose}>
-              <CloseIcon />
-            </ButtonIconStyled>
-          </DialogTitle>
-          <DialogContent>
-            <Box>
-              <Controller
-                name="title"
-                control={control}
-                render={({ field }) => (
-                  <FormGroup>
-                    <FormHelperText htmlFor="title" color="secondary">
-                      {label}
-                    </FormHelperText>
-                    <InputStyled
-                      id="title"
-                      name="title"
-                      placeholder={placeholder}
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                    {formState.errors['title'] && (
-                      <FormHelperText sx={{ color: PRIMARY_MAIN }}>
+        <ModalHeader className='title'>
+          {modalTitle}
+          <ButtonIconStyled onClick={handleClose}>
+            <CloseIcon />
+          </ButtonIconStyled>
+        </ModalHeader>
+        <ModalContent image className='dynamic-list'>
+          <Controller
+            name="title"
+            control={control}
+            render={({ field }) => (
+              <FormField>
+                <label htmlFor="title" color="secondary">
+                  {label}
+                </label>
+                <InputStyled
+                  id="title"
+                  name="title"
+                  placeholder={placeholder}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+                {formState.errors['title'] && (
+                  <label sx={{ color: PRIMARY_MAIN }}>
                         Потрібно заповнити це поле
-                      </FormHelperText>
-                    )}
-                  </FormGroup>
+                  </label>
                 )}
-              />
-            </Box>
-          </DialogContent>
-          <DialogActions style={{ padding: '0 25px 25px' }}>
-            <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
-            <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
+              </FormField>
+            )}
+          />
+        </ModalContent>
+        <ModalActions>
+          <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
+          <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
               Зберегти
-            </ButtonStyled>
-          </DialogActions>
-        </form>
-      </DialogStyled>
-    </>
+          </ButtonStyled>
+        </ModalActions>
+      </Modal>
+    </EditModalStyled>
   );
 };

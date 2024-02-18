@@ -3,13 +3,13 @@ import { useReactToPrint } from 'react-to-print';
 import { useSelector } from 'react-redux';
 import { CreateModal } from '../../CreateModal';
 import { EditModal } from '../../EditModal';
-import { Popup } from 'semantic-ui-react';
+import { Popup, TabPane } from 'semantic-ui-react';
 import { ButtonIconStyled } from '../../ButtonStyled';
 import { EntityToPrint } from '../../ComponentsToPrint';
 import { useCreateSubject, useGetSubjectById } from '../../../api/subject';
 import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
 
-export const TabPanelSubject = ({ lesson, show }) => {
+export const TabPanelSubject = ({ lesson }) => {
   const componentRef = useRef();
   const { createSubject } = useCreateSubject();
   const { getSubjectIdById } = useGetSubjectById();
@@ -30,37 +30,33 @@ export const TabPanelSubject = ({ lesson, show }) => {
     return await createSubject(lesson?.id, craftFormData);
   }, [createSubject, lesson]);
 
-  return show
-    ? (
-      <div>
-        <div className="btn-wrapper">
-          <CreateModal
-            onSubmit={handleAddCraft}
-            buttonText='Додати предметний урок'
-            modalTitle='Створіть структуру Предметного уроку'
-            label='Назва уроку'
-            placeholder='Введіть назву уроку'
-            entity='subject'
-          />
-          <EditModal fieldName="title" />
-          <Popup
-            trigger={(
-              <ButtonIconStyled onClick={handlePrint}>
-                <PrintIcon />
-              </ButtonIconStyled>
-            )}
-            content='Надрукувати цей урок'
-          />
-        </div>
-        <EntityToPrint
-          ref={componentRef}
-          lesson={lesson}
-          entity={subject}
-          entityName={'subject'}
+  return (
+    <TabPane>
+      <div className="btn-wrapper">
+        <CreateModal
+          onSubmit={handleAddCraft}
+          buttonText='Додати предметний урок'
+          modalTitle='Створіть структуру Предметного уроку'
+          label='Назва уроку'
+          placeholder='Введіть назву уроку'
+          entity='subject'
+        />
+        <EditModal fieldName="title" />
+        <Popup
+          trigger={(
+            <ButtonIconStyled onClick={handlePrint}>
+              <PrintIcon />
+            </ButtonIconStyled>
+          )}
+          content='Надрукувати цей урок'
         />
       </div>
-    )
-    : (
-      <></>
-    );
+      <EntityToPrint
+        ref={componentRef}
+        lesson={lesson}
+        entity={subject}
+        entityName={'subject'}
+      />
+    </TabPane>
+  );
 };

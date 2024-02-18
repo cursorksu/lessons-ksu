@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Swiper } from 'swiper/react';
-import { TOMATO } from '../../constants/colors';
+import { ERROR_MAIN } from '../../constants/colors';
 
 export const SwiperSlider= styled(Swiper)`
   .full-screen-button {
@@ -155,7 +155,7 @@ export const SwiperSlider= styled(Swiper)`
       height: 15px;
     }
     .swiper-pagination-bullet-active {
-      background: ${TOMATO};
+      background: ${ERROR_MAIN};
     }
   }
 `;
