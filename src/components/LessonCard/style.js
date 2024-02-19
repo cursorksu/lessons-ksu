@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import { CREAM, ERROR_MAIN } from '../../constants/colors';
+import { CREAM } from '../../constants/colors';
 
 export const LessonCardStyled = styled.div`
+  color: white !important;
   font-family: 'Coco Gothic Alternate', sans-serif;
   font-size: 16px;
   font-weight: 200;

@@ -18,7 +18,7 @@ export const SprintCardStyled = styled('div')`
   
   &:after {
     content: '';
-    width: 100px;
+    width: 40%;
     height: 100px;
     background: ${CHOCO};
     position: absolute;
@@ -30,11 +30,11 @@ export const SprintCardStyled = styled('div')`
   img {
     position: absolute;
     top: 0;
-    right: -60px;
+    right: -20px;
     left: initial;
     z-index: 0;
-    width: 100%;
-    height: 200px !important;
+    width: 60%;
+    height: 100px !important;
     object-position: 100% 0;
     object-fit: cover;
     min-height: initial;
@@ -49,7 +49,9 @@ export const SprintCardStyled = styled('div')`
     top: 0;
     color: ${CREAM};
     z-index: 2;
-    width: 60%;
+    width: 70%;
+    height: 100px;
+    overflow: hidden;
     padding: 20px;
 
     .title {
@@ -66,7 +68,7 @@ export const SprintCardStyled = styled('div')`
     z-index: 1;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 12%;
     bottom: 0;
     min-height: initial;
     max-height: initial;

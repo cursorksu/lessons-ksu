@@ -1,6 +1,6 @@
 import { InputFieldStyled, InputStyled } from '../../InputStyled';
 import React from 'react';
-import { ButtonIconBasisStyled } from '../../ButtonStyled';
+import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import { Draggable } from '@hello-pangea/dnd';
 import { BlockWrapperInputStyled } from '../style';
@@ -32,12 +32,12 @@ export const TitleItem = ({
               onChange={(e) => handleChange(e.target)}
             />
           </InputFieldStyled>
-          <ButtonIconBasisStyled
+          <ButtonIconStyled
             className="remove-handle"
             onClick={() => handleRemove(field?.id)}
           >
             <RemoveIcon />
-          </ButtonIconBasisStyled>
+          </ButtonIconStyled>
         </BlockWrapperInputStyled>
       )}
     </Draggable>

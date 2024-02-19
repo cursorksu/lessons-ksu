@@ -15,20 +15,13 @@ export const KsuCard = ({
     <Card className={className}>
       <KsuCardStyled>
         {image && <Image src={image} wrapped ui={false} />}
-      
-        <CardContent>
-          <CardHeader> {!hideTitle && <h3>}{title}</h3>}</CardHeader>
-          <CardMeta>
-            <span className='date'>Joined in 2015</span>
-          </CardMeta>
-          <CardDescription>
-          Matthew is a musician living in Nashville.
-          </CardDescription>
-        </CardContent>
-        {children}
+        <CardHeader><h3>{title}</h3></CardHeader>
         <CardContent extra>
-          {extra}
+          {children}
         </CardContent>
+        <CardMeta>
+          <span className='date'>{extra}</span>
+        </CardMeta>
         {!hideAction && <div className="card-actions">{action}</div>}
       </KsuCardStyled>
     </Card>

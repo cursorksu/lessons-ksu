@@ -1,16 +1,19 @@
 import styled from '@emotion/styled';
-import { BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN } from '../constants/colors';
+import { BG_GRAY, PRIMARY_MAIN, TEXT_MAIN } from '../constants/colors';
 
 export const ButtonStyled = styled('button')`
   color: #fff;
   background-color: rgb(96,81,71);
-  margin: 0;
-  padding: 10px 20px;
+  margin: 2px;
+  padding: 10px;
   font-weight: 300;
   text-transform: uppercase;
   max-height: 36px;
   transition: background-color 0.3s ease-in-out;
   border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 4px;
   min-width: 148px;
 
@@ -45,47 +48,15 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   align-items: center;
   border-radius: 10%;
   padding: 0;
-  margin: 0;
+  margin: 2px;
 
   svg {
     width: 20px;
     height: 20px;
+    margin: 0;
   }
 
   &.row-action {
     background: transparent;
-  }
-`;
-
-export const ButtonIconBasisStyled = styled('button')`
-  cursor: pointer;
-  width: 36px;
-  flex-basis: 36px;
-  min-width: initial;
-  height: 36px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  color: ${CHOCO};
-  background: transparent;
-  transition: color 3s linear;
-  font-size: 40px;
-  
-  font-weight: 500;
-  
-  &:hover {
-    background: transparent;
-  }
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-  
-  &.absolute-rite {
-    position: absolute;
-    right: 0px;
   }
 `;

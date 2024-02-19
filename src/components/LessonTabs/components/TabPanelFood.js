@@ -1,21 +1,14 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { Popup, TabPane } from 'semantic-ui-react';
-import { useReactToPrint } from 'react-to-print';
-import { EditModal } from '../../EditModal';
-import { ButtonIconStyled } from '../../ButtonStyled';
+import { TabPane } from 'semantic-ui-react';
 import { EntityToPrint } from '../../ComponentsToPrint';
 import { useCreateFood, useGetFoodById } from '../../../api/food';
 import { CreateModal } from '../../CreateModal';
 import { useSelector } from 'react-redux';
-import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
 
 export const TabPanelFood = ({ lesson }) => {
   const componentRef = useRef();
   const { createFood } = useCreateFood();
   const { getFoodIdById } = useGetFoodById();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
 
   useEffect( () => {
     if (lesson?.food && Array.isArray(lesson?.food)) {
@@ -40,15 +33,6 @@ export const TabPanelFood = ({ lesson }) => {
           label='Назва смаколика'
           placeholder='Введіть назву смаколика'
           entity='food'
-        />
-        <EditModal fieldName="title" />
-        <Popup
-          trigger={(
-            <ButtonIconStyled onClick={handlePrint}>
-              <PrintIcon />
-            </ButtonIconStyled>
-          )}
-          content='Надрукувати цей урок'
         />
       </div>
       <EntityToPrint

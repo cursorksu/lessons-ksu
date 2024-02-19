@@ -1,5 +1,5 @@
 import { Popup } from 'semantic-ui-react';
-import { ButtonIconBasisStyled } from '../../ButtonStyled';
+import { ButtonIconStyled } from '../../ButtonStyled';
 import React, { useEffect, useState } from 'react';
 import { ReactComponent as AddIcon } from '../../../assets/add.svg';
 import { ReactComponent as AddImageIcon } from '../../../assets/addImage.svg';
@@ -52,9 +52,9 @@ export const HandleBar = (({
         <Popup
           key={id}
           trigger={(
-            <ButtonIconBasisStyled onClick={() => addEntity(type)}>
+            <ButtonIconStyled onClick={() => addEntity(type)}>
               {icon}
-            </ButtonIconBasisStyled>
+            </ButtonIconStyled>
           )}
           content={tooltip}
         />
@@ -62,9 +62,9 @@ export const HandleBar = (({
 
       <Popup
         trigger={(
-          <ButtonIconBasisStyled onClick={clearRenderList}>
+          <ButtonIconStyled onClick={clearRenderList}>
             <DeleteIcon />
-          </ButtonIconBasisStyled>
+          </ButtonIconStyled>
         )}
         content='Скинути всі зміни'
       />

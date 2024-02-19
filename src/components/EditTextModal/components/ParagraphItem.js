@@ -4,7 +4,7 @@ import {
   InputFieldStyled,
   TextareaAutosizeStyled
 } from '../../InputStyled';
-import { ButtonIconBasisStyled } from '../../ButtonStyled';
+import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import React from 'react';
 
@@ -37,12 +37,12 @@ export const ParagraphItem = ({
           </InputFieldStyled>
 
 
-          <ButtonIconBasisStyled
+          <ButtonIconStyled
             className="remove-handle"
             onClick={() => handleRemove(field?.id)}
           >
             <RemoveIcon />
-          </ButtonIconBasisStyled>
+          </ButtonIconStyled>
         </BlockWrapperInputStyled>
       )}
     </Draggable>

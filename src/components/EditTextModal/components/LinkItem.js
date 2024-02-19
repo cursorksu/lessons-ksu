@@ -1,6 +1,6 @@
 import { Draggable } from '@hello-pangea/dnd';
 import { BlockWrapperInputStyled } from '../style';
-import { ButtonIconBasisStyled } from '../../ButtonStyled';
+import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import React, { useEffect, useState } from 'react';
 import { InputFieldStyled, InputStyled } from '../../InputStyled';
@@ -51,12 +51,12 @@ export const LinkItem = ({
               onChange={(e) => setText(e.target.value)}
             />
           </InputFieldStyled>
-          <ButtonIconBasisStyled
+          <ButtonIconStyled
             className="remove-handle"
             onClick={() => handleRemove(field?.id)}
           >
             <RemoveIcon />
-          </ButtonIconBasisStyled>
+          </ButtonIconStyled>
         </BlockWrapperInputStyled>
       )}
     </Draggable>

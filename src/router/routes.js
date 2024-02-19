@@ -4,6 +4,7 @@ import { Home } from '../pages/Home';
 import { LessonsPage } from '../pages/Lessons';
 import { Lesson } from '../pages/Lesson';
 import { Games } from '../pages/Games';
+import { Cabinet } from '../pages/Cabinet';
 
 export const publicRoutes = [
   {
@@ -22,9 +23,15 @@ export const publicRoutes = [
     component: <Lesson />,
   },
   {
+    path: `${routes.cabinet}/:id`,
+    title: 'Lesson',
+    component: <Cabinet />,
+  },
+  {
     path: '*',
     title: 'Games',
     component: <Games />,
   },
+
 ];
 export const authRouts = [];
