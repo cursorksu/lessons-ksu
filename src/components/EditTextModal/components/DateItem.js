@@ -1,5 +1,5 @@
 import { Draggable } from '@hello-pangea/dnd';
-import { ButtonIconBasisStyled } from '../../ButtonStyled';
+import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import React from 'react';
 import { BlockWrapperInputStyled } from '../style';
@@ -22,12 +22,12 @@ export const DateItem = ({ field, index, handleChange, handleRemove }) => {
           })}
         />
 
-        <ButtonIconBasisStyled
+        <ButtonIconStyled
           className="remove-handle"
           onClick={() => handleRemove(field?.id)}
         >
           <RemoveIcon />
-        </ButtonIconBasisStyled>
+        </ButtonIconStyled>
       </BlockWrapperInputStyled>
     )}
   </Draggable>

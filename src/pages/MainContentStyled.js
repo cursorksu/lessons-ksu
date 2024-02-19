@@ -6,7 +6,8 @@ export const MainContentStyled = styled('div')`
   min-height: 100vh;
   
   .button-wrapper {
-    padding: 40px;
+    margin: 0;
+    padding: 20px;
   }
   
   .topic-title {
@@ -31,6 +32,13 @@ export const MainContentStyled = styled('div')`
   .main-content {
     margin-left: ${({ collapsed }) => collapsed ? '80px' : '250px'};
     transition: margin-left 0.2s ease-in-out;
+  }
+  
+  .ps-menuitem-root.disabled {
+    opacity: 0.3;
+    color: white;
+    pointer-events: none;
+    display: none;
   }
 
   .ps-submenu-expand-icon,

@@ -1,6 +1,6 @@
 import { Draggable } from '@hello-pangea/dnd';
 import { DynamicList } from '../../DynamicList/DynamicList';
-import { ButtonIconBasisStyled } from '../../ButtonStyled';
+import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import React from 'react';
 import { BlockWrapperInputStyled } from '../style';
@@ -17,12 +17,12 @@ export const List = ({ field, index, handleChange, handleRemove }) => {
           field={field}
           onChangeField={handleChange}
         />
-        <ButtonIconBasisStyled
+        <ButtonIconStyled
           className="remove-handle"
           onClick={() => handleRemove(field?.id)}
         >
           <RemoveIcon />
-        </ButtonIconBasisStyled>
+        </ButtonIconStyled>
       </BlockWrapperInputStyled>
     )}
   </Draggable>

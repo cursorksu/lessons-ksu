@@ -9,7 +9,7 @@ import { ReactComponent as AddToSlider } from '../../assets/album.svg';
 import { ReactComponent as NotAddToSlider } from '../../assets/folder.svg';
 import { ReactComponent as ImageIcon } from '../../assets/image.svg';
 import { UvDropzoneStyled, StyledDropzoneBody } from './styles';
-import { ButtonIconBasisStyled } from '../ButtonStyled';
+import { ButtonIconStyled } from '../ButtonStyled';
 import clsx from 'clsx';
 
 export const DropzoneField = ({ field, onChange }) => {
@@ -79,7 +79,7 @@ export const DropzoneField = ({ field, onChange }) => {
               <Grid.Column width={7}>
                 <LabelStyled>Додаткові налаштування</LabelStyled>
                 <Grid.Row>
-                  <ButtonIconBasisStyled
+                  <ButtonIconStyled
                     id={'viewButton'}
                     onClick={viewHandler}
                     className='print-hide'>
@@ -87,7 +87,7 @@ export const DropzoneField = ({ field, onChange }) => {
                       ? <ClosedViewIcon />
                       : <ViewIcon />
                     }
-                  </ButtonIconBasisStyled>
+                  </ButtonIconStyled>
                   <Checkbox
                     label={hideElement
                       ? 'Відображати під час друку'
@@ -98,7 +98,7 @@ export const DropzoneField = ({ field, onChange }) => {
                   />
                 </Grid.Row>
                 <Grid.Row>
-                  <ButtonIconBasisStyled
+                  <ButtonIconStyled
                     id={'sliderButton'}
                     onClick={slideShowHandler}
                     className='print-hide'>
@@ -106,7 +106,7 @@ export const DropzoneField = ({ field, onChange }) => {
                       ? <NotAddToSlider />
                       : <AddToSlider />
                     }
-                  </ButtonIconBasisStyled>
+                  </ButtonIconStyled>
                   <Checkbox
                     label={addToSlideShow
                       ? 'Не додавати до презентації'

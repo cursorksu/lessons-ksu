@@ -9,8 +9,10 @@ import { ReactComponent as ViewIcon } from '../../assets/view.svg';
 import { ReactComponent as ClosedViewIcon } from '../../assets/closed-view.svg';
 import { clsx } from 'clsx';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
+  const { t } = useTranslation('tr');
   const [hideElement, showElement] = useState({
     goal: true,
     bible: true,
@@ -29,30 +31,29 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
   return (
     <Grid>
       <GridRow>
-        <h1 className='title'>{lesson?.title}</h1>
-      </GridRow>
-      <GridRow>
-        <GridColumn width={6}>
+        <GridColumn width={4}>
           <KsuCard
             className={clsx({'print-hide': !hideElement.goal})}
-            title='Цель урока'
-            action={<div className='action'>
-              <EditModal fieldName={'goal'} fieldData={lesson?.goal} />
-              <ButtonIconStyled
-                onClick={() => viewHandler('goal')}
-                className='print-hide'>
-                {hideElement.goal
-                  ? <ViewIcon />
-                  : <ClosedViewIcon />
-                }
-              </ButtonIconStyled>
-            </div>}
+            title={t('lesson.goal')}
+            action={(
+              <div className='action'>
+                <EditModal fieldName={'goal'} fieldData={lesson?.goal} />
+                <ButtonIconStyled
+                  onClick={() => viewHandler('goal')}
+                  className='print-hide'>
+                  {hideElement.goal
+                    ? <ViewIcon />
+                    : <ClosedViewIcon />
+                  }
+                </ButtonIconStyled>
+              </div>
+            )}
           >
             {lesson?.goal}
           </KsuCard>
           <KsuCard
             className={clsx({'print-hide': !hideElement.bible})}
-            title='Золотой стих'
+            title={t('lesson.text')}
             action={<div className='action'>
               <EditModal fieldName={'bible'} fieldData={lesson?.bible} />
               <ButtonIconStyled
@@ -73,7 +74,7 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
           </KsuCard>
           <KsuCard
             className={clsx({'print-hide': !hideElement.material})}
-            title='Материалы к уроку'
+            title={t('lesson.description')}
             action={<div className='action'>
               <EditModal fieldName={'quote'} fieldData={lesson?.quote} />
               <ButtonIconStyled
@@ -90,7 +91,7 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
           </KsuCard>
           <KsuCard
             className={clsx({'print-hide': !hideElement.list})}
-            title='В этом уроке:'
+            title={t('lesson.staff')}
             action={<div className='action'>
               <EditModal fieldName={'list'} fieldData={lesson?.list} />
               <ButtonIconStyled
@@ -116,12 +117,13 @@ export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
         >
           <KsuCard
             title='История'
-            action={
-              <div className='action'>
+          >
+            <div>
+              <div className='action-top'>
                 <EditTextModal entityId={lesson?.id} entityName='topic' />
               </div>
-            }>
-            <DisplayEntity entity={topic}/>
+              <DisplayEntity entity={topic}/>
+            </div>
           </KsuCard>
         </GridColumn>
       </GridRow>

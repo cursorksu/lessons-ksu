@@ -16,9 +16,9 @@ const resources = {
     tr: en,
   },
 };
-
+const userLanguage = navigator.language || navigator.userLanguage;
 i18next.init({
-  lng: 'ua',
+  lng: userLanguage.split('-')[0],
   fallbackLng: ['ru', 'en', 'ua'],
 });
 
@@ -26,7 +26,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: 'ua',
+    lng: userLanguage.split('-')[0],
     fallbackLng: ['ru', 'en', 'ua'],
     interpolation: {
       escapeValue: false,

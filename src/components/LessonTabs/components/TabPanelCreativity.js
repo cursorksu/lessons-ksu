@@ -1,10 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { EditModal } from '../../EditModal';
-import { Popup, TabPane } from 'semantic-ui-react';
-import { ButtonIconStyled } from '../../ButtonStyled';
+import { TabPane } from 'semantic-ui-react';
 import { EntityToPrint } from '../../ComponentsToPrint';
-import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
-import { useReactToPrint } from 'react-to-print';
 import { useCreateCraft, useGetCraftById } from '../../../api/craft/useCraft';
 import { CreateModal } from '../../CreateModal';
 import { useSelector } from 'react-redux';
@@ -23,9 +19,6 @@ export const TabPanelCreativity = ({ lesson, show }) => {
 
   const { craft } = useSelector((state) => state.lessonData);
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
   const handleAddCraft = useCallback(async (craftFormData) => {
     return await createCraft(lesson.id, craftFormData);
   }, [createCraft, lesson]);
@@ -40,15 +33,6 @@ export const TabPanelCreativity = ({ lesson, show }) => {
           label='Назва саморобки'
           placeholder='Введіть назву саморобки'
           entity='craft'
-        />
-        <EditModal fieldName="title" />
-        <Popup
-          trigger={(
-            <ButtonIconStyled onClick={handlePrint}>
-              <PrintIcon />
-            </ButtonIconStyled>
-          )}
-          content='Надрукувати інструкцію'
         />
       </div>
       <EntityToPrint

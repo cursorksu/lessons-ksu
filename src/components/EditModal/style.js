@@ -11,5 +11,6 @@ export const EditModalStyled = styled.div`
     width: auto;
     display: flex;
     justify-content: left;
+    margin-bottom: 15px;
   }
 `;

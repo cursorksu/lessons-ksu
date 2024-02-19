@@ -1,4 +1,21 @@
 {
+  "collections": {
+    "collections": "Lessons Collections"
+  },
+  "lessonTabs": {
+    "topic": "Lesson Topic",
+    "subject": "Subject example",
+    "creative": "Creativity",
+    "game": "Games",
+    "memory": "Memory",
+    "food": "Snack"
+  },
+  "lesson": {
+    "goal": "Lesson goal",
+    "text": "Bible text",
+    "description": "Description",
+    "staff": "Staff"
+  },
   "mainMenu": {
     "lang": "Select Language",
     "en": "English",

@@ -1,6 +1,6 @@
 import { Draggable } from '@hello-pangea/dnd';
 import { BlockWrapperInputStyled } from '../style';
-import { ButtonIconBasisStyled } from '../../ButtonStyled';
+import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import React from 'react';
 import { DropzoneField } from '../../Dropzone/DropzoneField';
@@ -18,12 +18,12 @@ export const ImageItem = ({ field, index, handleRemove, handleChange }) => {
             onChange={handleChange}
             field={field}
           />
-          <ButtonIconBasisStyled
+          <ButtonIconStyled
             className="remove-handle"
             onClick={() => handleRemove(field?.id)}
           >
             <RemoveIcon />
-          </ButtonIconBasisStyled>
+          </ButtonIconStyled>
         </BlockWrapperInputStyled>
       )}
     </Draggable>

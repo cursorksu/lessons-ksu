@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { ButtonIconBasisStyled } from '../ButtonStyled';
+import { ButtonIconStyled } from '../ButtonStyled';
 import { ReactComponent as AddIcon } from '../../assets/add.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
@@ -68,12 +68,12 @@ export const DynamicList = ({ field, onChangeField }) => {
   return (
     <FormField>
       <span className="btn-wrapper">
-        <ButtonIconBasisStyled onClick={handleAdd}>
+        <ButtonIconStyled onClick={handleAdd}>
           <AddIcon />
-        </ButtonIconBasisStyled>
-        <ButtonIconBasisStyled onClick={handleReset}>
+        </ButtonIconStyled>
+        <ButtonIconStyled onClick={handleReset}>
           <DeleteIcon />
-        </ButtonIconBasisStyled>
+        </ButtonIconStyled>
       </span>
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="dnd-list">
@@ -96,12 +96,12 @@ export const DynamicList = ({ field, onChangeField }) => {
                           onChange={(e) => onChange(e, el?.id)}
                           onKeyDown={(e) => handleKeyDown(e, el?.id)}
                         />
-                        <ButtonIconBasisStyled
+                        <ButtonIconStyled
                           className="remove-handle"
                           onClick={() => handleRemove(el?.id)}
                         >
                           <RemoveIcon />
-                        </ButtonIconBasisStyled>
+                        </ButtonIconStyled>
                       </DndItemStyled>
                     )}
                   </Draggable>

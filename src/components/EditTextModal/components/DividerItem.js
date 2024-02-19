@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonIconBasisStyled } from '../../ButtonStyled';
+import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import { Draggable } from '@hello-pangea/dnd';
 import { BlockWrapperInputStyled } from '../style';
@@ -23,12 +23,12 @@ export const DividerItem = ({
             <label>Розділювач</label>
             <hr/>
           </InputFieldStyled>
-          <ButtonIconBasisStyled
+          <ButtonIconStyled
             className="remove-handle"
             onClick={() => handleRemove(field?.id)}
           >
             <RemoveIcon />
-          </ButtonIconBasisStyled>
+          </ButtonIconStyled>
         </BlockWrapperInputStyled>
       )}
     </Draggable>

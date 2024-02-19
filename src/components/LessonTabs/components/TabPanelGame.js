@@ -1,21 +1,14 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { useReactToPrint } from 'react-to-print';
 import { useSelector } from 'react-redux';
 import { useCreateGame, useGetGameById } from '../../../api/game';
 import { CreateModal } from '../../CreateModal';
-import { EditModal } from '../../EditModal';
-import { Popup, TabPane } from 'semantic-ui-react';
-import { ButtonIconStyled } from '../../ButtonStyled';
-import { ReactComponent as PrintIcon } from '../../../assets/print.svg';
+import { TabPane } from 'semantic-ui-react';
 import { EntityToPrint } from '../../ComponentsToPrint';
 
 export const TabPanelGame = ({ lesson }) => {
   const componentRef = useRef();
   const { createGame } = useCreateGame();
   const { getGameById } = useGetGameById();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
 
   useEffect( () => {
     if (lesson?.game && Array.isArray(lesson?.game)) {
@@ -40,15 +33,6 @@ export const TabPanelGame = ({ lesson }) => {
           label='Назва гри'
           placeholder='Введіть назву гри'
           entity='game'
-        />
-        <EditModal fieldName="title" />
-        <Popup
-          trigger={(
-            <ButtonIconStyled onClick={handlePrint}>
-              <PrintIcon />
-            </ButtonIconStyled>
-          )}
-          content='Надрукувати цей урок'
         />
       </div>
       <EntityToPrint ref={componentRef} lesson={lesson} entity={game} entityName={'game'}/>
