@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { CREAM, CHOCO } from '../../constants/colors';
+import { CREAM, CHOCO, DARK_BG } from '../../constants/colors';
 
 export const UserProfileStyled = styled.div`
   padding: 40px;
   display: flex;
   align-items: center;
-  background-color: rgba(96,81,71,0.3);
+  background-color: ${DARK_BG};
   
   img {
     margin-right: 40px;

@@ -2,11 +2,10 @@ import styled from '@emotion/styled';
 import { CHOCO, CREAM } from '../../constants/colors';
 
 export const SprintCardStyled = styled('div')`
-  padding: 20px;
   width: 100%;
-  height: 100px;
+  height: 200px;
   position: relative;
-  background: #fff;
+  background-color: ${CHOCO};
   border-radius: 4px;
   overflow: hidden;
   outline: transparent 4px solid;
@@ -14,33 +13,23 @@ export const SprintCardStyled = styled('div')`
   
   &:hover {
     outline: ${CREAM} 4px solid ;
-  }
-  
-  &:after {
-    content: '';
-    width: 40%;
-    height: 100px;
-    background: ${CHOCO};
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    
+    .title.hover {
+      transform: translateY(0);
+      transition: transform 0.4s ease-in-out;
+    }
   }
   
   img {
     position: absolute;
     top: 0;
-    right: -20px;
+    right: 0;
     left: initial;
     z-index: 0;
-    width: 60%;
-    height: 100px !important;
-    object-position: 100% 0;
+    width: 260px;
+    height: 200px;
+    object-position: right;
     object-fit: cover;
-    min-height: initial;
-    max-height: initial;
-    max-width: initial;
-    min-width: initial;
   }
   
   .content {
@@ -49,18 +38,26 @@ export const SprintCardStyled = styled('div')`
     top: 0;
     color: ${CREAM};
     z-index: 2;
-    width: 70%;
-    height: 100px;
+    width: calc(100% - 250px);
+    height: 200px;
     overflow: hidden;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-    .title {
-      white-space: pre-wrap;
-      font-family: 'Nexa Script', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 500;
-      margin: 0 !important;
-    }
+  .title {
+    white-space: pre-wrap;
+    font-family: 'Nexa Script', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    margin: 0 !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   .shape {
@@ -68,14 +65,57 @@ export const SprintCardStyled = styled('div')`
     z-index: 1;
     position: absolute;
     top: 0;
-    left: 12%;
+    right: 85px;
     bottom: 0;
-    min-height: initial;
-    max-height: initial;
-    max-width: initial;
-    min-width: initial;
     display: block;
   }
 
+  .shape-light {
+    color: ${CREAM};
+    transform: rotate(5deg);
+    z-index: 0;
+    position: absolute;
+    top: 10px;
+    right: 65px;
+    bottom: 0;
+    display: block;
+  }
 
+  .meta {
+    font-family: "Coco Gothic Alternate", sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: ${CREAM};
+    opacity: 0.5;
+    text-align: left;
+  }
+  
+  .description {
+    min-height: 60px;
+    overflow: hidden;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
+  .title.hover {
+    width: 100%;
+    height: 200px;
+    background-color: ${CHOCO};
+    color: ${CREAM};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    padding: 40px;
+    z-index: 10;
+    white-space: pre-wrap;
+  }
 `;

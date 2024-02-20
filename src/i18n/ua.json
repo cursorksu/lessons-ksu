@@ -1,6 +1,7 @@
 {
   "collections": {
-    "collections": "Колекції уроків"
+    "collections": "Колекції уроків",
+    "createCollection": "Створити колекцію"
   },
   "lessonTabs": {
     "topic": "Тема уроку",

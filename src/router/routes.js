@@ -1,16 +1,16 @@
 import React from 'react';
 import { routes } from './constants';
-import { Home } from '../pages/Home';
 import { LessonsPage } from '../pages/Lessons';
 import { Lesson } from '../pages/Lesson';
 import { Games } from '../pages/Games';
 import { Cabinet } from '../pages/Cabinet';
+import { Collections } from '../pages/Collections';
 
 export const publicRoutes = [
   {
     path: routes.home,
-    title: 'Home',
-    component: <Home />,
+    title: 'Collections',
+    component: <Collections />,
   },
   {
     path: `${routes.lessons}`,

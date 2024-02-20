@@ -1,6 +1,7 @@
 {
   "collections": {
-    "collections": "Lessons Collections"
+    "collections": "Collections of Lessons",
+    "createCollection": "Create Collection"
   },
   "lessonTabs": {
     "topic": "Lesson Topic",
