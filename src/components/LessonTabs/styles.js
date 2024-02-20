@@ -1,13 +1,19 @@
 import styled from '@emotion/styled';
-import { CREAM } from '../../constants/colors';
+import { CREAM, DARK_BG } from '../../constants/colors';
 
 export const TabStyled = styled('div')`
-  padding: 0 40px 40px 40px;
-  
   .card:hover {
     outline: ${CREAM} 4px solid;
   }
-
+  & > div {
+    & > .grid {
+      padding: 0 40px;
+    }
+    .menu {
+      padding: 0 40px;
+      background: ${DARK_BG} !important;
+    }
+  }
 
   .menu .item svg {
     width: 26px;
@@ -26,6 +32,7 @@ export const TabStyled = styled('div')`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0;
+    padding: 0 40px;
+    background: ${DARK_BG};
   }
 `;

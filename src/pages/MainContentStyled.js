@@ -1,20 +1,23 @@
 import styled from '@emotion/styled';
-import { CREAM, GOLD } from '../constants/colors';
+import { CREAM, DARK_BG, GOLD } from '../constants/colors';
 
 export const MainContentStyled = styled('div')`
   position: relative;
   min-height: 100vh;
   
-  .button-wrapper {
-    margin: 0;
-    padding: 20px;
+  .collections-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    padding: 40px;
   }
   
   .topic-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 0 0 40px;
+    padding: 0 40px;
+    background: ${DARK_BG};
   }
 
   .title {
