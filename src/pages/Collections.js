@@ -51,7 +51,7 @@ export const Collections = () => {
               </div>
               <div>
                 <hr/>
-                <div><span className="meta description" alt={el.description}>{el.description}</span></div>
+                <div><span className="meta description">{el.description}</span></div>
                 <h3 className="title" title={el.title}>{el.title}</h3>
               </div>
 
