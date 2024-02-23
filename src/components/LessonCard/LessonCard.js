@@ -15,7 +15,7 @@ export const LessonCard = ({ item, onClick, onDelete }) => {
     <Card>
       <LessonCardStyled onClick={() => onClick(item?.id)}>
         <div className='card-img-wrapper' ref={wrapperRef}>
-          {imagesLoaded && <img src={item?.img} alt={item?.title} />}
+          {imagesLoaded && <img src={item?.imageUrl} alt={item?.title} />}
           {!imagesLoaded && <ImageIcon />}
         </div>
         <CardContent>

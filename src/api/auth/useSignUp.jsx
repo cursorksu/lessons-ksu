@@ -3,18 +3,21 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore/lite';
+import { doc, getDoc } from 'firebase/firestore';
 import { useCreateUser } from '../user/useCreateUser';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuthData } from '../../store/authReducer';
 import { auth, fireStore } from '../index';
 import { useTranslation } from 'react-i18next';
+import {useNavigate} from "react-router-dom";
+import {routes} from "../../router/constants";
 
 export const useSignUp = () => {
   const dispatch = useDispatch();
   const { i18n } = useTranslation('tr');
   const { createUser } = useCreateUser();
+  const navigate= useNavigate();
 
   const getSignUpData = async () => {
     await getRedirectResult(auth)
@@ -47,8 +50,12 @@ export const useSignUp = () => {
             user: userData,
             token: auth?.currentUser?.accessToken,
           }));
+          
           return profile;
         });
+      })
+      .then(() => {
+        navigate(routes.collections);
       })
       .catch((error) => {
         throw new Error(error);

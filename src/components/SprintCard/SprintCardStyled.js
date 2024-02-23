@@ -15,8 +15,8 @@ export const SprintCardStyled = styled('div')`
     outline: ${CREAM} 4px solid ;
     
     .title.hover {
-      transform: translateY(0);
-      transition: transform 0.4s ease-in-out;
+        opacity: 1;
+        transition: opacity 0.6s linear;
     }
   }
   
@@ -101,6 +101,7 @@ export const SprintCardStyled = styled('div')`
   }
 
   .title.hover {
+    opacity: 0;
     width: 100%;
     height: 200px;
     background-color: ${CHOCO};
@@ -113,9 +114,8 @@ export const SprintCardStyled = styled('div')`
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateY(-100%);
     padding: 40px;
-    z-index: 10;
+    z-index: 3;
     white-space: pre-wrap;
   }
 `;

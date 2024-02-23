@@ -7,76 +7,47 @@ import { useTranslation } from 'react-i18next';
 import { FormField, Grid } from 'semantic-ui-react';
 import { InputStyled, LabelStyled } from '../InputStyled';
 
-export const CreateEntityForm = ({ entityName, onConfirm }) => {
-  const { reset, control, getValues } = useForm();
+export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defaultValues = {} }) => {
+  const { reset, control, getValues } = useForm({
+    defaultValues,
+  });
   const { createEntity } = useCreateEntity(entityName);
   const { t } = useTranslation('tr');
   return (
     <CreateEntityFormStyled>
-      <Controller
-        name={'title'}
-        control={control}
-        render={({ field }) => (
-          <FormField>
-            <LabelStyled>Title</LabelStyled>
-            <InputStyled
-              {...field}
-              placeholder={`Enter title of ${entityName}`}
+      <div className="content-grid">
+        {fields.map(el => {
+          return (
+            <Controller
+              name={el.name}
+              control={control}
+              render={({ field }) => (
+                <FormField>
+                  <LabelStyled>{el.label}</LabelStyled>
+                  <InputStyled
+                    value={field.value}
+                    {...field}
+                    placeholder={el.placeholder}
+                  />
+                </FormField>
+              )}
             />
-          </FormField>
-        )}
-      />
-      <Controller
-        name={'description'}
-        control={control}
-        render={({ field }) => (
-          <FormField>
-            <LabelStyled>Description</LabelStyled>
-            <InputStyled
-              {...field}
-              placeholder={`Enter description of ${entityName}`}
-            />
-          </FormField>
-        )}
-      />
-      <Controller
-        name={'imageUrl'}
-        control={control}
-        render={({ field }) => (
-          <FormField>
-            <LabelStyled>Image URL</LabelStyled>
-            <InputStyled
-              {...field}
-              placeholder={`Enter image url of ${entityName}`}
-            />
-          </FormField>
-        )}
-      />
-      <Controller
-        name={'tags'}
-        control={control}
-        render={({ field }) => (
-          <FormField>
-            <LabelStyled>Tags</LabelStyled>
-            <InputStyled
-              {...field}
-              placeholder={`Use coma to provide few tags`}
-            />
-          </FormField>
-        )}
-      />
+          );
+        })}
+      </div>
       <Grid.Row>
         <ButtonStyled
           onClick={async () => {
-            await createEntity(getValues());
-            onConfirm();
+            const id = await createEntity(getValues());
+            await onConfirm(id);
+            onClose && onClose();
             reset();
           }}>
           {t('button.confirm')}
         </ButtonStyled>
         <ButtonStyled
           onClick={async () => {
-            onConfirm();
+            onClose && onClose();
             reset();
           }}>
           {t('button.cancel')}

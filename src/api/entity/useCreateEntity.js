@@ -1,18 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback } from 'react';
-import { addDoc, collection } from 'firebase/firestore/lite';
+import { addDoc, collection } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
-import { useGetAllEntities } from './useGetAllEntities';
 
-export const useCreateEntity = ( entity ) => {
+export const useCreateEntity = ( entity, onCreationComplete ) => {
   const user = useSelector(state => state?.auth?.user);
-  const {getAllEntities} = useGetAllEntities(entity);
+
   const dispatch = useDispatch();
   const createEntityDock = useCallback(async (formData) => {
     try {
       const entityCollection = collection(fireStore, entity);
-      await addDoc(entityCollection, {
+      const result = await addDoc(entityCollection, {
         ...formData,
         createdAt: new Date(),
         createdBy: {
@@ -29,8 +28,8 @@ export const useCreateEntity = ( entity ) => {
           },
         })
       );
-
-      await getAllEntities();
+      await onCreationComplete && onCreationComplete();
+      return result.id;
     } catch (error) {
       dispatch(
         setMessage({
@@ -42,7 +41,7 @@ export const useCreateEntity = ( entity ) => {
         })
       );
     }
-  }, [dispatch, entity, user, getAllEntities]);
+  }, [dispatch, entity, user, onCreationComplete]);
 
   return { createEntity: createEntityDock };
 };

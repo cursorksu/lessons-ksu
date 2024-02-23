@@ -8,7 +8,7 @@ import {
   getDoc,
   addDoc,
   updateDoc,
-} from 'firebase/firestore/lite';
+} from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/notificationReducer';
 import {

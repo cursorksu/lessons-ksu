@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
 import {
   addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc
-} from 'firebase/firestore/lite';
+} from 'firebase/firestore';
 import { fireStore } from '../index';
 import {
   setCraftList as setCraftsInStore,

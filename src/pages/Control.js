@@ -7,12 +7,14 @@ import { ReactComponent as UsersIcon } from '../assets/users.svg';
 import { ReactComponent as UserIcon } from '../assets/user.svg';
 import { ReactComponent as BackIcon } from '../assets/back.svg';
 import { ReactComponent as GoogleIcon } from '../assets/google.svg';
+import { ReactComponent as CollectionsIcon } from '../assets/collection.svg';
 import { setMainMenuCollapsed } from '../store/mainMenuReducer';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { Divider } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
+import {routes} from "../router/constants";
 
 export const Control = ({ loginWithGoogle, signOut }) => {
   const mainMenuCollapsed  = useSelector(({ mainMenuCollapsed }) => mainMenuCollapsed);
@@ -37,6 +39,15 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               <MenuItem onClick={() => i18n.changeLanguage('ru')}>{t('mainMenu.ru')}</MenuItem>
             </SubMenu>
             <MenuItem
+              hidden={!auth?.user?.uid}
+              icon={<CollectionsIcon />}
+              component={<Link to={`${routes.collections}`} />}
+              className={clsx({ disabled: !auth?.user?.uid })}
+            >
+              {t('collections.collections')}
+            </MenuItem>
+            <MenuItem
+              hidden={!auth?.user?.uid}
               icon={<SettingsIcon />}
               component={<Link to="/games/situations" />}
               className={clsx({ disabled: !auth?.user?.uid })}
@@ -44,6 +55,7 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               {t('mainMenu.settings')}
             </MenuItem>
             <MenuItem
+              hidden={!auth?.user?.uid}
               icon={<UsersIcon />}
               component={<Link to="/lessons" />}
               className={clsx({ disabled: !auth?.user?.uid })}
@@ -51,6 +63,7 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               {t('mainMenu.community')}
             </MenuItem>
             <MenuItem
+              hidden={!auth?.user?.uid}
               icon={<UserIcon />}
               component={<Link to={`/cabinet/${auth?.user?.uid}`}/>}
               className={clsx({ disabled: !auth?.user?.uid })}

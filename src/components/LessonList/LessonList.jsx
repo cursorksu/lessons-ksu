@@ -14,7 +14,7 @@ export const LessonList = () => {
   const { lessons } = useSelector((state) => state.lessonData);
 
   const handleClick = (id) => {
-    navigate(`/lesson/${id}`);
+    navigate(`${id}`);
   };
 
   const handleDelete = async (e, id) => {
@@ -29,7 +29,9 @@ export const LessonList = () => {
         {loading
           ? (
             <GridRow>
-              <Loader />
+              <GridColumn width={16}>
+                <Loader />
+              </GridColumn>
             </GridRow>
           )
           : (

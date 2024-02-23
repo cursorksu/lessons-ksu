@@ -1,5 +1,5 @@
 import { KsuCardStyled } from './KsuCardStyled';
-import { Card, Image, CardContent, CardMeta, CardDescription, CardHeader } from 'semantic-ui-react';
+import { Card, Image, CardContent, CardMeta, CardHeader } from 'semantic-ui-react';
 
 export const KsuCard = ({
   title,

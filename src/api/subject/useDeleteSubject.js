@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
-import { deleteDoc, doc } from 'firebase/firestore/lite';
+import { deleteDoc, doc } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 

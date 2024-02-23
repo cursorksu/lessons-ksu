@@ -5,9 +5,11 @@ export const CreateEntityFormStyled = styled('div')`
   background: #fff;
   padding: 40px;
   border-top: 1px solid ${GOLD};
-  
-  .field {
-    margin-bottom: 20px;
-    width: 60%;
-  }
+    
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+        margin-bottom: 20px;
+    }
 `;

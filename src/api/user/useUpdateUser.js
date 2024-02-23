@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { fireStore } from '../index';
-import { doc, getDoc, updateDoc  } from 'firebase/firestore/lite';
+import { doc, getDoc, updateDoc  } from 'firebase/firestore';
 import { useGetUserProfile } from './useGetUserProfile';
 
 export const useUpdateProfileField = () => {

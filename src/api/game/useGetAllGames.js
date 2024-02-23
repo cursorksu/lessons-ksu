@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setGameList as setGameInStore } from '../../store/dataReducer';
 import { setMessage } from '../../store/notificationReducer';

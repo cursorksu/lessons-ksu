@@ -5,26 +5,34 @@ import { Lesson } from '../pages/Lesson';
 import { Games } from '../pages/Games';
 import { Cabinet } from '../pages/Cabinet';
 import { Collections } from '../pages/Collections';
+import {Home} from "../pages/Home";
 
 export const publicRoutes = [
   {
-    path: routes.home,
+    path: '/',
+    title: 'Home',
+    component: <Home />,
+  },
+];
+export const authRouts = [
+  {
+    path: routes.collections,
     title: 'Collections',
     component: <Collections />,
   },
   {
-    path: `${routes.lessons}`,
+    path: `${routes.collections}/:collectionId${routes.lessons}`,
     title: 'Lesson list',
     component: <LessonsPage />,
   },
   {
-    path: `${routes.lesson}/:id`,
+    path: `${routes.collections}/:collectionId${routes.lessons}/:id`,
     title: 'Lesson',
     component: <Lesson />,
   },
   {
-    path: `${routes.cabinet}/:id`,
-    title: 'Lesson',
+    path: `${routes.cabinet}/:userId`,
+    title: 'Cabinet',
     component: <Cabinet />,
   },
   {
@@ -34,4 +42,3 @@ export const publicRoutes = [
   },
 
 ];
-export const authRouts = [];

@@ -8,7 +8,7 @@ import {
   getDoc,
   addDoc,
   updateDoc,
-} from 'firebase/firestore/lite';
+} from 'firebase/firestore';
 import { setMessage } from '../../store/notificationReducer';
 import {
   setLessons as setLessonsInStore,
@@ -17,17 +17,6 @@ import {
 import { useDispatch } from 'react-redux';
 import { useGetTopicById } from '../topic';
 import { getDateFromTimeStep } from '../../utils/getDateFromTimeStep';
-
-// const Topic = {
-//   id,
-//   title,
-//   goal,
-//   img,
-//   bible,
-//   quote,
-//   tags,
-//   createdAt,
-// }
 
 export const useGetLessons = () => {
   const dispatch = useDispatch();

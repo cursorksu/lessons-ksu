@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { fireStore } from '../index';
-import { collection, query, getDocs  } from 'firebase/firestore/lite';
+import { collection, query, getDocs  } from 'firebase/firestore';
 
 export const useGetUsers = () => {
   const [users, setUsers] = useState([]);

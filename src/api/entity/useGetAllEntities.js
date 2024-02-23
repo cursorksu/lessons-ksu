@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useCallback, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { collection, getDocs } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 import { setCollectionsInStore } from '../../store/collectionsResucer';
@@ -24,7 +24,7 @@ export const useGetAllEntities = (entity) => {
       if (entity === 'collections') {
         dispatch(
           setCollectionsInStore(entityData
-            .sort((a, b) => a.createdAt - b.createdAt))
+            .sort((a, b) => b.createdAt - a.createdAt))
         );
       }
 
