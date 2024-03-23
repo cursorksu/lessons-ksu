@@ -7,6 +7,12 @@
     "createCollection": "Створити колекцію",
     "deleteCollection": "Видалити колекцію"
   },
+  "students": {
+    "myStudents": "Мои учні",
+    "addStudent": "Додати учня",
+    "deleteStudent": "Видалити учня",
+    "editStudent": "Змінити дані учня"
+  },
   "lessonTabs": {
     "topic": "Тема уроку",
     "subject": "Предметні приклади",

@@ -39,7 +39,7 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
         <ButtonStyled
           onClick={async () => {
             const id = await createEntity(getValues());
-            await onConfirm(id);
+            await onConfirm(id, getValues());
             onClose && onClose();
             reset();
           }}>

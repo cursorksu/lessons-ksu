@@ -4,11 +4,11 @@ import { fireStore } from '../index';
 import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/notificationReducer';
 import {useTranslation} from "react-i18next";
+import {setLessons as setLessonsInStore} from "../../store/dataReducer";
 
 export const useGetLessonsInCollection = () => {
   const { t } = useTranslation('tr', { ns: 'errors' });
   const [loading, setLoading] = useState(false);
-  const [lessons, setLessons] = useState([]);
   const dispatch = useDispatch();
 
   const getLessonsInCollection = useCallback(async (lessonIds) => {
@@ -22,8 +22,11 @@ export const useGetLessonsInCollection = () => {
         id: lessonSnapshot.id,
         ...lessonSnapshot.data(),
       }));
-      setLessons(lessonsData);
       setLoading(false);
+      dispatch(
+        setLessonsInStore(lessonsData
+          .sort((a, b) => a.createdAt - b.createdAt))
+      );
     } catch (error) {
       setLoading(false);
       dispatch(
@@ -38,5 +41,5 @@ export const useGetLessonsInCollection = () => {
     }
   }, [dispatch, t]);
 
-  return { loading, lessons, getLessonsInCollection };
+  return { loading, getLessonsInCollection };
 };

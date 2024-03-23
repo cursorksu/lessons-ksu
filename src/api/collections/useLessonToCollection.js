@@ -1,48 +1,64 @@
 import {useCallback} from "react";
-import {updateDoc, arrayUnion, arrayRemove} from 'firebase/firestore';
+import {updateDoc, arrayUnion, arrayRemove, getDoc, doc} from 'firebase/firestore';
 import {useDispatch} from "react-redux";
-import {doc, getDoc} from "firebase/firestore";
 import {setMessage} from "../../store/notificationReducer";
 import {fireStore} from "../index";
 import {useTranslation} from "react-i18next";
+import {setOneCollection} from "../../store/collectionsResucer";
 
 export const useLessonToCollection = () => {
-  const { t } = useTranslation('tr', { ns: 'errors' });
+  const { t } = useTranslation('tr');
   const dispatch = useDispatch();
 
-  const bindLessonToCollection = useCallback(async (collectionId, lessonId) => {
-    const collectionRef = doc(fireStore, 'collections/h9w2T3DUdy7RetDJH1ZS');
+  const bindLessonToCollection = useCallback(async (collection, lessonId) => {
+    const collectionRef = doc(fireStore, 'collections', collection?.id);
     const docSnap = await getDoc(collectionRef);
 
     if (!docSnap.exists()) throw new Error('No such document fined');
     
     try {
       await updateDoc(collectionRef, {
-        lesson_ids: arrayUnion(lessonId)
+        lessonIds: arrayUnion(lessonId)
       });
+      dispatch(setOneCollection({
+        ...collection,
+        lessonIds: [...collection.lessonIds, lessonId ]
+      }));
     } catch (error) {
       dispatch(setMessage({
         type: 'error',
         message: {
-          title: t('bindingError.title'),
-          description: `${t('bindingError.description')}: ${error.message}`,
+          title: t('errors.bindingError.title'),
+          description: `${t('errors.bindingError.description')}: ${error.message}`,
         },
       }));
     }
   }, [dispatch, t]);
 
-  const unbindLessonFromCollection = useCallback(async (collectionId, lessonId) => {
-    const collectionRef = doc(fireStore, 'collections', collectionId);
+  const  unbindLessonFromCollection = useCallback(async (collection, lessonId) => {
+    if (!collection || !collection.id) {
+      throw new Error("The collection or the collection ID is not defined.");
+    }
+    const collectionRef = doc(fireStore, 'collections', collection.id);
+    const docSnap = await getDoc(collectionRef);
+
+    if (!docSnap.exists()) throw new Error('No such document fined');
     try {
+
       await updateDoc(collectionRef, {
-        lesson_ids: arrayRemove(lessonId)
+        lessonIds: arrayRemove(lessonId)
       });
+
+      dispatch(setOneCollection({
+        ...collection,
+        lessonIds: collection.lessonIds.filter(el => el !== lessonId),
+      }));
     } catch (error) {
       dispatch(setMessage({
         type: 'error',
         message: {
-          title: t('unbindingError.tilte'),
-          description: `${t('unbindingError.description')}: ${error.message}`,
+          title: t('errors.unbindingError.tilte'),
+          description: `${t('errors.unbindingError.description')}: ${error.message}`,
         },
       }));
     }

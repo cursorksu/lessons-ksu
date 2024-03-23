@@ -78,10 +78,10 @@ export const LessonsPage = () => {
   ];
 
   const handleConfirmCreation = useCallback(async (lessonId) => {
-    await bindLessonToCollection(collectionId, lessonId);
+    await bindLessonToCollection(currentCollection, lessonId);
     await getLessonsInCollection(currentCollection.lessonIds);
 
-  }, [bindLessonToCollection, getLessonsInCollection, currentCollection, collectionId]);
+  }, [bindLessonToCollection, getLessonsInCollection, currentCollection]);
 
   return (
     <MainLayout>
@@ -104,7 +104,7 @@ export const LessonsPage = () => {
           defaultValues={defaultValues}
         />
       )}
-      <LessonList/>
+      <LessonList collection={currentCollection}/>
     </MainLayout>
   );
 };

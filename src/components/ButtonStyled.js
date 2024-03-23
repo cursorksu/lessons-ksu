@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BG_GRAY, PRIMARY_MAIN, TEXT_MAIN } from '../constants/colors';
+import {BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN} from '../constants/colors';
 
 export const ButtonStyled = styled('button')`
   color: #fff;
@@ -49,6 +49,10 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   border-radius: 10%;
   padding: 0;
   margin: 2px;
+    
+    &:disabled:hover {
+        background-color: ${CHOCO};
+    }
 
   svg {
     width: 20px;

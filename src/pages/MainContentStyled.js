@@ -4,6 +4,32 @@ import { CREAM, DARK_BG, GOLD } from '../constants/colors';
 export const MainContentStyled = styled('div')`
   position: relative;
   min-height: 100vh;
+    
+    .herro {
+        width: 100%;
+        height: 200px;
+        position: relative;
+        background-size: cover;
+        text-align: center;
+        color: ${CREAM};
+        
+        .title-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        &:after {
+            content: '';
+            background: rgba(0,0,0,0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+        
+    }
   
   .collections-wrapper {
     display: grid;

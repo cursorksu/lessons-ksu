@@ -7,6 +7,12 @@
     "createCollection": "Create Collection",
     "deleteCollection": "Delete Collection"
   },
+  "students": {
+    "myStudents": "My students",
+    "addStudent": "Add student",
+    "deleteStudent": "Delete student",
+    "editStudent": "Edit student data"
+  },
   "lessonTabs": {
     "topic": "Lesson Topic",
     "subject": "Subject example",

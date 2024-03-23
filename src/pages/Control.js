@@ -13,7 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { Divider } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
-import clsx from 'clsx';
 import {routes} from "../router/constants";
 
 export const Control = ({ loginWithGoogle, signOut }) => {
@@ -39,34 +38,34 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               <MenuItem onClick={() => i18n.changeLanguage('ru')}>{t('mainMenu.ru')}</MenuItem>
             </SubMenu>
             <MenuItem
-              hidden={!auth?.user?.uid}
+              //hidden={!auth?.user?.uid}
               icon={<CollectionsIcon />}
               component={<Link to={`${routes.collections}`} />}
-              className={clsx({ disabled: !auth?.user?.uid })}
+              // className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('collections.collections')}
             </MenuItem>
             <MenuItem
-              hidden={!auth?.user?.uid}
+              // hidden={!auth?.user?.uid}
               icon={<SettingsIcon />}
               component={<Link to="/games/situations" />}
-              className={clsx({ disabled: !auth?.user?.uid })}
+              //className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.settings')}
             </MenuItem>
             <MenuItem
-              hidden={!auth?.user?.uid}
+              //hidden={!auth?.user?.uid}
               icon={<UsersIcon />}
               component={<Link to="/lessons" />}
-              className={clsx({ disabled: !auth?.user?.uid })}
+              //className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.community')}
             </MenuItem>
             <MenuItem
-              hidden={!auth?.user?.uid}
+              //hidden={!auth?.user?.uid}
               icon={<UserIcon />}
               component={<Link to={`/cabinet/${auth?.user?.uid}`}/>}
-              className={clsx({ disabled: !auth?.user?.uid })}
+              //className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.cabinet')}
             </MenuItem>

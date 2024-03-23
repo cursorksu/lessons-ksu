@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { fireStore } from '../index';
 import {
   collection,
-  getDocs,
   doc,
   deleteDoc,
   getDoc,
@@ -11,52 +10,51 @@ import {
 } from 'firebase/firestore';
 import { setMessage } from '../../store/notificationReducer';
 import {
-  setLessons as setLessonsInStore,
   setLesson as setLessonInStore,
 } from '../../store/dataReducer';
 import { useDispatch } from 'react-redux';
 import { useGetTopicById } from '../topic';
 import { getDateFromTimeStep } from '../../utils/getDateFromTimeStep';
 
-export const useGetLessons = () => {
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-
-  const fetchLessons = useCallback(async () => {
-    try {
-      const lessonsCollection = collection(fireStore, 'lessons');
-      const querySnapshot = await getDocs(lessonsCollection);
-      const lessonsData = querySnapshot.docs.map((doc) => {
-        return {
-          id: doc?.id,
-          ...doc.data(),
-          createdAt: getDateFromTimeStep(doc.data().createdAt)
-        };
-      });
-      setLoading(false);
-      dispatch(
-        setLessonsInStore(lessonsData
-          .sort((a, b) => a.createdAt - b.createdAt))
-      );
-    } catch (error) {
-      dispatch(
-        setMessage({
-          type: 'error',
-          message: {
-            title: 'Error fetching lessons:',
-            description: error.message,
-          },
-        })
-      );
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchLessons();
-  }, [fetchLessons]);
-
-  return { loading, getLessons: fetchLessons };
-};
+// export const useGetLessons = () => {
+//   const dispatch = useDispatch();
+//   const [loading, setLoading] = useState(true);
+//
+//   const fetchLessons = useCallback(async () => {
+//     try {
+//       const lessonsCollection = collection(fireStore, 'lessons');
+//       const querySnapshot = await getDocs(lessonsCollection);
+//       const lessonsData = querySnapshot.docs.map((doc) => {
+//         return {
+//           id: doc?.id,
+//           ...doc.data(),
+//           createdAt: getDateFromTimeStep(doc.data().createdAt)
+//         };
+//       });
+//       setLoading(false);
+//       dispatch(
+//         setLessonsInStore(lessonsData
+//           .sort((a, b) => a.createdAt - b.createdAt))
+//       );
+//     } catch (error) {
+//       dispatch(
+//         setMessage({
+//           type: 'error',
+//           message: {
+//             title: 'Error fetching lessons:',
+//             description: error.message,
+//           },
+//         })
+//       );
+//     }
+//   }, [dispatch]);
+//
+//   useEffect(() => {
+//     fetchLessons();
+//   }, [fetchLessons]);
+//
+//   return { loading, getLessons: fetchLessons };
+// };
 
 export const useDeleteLesson = () => {
   const dispatch = useDispatch();
@@ -64,6 +62,7 @@ export const useDeleteLesson = () => {
     try {
       const lessonDocRef = doc(fireStore, 'lessons', lessonId);
       await deleteDoc(lessonDocRef);
+      // dispatch(setLessonsInStore(lessons?.filter(el => el.id !== lessonId)));
     } catch (error) {
       dispatch(
         setMessage({

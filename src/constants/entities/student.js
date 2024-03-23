@@ -1,0 +1,51 @@
+export const student = [
+  {
+    inputType: 'textInput',
+    name: 'firstName',
+    label: 'First Name',
+    placeholder: `Student First Name`,
+    isIgnored: false,
+  },
+  {
+    inputType: 'textInput',
+    name: 'secondName',
+    label: 'Second Name',
+    placeholder: `Student Second Name`,
+    isIgnored: false,
+  },
+  {
+    inputType: 'tel',
+    name: 'phone',
+    label: 'Phone number',
+    placeholder: `Set Phone number`,
+    isIgnored: false,
+  },
+  {
+    inputType: 'textInput',
+    name: 'birthday',
+    label: 'The Day of Birth',
+    placeholder: `Select the date`,
+    isIgnored: false,
+  },
+  {
+    inputType: 'address',
+    name: 'address',
+    label: 'Student`s address',
+    placeholder: 'Enter the student`s address',
+    isIgnored: false,
+  },
+  {
+    inputType: 'textAria',
+    name: 'about',
+    label: 'About me',
+    placeholder: `Fill your hobby, pets, habits... Something interesting about you`,
+    isIgnored: false,
+  },
+  {
+    inputType: 'textInput',
+    name: 'avatar',
+    label: 'Student`s avatar',
+    placeholder: 'Provide the url for student avatar',
+    isIgnored: false,
+  },
+];
