@@ -2,11 +2,12 @@ import { useCallback } from 'react';
 import { fireStore } from '../index';
 import { doc, getDoc, updateDoc  } from 'firebase/firestore';
 import { useGetStudentProfile } from './useGetStudentProfile';
-import {useGetAllEntities} from "../entity/useGetAllEntities";
+import { useGetAllEntities } from "../entity/useGetAllEntities";
 
-export const useUpdateEstimation = () => {
+export const useUpdateStudent = () => {
   const { getStudentProfile } = useGetStudentProfile();
   const { getAllEntities } = useGetAllEntities('students');
+
   const updateStudentData = useCallback(
     async (studentId, data) => {
       try {
@@ -22,6 +23,7 @@ export const useUpdateEstimation = () => {
 
           const studentList = await getAllEntities();
           localStorage.setItem('students', JSON.stringify(studentList));
+          await getAllEntities();
         }
       } catch (error) {
         throw new Error(error);

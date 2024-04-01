@@ -3,7 +3,7 @@ import { ButtonIconStyled } from '../../ButtonStyled';
 import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import React from 'react';
 import { BlockWrapperInputStyled } from '../style';
-import { LessonsDatePicker } from '../../DatePicker/DatePicker';
+import { KsuDatePicker } from '../../KsuDatePicker/KsuDatePicker';
 
 export const DateItem = ({ field, index, handleChange, handleRemove }) => {
   return (<Draggable key={index.toString()} draggableId={index.toString()} index={index}>
@@ -13,7 +13,7 @@ export const DateItem = ({ field, index, handleChange, handleRemove }) => {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
-        <LessonsDatePicker
+        <KsuDatePicker
           id={field?.id}
           legend={'Дата'}
           value={field.value}

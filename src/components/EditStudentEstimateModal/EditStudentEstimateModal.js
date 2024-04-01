@@ -9,8 +9,8 @@ export const EditStudentEstimateModal = ({ onConfirm, studentName }) => {
   const { t} = useTranslation('tr');
   const [estimation, setEstimation,] = useState(0);
   const [isOpen, setIsOpen,] = useState(false);
-  const confirmationHandler = async () => {
-    await onConfirm(+estimation);
+  const confirmationHandler = async (mode) => {
+    await onConfirm(mode === 'add' ? +estimation : -estimation);
     setIsOpen(false);
     setEstimation(0);
   };
@@ -20,7 +20,7 @@ export const EditStudentEstimateModal = ({ onConfirm, studentName }) => {
       content={(
         <EstimationModalStyled>
           <FormField>
-            <LabelStyled htmlFor="estime">Наберіть кількість динариків, яку отримає {studentName} </LabelStyled>
+            <LabelStyled htmlFor="estime">Наберіть кількість динариків</LabelStyled>
             <InputStyled
               name="estime"
               type="number"
@@ -30,11 +30,14 @@ export const EditStudentEstimateModal = ({ onConfirm, studentName }) => {
             />
           </FormField>
           <div className="action">
+            <div className="d-flex">
+              <ButtonStyled onClick={() => confirmationHandler('remove')}>- {t('button.remove')}</ButtonStyled>
+              <ButtonStyled onClick={() => confirmationHandler('add')}>+ {t('button.add')}</ButtonStyled>
+            </div>
             <ButtonStyled onClick={() => setIsOpen(false)}>{t('button.cancel')}</ButtonStyled>
-            <ButtonStyled onClick={confirmationHandler}>{t('button.accept')}</ButtonStyled>
           </div>
         </EstimationModalStyled>
-  
+
       )}
       on='click'
       pinned
