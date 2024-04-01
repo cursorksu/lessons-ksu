@@ -9,6 +9,12 @@ export const UserProfileStyled = styled.div`
         align-items: flex-start;
         background-color: ${DARK_BG};
     }
+    .score {
+      min-width: 60px;
+      font-family: "Coco Gothic Alternate", sans-serif;
+      font-size: 18px;
+      color: rgb(96, 81, 71);
+    }
 
     .d-flex {
         display: flex;

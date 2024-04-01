@@ -3,7 +3,7 @@ import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ReactComponent as TranslateIcon } from '../assets/translate.svg';
 import { ReactComponent as SettingsIcon } from '../assets/settings.svg';
 import { ReactComponent as CollapseIcon } from '../assets/move.svg';
-import { ReactComponent as UsersIcon } from '../assets/users.svg';
+import { ReactComponent as ChurchIcon } from '../assets/church.svg';
 import { ReactComponent as UserIcon } from '../assets/user.svg';
 import { ReactComponent as BackIcon } from '../assets/back.svg';
 import { ReactComponent as GoogleIcon } from '../assets/google.svg';
@@ -14,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Divider } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import {routes} from "../router/constants";
+import { clsx } from 'clsx';
 
 export const Control = ({ loginWithGoogle, signOut }) => {
   const mainMenuCollapsed  = useSelector(({ mainMenuCollapsed }) => mainMenuCollapsed);
@@ -38,10 +39,10 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               <MenuItem onClick={() => i18n.changeLanguage('ru')}>{t('mainMenu.ru')}</MenuItem>
             </SubMenu>
             <MenuItem
-              //hidden={!auth?.user?.uid}
+              hidden={!auth?.user?.uid}
               icon={<CollectionsIcon />}
               component={<Link to={`${routes.collections}`} />}
-              // className={clsx({ disabled: !auth?.user?.uid })}
+              className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('collections.collections')}
             </MenuItem>
@@ -54,18 +55,18 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               {t('mainMenu.settings')}
             </MenuItem>
             <MenuItem
-              //hidden={!auth?.user?.uid}
-              icon={<UsersIcon />}
+              hidden={!auth?.user?.uid}
+              icon={<ChurchIcon />}
               component={<Link to="/lessons" />}
-              //className={clsx({ disabled: !auth?.user?.uid })}
+              className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.community')}
             </MenuItem>
             <MenuItem
-              //hidden={!auth?.user?.uid}
+              hidden={!auth?.user?.uid}
               icon={<UserIcon />}
               component={<Link to={`/cabinet/${auth?.user?.uid}`}/>}
-              //className={clsx({ disabled: !auth?.user?.uid })}
+              className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.cabinet')}
             </MenuItem>

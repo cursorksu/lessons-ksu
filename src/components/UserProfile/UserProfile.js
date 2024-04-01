@@ -1,54 +1,57 @@
 import { UserProfileStyled } from './UserProfileStyled';
 import { Image } from 'semantic-ui-react';
-import {useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import { CreateEntityForm } from "../CreateEntityForm/CreateEntityForm";
 import {ButtonIconStyled, ButtonStyled} from "../ButtonStyled";
 import { DataTable } from "../DataTable/DataTable";
 import { student } from "../../constants/entities/student";
 import { EditStudentEstimateModal } from "../EditStudentEstimateModal/EditStudentEstimateModal";
-import { useUpdateEstimation } from "../../api/student/useUpdateEstimation";
+import { useUpdateStudent } from "../../api/student/useUpdateStudent";
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
-import {useForm} from "react-hook-form";
+import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+
+import { useDeleteEntity } from '../../api/entity/useDeleteEntity';
+import { useNavigate } from 'react-router';
+import { getAge } from '../../utils/getAge';
+import dateFormat from 'dateformat';
 
 export const UserProfile = ({ user }) => {
   const { t } = useTranslation('tr');
   const [isFormShown, setIsFormShown] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const { updateStudentData } = useUpdateEstimation();
-  //const navigate = useNavigate();
+  const { updateStudentData } = useUpdateStudent();
+  const { deleteEntity } = useDeleteEntity('students');
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!user?.uid) {
-  //     navigate('/');
-  //   }
-  // }, [user, navigate]);
+  useEffect(() => {
+    if (!user?.uid) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const initialValues = {
     firstName: '',
     secondName: '',
+    years: '',
     phone: '',
     avatar: '',
     about: '',
     address: '',
     birthday: '',
     estimation: '',
+    // :TODO change to calendar date picker logic
     listOfVisits: [new Date().toDateString()],
     isActive: true,
   };
 
   const [defaultValues, setDefaultValues] = useState(initialValues);
-  const {getValues} = useForm({ defaultValues });
   const handleRowClick = (data) => {
     setIsFormShown(true);
     setIsEdit(true);
-    setDefaultValues((prev) => data);
+    setDefaultValues(data);
   };
-  useEffect(() => {
-    getValues();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValues]);
   const confirmationHandler = (id, data) => {
     const studentList = localStorage.getItem('students');
     const studentListParsed = studentList?.length ? JSON.parse(studentList) : [];
@@ -65,6 +68,21 @@ export const UserProfile = ({ user }) => {
     setShouldUpdate(prev => !prev);
   };
 
+  const updateStudentHandler = useCallback(async (estimation, data) => {
+    await updateStudentData(data.id, { estimation: +data.estimation + estimation });
+    setShouldUpdate(prev => !prev);
+  }, [updateStudentData]);
+
+  const deleteStudentHandler = useCallback(async (data) => {
+    await deleteEntity(data.id);
+    setShouldUpdate(prev => !prev);
+  }, [deleteEntity]);
+
+  const onIsActiveSwitch = useCallback(async (data) => {
+    await updateStudentData(data.id, { isActive: !data.isActive });
+    setShouldUpdate(prev => !prev);
+  }, [updateStudentData]);
+
   return (
     <UserProfileStyled>
       <div className="top-container">
@@ -77,8 +95,14 @@ export const UserProfile = ({ user }) => {
         </div>
 
         <div>
-          <ButtonStyled onClick={() => setIsFormShown(true)}>
+          <ButtonStyled onClick={() => {
+            setDefaultValues(initialValues);
+            setIsFormShown(true);
+          }}>
             + {t('students.addStudent')}
+          </ButtonStyled>
+          <ButtonStyled onClick={() =>navigate('/games/rate')}>
+            {t('students.showResult')}
           </ButtonStyled>
         </div>
       </div>
@@ -94,21 +118,41 @@ export const UserProfile = ({ user }) => {
       )}
       <DataTable
         entityName="students"
-        shouldUpdate={shouldUpdate} columns={[
-          ...student,
+        onSwitch={onIsActiveSwitch}
+        selectedRow={defaultValues.id}
+        shouldUpdate={shouldUpdate}
+        columns={[
+          ...student.filter(el => el.name !== 'birthday'),
           {
-            inputType: 'textInput',
+            name: 'birthday',
+            isIgnored: false,
+            render: (data) => data.birthday && (
+              <div>
+                {dateFormat(data.birthday, 'dd.mm.yyyy')}
+              </div>
+            ),
+          },
+          {
+            name: 'years',
+            isIgnored: true,
+            render: (data) => (
+              <div>
+                {getAge(dateFormat(data.birthday, 'yyyy-mm-dd'))}
+              </div>
+            ),
+          },
+          {
             name: 'estimation',
             label: 'Динарики',
             placeholder: 'Динарики',
             render: (data) => (
               <div className="estimation">
-                <ButtonIconStyled disabled>
+                <h3 className="score">
                   {data.estimation}
-                </ButtonIconStyled>
+                </h3>
                 <EditStudentEstimateModal
                   studentName={data.firstName}
-                  onConfirm={(estimation) => updateStudentData(data.id, { estimation: data + estimation })}
+                  onConfirm={(estimation) => updateStudentHandler(estimation, data)}
                 />
               </div>
             ),
@@ -119,9 +163,14 @@ export const UserProfile = ({ user }) => {
             name: 'action',
             label: 'Змiнити',
             render: (data) => (
-              <ButtonIconStyled onClick={() => handleRowClick(data)}>
-                <EditIcon/>
-              </ButtonIconStyled>
+              <div>
+                <ButtonIconStyled onClick={() => handleRowClick(data)}>
+                  <EditIcon/>
+                </ButtonIconStyled>
+                <ButtonIconStyled onClick={() => deleteStudentHandler(data)}>
+                  <DeleteIcon/>
+                </ButtonIconStyled>
+              </div>
             ),
           }
         ]}/>

@@ -5,6 +5,7 @@ import Scala from "../Games/Scale/Scala";
 import { Route } from 'react-router-dom';
 import { routes } from '../router/constants';
 import { MainLayout } from './MainLayout';
+import { Rate } from '../Games/Rate/Rate';
 
 export const Games = () => {
   return (
@@ -12,6 +13,7 @@ export const Games = () => {
       <Routes>
         <Route path={`${routes.games}/situations`} element={<Situations />} />
         <Route path={`${routes.games}/scala`} element={<Scala />} />
+        <Route path={`${routes.games}/rate`} element={<Rate />} />
       </Routes>
     </MainLayout>
   );

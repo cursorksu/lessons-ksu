@@ -18,8 +18,7 @@ export const AppRouter = () => {
             <Route path={`${routes.games}/scala`} element={<Scala />} />
           </>
         ))}
-        {/*{auth?.user?.uid &&*/}
-        {authRouts.map(({path, component}) => (
+        {auth?.user?.uid && authRouts.map(({path, component}) => (
           <Route path={path} element={component} key={path}/>
         ))}
         {!auth?.user?.uid && <Route path="*" element={<Navigate to="/" />} />}

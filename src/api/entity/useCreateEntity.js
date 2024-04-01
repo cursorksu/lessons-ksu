@@ -13,6 +13,7 @@ export const useCreateEntity = ( entity, onCreationComplete ) => {
       const entityCollection = collection(fireStore, entity);
       const result = await addDoc(entityCollection, {
         ...formData,
+        years: entity.years ?? '',
         createdAt: new Date(),
         createdBy: {
           uid: user?.uid,

@@ -186,3 +186,19 @@ p, label, a, span {
     padding: 0;
     flex-basis: 100%;
 }
+img.epr-emoji-img {
+    border: none !important;
+    min-height: initial !important;
+    min-width: initial !important;
+}
+.EmojiPickerReact .epr-emoji-category-content {
+    grid-template-columns: repeat(auto-fill, 40px) !important;
+    min-height: initial !important;
+    min-width: initial !important;
+}
+
+.EmojiPickerReact .epr-emoji-category-content button{
+    justify-content: start;
+    width: 52px;
+    margin: 0;
+}

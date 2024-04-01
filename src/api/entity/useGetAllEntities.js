@@ -4,6 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 import { setCollectionsInStore } from '../../store/collectionsResucer';
+import { setEntity } from '../../store/entitiesReducer';
 
 export const useGetAllEntities = (entity) => {
   const dispatch = useDispatch();
@@ -14,10 +15,16 @@ export const useGetAllEntities = (entity) => {
       const entityCollection = collection(fireStore, entity);
       const querySnapshot = await getDocs(entityCollection);
       let entityData = querySnapshot.docs.map((doc) => {
-        return {
+        const data = doc.data();
+
+        if (data.birthday && data.birthday !== '') {
+          data.birthday = data.birthday.toDate();
+        }
+
+        return ({
           id: doc?.id,
-          ...doc.data(),
-        };
+          ...data,
+        });
       });
       setLoading(false);
 
@@ -26,6 +33,11 @@ export const useGetAllEntities = (entity) => {
           setCollectionsInStore(entityData
             .sort((a, b) => b.createdAt - a.createdAt))
         );
+      }
+
+      if (entity === 'students') {
+        dispatch(
+          setEntity({ students: entityData }));
       }
 
       return entityData;

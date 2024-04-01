@@ -9,9 +9,32 @@
   },
   "students": {
     "myStudents": "My students",
+    "showResult": "Show result",
     "addStudent": "Add student",
     "deleteStudent": "Delete student",
-    "editStudent": "Edit student data"
+    "editStudent": "Edit student data",
+    "labels": {
+      "avatar": "Student Avatar",
+      "address": "Student`s address",
+      "about": "About me",
+      "birthday": "Day of Birth",
+      "years": "How old is student",
+      "firstName": "First Name",
+      "secondName": "Last Name",
+      "phone": "Phone number",
+      "estimation": "Money",
+      "action": "Action"
+    },
+    "placeholders": {
+      "avatar": "Choice Emoji for Avatar",
+      "address": "Enter student`s address",
+      "about": "Fill your hobby, pets, habits... Something interesting about you",
+      "birthday": "Enter the day of Birth",
+      "years": "Enter the amount of years",
+      "firstName": "Student First Name",
+      "secondName": "Student Last Name",
+      "phone": "Set Phone number"
+    }
   },
   "lessonTabs": {
     "topic": "Lesson Topic",
@@ -55,6 +78,8 @@
     "uploadPhoto": "Upload Photo",
     "cabinet": "To the personal office",
     "addProduct": "Add a product",
+    "add": "Add",
+    "remove": "Remove",
     "createLesson": "Create lesson",
     "accept": "Accept",
     "confirm": "Confirm",
