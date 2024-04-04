@@ -26,23 +26,17 @@ export const DataTable = ({
   const { getAllEntities } = useGetAllEntities(entityName);
 
   const getData = async() => {
-    //const data = localStorage.getItem(entityName);
     try {
-      // if (data) {
-      //   const parsedData = JSON.parse(data);
-      //   setTableData(parsedData);
-      // } else {
       const studentList  = await getAllEntities();
       setTableData(studentList);
       localStorage.setItem(JSON.stringify(studentList));
-      // }
     } catch (error) {
       return error;
     }
   };
 
   const getTotalScore = useCallback(() =>
-    tableData.reduce((acc, el) => acc + el.estimation, 0 ), [tableData]);
+    tableData?.reduce((acc, el) => acc + el.estimation, 0 ), [tableData]);
 
   useEffect(() => {
     getData();
@@ -98,7 +92,7 @@ export const DataTable = ({
               Разом дітей:
             </TableCell>
             <TableCell>
-              {tableData.length}
+              {tableData?.length}
             </TableCell>
 
             <TableCell>

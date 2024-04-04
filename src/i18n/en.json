@@ -1,6 +1,7 @@
 {
   "modal": {
-    "collectionDelete": "If you delete this collection all it lessons, images and other staff in it will be reachable out of it"
+    "collectionDelete": "If you delete this collection all it lessons, images and other staff in it will be reachable out of it",
+    "churchDelete": "If you delete this church all it lessons, images and other staff in it will be reachable out of it"
   },
   "collections": {
     "collections": "Collections of Lessons",
@@ -55,13 +56,45 @@
     "createdDate": "Created at: ",
     "author": "Created by: "
   },
+  "church": {
+    "deleteChurch": "Delete Church",
+    "addChurch": "Add Church",
+    "labels": {
+      "avatar": "Church logo",
+      "title": "Title of church",
+      "address": "Address",
+      "createdDate": "Creation date",
+      "about": "About us",
+      "phone": "Phone",
+      "email": "Email",
+      "web": "Website",
+      "pastor": "Pastor",
+      "pictures": "Album",
+      "groups": "Our Children groups",
+      "teachers": "Our Teachers"
+    },
+    "placeholders": {
+      "avatar": "Upload Church logo",
+      "title": "Enter title",
+      "address": "Enter address",
+      "createdDate": "Select date",
+      "about": "Put few words about the church strategy and vision",
+      "phone": "Enter contact number",
+      "email": "Enter church`s email",
+      "web": "Provide the link to your website",
+      "pastor": "Enter the Pastor Name",
+      "pictures": "Upload few pictures",
+      "groups": "Create Sunday school groups",
+      "teachers": "Add the teachers"
+    }
+  },
   "mainMenu": {
     "lang": "Select Language",
     "en": "English",
     "ua": "Ukrainian",
     "ru": "Russian",
     "settings": "Settings",
-    "community": "Community",
+    "community": "Churches",
     "cabinet": "User Profile",
     "collapse": "Collapse",
     "goBack": "Go back",

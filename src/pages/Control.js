@@ -57,7 +57,7 @@ export const Control = ({ loginWithGoogle, signOut }) => {
             <MenuItem
               hidden={!auth?.user?.uid}
               icon={<ChurchIcon />}
-              component={<Link to="/lessons" />}
+              component={<Link to={routes.church} />}
               className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.community')}

@@ -36,7 +36,7 @@ export const useCreateEntity = ( entity, onCreationComplete ) => {
         setMessage({
           type: 'error',
           message: {
-            title: 'Error creating lesson:',
+            title: `Error creating ${entity}:`,
             description: error.message,
           },
         })

@@ -6,6 +6,7 @@ import { Games } from '../pages/Games';
 import { Cabinet } from '../pages/Cabinet';
 import { Collections } from '../pages/Collections';
 import {Home} from "../pages/Home";
+import { ChurchesList } from '../components/ChurchesList';
 
 export const publicRoutes = [
   {
@@ -34,6 +35,11 @@ export const authRouts = [
     path: `${routes.cabinet}/:userId`,
     title: 'Cabinet',
     component: <Cabinet />,
+  },
+  {
+    path: `${routes.church}`,
+    title: 'ChurchList',
+    component: <ChurchesList />,
   },
   {
     path: '*',

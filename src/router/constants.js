@@ -3,5 +3,6 @@ export const routes = {
   lessons: '/lessons',
   games: '/games',
   cabinet: '/cabinet',
+  church: '/church',
   collections: '/collections',
 };

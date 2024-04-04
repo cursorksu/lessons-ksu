@@ -83,3 +83,31 @@ export const UvDropzoneStyled = styled('section')`
     object-fit: cover;
   }
 `;
+
+export const FileItemStyled = styled('div')`
+  display: grid;
+  grid-template-columns: 5fr 1fr 1fr 37px;
+  align-items: center;
+  grid-gap: 10px;
+  line-height: 40px;
+  margin-bottom: 10px;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+export const KsuDropzoneStyled = styled('section')`
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 20px;
+  
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    object-position: center;
+    margin: 0;
+    border: none;
+  }
+`;

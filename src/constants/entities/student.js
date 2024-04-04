@@ -1,6 +1,6 @@
 export const student = [
   {
-    inputType: 'textInput',
+    inputType: 'emojiPicker',
     name: 'avatar',
     isIgnored: false,
   },
@@ -20,7 +20,7 @@ export const student = [
     isIgnored: false,
   },
   {
-    inputType: 'textInput',
+    inputType: 'datePicker',
     name: 'birthday',
     isIgnored: false,
   },

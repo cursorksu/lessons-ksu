@@ -15,7 +15,7 @@ export const useOnLoadImages = (ref) => {
 
     const imagesLoaded = Array.from(ref.current.querySelectorAll('img'));
 
-    if (imagesLoaded.length === 0) {
+    if (imagesLoaded?.length === 0) {
       setStatus(true);
       return;
     }

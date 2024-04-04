@@ -9,13 +9,10 @@ import { InputStyled, LabelStyled } from '../InputStyled';
 import EmojiPicker, { Emoji } from 'emoji-picker-react';
 import { useEditEntity } from '../../api/entity/useEditEntity';
 import { KsuDatePicker } from '../KsuDatePicker';
+import { KsuDropzone } from '../Dropzone/KsuDropzone';
+import { KsuDropdown } from '../KsuDropdown';
 
 export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defaultValues = {} }) => {
-  // const dateString = defaultValues.birthday;
-  // const [day, month, year] = dateString.split('.');
-  // const dateObject = `${year}-${month}-${day}`;
-  // console.log(dateObject);
-  // defaultValues.birthday = dateObject;
   const [emojiIsOpen, setEmojiIsOpen] = useState(false);
   const { reset, control, getValues, setValue } = useForm({
     defaultValues,
@@ -27,17 +24,17 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
 
   useEffect(() => {
     reset(defaultValues);
-  }, [defaultValues]);
+  }, [defaultValues, reset]);
 
   const { editEntity } = useEditEntity(entityName);
   const { createEntity } = useCreateEntity(entityName);
   const { t } = useTranslation('tr');
 
   const getElement = useCallback((el, field) => {
-    switch (el.name) {
-    case 'avatar':
+    switch (el.inputType) {
+    case 'emojiPicker':
       return (
-        <div className="d-flex">
+        <div className="d-flex duo-cell">
           <div className="avatar">
             <Emoji size={80} unified={getValues('avatar')} />
           </div>
@@ -49,7 +46,7 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
               <ButtonStyled
                 onClick={() => setEmojiIsOpen(prev => !prev)}
               >
-                {t(`students.placeholders.${el.name}`)}
+                {t(`${entityName}.placeholders.${el.name}`)}
               </ButtonStyled>
             )}
             content={ <EmojiPicker
@@ -60,12 +57,39 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
           />
         </div>
       );
-    case 'birthday':
+    case 'datePicker':
       return (
         <KsuDatePicker
           selected={field.value}
-          placeholder={t(`students.placeholders.${el.name}`)}
-          onChange={(date) => setValue('birthday', date)}
+          placeholder={t(`${entityName}.placeholders.${el.name}`)}
+          onChange={(date) => setValue(el.name, date)}
+        />
+      );
+    case 'imagePicker':
+      return (
+        <div className="triple-cell">
+          <KsuDropzone
+            onChange={(data) => setValue(field.name, data)}
+            files={getValues(field.name)}
+            multiple={false}
+          />
+        </div>
+      );
+    case 'imagesPicker':
+      return (
+        <KsuDropzone
+          onChange={(data) => setValue(field.name, data)}
+          files={getValues(field.name)}
+          multiple={true}
+        />
+      );
+    case 'multiselectDropdown':
+      return (
+        <KsuDropdown
+          entityName={el.entity}
+          field={field}
+          onChange={(data) => setValue(field.name, data)}
+          multiple={true}
         />
       );
     default:
@@ -73,10 +97,11 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
         <InputStyled
           value={field.value}
           {...field}
-          placeholder={t(`students.placeholders.${el.name}`)}
+          placeholder={t(`${entityName}.placeholders.${field.name}`)}
         />
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emojiIsOpen]);
 
   return (
@@ -89,7 +114,7 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
               control={control}
               render={({ field }) => (
                 <FormField>
-                  <LabelStyled>{t(`students.labels.${el.name}`)}</LabelStyled>
+                  <LabelStyled>{t(`${entityName}.labels.${el.name}`)}</LabelStyled>
                   {getElement(el, field)}
                 </FormField>
               )}
@@ -100,10 +125,11 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
       <Grid.Row>
         <ButtonStyled
           onClick={async () => {
+            const newData = getValues();
             const id = defaultValues.id
-              ? await editEntity(getValues())
-              : await createEntity(getValues());
-            await onConfirm(id, getValues());
+              ? await editEntity(newData)
+              : await createEntity(newData);
+            await onConfirm(id, newData);
             onClose && onClose();
             reset();
           }}>
