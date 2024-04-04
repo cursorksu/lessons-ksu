@@ -1,11 +1,8 @@
-export const getDateLocalString = (date) => {
-  let newDate = date;
+import dateFormat from 'dateformat';
 
-  if (date.seconds) {
-    newDate = new Date(date);
-  }
+export const getDateLocalString = (timestamp) => {
+  const milliseconds = timestamp.seconds * 1000 + Math.round(timestamp.nanoseconds / 1e6);
+  const newDate = new Date(milliseconds);
 
-  const userLocale = navigator.language;
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return  newDate.toLocaleDateString(userLocale, options);
+  return dateFormat(newDate, 'dd.mm.yyyy');
 };

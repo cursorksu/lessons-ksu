@@ -41,7 +41,7 @@ export const DisplayEntity = ({ entity }) => {
 
       if (el.type === 'paragraph') {
         const paragraphArray = el.value.split('\n');
-        return paragraphArray.map((p, index) => !p.length
+        return paragraphArray.map((p, index) => !p?.length
           ? <br key={index} />
           : <p key={el?.id + index}>{p}</p>);
       }

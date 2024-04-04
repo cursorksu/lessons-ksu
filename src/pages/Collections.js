@@ -29,7 +29,7 @@ export const Collections = () => {
     e.stopPropagation();
     navigate(`${collectionId}${routes.lessons}`);
   }, [navigate]);
-  
+
   const handleDelete = async (e, id) => {
     e.stopPropagation();
     await deleteEntity(id);
@@ -98,6 +98,8 @@ export const Collections = () => {
         <div className="collections-wrapper">
           {collections?.length > 0 && collections.map(el => (
             <SprintCard
+              modalTitle={'collections.deleteCollection'}
+              modalContent={'modal.collectionDelete'}
               onDelete={(e) => handleDelete(e, el.id)}
               onClick={(e) => lessonsHandler(e, el.id)}
               img={el?.imageUrl}
