@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CHOCO, CREAM } from '../../constants/colors';
+import { CHOCO, CREAM, BOX_SHADOW } from '../../constants/colors';
 
 export const SprintCardStyled = styled('div')`
   width: 100%;
@@ -10,6 +10,7 @@ export const SprintCardStyled = styled('div')`
   overflow: hidden;
   outline: transparent 4px solid;
   transition: outline 0.3s ease-in-out;
+  box-shadow: ${BOX_SHADOW};
   
   &:hover {
     outline: ${CREAM} 4px solid ;

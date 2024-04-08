@@ -103,7 +103,6 @@ export const StyledDropdown = styled('div')`
     &:hover {
       border-color: ${PRIMARY_MAIN};
       box-shadow: none;
-      background-color: ${BG_GOLD};
       transition: background-color .3s ease-in-out;
     }
     &:focus-visible {

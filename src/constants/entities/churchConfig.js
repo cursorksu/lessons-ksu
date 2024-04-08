@@ -1,4 +1,4 @@
-export const church = [
+export const churchConfig = [
   {
     inputType: 'imagePicker',
     name: 'avatar',

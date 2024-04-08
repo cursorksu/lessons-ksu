@@ -4,7 +4,7 @@ import { CreateEntityForm } from '../CreateEntityForm/CreateEntityForm';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MainLayout } from '../../pages/MainLayout';
-import { church } from '../../constants/entities/church';
+import { churchConfig } from '../../constants/entities/churchConfig';
 import { SprintCard } from '../SprintCard/SprintCard';
 import { useGetAllEntities } from '../../api/entity/useGetAllEntities';
 import { ChurchesListStyled } from './styles';
@@ -82,7 +82,7 @@ export const ChurchesList = () => {
             entityName="church"
             onConfirm={confirmationHandler}
             onClose={() => setIsFormShown(false)}
-            fields={church}
+            fields={churchConfig}
             defaultValues={defaultValues}
           />
         )}
@@ -90,6 +90,7 @@ export const ChurchesList = () => {
       <ChurchesListStyled>
         {churchList?.length > 0 && churchList.map(el => (
           <SprintCard
+            key={el.id}
             editEnable={el.createdBy.uid === user.uid}
             onDelete={(e) => handleDelete(e, el.id)}
             modalTitle={'church.deleteChurch'}

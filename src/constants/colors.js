@@ -17,3 +17,4 @@ export const CREAM = '#faebd7ff';
 export const BG_GOLD = 'rgba(163, 147,103, 0.3)';
 export const DARK_BG = 'rgba(96,81,71,0.3)';
 export const HOVER_GOLD = 'rgba(163, 147,103, 0.1)';
+export const BOX_SHADOW = '0 0 26px rgba(0, 0, 0, 0.7)';

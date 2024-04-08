@@ -2,6 +2,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { StyledDropdown } from './StyledDropdown';
 import { useGetAllEntities } from '../../api/entity/useGetAllEntities';
 import { useCallback, useEffect, useState } from 'react';
+import { getOption } from '../../utils/getOption';
 
 export const KsuDropdown = ({
   entityName,
@@ -12,17 +13,7 @@ export const KsuDropdown = ({
   const { getAllEntities } = useGetAllEntities(entityName);
   const [options, setOptions] = useState([]);
   const [searchedOptions, setSearchedOptions] = useState(options);
-  const getOption = (el) => ({
-    key: el.id,
-    value: el.id,
-    text: !el.firstName
-      ? <div className='ksu-option'>
-        <div>{`${el.firstName} ${el.lastName}`}</div>
-        <div className='description'>{el.email}</div>
-      </div>
-      : el.email,
-    image: { avatar: el.avatar, src: el.avatar },
-  });
+
 
   useEffect(() => {
     getAllEntities().then(data => {
