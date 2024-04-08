@@ -7,19 +7,14 @@ import { Cabinet } from '../pages/Cabinet';
 import { Collections } from '../pages/Collections';
 import {Home} from "../pages/Home";
 import { ChurchesList } from '../components/ChurchesList';
+import { Church } from '../components/Church';
+import { GroupItem } from '../components/GroupItem';
 
 export const publicRoutes = [
   {
     path: '/',
     title: 'Home',
     component: <Home />,
-  },
-];
-export const authRouts = [
-  {
-    path: routes.collections,
-    title: 'Collections',
-    component: <Collections />,
   },
   {
     path: `${routes.collections}/:collectionId${routes.lessons}`,
@@ -32,14 +27,31 @@ export const authRouts = [
     component: <Lesson />,
   },
   {
-    path: `${routes.cabinet}/:userId`,
-    title: 'Cabinet',
-    component: <Cabinet />,
-  },
-  {
     path: `${routes.church}`,
     title: 'ChurchList',
     component: <ChurchesList />,
+  },
+  {
+    path: `${routes.church}/:churchId`,
+    title: 'Church',
+    component: <Church />,
+  },
+  {
+    path: `${routes.group}/:groupId`,
+    title: 'GroupItem',
+    component: <GroupItem />,
+  },
+];
+export const authRouts = [
+  {
+    path: routes.collections,
+    title: 'Collections',
+    component: <Collections />,
+  },
+  {
+    path: `${routes.cabinet}/:userId`,
+    title: 'Cabinet',
+    component: <Cabinet />,
   },
   {
     path: '*',

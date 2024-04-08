@@ -21,15 +21,16 @@
     top: 20px;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 80px;
+    width: 106px;
     height: calc(100vh - 240px);
     background-image: url("./assets/images/scala_vertical.png");
     background-size: cover;
+    z-index: 1;
   }
 
   .caps {
     position: absolute;
-    top: 20px;
+    top: 45px;
     left: 50%;
     transform: translate(-50%, 0) rotate(-0deg);
     width: 720px;
@@ -38,6 +39,7 @@
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
+    z-index: 0;
 
     &.is-active {
       transition: transform 0.4s ease-in-out;

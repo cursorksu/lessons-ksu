@@ -4,5 +4,6 @@ export const routes = {
   games: '/games',
   cabinet: '/cabinet',
   church: '/church',
+  group: '/group',
   collections: '/collections',
 };

@@ -38,7 +38,6 @@ export const UvFileItem = ({ files, handleRemove }) => {
         })
         : <></>
       }
-
     </div>
   );
 };
