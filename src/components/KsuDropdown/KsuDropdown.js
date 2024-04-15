@@ -14,7 +14,6 @@ export const KsuDropdown = ({
   const [options, setOptions] = useState([]);
   const [searchedOptions, setSearchedOptions] = useState(options);
 
-
   useEffect(() => {
     getAllEntities().then(data => {
       setOptions(data.map(el => getOption(el)));

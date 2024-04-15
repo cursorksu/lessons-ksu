@@ -47,10 +47,10 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               {t('collections.collections')}
             </MenuItem>
             <MenuItem
-              // hidden={!auth?.user?.uid}
+              hidden={!auth?.user?.uid}
               icon={<SettingsIcon />}
               component={<Link to="/games/situations" />}
-              //className={clsx({ disabled: !auth?.user?.uid })}
+              className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.settings')}
             </MenuItem>
@@ -65,7 +65,11 @@ export const Control = ({ loginWithGoogle, signOut }) => {
             <MenuItem
               hidden={!auth?.user?.uid}
               icon={<UserIcon />}
-              component={<Link to={`/cabinet/${auth?.user?.uid}`}/>}
+              component={
+                <Link
+                  to={`${routes.cabinet}/${auth?.user?.uid}${routes.group}/${auth?.user?.groups && auth?.user?.groups[0]}`}
+                />
+              }
               className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.cabinet')}

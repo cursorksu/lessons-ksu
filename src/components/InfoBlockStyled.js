@@ -21,15 +21,20 @@ export const InfoItemStyled = styled.div`
 export const InfoBlockStyled = styled.div`
   a {
     color: ${PRIMARY_MAIN};
-    font-size: 1.2rem;
     text-decoration: underline;
-    position: absolute;
-    top: 5px;
-    left: 6px;
-    transition: color 0.3s ease-in-out;
-    
     &:hover {
       color: white;
+    }
+  }
+  
+  &.group {
+    a {
+      text-align: left;
+      font-size: 1.2rem;
+      position: absolute;
+      top: 5px;
+      left: 6px;
+      transition: color 0.3s ease-in-out;
     }
   }
 
@@ -55,19 +60,4 @@ export const InfoBlockStyled = styled.div`
   b {
     font-weight: 600;
   }
-
-  //&:after,
-  //&:before {
-  //  content: '-------***-------';
-  //  display: block;
-  //  position: absolute;
-  //  left: 50%;
-  //  transform: translateX(-50%);
-  //}
-  //&:before {
-  //  top: 20px;
-  //}
-  //&:after {
-  //  bottom: 20px;
-  //}
 `;

@@ -21,12 +21,18 @@ export const EditStudentEstimateModal = ({ onConfirm, studentName }) => {
         <EstimationModalStyled>
           <FormField>
             <LabelStyled htmlFor="estime">Наберіть кількість динариків</LabelStyled>
+            <LabelStyled>Максимально 100, Мінімально -100</LabelStyled>
             <InputStyled
               name="estime"
               type="number"
+              min={-100}
+              max={100}
               step="1"
               value={estimation}
-              onChange={({target}) => setEstimation(target.value)}
+              onChange={({target}) =>
+                target.value >= -100
+                && target.value <= 100
+                && setEstimation(target.value)}
             />
           </FormField>
           <div className="action">

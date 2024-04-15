@@ -13,7 +13,7 @@ export const Games = () => {
       <Routes>
         <Route path={`${routes.games}/situations`} element={<Situations />} />
         <Route path={`${routes.games}/scala`} element={<Scala />} />
-        <Route path={`${routes.games}/rate`} element={<Rate />} />
+        <Route path={`/${routes.group}/:groupId/games/rate`} element={<Rate />} />
       </Routes>
     </MainLayout>
   );

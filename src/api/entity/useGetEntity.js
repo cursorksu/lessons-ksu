@@ -4,9 +4,9 @@ import { doc, getDoc } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 
-export const useGetEntity = (entityName, entityId) => {
+export const useGetEntity = (entityName) => {
   const dispatch = useDispatch();
-  const getEntityById = useCallback(async () => {
+  const getEntityById = useCallback(async (entityId) => {
     try {
       const lessonDocRef = doc(fireStore, entityName, entityId);
       const lessonSnapshot = await getDoc(lessonDocRef);
@@ -27,7 +27,7 @@ export const useGetEntity = (entityName, entityId) => {
       );
       return null;
     }
-  }, [dispatch, entityName, entityId]);
+  }, [dispatch, entityName]);
 
   return { getEntityById };
 };

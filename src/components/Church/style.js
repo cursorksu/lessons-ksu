@@ -22,7 +22,7 @@ export const ChurchStyled = styled('div')`
       margin-right: 0 !important;
       width: 160px;
       height: 160px;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
     }
   }
