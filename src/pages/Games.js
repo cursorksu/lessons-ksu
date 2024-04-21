@@ -11,9 +11,9 @@ export const Games = () => {
   return (
     <MainLayout>
       <Routes>
-        <Route path={`${routes.games}/situations`} element={<Situations />} />
-        <Route path={`${routes.games}/scala`} element={<Scala />} />
-        <Route path={`/${routes.group}/:groupId/games/rate`} element={<Rate />} />
+        <Route path={`/situations`} element={<Situations />} />
+        <Route path={`scala`} element={<Scala />} />
+        <Route path={`/:groupId/games/rate`} element={<Rate />} />
       </Routes>
     </MainLayout>
   );

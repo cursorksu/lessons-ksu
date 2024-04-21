@@ -64,10 +64,9 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               {t('mainMenu.show')}
             </MenuItem>
             <MenuItem
-              hidden={!auth?.user?.uid}
               icon={<GameIcon />}
-              component={<Link to="/games/situations" />}
-              className={clsx({ middle: true, disabled: !auth?.user?.uid })}
+              component={<Link to={`${routes.games}`} />}
+              className="middle"
             >
               {t('mainMenu.settings')}
             </MenuItem>

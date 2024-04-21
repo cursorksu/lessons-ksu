@@ -53,6 +53,11 @@ export const publicRoutes = [
     title: 'ScenarioItem',
     component: <ScenarioItem />,
   },
+  {
+    path: `${routes.games}`,
+    title: 'Games',
+    component: <Games />,
+  },
 ];
 export const authRouts = [
   {
@@ -65,10 +70,4 @@ export const authRouts = [
     title: 'Cabinet',
     component: <Cabinet />,
   },
-  {
-    path: '*',
-    title: 'Games',
-    component: <Games />,
-  },
-
 ];
