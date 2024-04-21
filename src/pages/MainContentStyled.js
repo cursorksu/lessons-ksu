@@ -18,6 +18,15 @@ export const ShadowCardStyled = styled('li')`
     grid-gap: 20px;
     grid-template-columns: 60px 1fr;
     align-items: center;
+  
+    &.d-block {
+      display: block;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
 
     &:after {
       border-radius: 20px;
@@ -125,6 +134,12 @@ export const MainContentStyled = styled('div')`
     & > .content-wrapper {
       flex-basis: 70%;
       padding-left: 20px;
+
+      .d-flex{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
   }
     
