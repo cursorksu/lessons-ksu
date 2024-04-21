@@ -4,11 +4,52 @@ import { BG_GOLD, PRIMARY_MAIN } from '../../constants/colors';
 export const StyledDropdown = styled('div')`
   min-width: 100%;
   position: relative;
+
+  .ui.dropdown .menu .item .image, 
+  .ui.dropdown .menu .item img, 
+  .ui.dropdown .text .image, 
+  .ui.dropdown .text img {
+    margin-top: 0;
+    margin-bottom: 0;
+    min-width: 40px;
+    min-height: 40px;
+  }
   
   input {
     border: none;
   }
-  
+  .dropdown {
+    font-weight: 300;
+    font-size: 1.5rem;
+    
+    .text {
+      color: ${PRIMARY_MAIN};
+      font-weight: 300;
+      font-size: 1.2rem;
+    }
+    
+    & > .text {
+      width: 100%;
+      line-height: 40px;
+      
+      & > * {
+        display: inline-block;
+      }
+      
+      .avatar {
+        min-width: 40px !important;
+        max-width: 40px !important;
+        width: 40px !important;
+        height: 40px !important;
+      }
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      grid-gap: 10px;
+    }
+  }
   .dropdown.icon {
     position: absolute;
     top: 50%;
@@ -53,8 +94,6 @@ export const StyledDropdown = styled('div')`
     
     .ksu-option {
       color: ${PRIMARY_MAIN};
-      font-weight: 300;
-      font-size: 1.5rem;
     }
     
     .description {

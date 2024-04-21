@@ -12,6 +12,8 @@ import { getDateLocalString } from '../../utils/getDateLocalString';
 import { useDeleteEntity } from '../../api/entity/useDeleteEntity';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useEditEntity } from '../../api/entity/useEditEntity';
+import { useGetEntity } from '../../api/entity/useGetEntity';
 
 const initialValues = {
   title: '',
@@ -35,6 +37,8 @@ export const ChurchesList = () => {
   const [defaultValues, setDefaultValues] = useState(initialValues);
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const { t } = useTranslation('tr');
+  const { editEntity } = useEditEntity('users');
+  const { getEntityById } = useGetEntity('users');
   const { getAllEntities } = useGetAllEntities('church');
   const { deleteEntity } = useDeleteEntity('church');
   const [churchList, setChurchList] = useState([]);
@@ -43,13 +47,14 @@ export const ChurchesList = () => {
     getAllEntities().then(data => setChurchList(data));
   }, [getAllEntities, shouldUpdate]);
 
-  const confirmationHandler = (id, data) => {
-    const churchList = localStorage.getItem('church');
-    const churchListParsed = churchList?.length ? JSON.parse(churchList) : [];
-    const newData = {
-      id, ...data,
-    };
-    localStorage.setItem('church', JSON.stringify([...churchListParsed,  newData]));
+  const confirmationHandler = async (churchId, churchData) => {
+    churchData.teachers.map(async el => {
+      const teacher = await getEntityById(el);
+      await editEntity({
+        ...teacher,
+        church: [...teacher?.church, churchId]
+      });
+    });
     setShouldUpdate(prev => !prev);
   };
 
@@ -57,10 +62,20 @@ export const ChurchesList = () => {
     e.stopPropagation();
     navigate(`/church/${id}`);
   }, [navigate]);
-  const handleDelete = useCallback((e, id) => {
+
+  const handleDelete = useCallback((e, churchData) => {
     e.stopPropagation();
-    deleteEntity(id).then(() => setShouldUpdate(prev => !prev));
-  }, [deleteEntity]);
+    deleteEntity(churchData.id).then(() => {
+      churchData.teachers.map(async teacherId => {
+        const teacher = await getEntityById(teacherId);
+        await editEntity({
+          ...teacher,
+          church: teacher?.church?.filter(churchId => churchId !== churchData.id),
+        });
+      });
+      setShouldUpdate(prev => !prev);
+    });
+  }, [deleteEntity, getEntityById, editEntity]);
 
   return     (
     <MainLayout>
@@ -91,8 +106,8 @@ export const ChurchesList = () => {
         {churchList?.length > 0 && churchList.map(el => (
           <SprintCard
             key={el.id}
-            editEnable={el.createdBy.uid === user.uid}
-            onDelete={(e) => handleDelete(e, el.id)}
+            editEnable={el.createdBy?.uid === user?.uid}
+            onDelete={(e) => handleDelete(e, el)}
             modalTitle={'church.deleteChurch'}
             modalContent={'modal.churchDelete'}
             onClick={(e) => cardClickHandler(e, el.id)}

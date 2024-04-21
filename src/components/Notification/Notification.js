@@ -1,4 +1,4 @@
-import { Header, TransitionablePortal } from 'semantic-ui-react';
+import { TransitionablePortal } from 'semantic-ui-react';
 import { useEffect } from 'react';
 import { NotificationStyled } from '../NotificationStyled';
 import { clsx } from 'clsx';
@@ -23,8 +23,9 @@ export const Notification = () => {
       <NotificationStyled
         className={clsx(notification?.type, { open: notification?.type })}
       >
-        <Header>{notification?.message.title}</Header>
-        <p>{notification?.message.description}</p>
+        <b>{notification?.message.title}</b>
+        <span>  </span>
+        <span>{notification?.message.description}</span>
       </NotificationStyled>
     </TransitionablePortal>
   );

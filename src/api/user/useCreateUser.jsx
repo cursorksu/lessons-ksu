@@ -7,7 +7,7 @@ export const useCreateUser = () => {
   const dispatch = useDispatch();
   const createUserDoc = async (userObj) => {
     try {
-      const userDock = doc(fireStore, `/users/${userObj.uid}`);
+      const userDock = doc(fireStore, `/users/${userObj?.uid}`);
       const createdAt = new Date().toLocaleString();
       const userData = await setDoc(userDock, { ...userObj, createdAt, groups: [] });
 

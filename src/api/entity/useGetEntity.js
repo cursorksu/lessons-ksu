@@ -8,10 +8,10 @@ export const useGetEntity = (entityName) => {
   const dispatch = useDispatch();
   const getEntityById = useCallback(async (entityId) => {
     try {
-      const lessonDocRef = doc(fireStore, entityName, entityId);
-      const lessonSnapshot = await getDoc(lessonDocRef);
-      if (lessonSnapshot.exists()) {
-        return { id: lessonSnapshot?.id, ...lessonSnapshot.data() };
+      const docRef = doc(fireStore, entityName, entityId);
+      const snapshot = await getDoc(docRef);
+      if (snapshot.exists()) {
+        return { id: snapshot?.id, ...snapshot.data() };
       } else {
         return null;
       }

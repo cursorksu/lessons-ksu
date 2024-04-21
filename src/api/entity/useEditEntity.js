@@ -23,15 +23,9 @@ export const useEditEntity = (entityName) => {
           const newData = {
             ...entity?.profile,
             ...data,
-            years: entity.years ?? '',
             modification_timestamp: new Date().getTime(),
           };
           await updateDoc(docRef, newData);
-
-          const entityList = await getAllEntities();
-          localStorage.setItem(entityName, JSON.stringify(entityList));
-          await getAllEntities();
-
           if (entity === 'students') {
             dispatch(
               setEntity({ students: newData }));

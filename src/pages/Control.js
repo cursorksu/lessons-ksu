@@ -1,13 +1,15 @@
 import React from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ReactComponent as TranslateIcon } from '../assets/translate.svg';
-import { ReactComponent as SettingsIcon } from '../assets/settings.svg';
+import { ReactComponent as GameIcon } from '../assets/game.svg';
 import { ReactComponent as CollapseIcon } from '../assets/move.svg';
 import { ReactComponent as ChurchIcon } from '../assets/church.svg';
 import { ReactComponent as UserIcon } from '../assets/user.svg';
 import { ReactComponent as BackIcon } from '../assets/back.svg';
 import { ReactComponent as GoogleIcon } from '../assets/google.svg';
 import { ReactComponent as CollectionsIcon } from '../assets/collection.svg';
+import { ReactComponent as ShowIcon } from '../assets/show.svg';
+import { ReactComponent as HeartIcon } from '../assets/heart.svg';
 import { setMainMenuCollapsed } from '../store/mainMenuReducer';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -33,6 +35,14 @@ export const Control = ({ loginWithGoogle, signOut }) => {
         <Menu>
           <div>
             <MenuItem icon={<CollapseIcon />} onClick={handleCollapse}>{t('mainMenu.collapse')}</MenuItem>
+            <MenuItem
+              hidden={false}
+              icon={<HeartIcon />}
+              component={<Link to={`${routes.home}`} />}
+              className="big"
+            >
+              {t('mainMenu.home')}
+            </MenuItem>
             <SubMenu label={t('mainMenu.lang')} icon={<TranslateIcon />}>
               <MenuItem onClick={() => i18n.changeLanguage('ua')}>{t('mainMenu.ua')}</MenuItem>
               <MenuItem onClick={() => i18n.changeLanguage('en')}>{t('mainMenu.en')}</MenuItem>
@@ -47,10 +57,17 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               {t('collections.collections')}
             </MenuItem>
             <MenuItem
+              icon={<ShowIcon />}
+              component={<Link to={`${routes.scenario}`} />}
+              className="middle"
+            >
+              {t('mainMenu.show')}
+            </MenuItem>
+            <MenuItem
               hidden={!auth?.user?.uid}
-              icon={<SettingsIcon />}
+              icon={<GameIcon />}
               component={<Link to="/games/situations" />}
-              className={clsx({ disabled: !auth?.user?.uid })}
+              className={clsx({ middle: true, disabled: !auth?.user?.uid })}
             >
               {t('mainMenu.settings')}
             </MenuItem>
@@ -74,8 +91,16 @@ export const Control = ({ loginWithGoogle, signOut }) => {
             >
               {t('mainMenu.cabinet')}
             </MenuItem>
-            {!auth?.token && <MenuItem icon={<GoogleIcon />} onClick={loginWithGoogle}>Login</MenuItem>}
-            {auth?.token && <MenuItem icon={<GoogleIcon />} onClick={signOut}>Logout</MenuItem>}
+            {!auth?.token && (
+              <MenuItem icon={<GoogleIcon />} onClick={loginWithGoogle}   className="big">
+                Sign in
+              </MenuItem>
+            )}
+            {auth?.token && (
+              <MenuItem icon={<GoogleIcon />} onClick={signOut}   className="big">
+                Sign out
+              </MenuItem>
+            )}
           </div>
           <div>
             <Divider section />

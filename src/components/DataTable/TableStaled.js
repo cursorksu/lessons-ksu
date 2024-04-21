@@ -31,7 +31,7 @@ export const TableStaled = styled.div`
     bottom: 0;
     background: rgba(255,255,255, 0.7);
   }
-  .ui.celled.definition.table thead:not(.full-width) th:first-child {
+  .ui.celled.definition.table thead:not(.full-width) th:first-of-type {
     background: ${CREAM} !important;
     color: rgba(0, 0, 0, .87) !important;
     font-weight: 600;

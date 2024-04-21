@@ -59,6 +59,7 @@ export const GroupItem = () => {
 
   useEffect(() => {
     group?.teachers?.length && getTeachers(group?.teachers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [group]);
 
   useEffect(() => {
