@@ -1,35 +1,34 @@
 import { UserProfileStyled } from './UserProfileStyled';
-import { Image } from 'semantic-ui-react';
-import { useCallback, useEffect, useState } from 'react';
+import { Image, Tab } from 'semantic-ui-react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import { CreateEntityForm } from "../CreateEntityForm/CreateEntityForm";
 import {ButtonIconStyled, ButtonStyled} from "../ButtonStyled";
-import { DataTable } from "../DataTable/DataTable";
-import { student } from "../../constants/entities/student";
+import { StudentsTable } from "../DataTable/StudentsTable";
+import { studentConfig } from "../../constants/entities/studentConfig";
 import { EditStudentEstimateModal } from "../EditStudentEstimateModal/EditStudentEstimateModal";
 import { useUpdateStudent } from "../../api/student/useUpdateStudent";
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
-
 import { useDeleteEntity } from '../../api/entity/useDeleteEntity';
-import { useNavigate } from 'react-router';
-import { getAge } from '../../utils/getAge';
-import dateFormat from 'dateformat';
+import { useNavigate, useParams } from 'react-router';
+import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
+import { routes } from '../../router/constants';
 
 export const UserProfile = ({ user }) => {
+  const navigate = useNavigate();
+  const { groupId } = useParams();
   const { t } = useTranslation('tr');
+  const [activeTab, setActiveTab] = useState(0);
   const [isFormShown, setIsFormShown] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
   const { updateStudentData } = useUpdateStudent();
   const { deleteEntity } = useDeleteEntity('students');
-  const navigate = useNavigate();
+  const { getEntities, entities: groups } = useGetEntityListByIds('group');
 
   useEffect(() => {
-    if (!user?.uid) {
-      navigate('/');
-    }
-  }, [user, navigate]);
+    getEntities(user?.groups || []);
+  }, [user, getEntities]);
 
   const initialValues = {
     firstName: '',
@@ -44,27 +43,18 @@ export const UserProfile = ({ user }) => {
     // :TODO change to calendar date picker logic
     listOfVisits: [new Date().toDateString()],
     isActive: true,
+    group: groupId,
   };
 
   const [defaultValues, setDefaultValues] = useState(initialValues);
-  const handleRowClick = (data) => {
+  const handleRowClick = useCallback((data) => {
     setIsFormShown(true);
-    setIsEdit(true);
-    setDefaultValues(data);
-  };
-  const confirmationHandler = (id, data) => {
-    const studentList = localStorage.getItem('students');
-    const studentListParsed = studentList?.length ? JSON.parse(studentList) : [];
-    if(isEdit) {
-      setIsFormShown(false);
-      setDefaultValues(initialValues);
-      localStorage.setItem('students', JSON.stringify(studentListParsed.map(el => el.id === defaultValues.id ? defaultValues : el)));
-    } else {
-      const newData = {
-        id, ...data,
-      };
-      localStorage.setItem('students', JSON.stringify([...studentListParsed,  newData]));
-    }
+    setDefaultValues({
+      ...data,
+      group: groupId,
+    });
+  }, [groupId]);
+  const confirmationHandler = () => {
     setShouldUpdate(prev => !prev);
   };
 
@@ -82,6 +72,92 @@ export const UserProfile = ({ user }) => {
     await updateStudentData(data.id, { isActive: !data.isActive });
     setShouldUpdate(prev => !prev);
   }, [updateStudentData]);
+
+  const handleTabChange = useCallback(({ activeIndex }) => {
+    setActiveTab(activeIndex);
+    const activeGroup = groups[activeIndex];
+    navigate(`${routes.cabinet}/${user?.userId}${routes.group}/${activeGroup.id}`);
+  }, [user, groups, navigate]);
+
+  const panes = useMemo(() => (groups?.map((item) => (
+    {
+      menuItem: {
+        key: item.id,
+        content: item.title
+      },
+      render: () => (
+        <StudentsTable
+          onSwitch={onIsActiveSwitch}
+          selectedRow={defaultValues.id}
+          shouldUpdate={shouldUpdate}
+          columns={[
+            ...studentConfig.filter(el => el.name !== 'birthday'),
+            {
+              name: 'birthday',
+              isIgnored: false,
+              render: (data) => data.birthday && (
+                <div>
+                  {/*{dateFormat(data.birthday, 'dd.mm.yyyy')}*/}
+                </div>
+              ),
+            },
+            {
+              name: 'years',
+              isIgnored: true,
+              render: (data) => (
+                <div>
+                  {/*{getAge(dateFormat(data.birthday, 'yyyy-mm-dd'))}*/}
+                </div>
+              ),
+            },
+            {
+              name: 'estimation',
+              label: 'Динарики',
+              placeholder: 'Динарики',
+              render: (data) => (
+                <div className="estimation">
+                  <h3 className="score">
+                    {data.estimation}
+                  </h3>
+                  <EditStudentEstimateModal
+                    studentName={data.firstName}
+                    onConfirm={(estimation) => updateStudentHandler(estimation, data)}
+                  />
+                </div>
+              ),
+              isIgnored: true,
+            },
+            {
+              inputType: null,
+              name: 'action',
+              label: 'Змiнити',
+              render: (data) => (
+                <div>
+                  <ButtonIconStyled onClick={() => handleRowClick(data)}>
+                    <EditIcon/>
+                  </ButtonIconStyled>
+                  <ButtonIconStyled onClick={() => deleteStudentHandler(data)}>
+                    <DeleteIcon/>
+                  </ButtonIconStyled>
+                </div>
+              ),
+            }
+          ]}/>
+      ),
+    })
+  )), [
+    groups,
+    shouldUpdate,
+    defaultValues,
+    deleteStudentHandler,
+    handleRowClick,
+    onIsActiveSwitch,
+    updateStudentHandler
+  ]);
+
+  useEffect(() => {
+    setActiveTab(groups.findIndex(el => el.id === groupId));
+  }, [groupId, groups]);
 
   return (
     <UserProfileStyled>
@@ -101,7 +177,7 @@ export const UserProfile = ({ user }) => {
           }}>
             + {t('students.addStudent')}
           </ButtonStyled>
-          <ButtonStyled onClick={() =>navigate('/games/rate')}>
+          <ButtonStyled onClick={() =>navigate(`${routes.group}/${groupId}/games/rate`)}>
             {t('students.showResult')}
           </ButtonStyled>
         </div>
@@ -112,68 +188,15 @@ export const UserProfile = ({ user }) => {
           entityName="students"
           onConfirm={confirmationHandler}
           onClose={() => setIsFormShown(false)}
-          fields={student}
+          fields={studentConfig}
           defaultValues={defaultValues}
         />
       )}
-      <DataTable
-        entityName="students"
-        onSwitch={onIsActiveSwitch}
-        selectedRow={defaultValues.id}
-        shouldUpdate={shouldUpdate}
-        columns={[
-          ...student.filter(el => el.name !== 'birthday'),
-          {
-            name: 'birthday',
-            isIgnored: false,
-            render: (data) => data.birthday && (
-              <div>
-                {dateFormat(data.birthday, 'dd.mm.yyyy')}
-              </div>
-            ),
-          },
-          {
-            name: 'years',
-            isIgnored: true,
-            render: (data) => (
-              <div>
-                {getAge(dateFormat(data.birthday, 'yyyy-mm-dd'))}
-              </div>
-            ),
-          },
-          {
-            name: 'estimation',
-            label: 'Динарики',
-            placeholder: 'Динарики',
-            render: (data) => (
-              <div className="estimation">
-                <h3 className="score">
-                  {data.estimation}
-                </h3>
-                <EditStudentEstimateModal
-                  studentName={data.firstName}
-                  onConfirm={(estimation) => updateStudentHandler(estimation, data)}
-                />
-              </div>
-            ),
-            isIgnored: true,
-          },
-          {
-            inputType: null,
-            name: 'action',
-            label: 'Змiнити',
-            render: (data) => (
-              <div>
-                <ButtonIconStyled onClick={() => handleRowClick(data)}>
-                  <EditIcon/>
-                </ButtonIconStyled>
-                <ButtonIconStyled onClick={() => deleteStudentHandler(data)}>
-                  <DeleteIcon/>
-                </ButtonIconStyled>
-              </div>
-            ),
-          }
-        ]}/>
+      <Tab
+        panes={panes}
+        activeIndex={activeTab}
+        onTabChange={(_, data) => handleTabChange(data)}
+      />
     </UserProfileStyled>
   );
 };

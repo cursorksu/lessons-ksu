@@ -11,6 +11,7 @@ import { useCreateEntity } from '../../api/entity/useCreateEntity';
 import { StyledDropdown } from '../KsuDropdown/StyledDropdown';
 import { getOption } from '../../utils/getOption';
 import { NavLink } from 'react-router-dom';
+import { useGetEntity } from '../../api/entity/useGetEntity';
 
 const initialValues = {
   title: '',
@@ -22,9 +23,11 @@ const initialValues = {
 export const GroupList = ({ isAuth, groups, church, onEdit }) => {
   const { t } = useTranslation('tr');
   const { editEntity } = useEditEntity('church');
+  const { editEntity: editTeacherEntity } = useEditEntity('users');
   const { createEntity } = useCreateEntity('group');
   const [isFormShown, setIsFormShown] = useState(false);
   const [teachers, setTeachers] = useState([]);
+  const { getEntityById } = useGetEntity('users');
 
   useEffect(() => {
     setTeachers(church?.teachers?.map(el => getOption(el)));
@@ -51,7 +54,8 @@ export const GroupList = ({ isAuth, groups, church, onEdit }) => {
   }, [church, groups, setValue]);
 
   const handleAddGroup = useCallback(async () => {
-    await createEntity(getValues()).then((createdGroupId) => {
+    const newData = getValues();
+    await createEntity(newData).then((createdGroupId) => {
       const newData = {
         ...church,
         teachers: church?.teachers?.map(el => el.id),
@@ -60,13 +64,30 @@ export const GroupList = ({ isAuth, groups, church, onEdit }) => {
           createdGroupId,
         ]
       };
-      editEntity(newData).then(() => {
+      editEntity(newData).then(async () => {
+        for (const teacherId of newData.teachers) {
+          const teacher = await getEntityById(teacherId);
+          await editTeacherEntity({
+            ...teacher,
+            groups: teacher ? [...teacher.groups, createdGroupId] : [],
+          });
+        }
         setIsFormShown(false);
         onEdit();
         reset();
       });
     });
-  }, [church, createEntity, editEntity, getValues, groups, onEdit, reset]);
+  }, [
+    church,
+    createEntity,
+    editEntity,
+    getValues,
+    groups,
+    onEdit,
+    editTeacherEntity,
+    getEntityById,
+    reset,
+  ]);
 
   const removeTeacherFromGroup = useCallback(async (id) => {
     // eslint-disable-next-line no-console
@@ -154,7 +175,7 @@ export const GroupList = ({ isAuth, groups, church, onEdit }) => {
         )}
         <h2>Our Groups</h2>
         {groups && groups?.length > 0 && groups?.map(el => (
-          <InfoItemStyled className="" key={el.id}>
+          <InfoItemStyled className="group" key={el.id}>
             {isAuth && <NavLink to={`/group/${el.id}`}>go to group</NavLink>}
             <div>
               <img src={el?.avatar && el?.avatar} alt={el.firstName}/>

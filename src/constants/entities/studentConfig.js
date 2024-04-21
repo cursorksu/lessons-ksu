@@ -1,4 +1,4 @@
-export const student = [
+export const studentConfig = [
   {
     inputType: 'emojiPicker',
     name: 'avatar',

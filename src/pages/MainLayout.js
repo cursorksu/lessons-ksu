@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Control } from './Control';
 import { MainContentStyled } from './MainContentStyled';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ export const MainLayout = ({ children }) => {
   const mainMenuCollapsed  = useSelector(({ mainMenuCollapsed }) => mainMenuCollapsed);
   const { getSignUpData, signOutUser } = useSignUp();
 
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = useCallback(async () => {
     await setPersistence(auth, browserLocalPersistence).then(() => {
       const provider = new GoogleAuthProvider();
       signInWithPopup(auth, provider).then(async () => {
@@ -29,15 +29,16 @@ export const MainLayout = ({ children }) => {
     }).catch((error) => {
       throw new Error(error);
     });
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth, getSignUpData]);
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
     signOutUser().then(() => {
       localStorage.clear();
       dispatch(clearAuthData());
       navigate(routes.home);
     });
-  };
+  }, [dispatch, navigate, signOutUser]);
 
   return (
     <MainContentStyled collapsed={mainMenuCollapsed}>

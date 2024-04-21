@@ -49,7 +49,7 @@ export const authRouts = [
     component: <Collections />,
   },
   {
-    path: `${routes.cabinet}/:userId`,
+    path: `${routes.cabinet}/:userId${routes.group}/:groupId`,
     title: 'Cabinet',
     component: <Cabinet />,
   },

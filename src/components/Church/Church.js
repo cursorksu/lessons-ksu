@@ -18,14 +18,14 @@ export const Church = () => {
   const { user } = useSelector(state => state.auth);
   const { churchId } = useParams();
   const [church, setChurch] = useState({});
-  const { getEntityById } = useGetEntity('church', churchId);
+  const { getEntityById } = useGetEntity('church');
   const { getEntities: getTeachers, entities: teachers } = useGetEntityListByIds('users');
   const { getEntities: getGroups, entities: groups } = useGetEntityListByIds('group');
   const [isFormShown, setIsFormShown] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
 
   useEffect(() => {
-    getEntityById().then(data => {
+    getEntityById(churchId).then(data => {
       setChurch(data);
     });
   }, [shouldUpdate, churchId, getEntityById]);
@@ -103,7 +103,7 @@ export const Church = () => {
           <InfoBlockStyled className='text-block'>
             <div><b>Address:</b> {church?.address}</div>
             <div><b>Email:</b> {church?.email}</div>
-            <div><b>Web Site:</b> {church?.web}</div>
+            <div><b>Web Site:</b> <a href={church?.web}>{church?.web}</a></div>
             <div><b>Phone:</b> {church?.phone}</div>
           </InfoBlockStyled>
         </div>

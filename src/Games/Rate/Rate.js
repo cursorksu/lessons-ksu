@@ -5,13 +5,16 @@ import { Emoji } from 'emoji-picker-react';
 import { clsx } from 'clsx';
 export const Rate = () => {
   const { students } = useSelector((state) => state.entities);
+
   const rateStep = useMemo(() => {
     const screenHeight = window.innerHeight;
-    const largestRate = Math.max(
-      ...students
-        .map(el => +el.estimation)
-        .filter(rate => !isNaN(rate))
-    );
+    let largestRate = 100;
+    if (students) {
+      largestRate = Math.max(
+        ...students?.map(el => +el.estimation)
+          .filter(rate => !isNaN(rate))
+      );
+    }
     return (screenHeight - 300) / largestRate;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [students, window.innerHeight]);
