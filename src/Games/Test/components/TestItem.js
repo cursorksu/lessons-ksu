@@ -5,8 +5,11 @@ import React from 'react';
 import { TestItemStyled } from './TestItemStyled';
 import { Checkbox, Popup } from 'semantic-ui-react';
 import { ShadowCardStyled } from '../../../pages/MainContentStyled';
+const { v4: uuidv4 } = require('uuid');
 
-export const TestItem = () => {
+export const answerIds = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K'];
+export const TestItem = ({ item, onRemoveItem, onChange }) => {
+
   return (
     <ShadowCardStyled className="d-block">
       <TestItemStyled>
@@ -14,132 +17,108 @@ export const TestItem = () => {
           <div>
             <LabelStyled className="input-label">Текст питання</LabelStyled>
             <InputStyled
-              id={'${el?.id}'}
-              name={'${el?.id}'}
-              placeholder="Наступний елемент списку"
-              value={'el?.value'}
-              onChange={() => {}}
-              onKeyDown={() => {}}
+              id={item.id}
+              name={'question'}
+              placeholder="Текст запитання"
+              value={item.question}
+              onChange={(e) => onChange(item.id, e.target.value)}
             />
           </div>
-          <div></div>
           <Popup
             closeOnPortalMouseLeave
             openOnTriggerMouseEnter
             trigger={(
               <ButtonIconStyled
                 className="remove-handle"
-                onClick={() => {}}
+                onClick={() => onRemoveItem(item.id)}
               >
                 <RemoveIcon />
               </ButtonIconStyled>
             )}
             content={'Видалити питання з тесту'}
           />
-        </div>
-        <div className='answer'>
-          <div>
-            <LabelStyled className="input-label">Відповідь В</LabelStyled>
-            <InputStyled
-              id={'${el?.id}'}
-              name={'${el?.id}'}
-              placeholder="Наступний елемент списку"
-              value={'el?.value'}
-              onChange={() => {}}
-              onKeyDown={() => {}}
-            />
-          </div>
-          <Popup
-            closeOnPortalMouseLeave
-            openOnTriggerMouseEnter
-            trigger={(
-              <Checkbox slider checked={false} onChange={() => {}}/>
-            )}
-            content={'Відмітити відповідь як вірну'}
-          />
           <Popup
             closeOnPortalMouseLeave
             openOnTriggerMouseEnter
             trigger={(
               <ButtonIconStyled
                 className="remove-handle"
-                onClick={() => {}}
+                onClick={() => onChange(item.id, [
+                  ...item.answer,
+                  {
+                    id: uuidv4(),
+                    text: '',
+                    isTrue: false,
+                  },
+                ])}
               >
-                <RemoveIcon />
+                +
               </ButtonIconStyled>
             )}
-            content={'Видалити варіант відповіді'}
+            content={'Додати ще один варіант відповіді'}
           />
         </div>
-        <div className='answer'>
-          <div>
-            <LabelStyled className="input-label">Відповідь С</LabelStyled>
-            <InputStyled
-              id={'${el?.id}'}
-              name={'${el?.id}'}
-              placeholder="Наступний елемент списку"
-              value={'el?.value'}
-              onChange={() => {}}
-              onKeyDown={() => {}}
-            />
-          </div>
-          <Popup
-            closeOnPortalMouseLeave
-            openOnTriggerMouseEnter
-            trigger={(
-              <Checkbox slider checked={false} onChange={() => {}}/>
-            )}
-            content={'Відмітити відповідь як вірну'}
-          />
-          <Popup
-            closeOnPortalMouseLeave
-            openOnTriggerMouseEnter
-            trigger={(
-              <ButtonIconStyled
-                className="remove-handle"
-                onClick={() => {}}
-              >
-                <RemoveIcon />
-              </ButtonIconStyled>
-            )}
-            content={'Видалити варіант відповіді'}
-          />
-        </div>
-        <div className="answer">
-          <div>
-            <LabelStyled className="input-label">Відповідь А</LabelStyled>
-            <InputStyled
-              id={'${el?.id}'}
-              name={'${el?.id}'}
-              placeholder="Наступний елемент списку"
-              value={'el?.value'}
-              onChange={() => {}}
-              onKeyDown={() => {}}
-            />
-          </div>
-          <Popup
-            closeOnPortalMouseLeave
-            openOnTriggerMouseEnter
-            trigger={(
-              <Checkbox slider checked={false} onChange={() => {}}/>
-            )}
-            content={'Відмітити відповідь як вірну'}
-          />
-
-          <Popup
-            closeOnPortalMouseLeave
-            openOnTriggerMouseEnter
-            trigger={(
-              <ButtonIconStyled
-                className="remove-handle"
-                onClick={() => {}}
-              >
-                <RemoveIcon />
-              </ButtonIconStyled>
-            )}
-            content={'Видалити варіант відповіді'}
-          />
-        </div>
+        {
+          item.answer.map((el, idx) => (
+            <div className='answer' key={el.id}>
+              <div>
+                <LabelStyled className="input-label">Відповідь {answerIds[idx]}</LabelStyled>
+                <InputStyled
+                  id={el.id}
+                  name={'answer'}
+                  placeholder="Наступний елемент списку"
+                  value={el.text}
+                  onChange={(e) => onChange(item.id,
+                    item.answer.map(answer => answer.id === el.id
+                      ? {
+                        ...answer,
+                        text: e.target.value,
+                      }
+                      : answer),
+                  )}
+                />
+              </div>
+              <Popup
+                closeOnPortalMouseLeave
+                openOnTriggerMouseEnter
+                trigger={(
+                  <Checkbox
+                    slider
+                    checked={el.isTrue}
+                    onChange={() => onChange(item.id,
+                      item.answer.map(answer => answer.id === el.id
+                        ? {
+                          ...answer,
+                          isTrue: !el.isTrue,
+                        }
+                        : {
+                          ...answer,
+                          isTrue: !el.isTrue === true ? false : answer.isTrue,
+                        }),
+                    )}
+                  />
+                )}
+                content={'Відмітити відповідь як вірну'}
+              />
+              <Popup
+                closeOnPortalMouseLeave
+                openOnTriggerMouseEnter
+                trigger={(
+                  <ButtonIconStyled
+                    className="remove-handle"
+                    onClick={() => onChange(item.id,
+                      item.answer
+                        .filter(answer => answer.id !== el.id)
+                    )}
+                  >
+                    <RemoveIcon />
+                  </ButtonIconStyled>
+                )}
+                content={'Видалити варіант відповіді'}
+              />
+            </div>
+          ))
+        }
       </TestItemStyled>
     </ShadowCardStyled>
   );

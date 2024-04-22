@@ -14,15 +14,15 @@ export const useCreateUser = () => {
       dispatch(setMessage({
         type: 'success',
         message: {
-          title: 'Success!',
-          description: `Created User with id: ${userObj?.uid}`,
+          title: `Hi ${userObj.displayName}!`,
+          description: `Your Account was successfully created! Now you can Log in`,
         },
       }));
       return userData?.uid;
     } catch (error) {
       dispatch(setMessage({
         type: 'error', message: {
-          title: 'Error creating collection:',
+          title: 'Error User Creation:',
           description: error.message,
         },
       }));

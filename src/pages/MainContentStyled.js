@@ -309,4 +309,8 @@ export const MainContentStyled = styled('div')`
       background: ${PRIMARY_MAIN};
     }
   }
+  
+  .question-wrapper {
+    margin-bottom: 20px;
+  }
 `;

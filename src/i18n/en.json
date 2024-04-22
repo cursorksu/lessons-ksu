@@ -130,7 +130,8 @@
     "goBack": "Go back",
     "sharedBoard": "Shared Panel",
     "show": "Scenarios",
-    "home": "Home page"
+    "home": "Home page",
+    "game": "Games"
   },
   "button": {
     "createProject": "Create Project",
