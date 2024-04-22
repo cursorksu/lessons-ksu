@@ -1,11 +1,11 @@
 export const fbConfig = {
-  apiKey: 'AIzaSyAYp1txb5qmbisx2gyQIzZw1a4Cg2AVzMc',
-  authDomain: 'lessons-ksu.firebaseapp.com',
-  projectId: 'lessons-ksu',
-  storageBucket: 'lessons-ksu.appspot.com',
-  messagingSenderId: '296503964729',
-  appId: '1:296503964729:web:7abc76e1319d6df14dc9e8',
-  measurementId: 'G-HCCPHE9VVJ',
+  apiKey: "AIzaSyAOxw4G9Ji_V_ueg-VBpx2h4HtzTfME3vU",
+  authDomain: "lessons-ksu7.firebaseapp.com",
+  projectId: "lessons-ksu7",
+  storageBucket: "lessons-ksu7.appspot.com",
+  messagingSenderId: "409020535100",
+  appId: "1:409020535100:web:ae04abed212f78c6154e39",
+  measurementId: "G-59V7J4QK4J",
   hosting: {
     headers: [
       {

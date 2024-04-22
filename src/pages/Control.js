@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {routes} from "../router/constants";
 import { clsx } from 'clsx';
 
+
 export const Control = ({ loginWithGoogle, signOut }) => {
   const mainMenuCollapsed  = useSelector(({ mainMenuCollapsed }) => mainMenuCollapsed);
   const auth = useSelector((state) => state.auth);
@@ -35,14 +36,6 @@ export const Control = ({ loginWithGoogle, signOut }) => {
         <Menu>
           <div>
             <MenuItem icon={<CollapseIcon />} onClick={handleCollapse}>{t('mainMenu.collapse')}</MenuItem>
-            <MenuItem
-              hidden={false}
-              icon={<HeartIcon />}
-              component={<Link to={`${routes.home}`} />}
-              className="big"
-            >
-              {t('mainMenu.home')}
-            </MenuItem>
             <SubMenu label={t('mainMenu.lang')} icon={<TranslateIcon />}>
               <MenuItem onClick={() => i18n.changeLanguage('ua')}>{t('mainMenu.ua')}</MenuItem>
               <MenuItem onClick={() => i18n.changeLanguage('en')}>{t('mainMenu.en')}</MenuItem>
@@ -50,9 +43,32 @@ export const Control = ({ loginWithGoogle, signOut }) => {
             </SubMenu>
             <MenuItem
               hidden={!auth?.user?.uid}
+              icon={<UserIcon />}
+              component={
+                <Link
+                  to={`${routes.cabinet}/${auth?.user?.uid}${routes.group}/${auth?.user?.groups && auth?.user?.groups[0]}`}
+                />
+              }
+              className={clsx({ disabled: !auth?.user?.uid })}
+            >
+              {t('mainMenu.cabinet')}
+            </MenuItem>
+            <MenuItem
+              icon={<HeartIcon />}
+              component={<Link to={`${routes.home}`} />}
+              className="big"
+            >
+              {t('mainMenu.home')}
+            </MenuItem>
+            <MenuItem
+              icon={<ChurchIcon />}
+              component={<Link to={routes.church} />}
+            >
+              {t('mainMenu.community')}
+            </MenuItem>
+            <MenuItem
               icon={<CollectionsIcon />}
               component={<Link to={`${routes.collections}`} />}
-              className={clsx({ disabled: !auth?.user?.uid })}
             >
               {t('collections.collections')}
             </MenuItem>
@@ -64,19 +80,12 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               {t('mainMenu.show')}
             </MenuItem>
             <MenuItem
+              hidden={!auth?.user?.uid}
               icon={<GameIcon />}
               component={<Link to={`${routes.games}`} />}
-              className="middle"
+              className={clsx({ middle: true, disabled: !auth?.user?.uid })}
             >
-              {t('mainMenu.settings')}
-            </MenuItem>
-            <MenuItem
-              hidden={!auth?.user?.uid}
-              icon={<ChurchIcon />}
-              component={<Link to={routes.church} />}
-              className={clsx({ disabled: !auth?.user?.uid })}
-            >
-              {t('mainMenu.community')}
+              {t('mainMenu.game')}
             </MenuItem>
             <MenuItem
               hidden={!auth?.user?.uid}

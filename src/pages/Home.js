@@ -251,7 +251,7 @@ export const Home = () => {
           <h2 className='title'>Зробіть своє служіння дітям професійним та системним</h2>
           <ul className="benefits">
             {list.map(el => (
-              <ShadowCardStyled className={active === el.id && "active"} onClick={() => setActive(el.id)}>
+              <ShadowCardStyled key={el.id} className={active === el.id && "active"} onClick={() => setActive(el.id)}>
                 {el.icon}
                 <h2 className="subtitle">{el.title}</h2>
               </ShadowCardStyled>

@@ -24,8 +24,6 @@ export const useSignUp = () => {
       .then(async () => {
         onAuthStateChanged(auth, async (user) => {
           if (!user) return;
-          const token = auth?.currentUser?.accessToken;
-          token && localStorage.setItem('KSU_TOKEN', token);
 
           const userDocRef = doc(fireStore, `/users/${user?.uid}`);
           const profileSnap = await getDoc(userDocRef);
@@ -33,10 +31,14 @@ export const useSignUp = () => {
           const profile = {
             uid: user?.uid,
             email: user?.email,
+            fullName: user?.displayName,
             firstName: user?.displayName?.split(' ')[0],
             lastName: user?.displayName?.split(' ')[1],
             avatar: user?.photoURL,
             lang: i18n?.language,
+            church: [],
+            group: [],
+            lessons: [],
           };
 
           if (userData) {
@@ -55,7 +57,7 @@ export const useSignUp = () => {
         });
       })
       .then(() => {
-        navigate(routes.collections);
+        navigate(routes.home);
       })
       .catch((error) => {
         throw new Error(error);

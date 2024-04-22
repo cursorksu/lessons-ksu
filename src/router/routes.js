@@ -11,6 +11,7 @@ import { Church } from '../components/Church';
 import { GroupItem } from '../components/GroupItem';
 import { Scenario } from '../components/Scenario';
 import { ScenarioItem } from '../components/ScenarioItem';
+import { Test } from '../Games/Test/Test';
 
 export const publicRoutes = [
   {
@@ -57,6 +58,11 @@ export const publicRoutes = [
     path: `${routes.games}`,
     title: 'Games',
     component: <Games />,
+  },
+  {
+    path: `${routes.games}/test`,
+    title: 'Test',
+    component: <Test />,
   },
 ];
 export const authRouts = [
