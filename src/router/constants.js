@@ -6,4 +6,5 @@ export const routes = {
   church: '/church',
   group: '/group',
   collections: '/collections',
+  scenario: '/scenario',
 };

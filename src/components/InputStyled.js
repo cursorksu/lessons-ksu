@@ -1,6 +1,6 @@
 import { TextArea } from 'semantic-ui-react';
 import styled from '@emotion/styled';
-import { BG_GOLD, PRIMARY_MAIN } from '../constants/colors';
+import { BG_GOLD, HOVER_GOLD, PRIMARY_MAIN } from '../constants/colors';
 
 export const LabelStyled = styled.label`
   &.label {
@@ -46,7 +46,7 @@ export const InputStyled = styled.input`
     &:focus {
       outline: none;
       border: 1px solid ${PRIMARY_MAIN};
-      background-color: ${BG_GOLD};
+      background-color: ${HOVER_GOLD};
     }
 `;
 

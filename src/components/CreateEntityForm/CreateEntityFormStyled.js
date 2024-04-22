@@ -52,49 +52,49 @@ export const CreateEntityFormStyled = styled('div')`
         grid-area: a;
       }
       
-      & > *:nth-child(2) {
+      & > *:nth-of-type(2) {
         grid-area: b;
       }
-      & > *:nth-child(3) {
+      & > *:nth-of-type(3) {
         grid-area: c;
       }
-      & > *:nth-child(4) {
+      & > *:nth-of-type(4) {
         grid-area: d;
       }
-      & > *:nth-child(5) {
+      & > *:nth-of-type(5) {
         grid-area: e;
       }
-      & > *:nth-child(6) {
+      & > *:nth-of-type(6) {
         grid-area: f;
       }
-      & > *:nth-child(7) {
+      & > *:nth-of-type(7) {
         grid-area: g;
       }
-      & > *:nth-child(8) {
+      & > *:nth-of-type(8) {
         grid-area: h;
       }
-      & > *:nth-child(9) {
+      & > *:nth-of-type(9) {
         grid-area: j;
       }
-      & > *:nth-child(10) {
+      & > *:nth-of-type(10) {
         grid-area: k;
       }
-      & > *:nth-child(11) {
+      & > *:nth-of-type(11) {
         grid-area: l;
       }
-      & > *:nth-child(12) {
+      & > *:nth-of-type(12) {
         grid-area: m;
       }
-      & > *:nth-child(13) {
+      & > *:nth-of-type(13) {
         grid-area: n;
       }
-      & > *:nth-child(14) {
+      & > *:nth-of-type(14) {
         grid-area: o;
       }
-      & > *:nth-child(15) {
+      & > *:nth-of-type(15) {
         grid-area: p;
       }
-      & > *:nth-child(16) {
+      & > *:nth-of-type(16) {
         grid-area: r;
       }
     }

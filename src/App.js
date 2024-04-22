@@ -13,8 +13,8 @@ function Situations() {
   return (
     <Provider store={store}>
       <>
-        <AppRouter />
         <Notification />
+        <AppRouter />
       </>
     </Provider>
   );

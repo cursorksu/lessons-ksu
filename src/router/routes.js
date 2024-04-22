@@ -9,6 +9,8 @@ import {Home} from "../pages/Home";
 import { ChurchesList } from '../components/ChurchesList';
 import { Church } from '../components/Church';
 import { GroupItem } from '../components/GroupItem';
+import { Scenario } from '../components/Scenario';
+import { ScenarioItem } from '../components/ScenarioItem';
 
 export const publicRoutes = [
   {
@@ -41,6 +43,21 @@ export const publicRoutes = [
     title: 'GroupItem',
     component: <GroupItem />,
   },
+  {
+    path: `${routes.scenario}`,
+    title: 'Scenario',
+    component: <Scenario />,
+  },
+  {
+    path: `${routes.scenario}/:scenarioId`,
+    title: 'ScenarioItem',
+    component: <ScenarioItem />,
+  },
+  {
+    path: `${routes.games}`,
+    title: 'Games',
+    component: <Games />,
+  },
 ];
 export const authRouts = [
   {
@@ -53,10 +70,4 @@ export const authRouts = [
     title: 'Cabinet',
     component: <Cabinet />,
   },
-  {
-    path: '*',
-    title: 'Games',
-    component: <Games />,
-  },
-
 ];

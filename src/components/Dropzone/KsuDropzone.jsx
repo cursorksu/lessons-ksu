@@ -40,9 +40,9 @@ export const KsuDropzone = ({ onChange, files, multiple }) => {
         {({ getRootProps, getInputProps }) => (
           <UvDropzoneStyled>
             <div {...getRootProps()}>
-              <input {...getInputProps()} accept=".png,.jpg,.svg" />
-              {!files[0]?.base64 &&  <span className="accent">+ {t('button.uploadPhoto')}</span>}
-              {files[0]?.base64 &&  <img src={files[0]?.base64} alt={files[0]?.base64} />}
+              <input {...getInputProps()} accept=".png,.jpg,.svg"/>
+              {files?.length ? !files[0]?.base64 &&  <span className="accent">+ {t('button.uploadPhoto')}</span> : <></>}
+              {files?.length ? files[0]?.base64 &&  <img src={files[0]?.base64} alt={files[0]?.base64} /> : <></>}
             </div>
           </UvDropzoneStyled>
         )}

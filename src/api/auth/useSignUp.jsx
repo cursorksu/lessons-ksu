@@ -27,16 +27,16 @@ export const useSignUp = () => {
           const token = auth?.currentUser?.accessToken;
           token && localStorage.setItem('KSU_TOKEN', token);
 
-          const userDocRef = doc(fireStore, `/users/${user.uid}`);
+          const userDocRef = doc(fireStore, `/users/${user?.uid}`);
           const profileSnap = await getDoc(userDocRef);
           const userData = await profileSnap.data();
           const profile = {
-            uid: user.uid,
-            email: user.email,
-            firstName: user.displayName?.split(' ')[0],
-            lastName: user.displayName?.split(' ')[1],
-            avatar: user.photoURL,
-            lang: i18n.language,
+            uid: user?.uid,
+            email: user?.email,
+            firstName: user?.displayName?.split(' ')[0],
+            lastName: user?.displayName?.split(' ')[1],
+            avatar: user?.photoURL,
+            lang: i18n?.language,
           };
 
           if (userData) {
@@ -50,7 +50,7 @@ export const useSignUp = () => {
             user: userData,
             token: auth?.currentUser?.accessToken,
           }));
-          
+
           return profile;
         });
       })

@@ -7,10 +7,10 @@ import { KsuDropdown } from '../KsuDropdown';
 import { useGetEntity } from '../../api/entity/useGetEntity';
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
 
-export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
+export const ScenarioList = ({ isAuth, teachers, church, onEdit, scenarios }) => {
   const { getEntityById } = useGetEntity('users');
   const { editEntity } = useEditEntity('church');
-  const { editEntity: editTeacher } = useEditEntity('users');
+  const { editEntity: editScenarios } = useEditEntity('scenario');
   const [isFormShown, setIsFormShown] = useState(false);
   const [teachersList, setTeachersList] = useState([]);
 
@@ -23,7 +23,7 @@ export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
     await editEntity(newData);
 
     const editableTeacher = teachers.find(el => el.id === id);
-    await editTeacher({
+    await editScenarios({
       ...editableTeacher,
       church: editableTeacher?.church?.filter(churchId => churchId !== church.id),
     });
@@ -48,7 +48,7 @@ export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
 
     teachersList.map(async teacherId => {
       const editableTeacher = await getEntityById(teacherId);
-      await editTeacher({
+      await editScenarios({
         ...editableTeacher,
         church: [...editableTeacher?.church, church.id]
       });
@@ -59,11 +59,15 @@ export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [church, teachersList, editEntity, onEdit, teachers]);
 
+  const getStatus = useCallback((scenario) => {
+
+  }, []);
+
   return (
     <InfoBlockStyled>
       <div>
         <div className="d-flex">
-          <h2 className='title'>Our Teachers</h2>
+          <h2 className='title'>Our Scenarios</h2>
           {isAuth && (
             <ButtonIconStyled onClick={() => setIsFormShown(prev => !prev)}>
               {!isFormShown ? '+' : '-'}
@@ -100,15 +104,12 @@ export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
         <ul className='vertical-card-lis'>
           {teachers && teachers?.length > 0 && teachers?.map(el => (
             <ShadowCardStyled key={el.id} className="vertical-card">
-              <img src={el?.avatar && el?.avatar} alt={el.firstName}/>
-              <h2>
-                {el.firstName} {el.lastName}
-              </h2>
+              <div className='status'>{getStatus(el)}</div>
+              <img src={el?.avatar && el?.avatar} alt={el.title}/>
+              <h2>{el.title}</h2>
               <ul>
-                <li><b>Students:</b> {el.students?.length}</li>
-                <li><b>Groups:</b> {el.groups?.length}</li>
-                <li><b>Created lessons:</b> {el.lessons?.length}</li>
-                <li><b>Created scenarios:</b> {el.scenarios?.length}</li>
+                <li><b>Author:</b> {el.author}</li>
+                <li><b>Added:</b> {JSON.stringify(el.createdDate)}</li>
               </ul>
               {isAuth && (
                 <ButtonIconStyled onClick={() => handleRemoveTeacher(el.id)}>

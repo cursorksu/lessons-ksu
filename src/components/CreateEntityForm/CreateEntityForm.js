@@ -11,9 +11,12 @@ import { useEditEntity } from '../../api/entity/useEditEntity';
 import { KsuDatePicker } from '../KsuDatePicker';
 import { KsuDropzone } from '../Dropzone/KsuDropzone';
 import { KsuDropdown } from '../KsuDropdown';
+import { KsuTags } from '../KsuTags/KsuTags';
+import { useSelector } from 'react-redux';
 
 export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defaultValues = {} }) => {
   const [emojiIsOpen, setEmojiIsOpen] = useState(false);
+  const { user } = useSelector(state => state.auth);
   const { reset, control, getValues, setValue } = useForm({
     defaultValues,
     caches: false });
@@ -75,6 +78,16 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
           />
         </div>
       );
+    case 'tags':
+      return (
+        <div className="triple-cell">
+          <KsuTags
+            field={field}
+            placeholder={t(`${entityName}.placeholders.${el.name}`)}
+            onChange={(data) => setValue(field.name, data)}
+          />
+        </div>
+      );
     case 'imagesPicker':
       return (
         <KsuDropzone
@@ -86,10 +99,23 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
     case 'multiselectDropdown':
       return (
         <KsuDropdown
+          placeholder={t(`${entityName}.placeholders.${el.name}`)}
           entityName={el.entity}
-          field={field}
+          {...field}
           onChange={(data) => setValue(field.name, data)}
           multiple={true}
+          optionsIds={user ? user[el.entity] : []}
+        />
+      );
+    case 'dropdown':
+      return (
+        <KsuDropdown
+          placeholder={t(`${entityName}.placeholders.${el.name}`)}
+          entityName={el.entity}
+          {...field}
+          onChange={(data) => setValue(field.name, data)}
+          multiple={false}
+          optionsIds={user[el.entity]}
         />
       );
     default:
@@ -102,14 +128,16 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [emojiIsOpen]);
+  }, [emojiIsOpen, defaultValues, user]);
 
   return (
     <CreateEntityFormStyled>
       <div className="content-grid">
         {fields.map(el => {
+          if (el.isIgnored) return <></>;
           return (
             <Controller
+              key={el.id}
               name={el.name}
               control={control}
               render={({ field }) => (

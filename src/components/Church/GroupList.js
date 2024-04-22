@@ -1,6 +1,6 @@
 import { useEditEntity } from '../../api/entity/useEditEntity';
 import React, { useCallback, useEffect, useState } from 'react';
-import { InfoBlockStyled, InfoItemStyled } from '../InfoBlockStyled';
+import { InfoBlockStyled } from '../InfoBlockStyled';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { InputStyled, LabelStyled } from '../InputStyled';
@@ -12,6 +12,7 @@ import { StyledDropdown } from '../KsuDropdown/StyledDropdown';
 import { getOption } from '../../utils/getOption';
 import { NavLink } from 'react-router-dom';
 import { useGetEntity } from '../../api/entity/useGetEntity';
+import { ShadowCardStyled } from '../../pages/MainContentStyled';
 
 const initialValues = {
   title: '',
@@ -101,104 +102,113 @@ export const GroupList = ({ isAuth, groups, church, onEdit }) => {
 
   return (
     <InfoBlockStyled>
-      {isFormShown && (
-        <div>
-          <Controller
-            name="title"
-            control={control}
-            render={({ field }) => (
-              <FormField>
-                <LabelStyled>{t(`grope.labels.title`)}</LabelStyled>
-                <InputStyled
-                  value={field.value}
-                  {...field}
-                  placeholder={t(`grope.placeholders.title`)}
-                />
-              </FormField>
-            )}
-          />
-          <Controller
-            name="description"
-            control={control}
-            render={({ field }) => (
-              <FormField>
-                <LabelStyled>{t(`grope.labels.description`)}</LabelStyled>
-                <InputStyled
-                  value={field.value}
-                  {...field}
-                  placeholder={t(`grope.placeholders.description`)}
-                />
-              </FormField>
-            )}
-          />
-          <Controller
-            name="teachers"
-            control={control}
-            render={({ field }) => (
-              <FormField>
-                <LabelStyled>{t(`grope.labels.teachers`)}</LabelStyled>
-                <StyledDropdown>
-                  <Dropdown
-                    placeholder={`grope.labels.teachers`}
-                    fluid
-                    multiple={true}
-                    search
-                    selection
-                    onChange={handleChangeGropeList}
-                    options={teachers}
-                  />
-                </StyledDropdown>
-              </FormField>
-            )}
-          />
-          <div className='button-wrapper'>
-            <ButtonStyled
-              className="ksu-button"
-              onClick={handleAddGroup}
-            >
-              Add
-            </ButtonStyled>
-            <ButtonStyled
-              className="ksu-button"
-              onClick={() => setIsFormShown(false)}
-            >
-              Cancel
-            </ButtonStyled>
-          </div>
-        </div>
-      )}
       <div>
-        {isAuth && (
-          <ButtonIconStyled onClick={() => setIsFormShown(prev => !prev)}>
-            {!isFormShown ? '+' : '-'}
-          </ButtonIconStyled>
-        )}
-        <h2>Our Groups</h2>
-        {groups && groups?.length > 0 && groups?.map(el => (
-          <InfoItemStyled className="group" key={el.id}>
-            {isAuth && <NavLink to={`/group/${el.id}`}>go to group</NavLink>}
-            <div>
-              <img src={el?.avatar && el?.avatar} alt={el.firstName}/>
-              <h2>{el.title}</h2>
-              <p>{el.description}</p>
-              <ul>
-                {el?.teachers?.map(teacher => {
-                  return <li key={teacher.toString()}>
-                    {getTeacherData(teacher)}
-                    <ButtonIconStyled onClick={() => removeTeacherFromGroup(teacher)}>
-                      <CloseIcon />
-                    </ButtonIconStyled>
-                  </li>;
-                })}
-              </ul>
+        <div className="d-flex">
+          <h2 className="title">Our Groups</h2>
+          {isAuth && (
+            <ButtonIconStyled onClick={() => setIsFormShown(prev => !prev)}>
+              {!isFormShown ? '+' : '-'}
+            </ButtonIconStyled>
+          )}
+        </div>
+
+        {isFormShown && (
+          <div>
+            <Controller
+              name="title"
+              control={control}
+              render={({ field }) => (
+                <FormField>
+                  <LabelStyled>{t(`grope.labels.title`)}</LabelStyled>
+                  <InputStyled
+                    value={field.value}
+                    {...field}
+                    placeholder={t(`grope.placeholders.title`)}
+                  />
+                </FormField>
+              )}
+            />
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }) => (
+                <FormField>
+                  <LabelStyled>{t(`grope.labels.description`)}</LabelStyled>
+                  <InputStyled
+                    value={field.value}
+                    {...field}
+                    placeholder={t(`grope.placeholders.description`)}
+                  />
+                </FormField>
+              )}
+            />
+            <Controller
+              name="teachers"
+              control={control}
+              render={({ field }) => (
+                <FormField>
+                  <LabelStyled>{t(`grope.labels.teachers`)}</LabelStyled>
+                  <StyledDropdown>
+                    <Dropdown
+                      placeholder={`grope.labels.teachers`}
+                      fluid
+                      multiple={true}
+                      search
+                      selection
+                      onChange={handleChangeGropeList}
+                      options={teachers}
+                    />
+                  </StyledDropdown>
+                </FormField>
+              )}
+            />
+            <div className='button-wrapper'>
+              <ButtonStyled
+                className="ksu-button"
+                onClick={handleAddGroup}
+              >
+                Add
+              </ButtonStyled>
+              <ButtonStyled
+                className="ksu-button"
+                onClick={() => setIsFormShown(false)}
+              >
+                Cancel
+              </ButtonStyled>
             </div>
-            {isAuth && (
-              <ButtonIconStyled onClick={() => handleRemoveTeacher(el.id)}>
-                <CloseIcon />
-              </ButtonIconStyled>
-            )}
-          </InfoItemStyled>
-        ))}
+          </div>
+        )}
+
+        <ul className='vertical-card-lis'>
+          {groups && groups?.length > 0 && groups?.map(el => (
+            <ShadowCardStyled className="vertical-card group" key={el.id}>
+              {isAuth && <NavLink to={`/group/${el.id}`}>go to group</NavLink>}
+              <div>
+                <img src={el?.avatar && el?.avatar} alt={el.firstName}/>
+                <h2>{el.title}</h2>
+                <h4 className="subtitle">{el.description}</h4>
+
+                <ul>
+                  <li><b>Teachers:</b></li>
+                  {el?.teachers?.map(teacher => {
+                    return <li key={teacher.toString()}>
+                      {getTeacherData(teacher)}
+                      <ButtonIconStyled onClick={() => removeTeacherFromGroup(teacher)}>
+                        <CloseIcon />
+                      </ButtonIconStyled>
+                    </li>;
+                  })}
+                  <li><b>Students:</b> {el?.students?.length}</li>
+                </ul>
+              </div>
+              {isAuth && (
+                <ButtonIconStyled onClick={() => handleRemoveTeacher(el.id)}>
+                  <CloseIcon />
+                </ButtonIconStyled>
+              )}
+            </ShadowCardStyled>
+          ))}
+        </ul>
       </div>
     </InfoBlockStyled>
   );

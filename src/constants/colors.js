@@ -18,3 +18,9 @@ export const BG_GOLD = 'rgba(163, 147,103, 0.3)';
 export const DARK_BG = 'rgba(96,81,71,0.3)';
 export const HOVER_GOLD = 'rgba(163, 147,103, 0.1)';
 export const BOX_SHADOW = '0 0 26px rgba(0, 0, 0, 0.7)';
+export const ITEM_INNER = '-10px -10px 15px rgba(255, 255, 255, 0.5),\n' +
+  '              10px 10px 15px rgba(70, 70, 70, 0.12),\n    ' +
+  '            inset -10px -10px 15px rgba(255, 255, 255, 0.5),\n     ' +
+  '         inset 10px 10px 15px rgba(70, 70, 70, 0.12)';
+export const ITEM_OUTER= 'inset -10px -10px 15px rgba(255, 255, 255, 0.5)';
+export const ITEM_BG = 'rgba(163, 147, 103, 0.5) linear-gradient(transparent, rgba(255, 255, 255, .8))';

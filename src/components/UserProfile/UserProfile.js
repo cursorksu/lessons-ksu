@@ -14,8 +14,10 @@ import { useDeleteEntity } from '../../api/entity/useDeleteEntity';
 import { useNavigate, useParams } from 'react-router';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { routes } from '../../router/constants';
+import { useSelector } from 'react-redux';
 
-export const UserProfile = ({ user }) => {
+export const UserProfile = () => {
+  const { user } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const { groupId } = useParams();
   const { t } = useTranslation('tr');
@@ -76,7 +78,7 @@ export const UserProfile = ({ user }) => {
   const handleTabChange = useCallback(({ activeIndex }) => {
     setActiveTab(activeIndex);
     const activeGroup = groups[activeIndex];
-    navigate(`${routes.cabinet}/${user?.userId}${routes.group}/${activeGroup.id}`);
+    navigate(`${routes.cabinet}/${user?.uid}${routes.group}/${activeGroup.id}`);
   }, [user, groups, navigate]);
 
   const panes = useMemo(() => (groups?.map((item) => (

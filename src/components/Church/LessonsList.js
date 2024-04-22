@@ -7,7 +7,7 @@ import { KsuDropdown } from '../KsuDropdown';
 import { useGetEntity } from '../../api/entity/useGetEntity';
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
 
-export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
+export const LessonsList = ({ isAuth, teachers, church, onEdit, lessons }) => {
   const { getEntityById } = useGetEntity('users');
   const { editEntity } = useEditEntity('church');
   const { editEntity: editTeacher } = useEditEntity('users');
@@ -63,7 +63,7 @@ export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
     <InfoBlockStyled>
       <div>
         <div className="d-flex">
-          <h2 className='title'>Our Teachers</h2>
+          <h2 className='title'>Our Lessons</h2>
           {isAuth && (
             <ButtonIconStyled onClick={() => setIsFormShown(prev => !prev)}>
               {!isFormShown ? '+' : '-'}

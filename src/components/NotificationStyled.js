@@ -1,16 +1,39 @@
 import styled from '@emotion/styled';
-import { BG_GOLD, BG_SUCCESS, PRIMARY_HOVER } from '../constants/colors';
+import {
+  CHOCO, GOLD, ITEM_INNER, ITEM_OUTER, SUCCESS, YELLOW_MAIN
+} from '../constants/colors';
 
 export const NotificationStyled = styled.div`
-  right: 60px;
-  position: fixed;
-  top: 60px;
+  max-width: calc(100% - 80px);
+  position: absolute;
+  top: 0;
+  left: 80px;
+  right: 0;
   z-index: 100;
   background: white;
-  border-radius: 4px;
-  border: 0;
-  max-width: 300px;
-  padding: 0;
+  text-align: center;
+  padding: 10px 40px;
+  color: #fff;
+  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  font-size: 1.6rem;
+  box-shadow: ${ITEM_OUTER};
+  border-radius: 10px;
+
+  &:after {
+    border-radius: 10px;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    left: 6px;
+    bottom: 6px;
+    content: '';
+    z-index: 1;
+    box-shadow: ${ITEM_INNER};
+  }
+  span {
+    color: ${CHOCO};
+  }
 
   &.open {
     padding: 20px;
@@ -18,12 +41,12 @@ export const NotificationStyled = styled.div`
   }
 
   &.error {
-    border: 2px solid ${PRIMARY_HOVER};
+    background: ${YELLOW_MAIN};
   }
   &.success {
-    border: 2px solid ${BG_SUCCESS};
+    background: ${SUCCESS};
   }
   &.info {
-    border: 2px solid ${BG_GOLD};
+    background: ${GOLD};
   }
 `;
