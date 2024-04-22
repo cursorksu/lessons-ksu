@@ -274,6 +274,20 @@ export const MainContentStyled = styled('div')`
     left: 0;
     bottom: 0;
     z-index: 200;
+
+    .active {
+      background: rgba(255,255,255, 0.7);
+      color: ${CHOCO} !important;
+    }
+    
+    li ul li {
+      a {
+        padding: 0 0 0 100px;
+      }
+      &.active {
+        background: #fff;
+      }
+    }
     
     svg {
       width: 20px;
