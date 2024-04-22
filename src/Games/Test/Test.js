@@ -3,21 +3,9 @@ import React, { useState } from 'react';
 import { ButtonIconStyled, ButtonStyled } from '../../components/ButtonStyled';
 import { answerIds, TestItem } from './components/TestItem';
 import { Popup } from 'semantic-ui-react';
-import { eventWrapper } from '@testing-library/user-event/dist/utils';
 import { ValidationErrorStyled } from '../../components/ValidationErrorStyled';
 const { v4: uuidv4 } = require('uuid');
 
-const initialTest = {
-  id: '',
-  question: '',
-  answer: [
-    {
-      id: '',
-      text: '',
-      isTrue: false,
-    },
-  ],
-};
 export const Test = () => {
   const [test, setTest] = useState([ {
     id: uuidv4(),
@@ -105,7 +93,6 @@ export const Test = () => {
             title="gameDescription"
             width="100%"
             height="315"
-            frameBorder={null}
             src={'https://youtu.be/hiHy3vW2SxI?t=5'}
             allowFullScreen={true} />
         </aside>

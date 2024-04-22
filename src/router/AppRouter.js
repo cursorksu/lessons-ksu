@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, BrowserRouter as Router, Navigate} from 'react-router-dom';
+import {Route, BrowserRouter as Router} from 'react-router-dom';
 import {authRouts, publicRoutes} from './routes';
 import {Routes} from 'react-router';
 import {useSelector} from "react-redux";

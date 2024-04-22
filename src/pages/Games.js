@@ -6,7 +6,6 @@ import { Route } from 'react-router-dom';
 import { MainLayout } from './MainLayout';
 import { Rate } from '../Games/Rate/Rate';
 import { ShadowCardStyled } from './MainContentStyled';
-import { Test } from '../Games/Test/Test';
 import { gameList } from '../Games/constants/gameList';
 
 export const Games = () => {
@@ -45,7 +44,6 @@ export const Games = () => {
             title="gameDescription"
             width="100%"
             height="315"
-            frameBorder={null}
             src={'https://youtu.be/hiHy3vW2SxI?t=5'}
             allowFullScreen={true} />
         </aside>
