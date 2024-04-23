@@ -2,6 +2,52 @@ import styled from '@emotion/styled';
 import { CREAM, CHOCO, DARK_BG } from '../../constants/colors';
 
 export const UserProfileStyled = styled.div`
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
+  background-position: center -80px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+
+  .title {
+    color: ${CREAM};
+    font-family: 'Nexa Script', sans-serif;
+    font-size: 4rem;
+    font-weight: 500;
+    margin: 0 !important;
+  }
+  .subtitle {
+    color: ${CREAM};
+    font-family: 'Nexa Script', sans-serif;
+    font-size: 2rem;
+    font-weight: 500;
+    margin: 0 !important;
+    padding-top: 20px;
+    position: relative;
+    overflow: visible;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      bottom: -10px;
+      right: -50%;
+      transform: translateX(-50%);
+      background-image: linear-gradient(to right, transparent 0%, ${CREAM} 50%, ${CREAM} 50%, transparent 100%);
+    }
+  }
+  
+  .info {
+    width: 60%;
+    margin: auto;
+    color: #000;
+    font-family: Montserrat, sans-serif;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
   .tabular.menu {
     padding: 40px 40px 0;
     border-bottom: none;
@@ -55,9 +101,6 @@ export const UserProfileStyled = styled.div`
 
   .top-container {
       padding: 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
       background-color: ${DARK_BG};
   }
   
