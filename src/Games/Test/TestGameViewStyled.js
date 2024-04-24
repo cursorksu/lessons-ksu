@@ -3,6 +3,25 @@ import {
   CREAM, ERROR_MAIN, ITEM_OUTER, NEON, SUCCESS
 } from '../../constants/colors';
 
+export const MillionerLink = styled('button')`
+  width: 60px;
+  height: 60px;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpngegg.png?alt=media&token=139b4be5-a7b8-461b-a558-5f4c4416292d');
+  background-size: contain;
+  background-color: #000407;
+  border-radius: 4px;
+  border: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in-out;
+  
+  &:hover {
+    opacity: 1;
+  }
+  
+  &:disabled {
+    opacity: 0.4;
+  }
+`;
 export const TestGameViewStyled = styled('div')`
   padding: 100px;
   min-width: calc(100% - 200px);
@@ -11,7 +30,7 @@ export const TestGameViewStyled = styled('div')`
   color: ${CREAM};
   position: relative;
   font-family: "Coco Gothic Alternate", sans-serif;
-  font-size: 3.5rem;
+  font-size: 3.3rem;
   font-weight: 600;
   background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F4884837.jpg?alt=media&token=8791a5e4-4444-4b0c-a23e-49a2b05c00dc");
   background-size: 33%;
@@ -220,7 +239,7 @@ export const TestGameViewStyled = styled('div')`
   .question {
     color: #fff;
     font-family: "Coco Gothic Alternate", sans-serif;
-    font-size: 4.5rem;
+    font-size: 4.2rem;
     margin: 40px 0 100px;
     
     .answer {
@@ -237,11 +256,12 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .answer  {
+    padding-left: 100px;
     background-color: #053b69;
     border: 2px solid rgba(0, 255, 255, 0.5);
     box-shadow:
             inset 5px -5px 10px rgba(0, 255, 255, 0.5),
-              inset -5px 5px 10px rgba(130, 60, 166, 0.5),
+              inset -5px 5px 10px rgba(130, 60, 166, 0.5), 
             inset 5px -5px 10px rgba(0, 255, 255, 0.5),
               inset -5px 5px 10px rgba(130, 66, 166, 0.5);
     width: 90%;
@@ -281,12 +301,12 @@ export const TestGameViewStyled = styled('div')`
     overflow: visible;
     
     li {
-      padding: 0;
       margin: 0;
       list-style-type: none;
       position: relative;
       min-height: 140px;
       overflow: visible;
+      padding: 0;
       
       &.selected:not(.fact) {
         .answer {
