@@ -1,63 +1,46 @@
-import { useEditEntity } from '../../api/entity/useEditEntity';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { InfoBlockStyled } from '../InfoBlockStyled';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
-import { ReactComponent as CloseIcon } from '../../assets/close.svg';
-import { KsuDropdown } from '../KsuDropdown';
-import { useGetEntity } from '../../api/entity/useGetEntity';
-import { ShadowCardStyled } from '../../pages/MainContentStyled';
+import { StyledDropdown } from '../KsuDropdown/StyledDropdown';
+import { Dropdown } from 'semantic-ui-react';
+import { getOption } from '../../utils/getOption';
+import { useGetAllEntities } from '../../api/entity/useGetAllEntities';
+import { useAssignTeacherChurch } from '../../api/refs/useAssignTeacherChurch';
+import { TeacherItem } from './TeacherItem';
 
-export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
-  const { getEntityById } = useGetEntity('users');
-  const { editEntity } = useEditEntity('church');
-  const { editEntity: editTeacher } = useEditEntity('users');
+export const TeachersList = ({ isAuth, church, onEdit }) => {
+  const { addTeacherToChurch, removeTeacherFromChurch } = useAssignTeacherChurch();
   const [isFormShown, setIsFormShown] = useState(false);
-  const [teachersList, setTeachersList] = useState([]);
+  const { getAllEntities } = useGetAllEntities('users');
+  const [options, setOptions] = useState([]);
 
-  const handleRemoveTeacher = useCallback(async (id) => {
-    const teachersNew = teachers?.filter(el => el.id !== id);
-    const newData = {
-      ...church,
-      teachers: teachersNew.map(el => el.id)
-    };
-    await editEntity(newData);
-
-    const editableTeacher = teachers.find(el => el.id === id);
-    await editTeacher({
-      ...editableTeacher,
-      church: editableTeacher?.church?.filter(churchId => churchId !== church.id),
-    });
+  const handleRemoveTeacher = useCallback(async (teacherId) => {
+    await removeTeacherFromChurch(church.id, teacherId);
     onEdit();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [church, teachers]);
+  }, [church]);
 
-  const handleChangeTeacherList = useCallback(async (data) => {
-    setTeachersList(data);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [church, teachers]);
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const [teacherIdxList, setTeacherIdxList] = useState([]);
+  const handleChangeTeacherList = async (_, data) => {
+    setTeacherIdxList(data.value);
+    setDropdownIsOpen(false);
+  };
 
   const handleAddTeachers = useCallback(async () => {
-    const newData = {
-      ...church,
-      teachers: [
-        ...teachers?.map(el => el.id),
-        ...teachersList,
-      ]
-    };
-    await editEntity(newData);
-
-    teachersList.map(async teacherId => {
-      const editableTeacher = await getEntityById(teacherId);
-      await editTeacher({
-        ...editableTeacher,
-        church: [...editableTeacher?.church, church.id]
-      });
-    });
+    for (const teacherId of teacherIdxList) {
+      await addTeacherToChurch(church.id, teacherId);
+    }
 
     setIsFormShown(false);
     onEdit();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [church, teachersList, editEntity, onEdit, teachers]);
+  }, [church, addTeacherToChurch, onEdit, teacherIdxList]);
+
+  useEffect(() => {
+    getAllEntities().then(data => {
+      setOptions(data?.map(el => getOption(el, church?.teachers)));
+    });
+  }, [getAllEntities, church?.teachers]);
 
   return (
     <InfoBlockStyled>
@@ -71,51 +54,49 @@ export const TeachersList = ({ isAuth, teachers, church, onEdit }) => {
           )}
         </div>
 
-        {isFormShown && (
-          <div>
-            <KsuDropdown
-              value={teachersList}
-              entityName={'users'}
-              placeholder={'some'}
-              onChange={handleChangeTeacherList}
-              multiple={true}
-            />
-            <div className='button-wrapper'>
-              <ButtonStyled
-                className="ksu-button"
-                onClick={handleAddTeachers}
-              >
-                Add
-              </ButtonStyled>
-              <ButtonStyled
-                className="ksu-button"
-                onClick={() => setIsFormShown(false)}
-              >
+        {isFormShown
+          ? (
+            <div>
+              <StyledDropdown>
+                <Dropdown
+                  placeholder={'Select teacher'}
+                  fluid
+                  open={dropdownIsOpen}
+                  onClick={() => setDropdownIsOpen(true)}
+                  multiple
+                  search
+                  selection
+                  pointing={'top right'}
+                  onChange={handleChangeTeacherList}
+                  options={options}
+                />
+              </StyledDropdown>
+              <div className='button-wrapper'>
+                <ButtonStyled
+                  className="ksu-button"
+                  onClick={handleAddTeachers}
+                >
+                  Add
+                </ButtonStyled>
+                <ButtonStyled
+                  className="ksu-button"
+                  onClick={() => setIsFormShown(false)}
+                >
                 Cancel
-              </ButtonStyled>
+                </ButtonStyled>
+              </div>
             </div>
-          </div>
-        )}
+          )
+          : null}
 
         <ul className='vertical-card-lis'>
-          {teachers && teachers?.length > 0 && teachers?.map(el => (
-            <ShadowCardStyled key={el.id} className="vertical-card">
-              <img src={el?.avatar && el?.avatar} alt={el.firstName}/>
-              <h2>
-                {el.firstName} {el.lastName}
-              </h2>
-              <ul>
-                <li><b>Students:</b> {el.students?.length}</li>
-                <li><b>Groups:</b> {el.groups?.length}</li>
-                <li><b>Created lessons:</b> {el.lessons?.length}</li>
-                <li><b>Created scenarios:</b> {el.scenarios?.length}</li>
-              </ul>
-              {isAuth && (
-                <ButtonIconStyled onClick={() => handleRemoveTeacher(el.id)}>
-                  <CloseIcon />
-                </ButtonIconStyled>
-              )}
-            </ShadowCardStyled>
+          {church?.teachers?.length > 0 && church.teachers.map(teacherId => (
+            <TeacherItem
+              entityName={'users'}
+              id={teacherId}
+              removeEntity={handleRemoveTeacher}
+              isAuth={isAuth}
+            />
           ))}
         </ul>
       </div>

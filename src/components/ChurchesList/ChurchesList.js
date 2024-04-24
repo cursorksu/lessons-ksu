@@ -48,13 +48,13 @@ export const ChurchesList = () => {
   }, [getAllEntities, shouldUpdate]);
 
   const confirmationHandler = async (churchId, churchData) => {
-    churchData.teachers.map(async el => {
-      const teacher = await getEntityById(el);
-      await editEntity({
-        ...teacher,
-        church: [...teacher?.church, churchId]
-      });
-    });
+    // churchData.teachers.map(async el => {
+    //   const teacher = await getEntityById(el);
+    //   await editEntity({
+    //     ...teacher,
+    //     church: [...teacher?.church, churchId]
+    //   });
+    // });
     setShouldUpdate(prev => !prev);
   };
 
@@ -70,7 +70,7 @@ export const ChurchesList = () => {
         const teacher = await getEntityById(teacherId);
         await editEntity({
           ...teacher,
-          church: teacher?.church?.filter(churchId => churchId !== churchData.id),
+          church: teacher?.church?.filter(person => person.id !== churchData.id),
         });
       });
       setShouldUpdate(prev => !prev);
@@ -81,15 +81,29 @@ export const ChurchesList = () => {
     <MainLayout>
       <UserProfileStyled>
         <div className="top-container">
+          <h2 className="subtitle"> Kids Spiritual Universe</h2>
           <h1 className="title">{t('mainMenu.community')}</h1>
-          <div>
-            <ButtonStyled onClick={() => {
-              setDefaultValues(initialValues);
-              setIsFormShown(true);
-            }}>
-          + {t('church.addChurch')}
-            </ButtonStyled>
-          </div>
+          {user?.uid
+            ? (
+              <div>
+                <ButtonStyled onClick={() => {
+                  setDefaultValues({
+                    ...initialValues,
+                    teachers: [user.uid],
+                  });
+                  setIsFormShown(true);
+                }}>
+                + {t('church.addChurch')}
+                </ButtonStyled>
+              </div>
+            )
+            : (
+              <p className="info">
+                Якщо ви не знайшли свою церкву у списку нижче,
+                зареєструйтеся і додайте її самостійно.
+                Це дозволить вам ділитися вашим креативним контентом
+              </p>
+            )}
         </div>
 
         {isFormShown && (
@@ -121,8 +135,8 @@ export const ChurchesList = () => {
             </div>
             <div>
               <hr/>
-              <div><span className="meta description">{el.about}</span></div>
-              <h3 className="title" title={el.title}>{el.title}</h3>
+              <div><span className="meta description">{el?.about}</span></div>
+              <h3 className="title" title={el.title}>{el?.title}</h3>
             </div>
           </SprintCard>
         ))}

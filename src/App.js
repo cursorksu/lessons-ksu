@@ -7,7 +7,7 @@ import './i18n';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import 'semantic-ui-css/semantic.min.css';
-import './App.css';
+import './App.scss';
 
 function Situations() {
   return (

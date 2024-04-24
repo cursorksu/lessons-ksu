@@ -10,11 +10,10 @@ export const useCreateUser = () => {
       const userDock = doc(fireStore, `/users/${userObj?.uid}`);
       const createdAt = new Date().toLocaleString();
       const userData = await setDoc(userDock, { ...userObj, createdAt, groups: [] });
-
       dispatch(setMessage({
         type: 'success',
         message: {
-          title: `Hi ${userObj.displayName}!`,
+          title: `Hi ${userObj.fullName}!`,
           description: `Your Account was successfully created! Now you can Log in`,
         },
       }));

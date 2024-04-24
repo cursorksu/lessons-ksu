@@ -196,4 +196,18 @@ export const InfoBlockStyled = styled.div`
       z-index: 2;
     }
   }
+
+  .church-avatar {
+    border-radius: 4px;
+    overflow: hidden;
+    height: 280px;
+
+    img {
+      margin-right: 0 !important;
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
 `;

@@ -14,56 +14,38 @@ import { useSelector } from 'react-redux';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { TeachersList } from './TeachersList';
 import { GroupList } from './GroupList';
-import { useEditEntity } from '../../api/entity/useEditEntity';
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
-import { ScenarioList } from './ScenarioList';
-import { LessonsList } from './LessonsList';
 
 export const Church = () => {
   const { user } = useSelector(state => state.auth);
   const { churchId } = useParams();
   const [church, setChurch] = useState({});
   const { getEntityById } = useGetEntity('church');
-  const { getEntityById: getTeacherById } = useGetEntity('users');
-  const { getEntities: getTeachers, entities: teachers } = useGetEntityListByIds('users');
   const { getEntities: getGroups, entities: groups } = useGetEntityListByIds('group');
-  const { editEntity: editTeacher } = useEditEntity('users');
   const [isFormShown, setIsFormShown] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
 
-  useEffect(() => {
-    getEntityById(churchId).then(data => {
+  const getChurch = useCallback(async () => {
+    await getEntityById(churchId).then(data => {
       setChurch(data);
     });
-  }, [shouldUpdate, churchId, getEntityById]);
+  }, [getEntityById, churchId]);
 
   useEffect(() => {
-    church?.teachers?.length && getTeachers(church?.teachers);
+    getChurch();
+  }, [shouldUpdate, churchId, getEntityById, getChurch]);
+  useEffect(() => {
     church?.groups?.length && getGroups(church?.groups);
-  }, [church, getTeachers, getGroups]);
+  }, [church, getGroups]);
 
   useEffect(() => {
-    teachers?.length && setChurch(prev => ({
-      ...prev,
-      teachers,
-    }));
-  }, [teachers]);
-
-  useEffect(() => {
-    teachers?.length && setChurch(prev => ({
+    groups?.length && setChurch(prev => ({
       ...prev,
       groups,
     }));
-  }, [groups, teachers?.length]);
+  }, [groups, groups?.length]);
 
   const confirmationHandler = async (_, churchData) => {
-    churchData.teachers.map(async el => {
-      const teacher = await getTeacherById(el);
-      await editTeacher({
-        ...teacher,
-        church: [...teacher?.church, churchData.id]
-      });
-    });
     setShouldUpdate(prev => !prev);
   };
 
@@ -86,7 +68,6 @@ export const Church = () => {
           </div>
         </div>
       </div>
-
       {isFormShown && (
         <CreateEntityForm
           entityName="church"
@@ -106,14 +87,12 @@ export const Church = () => {
               <h2 className='title'>
                 <p>Started {church?.createdDate && getDateLocalString(church?.createdDate)}</p>
               </h2>
-              <ShadowCardStyled>
-                <div className="pastor-avatar">
-                  <img src={church?.avatar && church?.avatar[0]?.base64} alt="pastor avatar"/>
-                </div>
-              </ShadowCardStyled>
+              <div className="church-avatar">
+                <img src={church?.avatar && church?.avatar[0]?.base64} alt="pastor avatar"/>
+              </div>
             </InfoBlockStyled>
             <InfoBlockStyled>
-              {church.about}
+              {church?.about}
             </InfoBlockStyled>
             <InfoBlockStyled className='aside-wrapper'>
               <ShadowCardStyled>
@@ -131,7 +110,6 @@ export const Church = () => {
             {church && (
               <TeachersList
                 isAuth={church?.createdBy?.uid === user?.uid}
-                teachers={church?.teachers}
                 onEdit={onEditList}
                 church={church}
               />
@@ -139,29 +117,28 @@ export const Church = () => {
             {church && (
               <GroupList
                 isAuth={church?.createdBy?.uid === user?.uid}
-                groups={church?.groups}
-                onEdit={onEditList}
+                onEdit={getChurch}
                 church={church}
               />
             )}
-            {church && (
-              <LessonsList
-                isAuth={church?.createdBy?.uid === user?.uid}
-                teachers={church?.groups}
-                lessons={church?.lessons}
-                onEdit={onEditList}
-                church={church}
-              />
-            )}
-            {church && (
-              <ScenarioList
-                isAuth={church?.createdBy?.uid === user?.uid}
-                teachers={church?.groups}
-                scenarios={church?.scenario}
-                onEdit={onEditList}
-                church={church}
-              />
-            )}
+            {/*{church && (*/}
+            {/*  <LessonsList*/}
+            {/*    isAuth={church?.createdBy?.uid === user?.uid}*/}
+            {/*    teachers={church?.groups}*/}
+            {/*    lessons={church?.lessons}*/}
+            {/*    onEdit={getChurch}*/}
+            {/*    church={church}*/}
+            {/*  />*/}
+            {/*)}*/}
+            {/*{church && (*/}
+            {/*  <ScenarioList*/}
+            {/*    isAuth={church?.createdBy?.uid === user?.uid}*/}
+            {/*    teachers={church?.groups}*/}
+            {/*    scenarios={church?.scenario}*/}
+            {/*    onEdit={onEditList}*/}
+            {/*    church={church}*/}
+            {/*  />*/}
+            {/*)}*/}
           </section>
         </section>
       </div>
