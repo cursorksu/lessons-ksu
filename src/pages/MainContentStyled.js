@@ -82,6 +82,12 @@ export const MainContentStyled = styled('div')`
     justify-content: stretch;
     align-items: stretch;
     padding: 20px;
+
+    .d-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     
     .title {
       color: ${CHOCO};

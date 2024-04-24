@@ -13,7 +13,7 @@ export const TestItem = ({ item, onRemoveItem, onChange }) => {
   return (
     <ShadowCardStyled className="d-block">
       <TestItemStyled>
-        <div className='question'>
+        <div className='test-question'>
           <div>
             <LabelStyled className="input-label">Текст питання</LabelStyled>
             <InputStyled
@@ -60,7 +60,7 @@ export const TestItem = ({ item, onRemoveItem, onChange }) => {
         </div>
         {
           item.answer.map((el, idx) => (
-            <div className='answer' key={el.id}>
+            <div className='test-answer' key={el.id}>
               <div>
                 <LabelStyled className="input-label">Відповідь {answerIds[idx]}</LabelStyled>
                 <InputStyled
@@ -73,6 +73,7 @@ export const TestItem = ({ item, onRemoveItem, onChange }) => {
                       ? {
                         ...answer,
                         text: e.target.value,
+                        char: answerIds[idx]
                       }
                       : answer),
                   )}
