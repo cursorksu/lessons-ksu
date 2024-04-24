@@ -12,6 +12,7 @@ import { GroupItem } from '../components/GroupItem';
 import { Scenario } from '../components/Scenario';
 import { ScenarioItem } from '../components/ScenarioItem';
 import { Test } from '../Games/Test/Test';
+import { TestGameView } from '../Games/Test/TestGameView';
 
 export const publicRoutes = [
   {
@@ -60,10 +61,11 @@ export const publicRoutes = [
     component: <Games />,
   },
   {
-    path: `${routes.games}/test`,
+    path: `${routes.games}/test-game-view`,
     title: 'Test',
-    component: <Test />,
+    component: <TestGameView />,
   },
+
 ];
 export const authRouts = [
   {
@@ -75,5 +77,10 @@ export const authRouts = [
     path: `${routes.cabinet}/:userId${routes.group}/:groupId`,
     title: 'Cabinet',
     component: <Cabinet />,
+  },
+  {
+    path: `${routes.games}/test`,
+    title: 'Test',
+    component: <Test />,
   },
 ];

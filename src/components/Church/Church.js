@@ -15,8 +15,6 @@ import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { TeachersList } from './TeachersList';
 import { GroupList } from './GroupList';
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
-import { ScenarioList } from './ScenarioList';
-import { LessonsList } from './LessonsList';
 
 export const Church = () => {
   const { user } = useSelector(state => state.auth);
@@ -27,11 +25,15 @@ export const Church = () => {
   const [isFormShown, setIsFormShown] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
 
-  useEffect(() => {
-    getEntityById(churchId).then(data => {
+  const getChurch = useCallback(async () => {
+    await getEntityById(churchId).then(data => {
       setChurch(data);
     });
-  }, [shouldUpdate, churchId, getEntityById]);
+  }, [getEntityById, churchId]);
+
+  useEffect(() => {
+    getChurch();
+  }, [shouldUpdate, churchId, getEntityById, getChurch]);
   useEffect(() => {
     church?.groups?.length && getGroups(church?.groups);
   }, [church, getGroups]);
@@ -66,7 +68,6 @@ export const Church = () => {
           </div>
         </div>
       </div>
-
       {isFormShown && (
         <CreateEntityForm
           entityName="church"
@@ -109,7 +110,6 @@ export const Church = () => {
             {church && (
               <TeachersList
                 isAuth={church?.createdBy?.uid === user?.uid}
-                teachers={church?.teachers}
                 onEdit={onEditList}
                 church={church}
               />
@@ -117,29 +117,28 @@ export const Church = () => {
             {church && (
               <GroupList
                 isAuth={church?.createdBy?.uid === user?.uid}
-                groups={church?.groups}
-                onEdit={onEditList}
+                onEdit={getChurch}
                 church={church}
               />
             )}
-            {church && (
-              <LessonsList
-                isAuth={church?.createdBy?.uid === user?.uid}
-                teachers={church?.groups}
-                lessons={church?.lessons}
-                onEdit={onEditList}
-                church={church}
-              />
-            )}
-            {church && (
-              <ScenarioList
-                isAuth={church?.createdBy?.uid === user?.uid}
-                teachers={church?.groups}
-                scenarios={church?.scenario}
-                onEdit={onEditList}
-                church={church}
-              />
-            )}
+            {/*{church && (*/}
+            {/*  <LessonsList*/}
+            {/*    isAuth={church?.createdBy?.uid === user?.uid}*/}
+            {/*    teachers={church?.groups}*/}
+            {/*    lessons={church?.lessons}*/}
+            {/*    onEdit={getChurch}*/}
+            {/*    church={church}*/}
+            {/*  />*/}
+            {/*)}*/}
+            {/*{church && (*/}
+            {/*  <ScenarioList*/}
+            {/*    isAuth={church?.createdBy?.uid === user?.uid}*/}
+            {/*    teachers={church?.groups}*/}
+            {/*    scenarios={church?.scenario}*/}
+            {/*    onEdit={onEditList}*/}
+            {/*    church={church}*/}
+            {/*  />*/}
+            {/*)}*/}
           </section>
         </section>
       </div>

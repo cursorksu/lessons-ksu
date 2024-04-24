@@ -5,8 +5,8 @@ import { StyledDropdown } from '../KsuDropdown/StyledDropdown';
 import { Dropdown } from 'semantic-ui-react';
 import { getOption } from '../../utils/getOption';
 import { useGetAllEntities } from '../../api/entity/useGetAllEntities';
-import { useAssignTeacherChurch } from '../../api/reefs/useAssignTeacherChurch';
-import { ChurchItem } from './ChurchItem';
+import { useAssignTeacherChurch } from '../../api/refs/useAssignTeacherChurch';
+import { TeacherItem } from './TeacherItem';
 
 export const TeachersList = ({ isAuth, church, onEdit }) => {
   const { addTeacherToChurch, removeTeacherFromChurch } = useAssignTeacherChurch();
@@ -34,14 +34,13 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
 
     setIsFormShown(false);
     onEdit();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [church, addTeacherToChurch, onEdit, teacherIdxList]);
 
   useEffect(() => {
     getAllEntities().then(data => {
-      setOptions(data.map(el => getOption(el, church?.teachers)));
+      setOptions(data?.map(el => getOption(el, church?.teachers)));
     });
-  }, [getAllEntities, church]);
+  }, [getAllEntities, church?.teachers]);
 
   return (
     <InfoBlockStyled>
@@ -92,7 +91,7 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
 
         <ul className='vertical-card-lis'>
           {church?.teachers?.length > 0 && church.teachers.map(teacherId => (
-            <ChurchItem
+            <TeacherItem
               entityName={'users'}
               id={teacherId}
               removeEntity={handleRemoveTeacher}
