@@ -13,6 +13,7 @@ const initialState = {
   subjectList: [],
   game: null,
   gameList: [],
+  teachers: [],
 };
 
 export const dataSlice = createSlice({
@@ -67,6 +68,10 @@ export const dataSlice = createSlice({
       ...state,
       gameList: action.payload
     }),
+    setTeachersList: (state, action) => ({
+      ...state,
+      teachers: action.payload
+    }),
   },
 });
 
@@ -84,6 +89,7 @@ export const {
   setGameList,
   setFoodList,
   setCraftList,
+  setTeachersList,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;

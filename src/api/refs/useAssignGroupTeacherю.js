@@ -10,7 +10,7 @@ export const useAssignGroupTeacher = () => {
   // Привязка учителей к группе
   const addTeacherToGroup = useCallback((groupId, teacherId) => {
     try {
-      const groupRef = doc(fireStore, 'groups', groupId);
+      const groupRef = doc(fireStore, 'group', groupId);
       const teacherRef = doc(fireStore, 'users', teacherId);
 
       // Обновление списка учителей группы и списка групп учителя
@@ -38,7 +38,7 @@ export const useAssignGroupTeacher = () => {
   // Отвязка учителя от группы
   const removeTeacherFromGroup = useCallback((groupId, teacherId) => {
     try {
-      const groupRef = doc(fireStore, 'groups', groupId);
+      const groupRef = doc(fireStore, 'group', groupId);
       const teacherRef = doc(fireStore, 'users', teacherId);
 
       // Обновление списка учителей группы и списка групп учителя
@@ -46,7 +46,7 @@ export const useAssignGroupTeacher = () => {
         teachers: arrayRemove(teacherId)
       });
       const updateTeacherPromise = updateDoc(teacherRef, {
-        groups: arrayRemove(groupId)
+        group: arrayRemove(groupId)
       });
 
       return Promise.all([updateGroupPromise, updateTeacherPromise]);
