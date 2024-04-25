@@ -12,10 +12,13 @@ import { auth, fireStore } from '../index';
 import { useTranslation } from 'react-i18next';
 import {useNavigate} from "react-router-dom";
 import {routes} from "../../router/constants";
+import { useGetAllEntities } from '../entity/useGetAllEntities';
+import { setTeachersList } from '../../store/dataReducer';
 
 export const useSignUp = () => {
   const dispatch = useDispatch();
   const { i18n } = useTranslation('tr');
+  const { getAllEntities: getUsers } = useGetAllEntities('users');
   const { createUser } = useCreateUser();
   const navigate= useNavigate();
 
@@ -48,6 +51,7 @@ export const useSignUp = () => {
           if (!userData) {
             await createUser(profile);
           }
+
           dispatch(setAuthData({
             user: userData,
             token: auth?.currentUser?.accessToken,
@@ -58,6 +62,9 @@ export const useSignUp = () => {
       })
       .then(() => {
         navigate(routes.home);
+        getUsers().then(data => {
+          dispatch(setTeachersList(data));
+        });
       })
       .catch((error) => {
         throw new Error(error);

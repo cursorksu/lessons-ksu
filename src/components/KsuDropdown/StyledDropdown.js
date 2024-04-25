@@ -1,9 +1,16 @@
 import styled from '@emotion/styled';
-import { BG_GOLD, PRIMARY_MAIN } from '../../constants/colors';
+import { BG_GOLD, PRIMARY_MAIN, TEXT_MAIN } from '../../constants/colors';
 
 export const StyledDropdown = styled('div')`
   min-width: 100%;
   position: relative;
+  border-radius: 4px;
+  
+  .ui.top.right.pointing.dropdown > .menu {
+    width: 300px;
+    color: ${TEXT_MAIN};
+    min-width: 50% !important;
+  }
 
   .ui.dropdown .menu .item .image, 
   .ui.dropdown .menu .item img, 
@@ -43,12 +50,6 @@ export const StyledDropdown = styled('div')`
         height: 40px !important;
       }
     }
-
-    .item {
-      display: grid;
-      grid-template-columns: 40px 1fr;
-      grid-gap: 10px;
-    }
   }
   .dropdown.icon {
     position: absolute;
@@ -65,21 +66,20 @@ export const StyledDropdown = styled('div')`
       width: 20px;
       height: 20px;
     }
-    
   }
-  .dropdown .menu > .item {
-    display: grid;
-    grid-template-columns: 40px auto;
-    grid-gap: 10px;
-  }
+  
   .ui.multiple.dropdown > .label {
     box-shadow: none;
   }
+  
   .ui.selection.active.dropdown .menu,
   .ui.selection.active.dropdown {
     box-shadow: none;
     border: 1px solid ${PRIMARY_MAIN};
+    border-bottom-right-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
   }
+  
   .ui.label {
     border: 1px solid ${PRIMARY_MAIN};
     background-color: ${BG_GOLD};
@@ -114,25 +114,14 @@ export const StyledDropdown = styled('div')`
       height: 20px;
     }
   }
-
-  .ksu-option {
-    font-weight: 600;
-    font-size: 1.5rem;
-    line-height: 1.5;
-    .description {
-      color: ${PRIMARY_MAIN};
-      font-weight: 300;
-      font-size: 1.2rem;
-    }
-  }
   
   .dropdown.selection {
     width: 100%;
     border-radius: 4px;
     padding: 5px 32px 5px 5px;
     border: 1px solid #a39367;
-    min-height: 2.6rem;
-    line-height: 2.6rem;
+    min-height: 40px;
+    line-height: 40px;
     display: block;
     font-family: Montserrat, sans-serif;
     font-weight: 300;
@@ -153,6 +142,36 @@ export const StyledDropdown = styled('div')`
       font-family: Montserrat, sans-serif;
       font-weight: 300;
       font-size: 16px;
+    }
+    
+    .ksu-option {
+      overflow: hidden;
+      line-height: 1.5;
+      
+      .description {
+        color: ${PRIMARY_MAIN};
+        font-weight: 300;
+        font-size: 1.2rem;
+      }
+
+      div {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    a:after {
+      content: none !important;
+    }
+    .label {
+      max-width: 260px;
+      display: inline-block !important;
+      padding-right: 30px;
+
+      &:after {
+        content: none;
+      }
     }
   }
 `;

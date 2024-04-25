@@ -1,19 +1,20 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { InfoBlockStyled } from '../InfoBlockStyled';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { InputStyled, LabelStyled } from '../InputStyled';
 import { Controller, useForm } from 'react-hook-form';
-import { Dropdown, FormField } from 'semantic-ui-react';
+import { FormField } from 'semantic-ui-react';
 import { useTranslation } from 'react-i18next';
 import { useCreateEntity } from '../../api/entity/useCreateEntity';
-import { StyledDropdown } from '../KsuDropdown/StyledDropdown';
 import { NavLink } from 'react-router-dom';
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
 import { useAssignGroupToChurch } from '../../api/refs/useAssignGroupToChurch';
 import { useAssignGroupTeacher } from '../../api/refs/useAssignGroupTeacherю';
-import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { useParams } from 'react-router';
+import { KsuTeachersDropdown } from '../KsuDropdown/KsuTeachersDropdown';
+import { useSelector } from 'react-redux';
+import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 
 const initialValues = {
   title: '',
@@ -24,18 +25,19 @@ const initialValues = {
 };
 
 export const GroupList = ({ isAuth, church, onEdit }) => {
+  const { teachers } = useSelector(state => state.lessonData);
   const { t } = useTranslation('tr');
   const { churchId } = useParams();
-  // eslint-disable-next-line
+  const { getEntities: getGroups, entities: groups } = useGetEntityListByIds('group');
   const { addGroupToChurch, removeGroupFromChurch } = useAssignGroupToChurch();
-  // eslint-disable-next-line
   const { addTeacherToGroup, removeTeacherFromGroup } = useAssignGroupTeacher();
   const { createEntity } = useCreateEntity('group');
   const [isFormShown, setIsFormShown] = useState(false);
-  // eslint-disable-next-line
-  const [teachers, setTeachers] = useState([]);
-  // eslint-disable-next-line
-  const { getEntities: getFullTeachers, entities: teachersList } = useGetEntityListByIds('users');
+  const [, forceUpdate] = useState();
+
+  useEffect(() => {
+    church?.groups && getGroups(church?.groups);
+  }, [church, getGroups]);
 
   const { reset, control, getValues, setValue } = useForm({
     defaultValues: {
@@ -44,7 +46,7 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
     },
     caches: false });
 
-  const handleChangeTeachersList = useCallback(async (_, data) => {
+  const handleChangeTeachersList = useCallback(async (data) => {
     setValue('teachers', data.value);
   }, [setValue]);
 
@@ -52,35 +54,60 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
     const newData = getValues();
 
     try {
-      await createEntity(newData).then(async (createdGroupId) => {
-        await addGroupToChurch(churchId, createdGroupId);
-        for (const teacherId of newData?.teachers) {
-          await Promise.all(await addTeacherToGroup(createdGroupId, teacherId));
-        }
-      });
+      const createdGroupId = await createEntity(newData);
+      await addGroupToChurch(churchId, createdGroupId);
+      for (const teacherId of newData?.teachers) {
+        await Promise.all(await addTeacherToGroup(createdGroupId, teacherId));
+      }
       reset();
       onEdit();
+      setIsFormShown(false);
+      forceUpdate();
     } catch (error) {
       throw new Error(`Error in creation group:  ${error.message}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createEntity, getValues, onEdit, reset]);
 
-  const removeTeacher = useCallback(async (id) => {
-    // eslint-disable-next-line no-console
-    console.log(id);
-  }, []);
+  const deleteGroup = useCallback(async (group) => {
+    try {
+      for (const teacherId of group.teachers) {
+        await removeTeacherFromGroup(group.id, teacherId);
+      }
 
-  const getTeacherData = (id) => {
-    const teacherItem = church?.teachers?.find(item => item.id === id);
-    return `${teacherItem?.firstName} ${teacherItem?.lastName}`;
-  };
+      await removeGroupFromChurch(churchId, group.id);
+      onEdit();
+      if (church?.groups?.length < 1) {
+        await getGroups([]);
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  }, [
+    removeTeacherFromGroup,
+    removeGroupFromChurch,
+    onEdit,
+    getGroups,
+    church,
+    churchId
+  ]);
+
+  const removeTeacher = useCallback(async (groupId, teacherId) => {
+    await removeTeacherFromGroup(groupId, teacherId);
+    await getGroups(church?.groups);
+    forceUpdate();
+  }, [removeTeacherFromGroup, church, getGroups]);
+
+  const getTeacherName = useCallback((teacherId) => {
+    const teacherObj = teachers.find(teacher => teacherId === teacher.uid);
+    return `${teacherObj?.firstName} ${teacherObj?.lastName}`;
+  }, [teachers]);
 
   return (
     <InfoBlockStyled>
       <div>
         <div className="d-flex">
-          <h2 className="title">Our Groups</h2>
+          <h2 className="title">{t('group.title')}</h2>
           {isAuth && (
             <ButtonIconStyled onClick={() => setIsFormShown(prev => !prev)}>
               {!isFormShown ? '+' : '-'}
@@ -95,11 +122,11 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
               control={control}
               render={({ field }) => (
                 <FormField>
-                  <LabelStyled>{t(`grope.labels.title`)}</LabelStyled>
+                  <LabelStyled className="label">{t(`group.label.title`)}</LabelStyled>
                   <InputStyled
                     value={field.value}
                     {...field}
-                    placeholder={t(`grope.placeholders.title`)}
+                    placeholder={t(`group.placeholder.title`)}
                   />
                 </FormField>
               )}
@@ -109,11 +136,11 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
               control={control}
               render={({ field }) => (
                 <FormField>
-                  <LabelStyled>{t(`grope.labels.description`)}</LabelStyled>
+                  <LabelStyled className="label">{t(`group.label.description`)}</LabelStyled>
                   <InputStyled
                     value={field.value}
                     {...field}
-                    placeholder={t(`grope.placeholders.description`)}
+                    placeholder={t(`group.placeholder.description`)}
                   />
                 </FormField>
               )}
@@ -123,19 +150,16 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
               control={control}
               render={({ field }) => (
                 <FormField>
-                  <LabelStyled>{t(`grope.labels.teachers`)}</LabelStyled>
-                  <StyledDropdown>
-                    <Dropdown
-                      placeholder={`grope.labels.teachers`}
-                      fluid
-                      multiple={true}
-                      search
-                      selection
-                      value={field.value}
-                      onChange={handleChangeTeachersList}
-                      options={teachers}
-                    />
-                  </StyledDropdown>
+                  <LabelStyled className="label">{t('group.label.teachers')}</LabelStyled>
+                  <KsuTeachersDropdown
+                    value={field.value}
+                    placeholder={t('group.placeholder.teachers')}
+                    multiple
+                    search
+                    selection
+                    pointing={'top right'}
+                    onChange={handleChangeTeachersList}
+                  />
                 </FormField>
               )}
             />
@@ -157,29 +181,36 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
         )}
 
         <ul className='vertical-card-lis'>
-          {church?.groups && church?.groups?.length > 0 && church?.groups?.map(el => (
+          {groups?.map(el => (
             <ShadowCardStyled className="vertical-card group" key={el.id}>
               {isAuth && <NavLink to={`/group/${el.id}`}>go to group</NavLink>}
               <div>
                 <img src={el?.avatar && el?.avatar} alt={el.firstName}/>
                 <h2>{el.title}</h2>
                 <h4 className="subtitle">{el.description}</h4>
+                {el?.teachers?.length
+                  ? (
+                    <ul>
+                      <li><b>Teachers:</b></li>
+                      {el?.teachers?.map(teacherId => {
+                        return <li key={teacherId ?? ''}>
+                          {getTeacherName(teacherId)}
+                          {isAuth && (
+                            <ButtonIconStyled onClick={() => removeTeacher(el.id, teacherId)}>
+                              <CloseIcon />
+                            </ButtonIconStyled>
+                          )}
+                        </li>;
+                      })}
+                      <li><b>Students:</b> {el?.students?.length}</li>
+                    </ul>
+                  )
+                  : <h5>Вчителі не доєднані</h5>
+                }
 
-                <ul>
-                  <li><b>Teachers:</b></li>
-                  {el?.teachers?.map(teacher => {
-                    return <li key={teacher.toString()}>
-                      {getTeacherData(teacher)}
-                      <ButtonIconStyled onClick={() => removeTeacher(teacher)}>
-                        <CloseIcon />
-                      </ButtonIconStyled>
-                    </li>;
-                  })}
-                  <li><b>Students:</b> {el?.students?.length}</li>
-                </ul>
               </div>
               {isAuth && (
-                <ButtonIconStyled onClick={() => {}}>
+                <ButtonIconStyled onClick={() => deleteGroup(el)}>
                   <CloseIcon />
                 </ButtonIconStyled>
               )}

@@ -1,13 +1,13 @@
 import { TextArea } from 'semantic-ui-react';
 import styled from '@emotion/styled';
-import { BG_GOLD, HOVER_GOLD, PRIMARY_MAIN } from '../constants/colors';
+import { BG_GOLD, CREAM, PRIMARY_MAIN } from '../constants/colors';
 
 export const LabelStyled = styled.label`
   &.label {
     padding: 0;
     background: transparent;
     font-family: Montserrat, sans-serif;
-    font-weight: 300;
+    font-weight: 600;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.6);
     display: block;
@@ -36,8 +36,8 @@ export const InputStyled = styled.input`
     border-radius: 4px;
     padding: 5px 12px;
     border: 1px solid ${PRIMARY_MAIN};
-    height: 2.6rem;
-    line-height: 2.6rem;
+    height: 40px;
+    line-height: 40px;
     font-family: Montserrat, sans-serif;
     font-weight: 300;
     font-size: 1.2rem;
@@ -46,7 +46,7 @@ export const InputStyled = styled.input`
     &:focus {
       outline: none;
       border: 1px solid ${PRIMARY_MAIN};
-      background-color: ${HOVER_GOLD};
+      background-color: ${CREAM};
     }
 `;
 

@@ -11,7 +11,6 @@ import {
 } from '../../utils/getDateLocalString';
 import { InfoBlockStyled } from '../InfoBlockStyled';
 import { useSelector } from 'react-redux';
-import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { TeachersList } from './TeachersList';
 import { GroupList } from './GroupList';
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
@@ -21,7 +20,6 @@ export const Church = () => {
   const { churchId } = useParams();
   const [church, setChurch] = useState({});
   const { getEntityById } = useGetEntity('church');
-  const { getEntities: getGroups, entities: groups } = useGetEntityListByIds('group');
   const [isFormShown, setIsFormShown] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
 
@@ -34,16 +32,6 @@ export const Church = () => {
   useEffect(() => {
     getChurch();
   }, [shouldUpdate, churchId, getEntityById, getChurch]);
-  useEffect(() => {
-    church?.groups?.length && getGroups(church?.groups);
-  }, [church, getGroups]);
-
-  useEffect(() => {
-    groups?.length && setChurch(prev => ({
-      ...prev,
-      groups,
-    }));
-  }, [groups, groups?.length]);
 
   const confirmationHandler = async (_, churchData) => {
     setShouldUpdate(prev => !prev);

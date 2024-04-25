@@ -18,7 +18,7 @@ export const useAssignTeacherChurch = () => {
         teachers: arrayUnion(teacherId)
       });
       const updateTeacherPromise = updateDoc(teacherRef, {
-        churches: arrayUnion(churchId)
+        church: arrayUnion(churchId)
       });
 
       return Promise.all([updateChurchPromise, updateTeacherPromise]);
@@ -46,7 +46,7 @@ export const useAssignTeacherChurch = () => {
         teachers: arrayRemove(teacherId)
       });
       const updateTeacherPromise = updateDoc(teacherRef, {
-        churches: arrayRemove(churchId)
+        church: arrayRemove(churchId)
       });
 
       return Promise.all([updateChurchPromise, updateTeacherPromise]);

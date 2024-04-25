@@ -26,6 +26,10 @@ export const InfoBlockStyled = styled.div`
   line-height: 1.5;
   margin: 20px 0;
   
+  .button-wrapper {
+    margin: 10px 0 20px;
+  }
+  
   b {
     font-weight: 600;
   }

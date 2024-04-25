@@ -118,6 +118,19 @@
       "teachers": "Add the teachers"
     }
   },
+  "group": {
+    "title": "Our Groups",
+    "label": {
+      "teachers": "Teachers",
+      "description": "Description",
+      "title": "Title"
+    },
+    "placeholder": {
+      "teachers": "Select teachers",
+      "description": "Enter details",
+      "title": "Add title"
+    }
+  },
   "mainMenu": {
     "lang": "Select Language",
     "en": "English",
