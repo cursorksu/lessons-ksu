@@ -222,7 +222,7 @@ export const Home = () => {
   const [active, setActive] = useState(0);
 
   const activeItem = useMemo(() => {
-    return list.find(el => el.id === active);
+    return list?.find(el => el.id === active);
   }, [active]);
 
   return (

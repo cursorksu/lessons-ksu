@@ -7,4 +7,10 @@ export const routes = {
   group: '/group',
   collections: '/collections',
   scenario: '/scenario',
+  food: '/food',
+  topic: '/topic',
+  subject: '/subject',
+  game: '/game',
+  creativity: '/creativity',
+  memory: '/memory',
 };

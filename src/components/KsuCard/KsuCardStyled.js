@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
-import { DARK_GRAY } from '../../constants/colors';
-
+import { BG_GOLD } from '../../constants/colors';
 export const KsuCardStyled = styled('div')`
-  font-size: 1.3rem;
-  line-height: 1.3;
-  color:  ${DARK_GRAY};
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.5;
   position: relative;
   min-height: 100px;
-  font-family: 'Coco Gothic Alternate', sans-serif !important;
-  font-weight: 300;
+  box-shadow: none;
 
   .header h3 {
     font-family: 'Nexa Script', sans-serif;
@@ -16,12 +14,11 @@ export const KsuCardStyled = styled('div')`
     margin-bottom: 0 !important;
   }
   
-  .header,
-  .content {
-    padding: 15px 15px 0;
-  }
-  
-  .action {
+  .card-actions {
+    margin: 20px 0;
+    padding: 5px;
+    background: ${BG_GOLD};
+    border-radius: 4px;
     display: flex;
     justify-content: flex-end;
     align-items: center;

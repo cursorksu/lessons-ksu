@@ -8,13 +8,9 @@ export const SprintCardStyled = styled('div')`
   background-color: ${CHOCO};
   border-radius: 4px;
   overflow: hidden;
-  outline: transparent 4px solid;
-  transition: outline 0.3s ease-in-out;
   box-shadow: ${BOX_SHADOW};
   
   &:hover {
-    outline: ${CREAM} 4px solid ;
-    
     .title.hover {
         opacity: 1;
         transition: opacity 0.6s linear;

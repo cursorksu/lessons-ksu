@@ -15,7 +15,7 @@ export const KsuCard = ({
     <Card className={className}>
       <KsuCardStyled>
         {image && <Image src={image} wrapped ui={false} />}
-        <CardHeader><h3>{title}</h3></CardHeader>
+        <CardHeader><h2 className='title'>{title}</h2></CardHeader>
         <CardContent extra>
           {children}
         </CardContent>

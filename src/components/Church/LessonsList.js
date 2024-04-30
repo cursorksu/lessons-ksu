@@ -22,7 +22,7 @@ export const LessonsList = ({ isAuth, teachers, church, onEdit, lessons }) => {
     };
     await editEntity(newData);
 
-    const editableTeacher = teachers.find(el => el.id === id);
+    const editableTeacher = teachers?.find(el => el.id === id);
     await editTeacher({
       ...editableTeacher,
       church: editableTeacher?.church?.filter(churchId => churchId !== church.id),
