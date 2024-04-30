@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ReactComponent as TranslateIcon } from '../assets/translate.svg';
 import { ReactComponent as GameIcon } from '../assets/game.svg';
@@ -10,6 +10,12 @@ import { ReactComponent as GoogleIcon } from '../assets/google.svg';
 import { ReactComponent as CollectionsIcon } from '../assets/collection.svg';
 import { ReactComponent as ShowIcon } from '../assets/show.svg';
 import { ReactComponent as HeartIcon } from '../assets/heart.svg';
+import { ReactComponent as PalletIcon } from '../assets/pallete.svg';
+import { ReactComponent as TopicIcon } from '../assets/topic.svg';
+import { ReactComponent as NormalGameIcon } from '../assets/game.svg';
+import { ReactComponent as FoodIcon } from '../assets/food.svg';
+import { ReactComponent as MemoryIcon } from '../assets/memory.svg';
+import { ReactComponent as BookmarkIcon } from '../assets/bookmark.svg';
 import { setMainMenuCollapsed } from '../store/mainMenuReducer';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -20,6 +26,7 @@ import { clsx } from 'clsx';
 
 
 export const Control = ({ loginWithGoogle, signOut }) => {
+  const [isCollectionOpen, setCollectionOpen] = useState(false);
   const mainMenuCollapsed  = useSelector(({ mainMenuCollapsed }) => mainMenuCollapsed);
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -97,15 +104,70 @@ export const Control = ({ loginWithGoogle, signOut }) => {
             >
               {t('mainMenu.community')}
             </MenuItem>
-            <MenuItem
-              icon={<CollectionsIcon />}
-              component={<Link to={`${routes.collections}`} />}
-              className={clsx({
-                active: pathname.includes(routes.collections)
-              })}
-            >
-              {t('collections.collections')}
-            </MenuItem>
+            <SubMenu
+              onClick={(e) => {
+                e.stopPropagation();
+                setCollectionOpen(prev => !prev);
+              }}
+              open={isCollectionOpen}
+              label={t('collections.collections')}
+              icon={<CollectionsIcon />}>
+              <MenuItem
+                icon={<TopicIcon />}
+                component={<Link to={`${routes.collections}`} />}
+                className={clsx({
+                  active: pathname.includes(routes.collections)
+                })}
+              >
+                Список уроков
+              </MenuItem>
+              <MenuItem
+                icon={<BookmarkIcon />}
+                component={<Link to={routes.subject} />}
+                className={clsx({
+                  active: pathname.includes(routes.subject)
+                })}
+              >
+                Предметний приклад
+              </MenuItem>
+              <MenuItem
+                icon={<NormalGameIcon />}
+                component={<Link to={routes.game} />}
+                className={clsx({
+                  active: pathname.includes(routes.game)
+                })}
+              >
+                Гра
+              </MenuItem>
+              <MenuItem
+                icon={<PalletIcon />}
+                component={<Link to={`${routes.creativity}`} />}
+                className={clsx({
+                  active: pathname.includes(routes.creativity)
+                })}
+              >
+                Поробка
+              </MenuItem>
+              <MenuItem
+                icon={<MemoryIcon />}
+                component={<Link to={`${routes.memory}`} />}
+                className={clsx({
+                  active: pathname.includes(routes.memory)
+                })}
+              >
+                Запам'ятовування
+              </MenuItem>
+              <MenuItem
+                icon={<FoodIcon />}
+                component={<Link to={`${routes.food}`} />}
+                className={clsx({
+                  active: pathname.includes(routes.food)
+                })}
+              >
+                Частування
+              </MenuItem>
+
+            </SubMenu>
             <MenuItem
               icon={<ShowIcon />}
               component={<Link to={`${routes.scenario}`} />}

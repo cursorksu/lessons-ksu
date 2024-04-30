@@ -13,6 +13,7 @@ import { Scenario } from '../components/Scenario';
 import { ScenarioItem } from '../components/ScenarioItem';
 import { Test } from '../Games/Test/Test';
 import { TestGameView } from '../Games/Test/TestGameView';
+import { LessonEntity } from '../components/LessonEntity/LessonEntity';
 
 export const publicRoutes = [
   {
@@ -26,7 +27,7 @@ export const publicRoutes = [
     component: <LessonsPage />,
   },
   {
-    path: `${routes.collections}/:collectionId${routes.lessons}/:id`,
+    path: `${routes.collections}/:collectionId${routes.lessons}/:lessonId`,
     title: 'Lesson',
     component: <Lesson />,
   },
@@ -56,23 +57,42 @@ export const publicRoutes = [
     component: <ScenarioItem />,
   },
   {
-    path: `${routes.games}`,
-    title: 'Games',
-    component: <Games />,
-  },
-  {
     path: `${routes.games}/test-game-view`,
     title: 'Test',
     component: <TestGameView />,
   },
-
-];
-export const authRouts = [
   {
     path: routes.collections,
     title: 'Collections',
     component: <Collections />,
   },
+  {
+    path: routes.subject,
+    title: 'Subject',
+    component: <LessonEntity entityName={'subject'} />,
+  },
+  {
+    path: routes.food,
+    title: 'Food',
+    component: <LessonEntity entityName={'food'} />,
+  },
+  {
+    path: routes.memory,
+    title: '<Memory>',
+    component: <LessonEntity entityName={'memory'} />,
+  },
+  {
+    path: routes.creativity,
+    title: 'Creativity',
+    component: <LessonEntity entityName={'creativity'} />,
+  },
+  {
+    path: routes.game,
+    title: 'Game',
+    component: <LessonEntity entityName={'game'} />,
+  },
+];
+export const authRouts = [
   {
     path: `${routes.cabinet}/:userId${routes.group}/:groupId`,
     title: 'Cabinet',
@@ -82,5 +102,10 @@ export const authRouts = [
     path: `${routes.games}/test`,
     title: 'Test',
     component: <Test />,
+  },
+  {
+    path: `${routes.games}`,
+    title: 'Games',
+    component: <Games />,
   },
 ];

@@ -3,10 +3,10 @@ import { CREAM } from '../../constants/colors';
 
 export const LessonCardStyled = styled.div`
   color: white !important;
-  font-family: 'Coco Gothic Alternate', sans-serif;
-  font-size: 16px;
-  font-weight: 200;
-  height: 500px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  height: 600px;
   box-sizing: border-box;
   cursor: pointer;
   background: ${CREAM};
@@ -20,7 +20,8 @@ export const LessonCardStyled = styled.div`
 
   .card-img-wrapper {
     width: 100%;
-    height: 180px;
+    min-height: 240px;
+    object-fit: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,7 +30,7 @@ export const LessonCardStyled = styled.div`
 
       img {
         transform: none;
-        height: 180px;
+        height: 240px;
         width: 100%;
         object-fit: cover;
         position: static;
@@ -45,6 +46,7 @@ export const LessonCardStyled = styled.div`
   }
   .content {
     padding: 15px;
+    display: block;
   }
   .meta {
     display: flex;
@@ -62,13 +64,12 @@ export const LessonCardStyled = styled.div`
     font-weight: 400;
     font-size: 30px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    margin-bottom: 10px !important;
     padding-bottom: 10px;
   }
   
   .description {
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -76,7 +77,7 @@ export const LessonCardStyled = styled.div`
   .quote {
     font-style: italic;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

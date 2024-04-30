@@ -1,5 +1,6 @@
 @import url("./fonts/style.css");
 @import "react-image-gallery/styles/css/image-gallery.css";
+@import  "quill/dist/quill.snow.css";
 
 * {
     box-sizing: border-box;
@@ -44,6 +45,7 @@ h3 {
 h1.title,
 .title,
 .subtitle {
+    max-width: 100%;
     font-family: 'Nexa Script', sans-serif;
     white-space: nowrap;
     overflow: hidden;
@@ -341,6 +343,68 @@ img.epr-emoji-img {
         animation: shadow-rotate 1.5s linear infinite;
         transform-origin: center;
     }
+}
+.ui.bottom.attached.segment.active.tab {
+    .ksu-content {
+        padding: 10px;
+    }
+}
+.content-wrapper {
+    span, label, li, a, p {
+        font-size: 18px !important;
+        line-height: 1.5 !important;
+        font-weight: 300 !important;
+        font-family: "Montserrat", sans-serif;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    blockquote {
+        position: relative;
+        display: block;
+
+        &:before {
+            content: '';
+            height: 100%;
+            width: 10px;
+            background: rgba(163, 147,103, 0.3);
+            border-radius: 5px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -36px;
+        }
+    }
+
+    .ql-font-monospace  {
+        font-family: "Monospaced", sans-serif;
+    }
+
+    .ql-font-serif  {
+        font-family: "Alice", serif;
+    }
+
+    .ql-picker-label,
+    .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+        margin-right: 20px;
+        min-width: 115px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+}
+
+.content-wrapper .ql-size-small {
+    font-size: 14px !important;
+}
+.content-wrapper .ql-size-lage {
+    font-size: 24px !important;
+}
+.content-wrapper .ql-size-huge {
+    font-size: 32px !important;
 }
 
 @keyframes content-size {

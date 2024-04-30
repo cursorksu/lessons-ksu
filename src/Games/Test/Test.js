@@ -143,7 +143,7 @@ export const Test = () => {
   };
 
   const handleSave = () => {
-    const notFactItem = test.find(item => item.answer.every((el) => !el.isTrue));
+    const notFactItem = test?.find(item => item.answer.every((el) => !el.isTrue));
 
     if (notFactItem?.id) {
       setTest(prev => prev.map((item) => ({

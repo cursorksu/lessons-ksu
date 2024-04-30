@@ -38,7 +38,7 @@ export const KsuDropdown = ({
   }, [optionsData]);
 
   const handleChange = useCallback((_, data) => {
-    const currentData = optionsData.find(el => el.id === data.value);
+    const currentData = optionsData?.find(el => el.id === data.value);
     currentData && onChange(currentData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onChange, options]);

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { ERROR_MAIN, YELLOW_MAIN } from '../constants/colors';
+import { ERROR_MAIN } from '../constants/colors';
 
 export const ValidationErrorStyled = styled('p')`
   margin: 0;

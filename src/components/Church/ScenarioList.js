@@ -22,7 +22,7 @@ export const ScenarioList = ({ isAuth, teachers, church, onEdit, scenarios }) =>
     };
     await editEntity(newData);
 
-    const editableTeacher = teachers.find(el => el.id === id);
+    const editableTeacher = teachers?.find(el => el.id === id);
     await editScenarios({
       ...editableTeacher,
       church: editableTeacher?.church?.filter(churchId => churchId !== church.id),

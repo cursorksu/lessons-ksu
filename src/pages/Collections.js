@@ -3,7 +3,7 @@ import { routes } from '../router/constants';
 import { useNavigate } from 'react-router';
 import { MainLayout } from './MainLayout';
 import { SprintCard } from '../components/SprintCard/SprintCard';
-import {Divider, Grid} from 'semantic-ui-react';
+import { Popup } from 'semantic-ui-react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { ButtonStyled } from '../components/ButtonStyled';
@@ -13,6 +13,7 @@ import { getDateFromTimeStep } from '../utils/getDateFromTimeStep';
 import { useDeleteEntity } from "../api/entity/useDeleteEntity";
 
 export const Collections = () => {
+  const { user } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const {collections} = useSelector(store => store);
   const { getAllEntities } = useGetAllEntities('collections');
@@ -65,7 +66,7 @@ export const Collections = () => {
 
   const defaultValues = {
     description: '',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fplaceholder.png?alt=media&token=cae2b4af-cd76-4178-bdff-d6f986f0cb56',
+    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fplaceholder2.jpg?alt=media&token=e524e66b-1da1-4e89-bf19-b6ddcbc949a1',
     title: '',
     tags: '',
     lessonIds: [],
@@ -73,17 +74,27 @@ export const Collections = () => {
 
   return (
     <MainLayout>
-      <div className="collections-parent-wrapper">
-        <div className="topic-title">
-          <Grid.Column width={14} ><h1 className="title">{t('collections.collections')}</h1></Grid.Column>
-          <Grid.Column width={2}>
-            <ButtonStyled
-              onClick={() => setIsFormShown(!isFormShown)}>
-              + {t('collections.createCollection')}
-            </ButtonStyled>
-          </Grid.Column>
+      <div className="herro collection-herro">
+        <div className="title-wrapper top-container">
+          <h2 className="subtitle"> Kids Spiritual Universe</h2>
+          <h1 className="title">{t('collections.collections')}</h1>
+          {user?.uid && (
+            <div>
+              <Popup
+                trigger={(
+                  <ButtonStyled
+                    onClick={() => setIsFormShown(!isFormShown)}>
+                  + {t('collections.createCollection')}
+                  </ButtonStyled>
+                )}
+                content='Створити колекцію'
+              />
+            </div>
+          )}
         </div>
-        <Divider/>
+      </div>
+
+      <div className="collections-parent-wrapper">
         {
           isFormShown && (
             <CreateEntityForm
@@ -96,7 +107,7 @@ export const Collections = () => {
           )
         }
         <div className="collections-wrapper">
-          {collections?.length > 0 && collections.map(el => (
+          {collections?.length > 0 && collections?.map(el => (
             <SprintCard
               modalTitle={'collections.deleteCollection'}
               modalContent={'modal.collectionDelete'}

@@ -42,7 +42,7 @@ function Situations() {
   let animationTimeout;
 
   const onCardClick = (e, card) => {
-    const activeCardIndex = cards.findIndex(el => card.id === el.id);
+    const activeCardIndex = cards?.findIndex(el => card.id === el.id);
     const updatedCards = [...cards];
     updatedCards[activeCardIndex] = {
       ...updatedCards[activeCardIndex],
@@ -52,7 +52,7 @@ function Situations() {
   };
 
   const onAlertClick = (e, card) => {
-    const activeCardIndex = cards.findIndex(el => card.id === el.id);
+    const activeCardIndex = cards?.findIndex(el => card.id === el.id);
     const updatedCards = [...cards];
 
     updatedCards[activeCardIndex] = { ...updatedCards[activeCardIndex], isUsed: !updatedCards[activeCardIndex].isUsed };

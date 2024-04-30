@@ -19,6 +19,10 @@ export const ShadowCardStyled = styled('li')`
     grid-template-columns: 60px 1fr;
     align-items: center;
   
+    &.in-aside {
+      margin-bottom: 20px;
+    }
+  
     &.d-block {
       display: block;
 
@@ -62,6 +66,10 @@ export const ShadowCardStyled = styled('li')`
 export const MainContentStyled = styled('div')`
   position: relative;
   min-height: 100vh;
+  
+  .no-margin {
+    margin: 0 !important;
+  }
   
   .benefits {
     display: grid;
@@ -110,6 +118,18 @@ export const MainContentStyled = styled('div')`
       align-items: stretch;
       font-size: 1.5rem;
       
+      .ui.card {
+        border: none;
+        padding: 0;
+        border-radius: 0;
+        outline: none;
+        
+        &:hover {
+          outline: none;
+        }
+        
+      }
+      
       iframe {
         width: 100%;
         height: 300px;
@@ -121,7 +141,7 @@ export const MainContentStyled = styled('div')`
         font-size: 2rem;
         font-family: Montserrat, sans-serif;
         font-weight: 300;
-        padding-bottom: 30px;
+        padding-bottom: 20px;
         white-space: pre-wrap;
         position: relative;
 
@@ -163,6 +183,10 @@ export const MainContentStyled = styled('div')`
         &.scenario-herro {
           background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fshow.webp?alt=media&token=2df4fc9a-e478-4f44-ae60-c0639f61c537");
         }
+
+      &.collection-herro {
+        background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpixlr-image-generator-e835cbe4-3908-4f0c-9d40-916dc0cccff5.jpg?alt=media&token=3ac4b81d-2975-48b2-a33a-0740871357fb");
+      }
         
         .title-wrapper {
             position: relative;
@@ -288,7 +312,7 @@ export const MainContentStyled = styled('div')`
     
     li ul li {
       a {
-        padding: 0 0 0 100px;
+        padding: 0 0 0 50px;
       }
       &.active {
         background: #fff;

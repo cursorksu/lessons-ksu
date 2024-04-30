@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {
-  CHOCO, CREAM, PRIMARY_MAIN,
+  BG_GOLD, CHOCO, CREAM, GOLD, PRIMARY_MAIN,
 } from '../constants/colors';
 
 export const InfoItemStyled = styled.div`
@@ -110,7 +110,50 @@ export const InfoBlockStyled = styled.div`
       font-size: 1.5rem;
     }
   }
-  
+
+  .ui.card {
+    box-shadow: none;
+  }
+  .content-wrapper {
+    position: relative;
+  }
+  .quill {
+    position: sticky;
+  }
+
+  .action {
+    margin: 0 0 20px 0;
+  }
+  .action,
+  .ql-toolbar.ql-snow {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    background: #fff !important;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 100;
+    
+    &:after {
+      content: '';
+      left: 0;
+      right: 0;
+      top: 2px;
+      height: 45px;
+      border-radius: 4px;
+      background: ${BG_GOLD};
+      position: absolute;
+      z-index: -10;
+    }
+  }
+
+  .ql-toolbar.ql-snow {
+    top: 45px;
+  }
+
   &.aside-wrapper > li {
       display: block !important;
   }
@@ -130,6 +173,17 @@ export const InfoBlockStyled = styled.div`
       right: -50%;
       transform: translateX(-50%);
       background-image: linear-gradient(to right, transparent 0%, ${CHOCO} 50%, ${CHOCO} 50%, transparent 100%);
+    }
+  }
+  
+  .image-wrapper {
+    height: 300px;
+    margin-bottom: 30px;
+    
+    img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
     }
   }
 
@@ -213,5 +267,11 @@ export const InfoBlockStyled = styled.div`
       object-fit: cover;
       object-position: center;
     }
+  }
+
+  .item-action {
+    padding: 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid ${GOLD};
   }
 `;

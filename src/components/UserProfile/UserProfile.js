@@ -158,7 +158,7 @@ export const UserProfile = () => {
   ]);
 
   useEffect(() => {
-    setActiveTab(groups.findIndex(el => el.id === groupId));
+    setActiveTab(groups?.findIndex(el => el.id === groupId));
   }, [groupId, groups]);
 
   return (

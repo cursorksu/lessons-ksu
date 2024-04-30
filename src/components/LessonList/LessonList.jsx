@@ -8,6 +8,7 @@ import { LessonCard } from '../LessonCard';
 import { LessonListStyled } from './LessonListStyled';
 import {useLessonToCollection} from "../../api/collections/useLessonToCollection";
 import {useGetLessonsInCollection} from "../../api/lesson/useGetLessonsInCollection";
+import { routes } from '../../router/constants';
 
 export const LessonList = ({ collection } ) => {
   const navigate = useNavigate();
@@ -17,7 +18,11 @@ export const LessonList = ({ collection } ) => {
   const { lessons } = useSelector((state) => state.lessonData);
 
   useEffect(() => {
-    getLessonsInCollection(collection.lessonIds).then(() => {});
+    !collection?.lessonIds && navigate(routes.collections);
+  }, [collection, getLessonsInCollection, navigate]);
+
+  useEffect(() => {
+    collection?.lessonIds && getLessonsInCollection(collection.lessonIds).then(() => {});
   }, [collection, getLessonsInCollection]);
 
   const handleClick = (id) => {

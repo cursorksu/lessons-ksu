@@ -3,8 +3,6 @@ import { ButtonIconStyled } from '../ButtonStyled';
 import React, { useEffect, useState } from 'react';
 import { useGetEntity } from '../../api/entity/useGetEntity';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
-import { HighlightButton } from '../HighlightButton';
-
 export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
   const { getEntityById } = useGetEntity(entityName);
   const [entityData, setEntityData] = useState(null);

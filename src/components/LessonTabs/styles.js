@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
-import { CREAM, DARK_BG } from '../../constants/colors';
+import {
+  BOX_SHADOW, CREAM, DARK_BG, DARK_GRAY, GOLD
+} from '../../constants/colors';
 
 export const TabStyled = styled('div')`
+  padding: 40px;
   .card:hover {
     outline: ${CREAM} 4px solid;
   }
@@ -11,15 +14,43 @@ export const TabStyled = styled('div')`
     }
     .menu {
       padding: 0 40px;
-      background: ${DARK_BG} !important;
+      .item {
+        color: ${GOLD} !important;
+      }
     }
   }
 
-  .menu .item svg {
-    width: 26px;
-    height: 26px;
-    display: inline;
-    margin-right: 20px;
+  .menu .item {
+    background: ${CREAM}  !important;
+    border-radius: 4px 4px 0 0 !important;
+    margin-right: 6px !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.3s ease-in-out !important;
+    font-size: 1.5rem !important;
+    font-weight: 300 !important;
+    font-family: Montserrat, sans-serif !important;
+    box-shadow: ${BOX_SHADOW};
+    
+    &:hover {
+      opacity: 1 !important;
+    }
+    
+    &.active {
+      opacity: 1 !important;
+      background: #fff !important;
+
+      box-shadow: ${BOX_SHADOW};
+      color: ${DARK_GRAY} !important;
+      position: relative;
+      z-index: 2;
+    }
+    
+    svg {
+      width: 26px;
+      height: 26px;
+      display: inline;
+      margin-right: 20px;
+    }
   }
   
   .btn-wrapper {

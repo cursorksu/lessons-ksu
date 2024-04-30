@@ -6,7 +6,13 @@
   "collections": {
     "collections": "Collections of Lessons",
     "createCollection": "Create Collection",
-    "deleteCollection": "Delete Collection"
+    "deleteCollection": "Delete Collection",
+    "topic": "Topic",
+    "subject": "Subject example",
+    "game": "Games",
+    "creativity": "Creativity",
+    "memory": "Memoization",
+    "food": "Food"
   },
   "students": {
     "myStudents": "My students",

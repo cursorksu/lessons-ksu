@@ -56,7 +56,7 @@ function Scala() {
   const cardsRight = useMemo(() => cards.slice(cards.length / 2), [cards]);
   const onCardClick = (e, card) => {
     e.stopPropagation();
-    const activeCardIndex = cards.findIndex(el => card.id === el.id);
+    const activeCardIndex = cards?.findIndex(el => card.id === el.id);
     const updatedCards = [...cards];
     updatedCards[activeCardIndex] = {
       ...updatedCards[activeCardIndex],

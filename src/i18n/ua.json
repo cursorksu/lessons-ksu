@@ -6,7 +6,13 @@
   "collections": {
     "collections": "Колекції уроків",
     "createCollection": "Створити колекцію",
-    "deleteCollection": "Видалити колекцію"
+    "deleteCollection": "Видалити колекцію",
+    "topic": "Історія",
+    "subject": "Предметний приклад",
+    "game": "Гра",
+    "creativity": "Поробка",
+    "memory": "Запам'ятовування",
+    "food": "Перекус"
   },
   "students": {
     "myStudents": "Мои учні",

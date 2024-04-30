@@ -1,131 +1,270 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { KsuCard } from '../KsuCard';
-import { EditTextModal } from '../EditTextModal';
-import { Grid, GridColumn, GridRow } from 'semantic-ui-react';
-import { EditModal } from '../EditModal';
-import { DisplayEntity } from '../DisplayEntity';
+import { FormField, Popup } from 'semantic-ui-react';
 import { ButtonIconStyled } from '../ButtonStyled';
-import { ReactComponent as ViewIcon } from '../../assets/view.svg';
-import { ReactComponent as ClosedViewIcon } from '../../assets/closed-view.svg';
-import { clsx } from 'clsx';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+import { ReactComponent as SaveIcon } from '../../assets/save.svg';
+import { ReactComponent as PrintIcon } from '../../assets/print.svg';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { Controller, useForm } from 'react-hook-form';
+import Editor from '../TextEditor';
+import { useEditEntity } from '../../api/entity/useEditEntity';
+import { HTMLRenderer } from '../HTMLRender/HTMLRender';
+import { InputStyled } from '../InputStyled';
+import { DynamicList } from '../DynamicList/DynamicList';
+import { InfoBlockStyled } from '../InfoBlockStyled';
+import { useReactToPrint } from 'react-to-print';
 
-export const TopicToPrint = React.forwardRef(({ lesson }, ref) => {
-  const { t } = useTranslation('tr');
-  const [hideElement, showElement] = useState({
-    goal: true,
-    bible: true,
-    material: true,
-    list: true,
+export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
+  const { editEntity } = useEditEntity('lessons');
+  const [isMaterialEdit, setIsMaterialEdit] = useState(false);
+  const [isBibleEdit, setIsBibleEdit] = useState(false);
+  const [isTopicEdit, setIsTopicEdit] = useState(false);
+  const [isGoalEdit, setIsGoalEdit] = useState(false);
+
+  const {control, getValues, setValue, reset} = useForm({
+    defaultValues: {
+      goal: lesson?.goal,
+      bibleText: lesson?.bibleText,
+      bibleQuote: lesson?.bibleQuote,
+      material: lesson?.material,
+      topic: lesson?.topic,
+    },
+    caches: false
   });
-  const { topic } = useSelector((state) => state.lessonData);
 
-  const viewHandler = (name) => {
-    showElement((prev) => ({
-      ...prev,
-      [name]: !prev[name]
-    }));
+  const { user } = useSelector((state) => state.auth);
+
+  const editLessonHandler = (fieldName) => {
+    const newData = {
+      id: lesson?.id,
+    };
+
+    if (fieldName === 'bible') {
+      newData.bibleText = getValues('bibleText');
+      newData.bibleQuote = getValues('bibleQuote');
+    } else {
+      newData[fieldName] = getValues(fieldName);
+    }
+
+    editEntity(newData)
+      .then(() => {
+        onChangeConfirm();
+        setIsGoalEdit(false);
+        setIsBibleEdit(false);
+        setIsMaterialEdit(false);
+        setIsTopicEdit(false);
+        reset({
+          goal: lesson?.goal,
+          bibleText: lesson?.bibleText,
+          bibleQuote: lesson?.bibleQuote,
+          material: lesson?.material,
+          topic: lesson?.topic,
+        });
+      })
+      .catch((err) => new Error(err));
   };
 
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   return (
-    <Grid>
-      <GridRow>
-        <GridColumn width={4}>
-          <KsuCard
-            className={clsx({'print-hide': !hideElement.goal})}
-            title={t('lesson.goal')}
-            action={(
-              <div className='action'>
-                <EditModal fieldName={'goal'} fieldData={lesson?.goal} />
-                <ButtonIconStyled
-                  onClick={() => viewHandler('goal')}
-                  className='print-hide'>
-                  {hideElement.goal
-                    ? <ViewIcon />
-                    : <ClosedViewIcon />
-                  }
+    <InfoBlockStyled>
+      <section className='ksu-content no-margin' ref={componentRef}>
+        <aside className='aside-wrapper'>
+          <div>
+            <div className='image-wrapper'>
+              <img src={lesson?.imageUrl} alt={lesson?.title} />
+            </div>
+            <KsuCard
+              title={'Мета уроку'}
+              action={user?.uid && (
+                !isGoalEdit
+                  ? (
+                    <ButtonIconStyled onClick={() => setIsGoalEdit(true)}>
+                      <EditIcon />
+                    </ButtonIconStyled>
+                  )
+                  : (
+                    <ButtonIconStyled onClick={() => editLessonHandler('goal')}>
+                      <SaveIcon />
+                    </ButtonIconStyled>
+                  )
+              )}
+            >
+              <div>
+                {isGoalEdit
+                  ? (
+                    <Controller
+                      name="goal"
+                      control={control}
+                      render={({ field }) => (
+                        <FormField>
+                          <InputStyled
+                            name='goal'
+                            placeholder={'Почніть вводити щось...'}
+                            onChange={(data) => setValue('goal', data)}
+                            {...field}
+                          />
+                        </FormField>
+                      )}
+                    />
+                  )
+                  : <HTMLRenderer htmlContent={lesson?.goal} />
+                }
+              </div>
+            </KsuCard>
+            <KsuCard
+              title={'Ключове місце Біблії'}
+              action={user?.uid && (
+                !isBibleEdit
+                  ? (
+                    <ButtonIconStyled onClick={() => setIsBibleEdit(true)}>
+                      <EditIcon />
+                    </ButtonIconStyled>
+                  )
+                  : (
+                    <ButtonIconStyled onClick={() => editLessonHandler('bible')}>
+                      <SaveIcon />
+                    </ButtonIconStyled>
+                  )
+              )}
+            >
+              <div>
+                {isBibleEdit
+                  ? (
+                    <>
+                      <Controller
+                        name="bibleText"
+                        control={control}
+                        render={({ field }) => (
+                          <FormField>
+                            <InputStyled
+                              placeholder={'Біблійний текст'}
+                              onChange={({ target }) => setValue('bibleText', target.value)}
+                              {...field}
+                            />
+                          </FormField>
+                        )}
+                      />
+                      <Controller
+                        name="bibleQuote"
+                        control={control}
+                        render={({ field }) => (
+                          <FormField>
+                            <InputStyled
+                              placeholder={'Де написаний'}
+                              onChange={({ target }) => setValue('bibleQuote', target.value)}
+                              {...field}
+                            />
+                          </FormField>
+                        )}
+                      />
+                    </>
+                  )
+                  : (
+                    <div>
+                      <p>{lesson?.bibleText}</p>
+                      <p><b>{lesson?.bibleQuote}</b></p>
+                    </div>
+                  )
+                }
+              </div>
+            </KsuCard>
+            <KsuCard
+              title={'Що треба взяти'}
+              action={user?.uid && (
+                !isMaterialEdit
+                  ? (
+                    <ButtonIconStyled onClick={() => setIsMaterialEdit(true)}>
+                      <EditIcon />
+                    </ButtonIconStyled>
+                  )
+                  : (
+                    <ButtonIconStyled onClick={() => editLessonHandler('material')}>
+                      <SaveIcon />
+                    </ButtonIconStyled>
+                  )
+              )}
+            >
+              <div>
+                {isMaterialEdit
+                  ? (
+                    <Controller
+                      name="material"
+                      control={control}
+                      render={({ field }) => (
+                        <FormField>
+                          <DynamicList
+                            field={field}
+                            initialField={field.value}
+                            onChangeField={data => setValue('material', data.value)}
+                          />
+                        </FormField>
+                      )}
+                    />
+                  )
+                  : (
+                    <ul>
+                      {lesson?.material?.map(el => (
+                        <li>{el.value}</li>
+                      ))}
+                    </ul>
+                  )
+                }
+              </div>
+            </KsuCard>
+          </div>
+        </aside>
+        <section className='content-wrapper'>
+          <div className='action'>
+            <Popup
+              trigger={(
+                <ButtonIconStyled onClick={handlePrint}>
+                  <PrintIcon />
                 </ButtonIconStyled>
-              </div>
+              )}
+              content='Надрукувати цей урок'
+            />
+            {user?.uid && (
+              !isTopicEdit
+                ? (
+                  <ButtonIconStyled onClick={() => setIsTopicEdit(true)}>
+                    <EditIcon />
+                  </ButtonIconStyled>
+                )
+                : (
+                  <ButtonIconStyled onClick={() => editLessonHandler('topic')}>
+                    <SaveIcon />
+                  </ButtonIconStyled>
+                )
             )}
-          >
-            {lesson?.goal}
-          </KsuCard>
-          <KsuCard
-            className={clsx({'print-hide': !hideElement.bible})}
-            title={t('lesson.text')}
-            action={<div className='action'>
-              <EditModal fieldName={'bible'} fieldData={lesson?.bible} />
-              <ButtonIconStyled
-                onClick={() => viewHandler('bible')}
-                className='print-hide'>
-                {hideElement.bible
-                  ? <ViewIcon />
-                  : <ClosedViewIcon />
-                }
-              </ButtonIconStyled>
-            </div>}
-          >
-            <div>
-              {lesson?.bible}
-              <br />
-              <b>{lesson?.quote}</b>
-            </div>
-          </KsuCard>
-          <KsuCard
-            className={clsx({'print-hide': !hideElement.material})}
-            title={t('lesson.description')}
-            action={<div className='action'>
-              <EditModal fieldName={'quote'} fieldData={lesson?.quote} />
-              <ButtonIconStyled
-                onClick={() => viewHandler('material')}
-                className='print-hide'>
-                {hideElement.material
-                  ? <ViewIcon />
-                  : <ClosedViewIcon />
-                }
-              </ButtonIconStyled>
-            </div>}
-          >
-            {lesson?.quote}
-          </KsuCard>
-          <KsuCard
-            className={clsx({'print-hide': !hideElement.list})}
-            title={t('lesson.staff')}
-            action={<div className='action'>
-              <EditModal fieldName={'list'} fieldData={lesson?.list} />
-              <ButtonIconStyled
-                onClick={() => viewHandler('list')}
-                className='print-hide'>
-                {hideElement.list
-                  ? <ViewIcon />
-                  : <ClosedViewIcon />
-                }
-              </ButtonIconStyled>
-            </div>}
-          >
-            {lesson?.list?.map((el, idx) => (
-              <div key={el?.id}>
-                <b>{++idx}</b>.{el?.value}
-              </div>))}
-          </KsuCard>
-        </GridColumn>
-        <GridColumn
-          width={12}
-          className={clsx({'print-fluid': Object.keys(hideElement)
-            .every((el) => !hideElement[el])})}
-        >
-          <KsuCard
-            title='История'
-          >
-            <div>
-              <div className='action-top'>
-                <EditTextModal entityId={lesson?.id} entityName='topic' />
-              </div>
-              <DisplayEntity entity={topic}/>
-            </div>
-          </KsuCard>
-        </GridColumn>
-      </GridRow>
-    </Grid>);
+          </div>
+          <div className='action-top'>
+            <h2 className='title'>{lesson?.title}</h2>
+            {isTopicEdit
+              ? (
+                <Controller
+                  name="topic"
+                  control={control}
+                  render={({ field }) => (
+                    <FormField>
+                      <Editor
+                        placeholder={'Почніть вводити текст...'}
+                        onChange={(data) => setValue('topic', data)}
+                        value={field.value}
+                      />
+                    </FormField>
+                  )}
+                />
+              )
+              : (<HTMLRenderer htmlContent={lesson?.topic} />)
+            }
+          </div>
+        </section>
+      </section>
+    </InfoBlockStyled>
+  );
 });
