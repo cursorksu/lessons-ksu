@@ -29,7 +29,7 @@ const getTitle = (name) => {
   }
 };
 
-export const EditTextModal = ({ entityId, entityName }) => {
+export const EditTextModal = ({ entityName }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [updatedEntity, setUpdatedEntity] = useState(null);
 
