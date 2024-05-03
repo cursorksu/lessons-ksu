@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {
-  CREAM, ERROR_MAIN, ITEM_OUTER, NEON, SUCCESS
+  BG_GOLD, CREAM, ERROR_MAIN, ITEM_OUTER, NEON, SUCCESS
 } from '../../constants/colors';
 
 export const MillionerLink = styled('button')`
@@ -126,6 +126,7 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .ksu-slide {
+    padding: 60px;
     & > .mic {
       position: absolute;
       top: 0;
@@ -237,16 +238,17 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .question {
-    color: #fff;
     font-family: "Coco Gothic Alternate", sans-serif;
-    font-size: 4.2rem;
+    color: #fff;
+    font-size: 38px;
     margin: 40px 0 100px;
     
     .answer {
       height: auto;
-      padding: 60px 30px 30px;
+      padding: 80px 30px 30px;
       margin: auto;
       position: relative;
+      max-width: 90%;
       
       &::after,
       &::before {
@@ -256,7 +258,7 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .answer  {
-    padding-left: 100px;
+    font-family: "Coco Gothic Alternate", sans-serif;
     background-color: #053b69;
     border: 2px solid rgba(0, 255, 255, 0.5);
     box-shadow:
@@ -265,30 +267,32 @@ export const TestGameViewStyled = styled('div')`
             inset 5px -5px 10px rgba(0, 255, 255, 0.5),
               inset -5px 5px 10px rgba(130, 66, 166, 0.5);
     width: 90%;
-    height: 100px;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    height: auto;
+    min-height: 100px;
+    font-size: 36px;
+    display: flex;
+    padding: 10px 20px 10px 100px;
+    justify-content: center;
+    align-items: center;
     border-radius: 50px;
-    position: absolute;
     text-align: center;
-    line-height: 100px;
-    top: 52px;
-    left: 40px;
+    line-height: 1.5 !important;
+    overflow: visible;
     
-    &:after,
-    &:before {
-      content: '';
-      width: 9%;
-      height: 2px;
-      box-shadow: ${NEON};
-      background: rgba(0, 255, 255, 1);
+    &.is-excluded {
+      opacity: 0.3;
+    }
+    
+    .mic {
       position: absolute;
       top: 50%;
-    }
-    
-    &:after {
-      left: 100%;
-    }
-    &:before {
-      right: 100%;
+      left: -50px;
+      transform: translateY(-50%);
     }
   }
   .answer-group {
@@ -304,9 +308,10 @@ export const TestGameViewStyled = styled('div')`
       margin: 0;
       list-style-type: none;
       position: relative;
-      min-height: 140px;
-      overflow: visible;
       padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       
       &.selected:not(.fact) {
         .answer {
@@ -322,6 +327,7 @@ export const TestGameViewStyled = styled('div')`
       }
       
       &.fact {
+        overflow: visible;
         .answer {
           background-color: #fff;
           color: #1a084e;
@@ -334,10 +340,10 @@ export const TestGameViewStyled = styled('div')`
         &::before {
           content: "";
           position: absolute;
-          top: 102px;
+          top: 110%;
           left: 50%;
           width: 91%;
-          height: 110px;
+          height: 1px;
           transform: translate(-50%, -50%);
           border-radius: 50px;
           z-index: -1;

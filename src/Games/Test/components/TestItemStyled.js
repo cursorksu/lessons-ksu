@@ -1,4 +1,7 @@
 import styled from '@emotion/styled';
+import {
+  BG_GOLD, ERROR_MAIN, GOLD, PRIMARY_MAIN, SUCCESS,
+} from '../../../constants/colors';
 
 export const TestItemStyled = styled('div')`
   padding-top: 20px;
@@ -13,10 +16,13 @@ export const TestItemStyled = styled('div')`
     'answer6 answer7'
   ;
 
-  grid-gap: 20px;
+  grid-gap: 30px;
   
   .test-question {
     grid-area: question;
+  }
+  .test-answer {
+    max-width: 600px;
   }
   .test-answer:nth-of-type(0) {
     grid-area: answer0;
@@ -50,24 +56,87 @@ export const TestItemStyled = styled('div')`
   }
   .test-answer, .test-question {
     display: grid;
-    grid-template-columns: 1fr 60px 40px;
+    grid-template-columns: 1fr 60px 40px 40px;
     grid-gap: 10px;
     align-items: center;
     position: relative;
     
     .input-label {
-      font-size: 1.1rem;
+      font-size: 12px;
       position: absolute;
-      top: -20px;
+      top: -26px;
     }
+  }
+  .is-excluded {
+    background: ${PRIMARY_MAIN} !important;
+  }
+  .checkbox label:after {
+    background: ${ERROR_MAIN} linear-gradient(transparent,rgba(255,255,255,.5)) !important;
+  }
+  .checkbox.checked label:after {
+    background: ${SUCCESS} linear-gradient(transparent,rgba(255,255,255,.5)) !important;
   }
 `;
 
 export const TestTextStyled = styled('ul')`
   list-style-type: none;
-  font-family: "Coco Gothic Alternate", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.2rem;
   font-weight: 300;
+  padding: 20px 0 0;
+  
+  .empty-test {
+    width: 100%;
+    height: 300px;
+    border-radius: 4px;
+    display: flex;
+    font-size: 2rem;
+    font-weight: 300;
+    color: ${GOLD};
+    justify-content: center;
+    align-items: center;
+    background: ${BG_GOLD};
+  }
+  
+  .test-item {
+    position: relative;
+    background: #fff;
+    padding-left: 36px;
+    
+    &:hover {
+      .drag-handler::before,
+      .drag-handler::after {
+        background-color: ${PRIMARY_MAIN};
+      }
+    }
+
+    .drag-handler {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    .drag-handler::before,
+    .drag-handler::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      border-radius: 2px;
+      height: 4px;
+      background-color: ${BG_GOLD};
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .drag-handler::before {
+      top: 0;
+    }
+
+    .drag-handler::after {
+      top: 8px;
+    }
+  }
   
   ul {
     padding: 20px 0;
@@ -90,5 +159,6 @@ export const TestTextStyled = styled('ul')`
   
   .test-text-question {
     font-weight: 600;
+    line-height: 1.8;
   }
 `;

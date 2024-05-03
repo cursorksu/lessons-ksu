@@ -14,7 +14,7 @@ export const Games = () => {
   return (
     <MainLayout>
       <Routes>
-        <Route path={`/situations`} element={<Situations />} />
+        <Route path={`situations`} element={<Situations />} />
         <Route path={`scala`} element={<Scala />} />
         <Route path={`/:groupId/games/rate`} element={<Rate />} />
       </Routes>

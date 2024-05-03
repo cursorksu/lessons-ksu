@@ -24,8 +24,7 @@ export const InfoBlockStyled = styled.div`
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.5;
-  margin: 20px 0;
-  
+
   .button-wrapper {
     margin: 10px 0 20px;
   }
@@ -179,11 +178,36 @@ export const InfoBlockStyled = styled.div`
   .image-wrapper {
     height: 300px;
     margin-bottom: 30px;
+    position: relative;
     
     img {
       width: 100%;
       height: 300px;
       object-fit: cover;
+    }
+    
+    button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+    
+    &.full-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 200;
+      width: 100%;
+      height: 100vh;
+      
+      img {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+      }
+
     }
   }
 

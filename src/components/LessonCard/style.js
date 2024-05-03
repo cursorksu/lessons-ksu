@@ -9,9 +9,8 @@ export const LessonCardStyled = styled.div`
   height: 600px;
   box-sizing: border-box;
   cursor: pointer;
-  background: ${CREAM};
+ 
   position: relative;
-  background: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-09-28%20%D0%B2%2017.37.35.png?alt=media&token=aa9606d1-7f3b-429f-b54b-1bea7584c295");
   background-size: cover;
   overflow: hidden;
   display: flex;
@@ -53,8 +52,10 @@ export const LessonCardStyled = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 15px;
+    background: dimgrey;
     
     p {
+      color: #fff;
       margin: 0;
     }
   }
@@ -69,7 +70,7 @@ export const LessonCardStyled = styled.div`
   
   .description {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;

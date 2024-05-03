@@ -64,7 +64,7 @@ h1.title {
 
 p, label, a, span {
     text-align: left;
-    font-family: 'Coco Gothic Alternate', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1em;
     font-weight: 300;
 }
@@ -349,7 +349,30 @@ img.epr-emoji-img {
         padding: 10px;
     }
 }
+
 .content-wrapper {
+    position: relative;
+    .sticky-action {
+        padding: 5px;
+        background: #fff;
+        border-radius: 4px;
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+
+        &.success {
+            background: #9ACD32 linear-gradient(transparent,rgba(255,255,255,.5)) !important;
+        }
+
+        &.error {
+            background: rgba(255, 99, 71, 1) linear-gradient(transparent,rgba(255,255,255,.5)) !important;
+        }
+    }
+
     span, label, li, a, p {
         font-size: 18px !important;
         line-height: 1.5 !important;

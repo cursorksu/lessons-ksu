@@ -20,7 +20,6 @@ export const useSignUp = () => {
   const { i18n } = useTranslation('tr');
   const { getAllEntities: getUsers } = useGetAllEntities('users');
   const { createUser } = useCreateUser();
-  const navigate= useNavigate();
 
   const getSignUpData = async () => {
     await getRedirectResult(auth)
@@ -61,7 +60,7 @@ export const useSignUp = () => {
         });
       })
       .then(() => {
-        navigate(routes.home);
+        //navigate(routes.home);
         getUsers().then(data => {
           dispatch(setTeachersList(data));
         });

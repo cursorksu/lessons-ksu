@@ -7,12 +7,13 @@ import { ValidationErrorStyled } from '../../components/ValidationErrorStyled';
 import { TestTextStyled } from './components/TestItemStyled';
 import { useNavigate } from 'react-router';
 import { MillionerLink } from './TestGameViewStyled';
+import { clsx } from 'clsx';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 const { v4: uuidv4 } = require('uuid');
 
 export const Test = () => {
   const timoutRef = useRef(null);
   const navigation = useNavigate();
-
   const [testSaved, setTestSaved] = useState(false);
   const [test, setTest] = useState([ {
     id: uuidv4(),
@@ -21,7 +22,7 @@ export const Test = () => {
       char: '',
       answersLength: '',
       questionLength: '',
-      notIsFact: '',
+      noFact: '',
     },
     answer: [
       {
@@ -34,6 +35,12 @@ export const Test = () => {
   }
   ]);
 
+  useEffect(() => {
+    const prevTest = localStorage.getItem('test');
+    const prevTestParsed = prevTest && JSON.parse(prevTest);
+    prevTestParsed.length && setTest(prevTestParsed);
+  }, []);
+
 
   useEffect(() => {
     timoutRef.current = setTimeout(() => {
@@ -43,10 +50,10 @@ export const Test = () => {
           char: '',
           answersLength: '',
           questionLength: '',
-          notIsFact: '',
+          noFact: '',
         },
       })));
-    }, 6000);
+    }, 12000);
 
     return () => {
       clearTimeout(timoutRef.current);
@@ -62,7 +69,7 @@ export const Test = () => {
           char: '',
           answersLength: '',
           questionLength: '',
-          notIsFact: '',
+          noFact: '',
         },
         answer: [
           {
@@ -83,13 +90,13 @@ export const Test = () => {
 
   const handleChangeItem = (id, content) => {
     if (typeof content === 'string') {
-      if (content?.length > 80) {
+      if (content?.length > 160) {
         setTest(prev => prev.map((item) => ({
           ...item,
           error: {
             ...item.error,
             questionLength: 'Для цього типу гир довжина запитання не може' +
-              ' перевищувати 80 символів',
+              ' перевищувати 160 символів',
           },
         })));
 
@@ -118,14 +125,14 @@ export const Test = () => {
         return;
       }
 
-      if (content?.some(el => el.text?.length > 18)) {
+      if (content?.some(el => el.text?.length > 50)) {
         setTest(prev => prev.map(el =>
           el.id === id
             ? {
               ...el, error: {
                 ...el.error,
                 answersLength: 'Для цього типу гри довжина відповіді не може' +
-                  ' бути більше 18 символів',
+                  ' бути більше 50 символів',
               }
             }
             : el
@@ -143,26 +150,38 @@ export const Test = () => {
   };
 
   const handleSave = () => {
-    const notFactItem = test?.find(item => item.answer.every((el) => !el.isTrue));
+    const prevTest = localStorage.getItem('test');
+    const prevTestParsed = prevTest && JSON.parse(prevTest);
+    const noFactItem = test?.find(item => item.answer.every((el) => !el.isTrue));
 
-    if (notFactItem?.id) {
-      setTest(prev => prev.map((item) => ({
-        ...item,
-        error: {
-          ...item.error,
-          notIsFact: 'Посуньте повзик щоб відмітити хочаб одну правильну' +
+    if (noFactItem?.id) {
+      setTest(prev => prev.map((item) => item.id === noFactItem.id
+        ? ({
+          ...item,
+          error: {
+            ...item.error,
+            noFact: 'Посуньте повзик щоб відмітити хочаб одну правильну' +
             ' відповідь',
-        },
-      })));
+          },
+        })
+        : item));
 
       return;
     }
+    if (prevTestParsed?.length) {
+      const newTest = new Set([
+        ...prevTestParsed,
+        ...test,
+      ]);
 
-    localStorage.setItem('test', JSON.stringify(test));
+      localStorage.setItem('test', JSON.stringify(Array.from(newTest)));
+    }
+    localStorage.setItem('test', JSON.stringify(Array.from(test)));
     setTestSaved(true);
   };
 
   const handleCancel = () => {
+    setTestSaved(false);
     setTest([ {
       id: uuidv4(),
       question: '',
@@ -170,7 +189,7 @@ export const Test = () => {
         char: '',
         answersLength: '',
         questionLength: '',
-        notIsFact: '',
+        noFact: '',
       },
       answer: [
         {
@@ -183,6 +202,20 @@ export const Test = () => {
     }
     ]);
   };
+
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+
+    setTest((prevCards) => {
+      // Создаем копию массива prevCards
+      const updatedCards = [...prevCards];
+      // Удаляем элемент, который нужно переместить
+      const [draggedCard] = updatedCards.splice(result.source.index, 1);
+      // Вставляем элемент в новую позицию
+      updatedCards.splice(result.destination.index, 0, draggedCard);
+      return updatedCards; // Обновляем стейт
+    });
+  }
 
   return (
     <MainLayout>
@@ -213,31 +246,56 @@ export const Test = () => {
               />
             </h2>
 
-            <TestTextStyled className="test">
-              {test.map((testItem, idx) => (
-                <li key={testItem.id} className="test-item">
-                  <span className="test-text-question"><b>{idx + 1}.</b> {testItem.question}</span>
-                  <ul>
-                    {testItem.answer.map((answer, index) => (
-                      <li key={answer.id}><b>{answer.char})</b>{answer.text}</li>
-                    ))
-                    }
-                  </ul>
-                </li>
-              ))}
-            </TestTextStyled>
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+              <Droppable droppableId="dnd-list">
+                {(provided) => (
+                  <TestTextStyled className="test dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
+                    {test.some(el => el.question?.length)
+                      ? test.map((testItem, idx) => (
+                        <Draggable key={idx.toString()} draggableId={idx.toString()} index={idx}>
+                          {(provided) => (
+                            <li
+                              key={testItem.id}
+                              className="test-item"
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <div className='drag-handler' />
+                              <span className="test-text-question"><b>{idx + 1}.</b> {testItem.question}</span>
+                              <ul>
+                                {testItem.answer.map((answer, index) => (
+                                  <li key={answer.id}><b>{`${answer.char}${answer.char && ')'}`}</b>{answer.text}</li>
+                                ))
+                                }
+                              </ul>
+                            </li>
+                          )}
+                        </Draggable>
+                      ))
+                      : <div className="empty-test">Тут з'являться питання тесту</div>}
+                  </TestTextStyled>
+                )}
+              </Droppable>
+            </DragDropContext>
+
           </div>
           <br/>
-          <iframe
-            title="gameDescription"
-            width="100%"
-            height="315"
-            src={'https://youtu.be/hiHy3vW2SxI?t=5'}
-            allowFullScreen={true} />
         </aside>
         <section className='content-wrapper'>
-          <div className="d-flex">
-            <h2 className='title'>Додайте тест</h2>
+          <h2 className='title'>
+            Додайте тест
+          </h2>
+          <p>
+            Відмідьте ті питання, які будуть скриті при виборі опції 50 на 50.
+            Не відмічайте цією відміткою правильну відповідь.
+            Тільки ви регулююте які відповіді будуть скриті під час вибору опції 50%50.
+          </p>
+          <div className={clsx({
+            'sticky-action': true,
+            error: test.some(el => Object.keys(el.error).some(key => el.error[key])),
+            success: testSaved && test.every(el => Object.keys(el.error).every(key => !el.error[key]))
+          })}>
             <Popup
               closeOnPortalMouseLeave
               openOnTriggerMouseEnter
@@ -246,13 +304,19 @@ export const Test = () => {
               )}
               content={'Додати питання до тесту'}
             />
+            {test.length && (
+              <>
+                <ButtonStyled onClick={handleCancel}>Відмінити</ButtonStyled>
+                <ButtonStyled onClick={handleSave}>Зберігти</ButtonStyled>
+              </>
+            )}
           </div>
           {test.map(el => {
             return (
               <div className="question-wrapper ">
                 {el.error.char && <ValidationErrorStyled>{el.error.char}</ValidationErrorStyled>}
                 {el.error.answersLength && <ValidationErrorStyled>{el.error.answersLength}</ValidationErrorStyled>}
-                {el.error.notIsFact && <ValidationErrorStyled>{el.error.notIsFact}</ValidationErrorStyled>}
+                {el.error.noFact && <ValidationErrorStyled>{el.error.noFact}</ValidationErrorStyled>}
                 {el.error.questionLength && <ValidationErrorStyled>{el.error.questionLength}</ValidationErrorStyled>}
                 <TestItem
                   item={el}
@@ -262,8 +326,6 @@ export const Test = () => {
               </div>
             );
           })}
-          <ButtonStyled onClick={handleCancel}>Відмінити</ButtonStyled>
-          <ButtonStyled onClick={handleSave}>Зберігти</ButtonStyled>
         </section>
       </section>
     </MainLayout>

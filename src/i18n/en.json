@@ -43,6 +43,26 @@
       "phone": "Set Phone number"
     }
   },
+  "lessons": {
+    "labels": {
+      "title": "Назва уроку",
+      "description": "Опис уроку",
+      "goal": "Мета уроку",
+      "tags": "Теги",
+      "bibleQuote": "Місце з Писання де це написано",
+      "bibleText": "Текст з Біблії",
+      "imageUrl": "Посилання на зображення"
+    },
+    "placeholders": {
+      "title": "Додайте зрозумілу назву",
+      "description": "Додайте опис",
+      "goal": "Опишіть мету",
+      "tags": "Надрукуйте тег та натисніть ENTER",
+      "bibleQuote": "Посилання на Біблійний вірш",
+      "bibleText": "Додайте Біблійний вірш",
+      "imageUrl": "Посилання на зображення в Інтернеті"
+    }
+  },
   "lessonTabs": {
     "topic": "Lesson Topic",
     "subject": "Subject example",

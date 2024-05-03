@@ -11,6 +11,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 export const TestGameView = () => {
   const [test, setTest] = useState([]);
+  const [isStarted, setIsStarted] = useState(false);
 
   useEffect(() => {
     const list = localStorage.getItem('test');
@@ -28,6 +29,8 @@ export const TestGameView = () => {
   const [timerSound, setTimerSound] = useState(false);
   const [timer, setTimer] = useState(45);
   const [isRespond, setIsRespond] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [fiftyFiftySlide, setFiftyFiftySlide] = useState(0);
   const [selected, setSelected] = useState(null);
   const [hint, setHint] = useState({
     fiftyFifty: false,
@@ -38,7 +41,10 @@ export const TestGameView = () => {
   const timeoutRef = useRef(null);
   const musicRef = useRef(null);
 
-  // Effect to handle timer countdown
+  useEffect(() => {
+    setStartSound(true);
+  }, [isStarted]);
+
   useEffect(() => {
     if (timerSound) {
       intervalRef.current = setInterval(() => {
@@ -53,7 +59,6 @@ export const TestGameView = () => {
     };
   }, [timerSound]);
 
-  // Effect to handle timer sound timeout
   useEffect(() => {
     if (timerSound) {
       timeoutRef.current = setTimeout(() => {
@@ -86,16 +91,19 @@ export const TestGameView = () => {
     clearInterval(intervalRef.current);
     clearTimeout(timeoutRef.current);
   };
-  const handleSlideChange = (slide) => {
+  const handleSlideChange =({ activeIndex }) => {
+    setActiveSlide(activeIndex);
     handleStop().then(() => {
-      if (slide.activeIndex === 1) {
-        setStartSound(true);
-        setScore(0);
-      } else {
-        setTimerSound(true);
-      }
+      setScore(0);
+      setTimerSound(true);
       setIsRespond(false);
+      setStartSound(false);
     });
+  };
+
+  const handleFiftyFifty =() => {
+    setFiftyFiftySlide(activeSlide);
+    setHint(prev => ({...prev, fiftyFifty: true}));
   };
 
   const handleSelect = (id, isFact) => {
@@ -127,7 +135,7 @@ export const TestGameView = () => {
               className={clsx({
                 used: hint.fiftyFifty,
               })}
-              onClick={() => setHint(prev => ({...prev, fiftyFifty: true}))}
+              onClick={handleFiftyFifty}
             />
             <div
               className={clsx({
@@ -143,64 +151,73 @@ export const TestGameView = () => {
             />
           </div>
         </div>
-        <SwiperSlider
-          slidesPerView={1}
-          keyboard={{
-            enabled: true,
-          }}
-          loop
-          navigation
-          centeredSlides={true}
-          grabCursor={true}
-          onSlideChange={handleSlideChange}
-          pagination={pagination}
-          modules={[Keyboard, Pagination, Navigation]}
-        >
-          <SwiperSlide>
+        {!isStarted
+          ? (
             <div className="ksu-slide">
               <div className="start-slide">
-                <h1>START</h1>
+                <h1 role='button' onClick={() => setIsStarted(true)} >START</h1>
                 <img src='https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpngegg.png?alt=media&token=139b4be5-a7b8-461b-a558-5f4c4416292d' alt='millioner' />
               </div>
             </div>
-          </SwiperSlide>
-          {test?.map((el) => (
-            <SwiperSlide key={el?.id}>
-              <div className="ksu-slide">
-                <HighlightButton content={timer} onClick={handleStop} />
-                <div className="question">
-                  <div className="answer">{el.question}</div>
-                </div>
-                <ul className="answer-group">
-                  {
-                    el.answer.map(item => (
-                      <li
-                        key={item.id}
-                        onClick={() => handleSelect(item.id, item.isTrue)}
-                        role="button"
-                        className={clsx({
-                          fact: isRespond && item.isTrue,
-                          selected: isRespond && item.id === selected,
-                        })
-                        }>
-                        <HighlightButton
-                          content={item.char}
-                        />
-                        <div className='answer'>{item.text}</div>
-                      </li>
-                    ))}
-                </ul>
+          )
+          : (
+            <SwiperSlider
+              slidesPerView={1}
+              keyboard={{
+                enabled: true,
+              }}
+              loop
+              navigation
+              centeredSlides={true}
+              grabCursor={true}
+              onSlideChange={handleSlideChange}
+              pagination={pagination}
+              modules={[Keyboard, Pagination, Navigation]}
+            >
+              {test?.map((el, idx) => (
+                <SwiperSlide key={el?.id}>
+                  <div className="ksu-slide">
+                    <HighlightButton content={timer} onClick={handleStop} />
+                    <div className="question">
+                      <div className="answer">{el.question}</div>
+                    </div>
+                    <ul className="answer-group">
+                      {
+                        el.answer.map((item) => (
+                          <li
+                            key={item.id}
+                            onClick={() => handleSelect(item.id, item.isTrue)}
+                            role="button"
+                            className={clsx({
+                              fact: isRespond && item.isTrue,
+                              selected: isRespond && item.id === selected,
+                            })
+                            }>
+                            <div className={clsx({
+                              answer: true,
+                              'is-excluded': fiftyFiftySlide - 1 === idx && !!hint.fiftyFifty && item.isExcluded
+                            })}>
+                              <HighlightButton
+                                content={item.char}
+                              />
+                              {item.text}
+                            </div>
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+                </SwiperSlide>))}
+
+              <div className='button-next'>
+                <ArrowLeft />
               </div>
-            </SwiperSlide>))}
 
-          <div className='button-next'>
-            <ArrowLeft />
-          </div>
-
-          <div className='button-prev'>
-            <ArrowRight />
-          </div>
-        </SwiperSlider>
+              <div className='button-prev'>
+                <ArrowRight />
+              </div>
+            </SwiperSlider>
+          )
+        }
         {startSound && (
           <audio autoPlay={true}>
             <source src="https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/sounds%2FstartSound.mp3?alt=media&token=97c06d46-01c3-4d46-a515-68513c57cc40" type="audio/mpeg" />

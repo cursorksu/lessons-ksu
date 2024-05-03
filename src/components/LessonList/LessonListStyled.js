@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { DARK_GRAY } from '../../constants/colors';
+import { DARK_GRAY, BOX_SHADOW, BOX_SHADOW_HOVER } from '../../constants/colors';
 
 export const LessonListStyled = styled('div')`
   & > .grid {
@@ -7,10 +7,14 @@ export const LessonListStyled = styled('div')`
     padding: 20px;
   }
   
+  .lessons-grid {
+    display: grid;
+    grid-template-columns: 23% 23% 23% 23%;
+    grid-gap: 40px;
+    padding: 40px;
+  }
+  
   .cards-grid {
-    width: 24% !important;
-    padding-bottom: 30px !important;
-    
     .content {
       padding-bottom: 0;
     }
@@ -28,5 +32,13 @@ export const LessonListStyled = styled('div')`
     } 
   }
   
-
+  .ui.card {
+    border: none !important;
+    box-shadow: ${BOX_SHADOW};
+    transition: box-shadow .3s ease-in-out;
+    &:hover {
+      box-shadow: ${BOX_SHADOW_HOVER};
+      outline: none !important;
+    }
+  }
 `;

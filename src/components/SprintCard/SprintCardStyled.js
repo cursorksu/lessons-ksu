@@ -1,5 +1,10 @@
 import styled from '@emotion/styled';
-import { CHOCO, CREAM, BOX_SHADOW } from '../../constants/colors';
+import {
+  CHOCO,
+  CREAM,
+  BOX_SHADOW,
+  BOX_SHADOW_HOVER,
+} from '../../constants/colors';
 
 export const SprintCardStyled = styled('div')`
   width: 100%;
@@ -11,6 +16,7 @@ export const SprintCardStyled = styled('div')`
   box-shadow: ${BOX_SHADOW};
   
   &:hover {
+    box-shadow: ${BOX_SHADOW_HOVER};
     .title.hover {
         opacity: 1;
         transition: opacity 0.6s linear;

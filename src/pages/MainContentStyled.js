@@ -1,6 +1,14 @@
 import styled from '@emotion/styled';
 import {
-  CHOCO, CREAM, DARK_BG, GOLD, ITEM_BG, ITEM_INNER, ITEM_OUTER, PRIMARY_MAIN
+  BOX_SHADOW, BOX_SHADOW_HOVER,
+  CHOCO,
+  CREAM,
+  DARK_BG,
+  GOLD,
+  ITEM_BG,
+  ITEM_INNER,
+  ITEM_OUTER,
+  PRIMARY_MAIN,
 } from '../constants/colors';
 
 export const ShadowCardStyled = styled('li')`
@@ -179,6 +187,7 @@ export const MainContentStyled = styled('div')`
         background-position: center -160px;
         text-align: center;
         color: ${CREAM};
+        box-shadow: ${BOX_SHADOW};
       
         &.scenario-herro {
           background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fshow.webp?alt=media&token=2df4fc9a-e478-4f44-ae60-c0639f61c537");
@@ -304,6 +313,7 @@ export const MainContentStyled = styled('div')`
     left: 0;
     bottom: 0;
     z-index: 200;
+    box-shadow: ${BOX_SHADOW_HOVER};
 
     .active {
       background: rgba(255,255,255, 0.7);
@@ -341,6 +351,10 @@ export const MainContentStyled = styled('div')`
   }
   .collapsed-menu .ps-menu-button {
     color: #282c34 !important;
+  }
+  
+  [data-popper-escaped] .ps-menu-button{
+    padding: 0 10px;
   }
   .collapsed-menu .ps-sidebar-root {
     background: #fff;
