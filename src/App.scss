@@ -352,6 +352,11 @@ img.epr-emoji-img {
 
 .content-wrapper {
     position: relative;
+
+    &.game-settings-wrapper {
+        flex-basis: 90% !important;
+    }
+
     .sticky-action {
         padding: 5px;
         background: #fff;
@@ -371,6 +376,10 @@ img.epr-emoji-img {
         &.error {
             background: rgba(255, 99, 71, 1) linear-gradient(transparent,rgba(255,255,255,.5)) !important;
         }
+    }
+
+    &.game {
+        flex-basis: calc(100% - 130px);
     }
 
     span, label, li, a, p {

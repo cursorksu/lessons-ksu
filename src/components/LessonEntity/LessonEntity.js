@@ -20,7 +20,6 @@ import {
 import { KsuCard } from '../KsuCard';
 import { useEditEntity } from '../../api/entity/useEditEntity';
 import { DynamicList } from '../DynamicList/DynamicList';
-import { LessonGame } from './LessonGame';
 
 export const LessonEntity = ({ entityName, lesson }) => {
   const { lessonId } = useParams();
@@ -158,7 +157,6 @@ export const LessonEntity = ({ entityName, lesson }) => {
                   )}
                 </div>
                 <div className='action-top'>
-                  <LessonGame entityName={'game'} lesson={lesson}/>
                   {isFormShown
                     ? (
                       <>

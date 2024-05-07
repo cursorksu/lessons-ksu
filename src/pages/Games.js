@@ -7,6 +7,7 @@ import { MainLayout } from './MainLayout';
 import { Rate } from '../Games/Rate/Rate';
 import { ShadowCardStyled } from './MainContentStyled';
 import { gameList } from '../Games/constants/gameList';
+import { BibleText } from '../Games/BibleText/BibleText';
 
 export const Games = () => {
   const navigate = useNavigate();
@@ -14,8 +15,6 @@ export const Games = () => {
   return (
     <MainLayout>
       <Routes>
-        <Route path={`situations`} element={<Situations />} />
-        <Route path={`scala`} element={<Scala />} />
         <Route path={`/:groupId/games/rate`} element={<Rate />} />
       </Routes>
 

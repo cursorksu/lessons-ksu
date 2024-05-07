@@ -7,7 +7,7 @@ import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { InfoBlockStyled } from '../InfoBlockStyled';
 import { useReactToPrint } from 'react-to-print';
 import { useCreateEntity } from '../../api/entity/useCreateEntity';
@@ -22,13 +22,24 @@ import { useEditEntity } from '../../api/entity/useEditEntity';
 import { DynamicList } from '../DynamicList/DynamicList';
 import { KsuDropdownDynamic } from '../KsuDropdown/KsuDropdownDynamic';
 import { KsuDropdown } from '../KsuDropdown';
+import { useGetEntity } from '../../api/entity/useGetEntity';
+import { useGetAllEntities } from '../../api/entity/useGetAllEntities';
+import { Test } from '../../Games/Test/Test';
+import clsx from 'clsx';
+import {
+  MillionerLink, SelectedGamesStyled
+} from '../../Games/Test/TestGameViewStyled';
+import { BibleTextLink } from '../../Games/BibleText/BibleTextStyled';
+import { BibleTextSettings } from '../../Games/BibleText/BibleTextSettings';
 
 export const LessonGame = ({ entityName, lesson }) => {
   const { lessonId } = useParams();
-  const { getEntities, entities } = useGetEntityListByIds(entityName);
+  const { getAllEntities } = useGetAllEntities('game');
   const { createEntity } = useCreateEntity(entityName);
   const { editEntity } = useEditEntity('lessons');
+  const [games, setGames] = useState([]);
   const { addEntityToArrayField, removeEntityFromArrayField } = useAssignEntityToLesson(entityName);
+  const navigation = useNavigate();
 
   const {control, getValues, setValue, reset} = useForm({
     defaultValues: {
@@ -38,33 +49,19 @@ export const LessonGame = ({ entityName, lesson }) => {
   });
 
   useEffect(() => {
+    getAllEntities().then((list) => {
+      setGames(list);
+    });
+  }, [lesson, entityName]);
 
-  }, [lesson, entityName, getEntities]);
-
-  const [isMaterialsEdit, setIsMaterialsEdit] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
   const [isFormShown, setIsFormShown] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
+    // content: () => componentRef.current,
   });
-
-  const editMaterialsHandler = async () => {
-    const newData = {
-      id: lessonId,
-    };
-    newData.materials = getValues('material');
-    await editEntity(newData)
-      .then(() => {
-        reset({
-          text: '',
-          material: [],
-        });
-        setIsMaterialsEdit(false);
-      })
-      .catch((err) => new Error(err));
-  };
 
   const handleEntityCreate = async () => {
     const newValue = getValues();
@@ -88,26 +85,86 @@ export const LessonGame = ({ entityName, lesson }) => {
   };
 
   return (
-    <section className='content-wrapper'>
-      {user?.uid && (lesson?.createdBy.uid === user?.uid) &&(
-        <div>
-          <h2>{`Цей урок ще не містить ${entityName}! Ви можете створити  ${entityName}`}</h2>
-
-          <Controller
-            name="games"
-            control={control}
-            render={({ field }) => (
-              <KsuDropdown
-                entityName={'game'}
-                onChange={data => field.onChange(data.value)}
-                placeholder={'Виберіть одну або декілька ігор'}
-                multiple
-                field={field}
+    <InfoBlockStyled>
+      <section className="ksu-content no-margin" ref={componentRef}>
+        <aside className="game">
+          <div className="game-list">
+            {games.length >= 1 && games.map(el => {
+              return (
+                <div
+                  onClick={() => setSelectedGame(el)}
+                  className={`game-item ${selectedGame?.key === el.key && 'active'}`}
+                >
+                  <h2 className="subtitle">{el.title}</h2>
+                  <div className="img-wrapper">
+                    <img src={el.avatar} alt={el.title} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </aside>
+        <section className='content-wrapper game-settings-wrapper'>
+          <SelectedGamesStyled className='selected-game'>
+            {lesson?.memory?.find(item => item.id === 'test') &&
+              <Popup
+                closeOnPortalMouseLeave
+                openOnTriggerMouseEnter
+                trigger={(
+                  <MillionerLink
+                    disabled={!lesson?.memory?.find(item => item.id === 'test')}
+                    onClick={() => navigation('/games/test-game-view')}
+                  />
+                )}
+                content={'Коли тест буде збережено ви зможете перейти в' +
+                  ' ігровий простір і побачити результат'}
               />
-            )}
-          />
-        </div>
-      )}
-    </section>
+            }
+            {lesson?.memory?.find(item => item.id === 'bibleText') &&
+              <Popup
+                closeOnPortalMouseLeave
+                openOnTriggerMouseEnter
+                trigger={(
+                  <BibleTextLink
+                    disabled={!lesson?.memory?.find(item => item.id === 'test')}
+                    onClick={() => navigation('/games/bibleText')}
+                  />
+                )}
+                content={'Коли тест буде збережено ви зможете перейти в' +
+                    ' ігровий простір і побачити результат'}
+              />
+            }
+          </SelectedGamesStyled>
+          {selectedGame?.key === 'test' && (
+            <Test
+              settings={lesson?.memory?.find(item => item.id === 'test')?.settings}
+              onSave={(data) => editEntity({
+                id: lesson.id,
+                memory: [
+                  ...lesson?.memory,
+                  data,
+                ]
+              })}
+            />
+          )}
+
+          {selectedGame?.key === 'bibleText' && (
+            <BibleTextSettings
+              onSave={(data) => editEntity({
+                id: lesson.id,
+                memory: [
+                  ...lesson?.memory,
+                  data,
+                ]
+              })}
+              data={{
+                bibleText: lesson?.bibleText,
+                bibleQuote: lesson?.bibleQuote,
+              }}
+            />
+          )}
+        </section>
+      </section>
+    </InfoBlockStyled>
   );
 };

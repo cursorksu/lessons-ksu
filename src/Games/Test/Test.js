@@ -1,19 +1,15 @@
-import { MainLayout } from '../../pages/MainLayout';
 import React, { useEffect, useRef, useState } from 'react';
 import { ButtonIconStyled, ButtonStyled } from '../../components/ButtonStyled';
 import { TestItem } from './components/TestItem';
 import { Popup } from 'semantic-ui-react';
 import { ValidationErrorStyled } from '../../components/ValidationErrorStyled';
-import { TestTextStyled } from './components/TestItemStyled';
-import { useNavigate } from 'react-router';
-import { MillionerLink } from './TestGameViewStyled';
+import { TestTextStyled, TestWrapperStyled } from './components/TestItemStyled';
 import { clsx } from 'clsx';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 const { v4: uuidv4 } = require('uuid');
 
-export const Test = () => {
+export const Test = ({ onSave, settings }) => {
   const timoutRef = useRef(null);
-  const navigation = useNavigate();
   const [testSaved, setTestSaved] = useState(false);
   const [test, setTest] = useState([ {
     id: uuidv4(),
@@ -38,8 +34,11 @@ export const Test = () => {
   useEffect(() => {
     const prevTest = localStorage.getItem('test');
     const prevTestParsed = prevTest && JSON.parse(prevTest);
-    prevTestParsed.length && setTest(prevTestParsed);
-  }, []);
+
+    settings?.length ? setTest(settings) : prevTestParsed?.length && setTest(prevTestParsed);
+  }, [settings]);
+
+
 
 
   useEffect(() => {
@@ -151,7 +150,10 @@ export const Test = () => {
 
   const handleSave = () => {
     const prevTest = localStorage.getItem('test');
-    const prevTestParsed = prevTest && JSON.parse(prevTest);
+    const prevTestParsed = settings
+      ? settings
+      : prevTest && JSON.parse(prevTest);
+
     const noFactItem = test?.find(item => item.answer.every((el) => !el.isTrue));
 
     if (noFactItem?.id) {
@@ -173,9 +175,16 @@ export const Test = () => {
         ...prevTestParsed,
         ...test,
       ]);
-
+      onSave({
+        id: 'test',
+        settings: Array.from(newTest),
+      });
       localStorage.setItem('test', JSON.stringify(Array.from(newTest)));
     }
+    onSave({
+      id: 'test',
+      settings: Array.from(test),
+    });
     localStorage.setItem('test', JSON.stringify(Array.from(test)));
     setTestSaved(true);
   };
@@ -218,116 +227,92 @@ export const Test = () => {
   }
 
   return (
-    <MainLayout>
-      <div className="herro">
-        <div className="title-wrapper">
-          <h2 className="subtitle"> Kids Spiritual Universe</h2>
-          <h1 className="title">Test</h1>
+    <TestWrapperStyled>
+      <aside className="aside-wrapper">
+        <div>
+          <h2 className="title d-flex">Створіть тест</h2>
+
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="dnd-list">
+              {(provided) => (
+                <TestTextStyled className="test dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
+                  {test.some(el => el.question?.length)
+                    ? test.map((testItem, idx) => (
+                      <Draggable key={idx.toString()} draggableId={idx.toString()} index={idx}>
+                        {(provided) => (
+                          <li
+                            key={testItem.id}
+                            className="test-item"
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <div className='drag-handler' />
+                            <span className="test-text-question"><b>{idx + 1}. {testItem.question}</b></span>
+                            <ul>
+                              {testItem.answer.map((answer, index) => (
+                                <li key={answer.id}><b>{`${answer.char}${answer.char && ')'}`}</b>{answer.text}</li>
+                              ))
+                              }
+                            </ul>
+                          </li>
+                        )}
+                      </Draggable>
+                    ))
+                    : <div className="empty-test">Тут з'являться питання тесту</div>}
+                </TestTextStyled>
+              )}
+            </Droppable>
+          </DragDropContext>
+
         </div>
-      </div>
-
-      <section className="ksu-content">
-        <aside className="aside-wrapper">
-          <div>
-            <h2 className="title d-flex">
-                Створіть тест
-
-              <Popup
-                closeOnPortalMouseLeave
-                openOnTriggerMouseEnter
-                trigger={(
-                  <MillionerLink
-                    disabled={!testSaved}
-                    onClick={() => navigation('/games/test-game-view')}
-                  />
-                )}
-                content={'Коли тест буде збережено ви зможете перейти в' +
-                  ' ігровий простір і побачити результат'}
-              />
-            </h2>
-
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-              <Droppable droppableId="dnd-list">
-                {(provided) => (
-                  <TestTextStyled className="test dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
-                    {test.some(el => el.question?.length)
-                      ? test.map((testItem, idx) => (
-                        <Draggable key={idx.toString()} draggableId={idx.toString()} index={idx}>
-                          {(provided) => (
-                            <li
-                              key={testItem.id}
-                              className="test-item"
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <div className='drag-handler' />
-                              <span className="test-text-question"><b>{idx + 1}.</b> {testItem.question}</span>
-                              <ul>
-                                {testItem.answer.map((answer, index) => (
-                                  <li key={answer.id}><b>{`${answer.char}${answer.char && ')'}`}</b>{answer.text}</li>
-                                ))
-                                }
-                              </ul>
-                            </li>
-                          )}
-                        </Draggable>
-                      ))
-                      : <div className="empty-test">Тут з'являться питання тесту</div>}
-                  </TestTextStyled>
-                )}
-              </Droppable>
-            </DragDropContext>
-
-          </div>
-          <br/>
-        </aside>
-        <section className='content-wrapper'>
-          <h2 className='title'>
+        <br/>
+      </aside>
+      <section className='content-wrapper'>
+        <h2 className='title'>
             Додайте тест
-          </h2>
-          <p>
+        </h2>
+        <p>
             Відмідьте ті питання, які будуть скриті при виборі опції 50 на 50.
             Не відмічайте цією відміткою правильну відповідь.
             Тільки ви регулююте які відповіді будуть скриті під час вибору опції 50%50.
-          </p>
-          <div className={clsx({
-            'sticky-action': true,
-            error: test.some(el => Object.keys(el.error).some(key => el.error[key])),
-            success: testSaved && test.every(el => Object.keys(el.error).every(key => !el.error[key]))
-          })}>
-            <Popup
-              closeOnPortalMouseLeave
-              openOnTriggerMouseEnter
-              trigger={(
-                <ButtonIconStyled onClick={addQuestion}>+</ButtonIconStyled>
-              )}
-              content={'Додати питання до тесту'}
-            />
-            {test.length && (
-              <>
-                <ButtonStyled onClick={handleCancel}>Відмінити</ButtonStyled>
-                <ButtonStyled onClick={handleSave}>Зберігти</ButtonStyled>
-              </>
+        </p>
+        <div className={clsx({
+          'sticky-action': true,
+          error: test.some(el => Object.keys(el.error).some(key => el.error[key])),
+          success: testSaved && test.every(el => Object.keys(el.error).every(key => !el.error[key]))
+        })}>
+          <Popup
+            closeOnPortalMouseLeave
+            openOnTriggerMouseEnter
+            trigger={(
+              <ButtonIconStyled onClick={addQuestion}>+</ButtonIconStyled>
             )}
-          </div>
-          {test.map(el => {
-            return (
-              <div className="question-wrapper ">
-                {el.error.char && <ValidationErrorStyled>{el.error.char}</ValidationErrorStyled>}
-                {el.error.answersLength && <ValidationErrorStyled>{el.error.answersLength}</ValidationErrorStyled>}
-                {el.error.noFact && <ValidationErrorStyled>{el.error.noFact}</ValidationErrorStyled>}
-                {el.error.questionLength && <ValidationErrorStyled>{el.error.questionLength}</ValidationErrorStyled>}
-                <TestItem
-                  item={el}
-                  onRemoveItem={onRemoveItem}
-                  onChange={handleChangeItem}
-                />
-              </div>
-            );
-          })}
-        </section>
+            content={'Додати питання до тесту'}
+          />
+          {test?.length && (
+            <>
+              <ButtonStyled onClick={handleCancel}>Відмінити</ButtonStyled>
+              <ButtonStyled onClick={handleSave}>Зберігти</ButtonStyled>
+            </>
+          )}
+        </div>
+        {test.map(el => {
+          return (
+            <div className="question-wrapper ">
+              {el.error.char && <ValidationErrorStyled>{el.error.char}</ValidationErrorStyled>}
+              {el.error.answersLength && <ValidationErrorStyled>{el.error.answersLength}</ValidationErrorStyled>}
+              {el.error.noFact && <ValidationErrorStyled>{el.error.noFact}</ValidationErrorStyled>}
+              {el.error.questionLength && <ValidationErrorStyled>{el.error.questionLength}</ValidationErrorStyled>}
+              <TestItem
+                item={el}
+                onRemoveItem={onRemoveItem}
+                onChange={handleChangeItem}
+              />
+            </div>
+          );
+        })}
       </section>
-    </MainLayout>
+    </TestWrapperStyled>
   );
 };

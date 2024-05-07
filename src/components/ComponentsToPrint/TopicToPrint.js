@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { KsuCard } from '../KsuCard';
-import { FormField, Popup } from 'semantic-ui-react';
+import { Checkbox, FormField, Popup } from 'semantic-ui-react';
 import { ButtonIconStyled } from '../ButtonStyled';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as SaveIcon } from '../../assets/save.svg';
@@ -102,34 +102,12 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
               />
             </div>
             <div>
-              <div
-                style={{
-                  marginBottom: 10,
-                  paddingLeft: 10,
-                }}
-              >
-                <a
-                  href="http://allbible.info"
-                  title="Библия онлайн. Подкрепись!"
-                  style={{
-                    fontFamily: 'Georgia,\'Times New Roman\',Times,serif',
-                    fontStyle:'italic',
-                    fontSize: 18,
-                    color: '#000',
-                  }}>
-                Случайный стих из Библии</a>
-              </div>
+              <h2 className="title">Случайный стих из Библии</h2>
               <iframe
                 id="randomVerseIframe"
                 src="http://allbible.info/ajax/randomverse/" width="300"
-                height="200" title="Подкрепись! Библия онлайн." frameBorder="0"
-                scrolling="no"></iframe>
-              <form action="http://allbible.info/search/" method="post">
-                <input type="hidden" name="translation" value="sinodal" />
-                <input type="hidden" name="target" value="all" />
-                <input type="text" name="query" />
-                <input type="submit" value="Найти в Библии" />
-              </form>
+                height="150" title="Подкрепись! Библия онлайн." frameBorder="0"
+                scrolling="no" />
             </div>
             <KsuCard
               title={'Мета уроку'}
@@ -260,9 +238,11 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
                     />
                   )
                   : (
-                    <ul>
+                    <ul className="material-list">
                       {lesson?.material?.map(el => (
-                        <li>{el.value}</li>
+                        <li>
+                          <Checkbox label={{ children: el.value }} />
+                        </li>
                       ))}
                     </ul>
                   )

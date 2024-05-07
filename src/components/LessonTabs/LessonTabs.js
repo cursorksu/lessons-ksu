@@ -25,6 +25,7 @@ import {
 } from '../../constants/entities/lessonConfig';
 import { LessonEntity } from '../LessonEntity/LessonEntity';
 import { TopicToPrint } from '../ComponentsToPrint';
+import { LessonGame } from '../LessonEntity/LessonGame';
 
 export const LessonTabs = () => {
   const [editFormIsOpen, setEditFormIsOpen] = useState(false);
@@ -83,7 +84,7 @@ export const LessonTabs = () => {
       menuItem: { key: 'memory', icon: <MemoryIcon />, content: t('lessonTabs.memory') },
       render: () =>
         <TabPane>
-          <LessonEntity entityName={'memory'} lesson={lesson}/>
+          <LessonGame entityName={'memory'} lesson={lesson}/>
         </TabPane>
     },
     {

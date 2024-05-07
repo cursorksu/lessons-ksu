@@ -30,6 +30,10 @@ export const NEON = '0px 1px 1px rgba(0,255,255,0.5), \n'
   + '              0px 2px 4px rgba(0,255,255,0.5), \n'
   + '              0px 4px 8px rgba(0,255,255,0.5)';
 
+export const NEON_INNER = 'inset 5px -5px 10px rgba(0, 255, 255, 0.5), ' +
+  'inset -5px 5px 10px rgba(130, 60, 166, 0.5), ' +
+  'inset 5px -5px 10px rgba(0, 255, 255, 0.5), ' +
+  'inset -5px 5px 10px rgba(130, 66, 166, 0.5);';
 export const NEON_HOVER = '0px 1px 2px rgba(0,255,255,0.5), \n'
   + '              0px 2px 4px rgba(0,255,255,0.5), \n'
   + '              0px 4px 8px rgba(0,255,255,0.5), \n'

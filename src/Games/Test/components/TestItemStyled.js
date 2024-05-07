@@ -3,6 +3,17 @@ import {
   BG_GOLD, ERROR_MAIN, GOLD, PRIMARY_MAIN, SUCCESS,
 } from '../../../constants/colors';
 
+export const TestWrapperStyled = styled('div')`
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-gap: 20px;
+  
+  .aside-wrapper {
+    border-right: 1px solid ${GOLD};
+    padding-right: 20px;
+  }
+`;
+
 export const TestItemStyled = styled('div')`
   padding-top: 20px;
   display: grid;
@@ -84,6 +95,12 @@ export const TestTextStyled = styled('ul')`
   font-size: 1.2rem;
   font-weight: 300;
   padding: 20px 0 0;
+
+  .test-text-question {
+    font-weight: 700;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
   
   .empty-test {
     width: 100%;
@@ -102,6 +119,8 @@ export const TestTextStyled = styled('ul')`
     position: relative;
     background: #fff;
     padding-left: 36px;
+    display: block;
+    margin-bottom: 20px;
     
     &:hover {
       .drag-handler::before,
@@ -139,26 +158,23 @@ export const TestTextStyled = styled('ul')`
   }
   
   ul {
-    padding: 20px 0;
+    padding: 10px 0;
     display: grid;
     justify-content: stretch;
-    align-items: center;
+    align-items: flex-start;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px; 
     list-style-type: none;
-    margin: 20px 0;
-
+    
     li {
-      display: grid;
-      justify-content: stretch;
-      align-items: center;
-      grid-template-columns: 20px 1fr;
-      grid-gap: 10px;
-    };
-  }
-  
-  .test-text-question {
-    font-weight: 600;
-    line-height: 1.8;
+      display: block;
+      white-space: pre-wrap;
+      
+      b {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      
+    }
   }
 `;

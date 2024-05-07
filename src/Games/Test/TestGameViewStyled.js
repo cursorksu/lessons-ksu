@@ -1,18 +1,32 @@
 import styled from '@emotion/styled';
 import {
-  BG_GOLD, CREAM, ERROR_MAIN, ITEM_OUTER, NEON, SUCCESS
+  CREAM, ERROR_MAIN, ITEM_BG, ITEM_OUTER, NEON, SUCCESS
 } from '../../constants/colors';
 
+export const SelectedGamesStyled = styled('button')`
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  background: ${ITEM_BG};
+  border: none;
+  width: 102%;
+  display: flex;
+  text-align: left;
+  border: none;
+`;
+
 export const MillionerLink = styled('button')`
-  width: 60px;
-  height: 60px;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpngegg.png?alt=media&token=139b4be5-a7b8-461b-a558-5f4c4416292d');
   background-size: contain;
   background-color: #000407;
-  border-radius: 4px;
+  border-radius: 20px;
   border: none;
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
+  margin-right: 20px;
   
   &:hover {
     opacity: 1;
@@ -28,7 +42,6 @@ export const TestGameViewStyled = styled('div')`
   height: 100vh;
   overflow: hidden;
   color: ${CREAM};
-  position: relative;
   font-family: "Coco Gothic Alternate", sans-serif;
   font-size: 3.3rem;
   font-weight: 600;
@@ -164,17 +177,6 @@ export const TestGameViewStyled = styled('div')`
       }
     }
     
-  }
-  
-  .navigation {
-    background-color: #053b69;
-    box-shadow: 0 0 25px 25px #000407;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    margin-bottom: 100px;
   }
   
   .swiper {

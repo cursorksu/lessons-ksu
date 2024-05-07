@@ -5,6 +5,8 @@ import {Routes} from 'react-router';
 import {useSelector} from "react-redux";
 import {routes} from "./constants";
 import Scala from "../Games/Scale/Scala";
+import { BibleText } from '../Games/BibleText/BibleText';
+import Situations from '../App';
 
 export const AppRouter = () => {
   const auth = useSelector((state) => state.auth);
@@ -13,11 +15,11 @@ export const AppRouter = () => {
     <Router>
       <Routes>
         {publicRoutes.map(({path, component}) => (
-          <React.Fragment key={path}>
-            <Route path={path} element={component} key={path}/>
-            <Route key={`${routes.games}/scala`} path={`${routes.games}/scala`} element={<Scala />} />
-          </React.Fragment>
+          <Route key={path} path={path} element={component} key={path}/>
         ))}
+        <Route key={`${routes.games}/scala`} path={`${routes.games}/scala`} element={<Scala />} />
+        <Route key={`${routes.games}/bibleText`} path={`${routes.games}/bibleText`} element={<BibleText />} />
+        <Route key={`${routes.games}/situations`} path={`${routes.games}/situations`} element={<Situations />} />
         {auth?.user?.uid && authRouts.map(({path, component}) => (
           <Route  key={path} path={path} element={component}/>
         ))}

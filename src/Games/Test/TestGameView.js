@@ -8,8 +8,11 @@ import { ReactComponent as ArrowLeft } from '../../assets/arrow-left.svg';
 import { ReactComponent as ArrowRight } from '../../assets/arrow-right.svg';
 import { SwiperSlide } from 'swiper/react';
 import React, { useEffect, useRef, useState } from 'react';
+import { GameScoreStyled } from '../BibleText/BibleTextStyled';
+import { useSelector } from 'react-redux';
 
 export const TestGameView = () => {
+  const isMenuCollapsed = useSelector(store => store.mainMenuCollapsed);
   const [test, setTest] = useState([]);
   const [isStarted, setIsStarted] = useState(false);
 
@@ -128,7 +131,7 @@ export const TestGameView = () => {
   return (
     <MainLayout>
       <TestGameViewStyled>
-        <div className='navigation'>
+        <GameScoreStyled isMenuCollapsed={isMenuCollapsed}>
           <div className='score'>Баллів: {score}</div>
           <div className='hints'>
             <div
@@ -150,7 +153,7 @@ export const TestGameView = () => {
               onClick={() => setHint(prev => ({...prev, spectaculars: true}))}
             />
           </div>
-        </div>
+        </GameScoreStyled>
         {!isStarted
           ? (
             <div className="ksu-slide">
