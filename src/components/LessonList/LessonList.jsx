@@ -1,4 +1,4 @@
-import { Grid, GridColumn, GridRow } from 'semantic-ui-react';
+import { GridColumn, GridRow } from 'semantic-ui-react';
 import React, {useCallback, useEffect} from 'react';
 import {useNavigate} from 'react-router';
 import { useDeleteLesson, } from '../../api/lesson';
@@ -37,7 +37,7 @@ export const LessonList = ({ collection } ) => {
 
   return (
     <LessonListStyled>
-      <Grid>
+      <div className="lessons-grid">
         {loading
           ? (
             <GridRow>
@@ -46,20 +46,17 @@ export const LessonList = ({ collection } ) => {
               </GridColumn>
             </GridRow>
           )
-          : (
-            <GridRow>
-              {lessons?.map((item) => (
-                <GridColumn className="cards-grid" key={item.id}>
-                  <LessonCard
-                    item={item}
-                    onClick={handleClick}
-                    onDelete={handleDelete}
-                  />
-                </GridColumn>
-              ))}
-            </GridRow>
+          : lessons?.map((item) => (
+            <div className="cards-grid" key={item.id}>
+              <LessonCard
+                item={item}
+                onClick={handleClick}
+                onDelete={handleDelete}
+              />
+            </div>
+          )
           )}
-      </Grid>
+      </div>
     </LessonListStyled>
   );
 };

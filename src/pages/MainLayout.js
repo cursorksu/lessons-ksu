@@ -36,7 +36,6 @@ export const MainLayout = ({ children }) => {
     signOutUser().then(() => {
       localStorage.clear();
       dispatch(clearAuthData());
-      navigate(routes.home);
     });
   }, [dispatch, navigate, signOutUser]);
 

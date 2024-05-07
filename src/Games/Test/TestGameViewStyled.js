@@ -1,18 +1,32 @@
 import styled from '@emotion/styled';
 import {
-  CREAM, ERROR_MAIN, ITEM_OUTER, NEON, SUCCESS
+  CREAM, ERROR_MAIN, ITEM_BG, ITEM_OUTER, NEON, SUCCESS
 } from '../../constants/colors';
 
+export const SelectedGamesStyled = styled('button')`
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  background: ${ITEM_BG};
+  border: none;
+  width: 102%;
+  display: flex;
+  text-align: left;
+  border: none;
+`;
+
 export const MillionerLink = styled('button')`
-  width: 60px;
-  height: 60px;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpngegg.png?alt=media&token=139b4be5-a7b8-461b-a558-5f4c4416292d');
   background-size: contain;
   background-color: #000407;
-  border-radius: 4px;
+  border-radius: 20px;
   border: none;
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
+  margin-right: 20px;
   
   &:hover {
     opacity: 1;
@@ -28,7 +42,6 @@ export const TestGameViewStyled = styled('div')`
   height: 100vh;
   overflow: hidden;
   color: ${CREAM};
-  position: relative;
   font-family: "Coco Gothic Alternate", sans-serif;
   font-size: 3.3rem;
   font-weight: 600;
@@ -126,6 +139,7 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .ksu-slide {
+    padding: 60px;
     & > .mic {
       position: absolute;
       top: 0;
@@ -163,17 +177,6 @@ export const TestGameViewStyled = styled('div')`
       }
     }
     
-  }
-  
-  .navigation {
-    background-color: #053b69;
-    box-shadow: 0 0 25px 25px #000407;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    margin-bottom: 100px;
   }
   
   .swiper {
@@ -237,16 +240,17 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .question {
-    color: #fff;
     font-family: "Coco Gothic Alternate", sans-serif;
-    font-size: 4.2rem;
+    color: #fff;
+    font-size: 38px;
     margin: 40px 0 100px;
     
     .answer {
       height: auto;
-      padding: 60px 30px 30px;
+      padding: 80px 30px 30px;
       margin: auto;
       position: relative;
+      max-width: 90%;
       
       &::after,
       &::before {
@@ -256,7 +260,7 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .answer  {
-    padding-left: 100px;
+    font-family: "Coco Gothic Alternate", sans-serif;
     background-color: #053b69;
     border: 2px solid rgba(0, 255, 255, 0.5);
     box-shadow:
@@ -265,30 +269,32 @@ export const TestGameViewStyled = styled('div')`
             inset 5px -5px 10px rgba(0, 255, 255, 0.5),
               inset -5px 5px 10px rgba(130, 66, 166, 0.5);
     width: 90%;
-    height: 100px;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    height: auto;
+    min-height: 100px;
+    font-size: 36px;
+    display: flex;
+    padding: 10px 20px 10px 100px;
+    justify-content: center;
+    align-items: center;
     border-radius: 50px;
-    position: absolute;
     text-align: center;
-    line-height: 100px;
-    top: 52px;
-    left: 40px;
+    line-height: 1.5 !important;
+    overflow: visible;
     
-    &:after,
-    &:before {
-      content: '';
-      width: 9%;
-      height: 2px;
-      box-shadow: ${NEON};
-      background: rgba(0, 255, 255, 1);
+    &.is-excluded {
+      opacity: 0.3;
+    }
+    
+    .mic {
       position: absolute;
       top: 50%;
-    }
-    
-    &:after {
-      left: 100%;
-    }
-    &:before {
-      right: 100%;
+      left: -50px;
+      transform: translateY(-50%);
     }
   }
   .answer-group {
@@ -304,9 +310,10 @@ export const TestGameViewStyled = styled('div')`
       margin: 0;
       list-style-type: none;
       position: relative;
-      min-height: 140px;
-      overflow: visible;
       padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       
       &.selected:not(.fact) {
         .answer {
@@ -322,6 +329,7 @@ export const TestGameViewStyled = styled('div')`
       }
       
       &.fact {
+        overflow: visible;
         .answer {
           background-color: #fff;
           color: #1a084e;
@@ -334,10 +342,10 @@ export const TestGameViewStyled = styled('div')`
         &::before {
           content: "";
           position: absolute;
-          top: 102px;
+          top: 110%;
           left: 50%;
           width: 91%;
-          height: 110px;
+          height: 1px;
           transform: translate(-50%, -50%);
           border-radius: 50px;
           z-index: -1;

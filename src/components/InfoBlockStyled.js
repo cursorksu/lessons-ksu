@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import {
-  BG_GOLD, CHOCO, CREAM, GOLD, PRIMARY_MAIN,
+  BG_GOLD,
+  CHOCO,
+  CREAM,
+  GOLD,
+  PRIMARY_MAIN,
 } from '../constants/colors';
 
 export const InfoItemStyled = styled.div`
@@ -24,8 +28,30 @@ export const InfoBlockStyled = styled.div`
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.5;
-  margin: 20px 0;
   
+  .img-wrapper {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+    }
+    
+    img {
+      border-radius: 20px;
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
+  }
+
   .button-wrapper {
     margin: 10px 0 20px;
   }
@@ -179,11 +205,36 @@ export const InfoBlockStyled = styled.div`
   .image-wrapper {
     height: 300px;
     margin-bottom: 30px;
+    position: relative;
     
     img {
       width: 100%;
       height: 300px;
       object-fit: cover;
+    }
+    
+    button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+    
+    &.full-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 200;
+      width: 100%;
+      height: 100vh;
+      
+      img {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+      }
+
     }
   }
 
@@ -273,5 +324,35 @@ export const InfoBlockStyled = styled.div`
     padding: 5px;
     margin-bottom: 20px;
     border-bottom: 1px solid ${GOLD};
+  }
+  
+  .material-list {
+    position: relative;
+    
+    .ui.checkbox label {
+      font-size: 20px;
+      line-height: 2;
+      white-space: pre-wrap;
+      
+      &:before {
+        width: 30px;
+        height: 30px;
+        border-color: ${GOLD};
+        top: 10px;
+      }
+      
+      &:after {
+        color: ${GOLD};
+        font-size: 20px;
+        top: 5px;
+        left: 5px;
+      }
+    }
+
+    .ui.checkbox input:checked:focus~label:before,
+    .ui.checkbox input:checked:focus~label:after {
+      border-color: ${BG_GOLD};
+      color: ${BG_GOLD};
+    }
   }
 `;

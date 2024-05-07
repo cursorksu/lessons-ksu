@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { KsuCard } from '../KsuCard';
-import { FormField, Popup } from 'semantic-ui-react';
+import { Checkbox, FormField, Popup } from 'semantic-ui-react';
 import { ButtonIconStyled } from '../ButtonStyled';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as SaveIcon } from '../../assets/save.svg';
 import { ReactComponent as PrintIcon } from '../../assets/print.svg';
+import { ReactComponent as ScreenIcon } from '../../assets/screen.svg';
+import { ReactComponent as FullScreenIcon } from '../../assets/full-screen.svg';
 import { useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import Editor from '../TextEditor';
@@ -14,6 +16,7 @@ import { InputStyled } from '../InputStyled';
 import { DynamicList } from '../DynamicList/DynamicList';
 import { InfoBlockStyled } from '../InfoBlockStyled';
 import { useReactToPrint } from 'react-to-print';
+import clsx from 'clsx';
 
 export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
   const { editEntity } = useEditEntity('lessons');
@@ -21,6 +24,7 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
   const [isBibleEdit, setIsBibleEdit] = useState(false);
   const [isTopicEdit, setIsTopicEdit] = useState(false);
   const [isGoalEdit, setIsGoalEdit] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const {control, getValues, setValue, reset} = useForm({
     defaultValues: {
@@ -75,8 +79,35 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
       <section className='ksu-content no-margin' ref={componentRef}>
         <aside className='aside-wrapper'>
           <div>
-            <div className='image-wrapper'>
-              <img src={lesson?.imageUrl} alt={lesson?.title} />
+            <div
+              className={clsx({
+                'image-wrapper': true,
+                'full-screen': isFullScreen,
+              })}
+            >
+              {!isFullScreen
+                ? (
+                  <ButtonIconStyled onClick={() => setIsFullScreen(true)}>
+                    <FullScreenIcon />
+                  </ButtonIconStyled>
+                )
+                : (
+                  <ButtonIconStyled onClick={() => setIsFullScreen(false)}>
+                    <ScreenIcon />
+                  </ButtonIconStyled>
+                )}
+              <img
+                src={lesson?.imageUrl}
+                alt={lesson?.title}
+              />
+            </div>
+            <div>
+              <h2 className="title">Случайный стих из Библии</h2>
+              <iframe
+                id="randomVerseIframe"
+                src="http://allbible.info/ajax/randomverse/" width="300"
+                height="150" title="Подкрепись! Библия онлайн." frameBorder="0"
+                scrolling="no" />
             </div>
             <KsuCard
               title={'Мета уроку'}
@@ -207,9 +238,11 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
                     />
                   )
                   : (
-                    <ul>
+                    <ul className="material-list">
                       {lesson?.material?.map(el => (
-                        <li>{el.value}</li>
+                        <li>
+                          <Checkbox label={{ children: el.value }} />
+                        </li>
                       ))}
                     </ul>
                   )

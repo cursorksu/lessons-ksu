@@ -31,6 +31,11 @@ export const ButtonStyled = styled('button')`
     background-color: ${PRIMARY_MAIN};
     border: none;
   }
+  
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
 
   &.Mui-disabled {
     background: ${BG_GRAY};

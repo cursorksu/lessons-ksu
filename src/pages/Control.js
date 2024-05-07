@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ReactComponent as TranslateIcon } from '../assets/translate.svg';
 import { ReactComponent as GameIcon } from '../assets/game.svg';
@@ -23,17 +23,13 @@ import { Divider } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import {routes} from "../router/constants";
 import { clsx } from 'clsx';
-
-
 export const Control = ({ loginWithGoogle, signOut }) => {
-  const [isCollectionOpen, setCollectionOpen] = useState(false);
   const mainMenuCollapsed  = useSelector(({ mainMenuCollapsed }) => mainMenuCollapsed);
   const auth = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation('tr');
-
   const handleCollapse = () => {
     dispatch(setMainMenuCollapsed(!mainMenuCollapsed));
   };
@@ -105,11 +101,6 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               {t('mainMenu.community')}
             </MenuItem>
             <SubMenu
-              onClick={(e) => {
-                e.stopPropagation();
-                setCollectionOpen(prev => !prev);
-              }}
-              open={isCollectionOpen}
               label={t('collections.collections')}
               icon={<CollectionsIcon />}>
               <MenuItem
@@ -166,7 +157,6 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               >
                 Частування
               </MenuItem>
-
             </SubMenu>
             <MenuItem
               icon={<ShowIcon />}

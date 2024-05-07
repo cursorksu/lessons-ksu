@@ -3,16 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   lessons: [],
   lesson: null,
-  topic: [],
-  craft: null,
-  craftList: [],
-  food: null,
-  foodList: [],
-  memory: null,
-  subject: null,
-  subjectList: [],
-  game: null,
-  gameList: [],
   teachers: [],
 };
 
@@ -55,10 +45,6 @@ export const dataSlice = createSlice({
     setSubjectList: (state, action) => ({
       ...state,
       subject: [...state.subject, ...action.payload]
-    }),
-    setMemory: (state, action) => ({
-      ...state,
-      memory: {...state.memory, ...action.payload}
     }),
     setGame: (state, action) => ({
       ...state,
