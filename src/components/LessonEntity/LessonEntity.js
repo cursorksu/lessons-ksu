@@ -67,15 +67,23 @@ export const LessonEntity = ({ entityName, lesson }) => {
   };
 
   const handleEntityCreate = async () => {
-    const newValue = getValues();
-    const id = await createEntity({  text: newValue.text });
-    await addEntityToArrayField(entityName, id, lessonId);
+    try {
+      const newValue = getValues('text');
+      const id = await createEntity({  text: newValue });
 
-    setIsFormShown(false);
-    reset({
-      text: '',
-      material: [],
-    });
+      if (id === undefined) {
+        throw  new Error(`${entityName} Did Not Created!`);
+      }
+      await addEntityToArrayField(entityName, id, lessonId);
+
+      setIsFormShown(false);
+      reset({
+        text: '',
+        material: [],
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
   };
 
   const removeEntity = async (entityId) => {
@@ -137,73 +145,69 @@ export const LessonEntity = ({ entityName, lesson }) => {
         </aside>
 
         <section className='content-wrapper'>
-          {lesson && lesson[entityName]?.length < 1
-            ? <h2>{`Цей урок ще не містить ${entityName}! Ви можете створити  ${entityName}`}</h2>
-            : (
-              <div>
-                <div className='action'>
-                  <Popup
-                    trigger={(!isFormShown &&
+          <div>
+            <div className='action'>
+              <Popup
+                trigger={(!isFormShown &&
                       <ButtonIconStyled onClick={handlePrint}>
                         <PrintIcon />
                       </ButtonIconStyled>
-                    )}
-                    content='Надрукувати цей урок'
-                  />
-                  {user?.uid && (lesson?.createdBy.uid === user?.uid) &&(
-                    <ButtonStyled onClick={() => setIsFormShown(true)}>
+                )}
+                content='Надрукувати цей урок'
+              />
+              {user?.uid && (lesson?.createdBy.uid === user?.uid) &&(
+                <ButtonStyled onClick={() => setIsFormShown(true)}>
                       Create {entityName}
-                    </ButtonStyled>
-                  )}
-                </div>
-                <div className='action-top'>
-                  {isFormShown
-                    ? (
-                      <>
-                        <Controller
-                          name={'text'}
-                          control={control}
-                          render={({ field }) => (
-                            <FormField>
-                              <Editor
-                                {...field}
-                                placeholder={'Почніть вводити текст...'}
-                                onChange={(data) => setValue('text', data)}
-                                value={field.value}
-                              />
-                            </FormField>
-                          )}
-                        />
-                        <ButtonStyled onClick={handleCancel}>
+                </ButtonStyled>
+              )}
+            </div>
+            <div className='action-top'>
+              {isFormShown
+                ? (
+                  <>
+                    <Controller
+                      name={'text'}
+                      control={control}
+                      render={({ field }) => (
+                        <FormField>
+                          <Editor
+                            {...field}
+                            placeholder={'Почніть вводити текст...'}
+                            onChange={(data) => setValue('text', data)}
+                            value={field.value}
+                          />
+                        </FormField>
+                      )}
+                    />
+                    <ButtonStyled onClick={handleCancel}>
                           Cancel
-                        </ButtonStyled>
-                        <ButtonStyled onClick={handleEntityCreate}>
+                    </ButtonStyled>
+                    <ButtonStyled onClick={handleEntityCreate}>
                           Save
-                        </ButtonStyled>
-                      </>
-                    )
-                    : entities.map(el => (
-                      <div key={el.id}>
-                        <div className="item-action">
-                          <b>{el.title}</b>
-                          {user?.uid && (lesson?.createdBy.uid === user?.uid) &&(
-                            <Popup
-                              trigger={(
-                                <ButtonIconStyled onClick={() => removeEntity(el.id)}>
-                                  <DeleteIcon />
-                                </ButtonIconStyled>
-                              )}
-                              content={`Відкріпити ${entityName} від урока`}
-                            />
+                    </ButtonStyled>
+                  </>
+                )
+                : entities.map(el => (
+                  <div key={el.id}>
+                    <div className="item-action">
+                      <b>{el.title}</b>
+                      {user?.uid && (lesson?.createdBy.uid === user?.uid) &&(
+                        <Popup
+                          trigger={(
+                            <ButtonIconStyled onClick={() => removeEntity(el.id)}>
+                              <DeleteIcon />
+                            </ButtonIconStyled>
                           )}
-                        </div>
-                        <HTMLRenderer htmlContent={el.text} />
-                      </div>
-                    ))
-                  }
-                </div>
-              </div>
-            )}
+                          content={`Відкріпити ${entityName} від урока`}
+                        />
+                      )}
+                    </div>
+                    <HTMLRenderer htmlContent={el.text} />
+                  </div>
+                ))
+              }
+            </div>
+          </div>
         </section>
       </section>
     </InfoBlockStyled>
