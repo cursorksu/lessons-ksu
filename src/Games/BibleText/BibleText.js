@@ -46,19 +46,34 @@ export const BibleText = () => {
 
   const handleDrop = useCallback(
     (index, item) => {
+      const indexes = [];
       const { name } = item;
-      const currentWordIdx = string?.split(/\s+/)?.findIndex(el => el === name);
+      const array = string?.split(/\s+/);
+      array.forEach((el, idx) => {
+        if (el === name) {
+          indexes.push(idx);
+        }
+      });
 
-      if (currentWordIdx !== index) {
-        setErrorSound(true);
-        setScore(prev => prev - 10);
-        return;
+      let isCorrect = true;
+      for (let i = 0; i < indexes.length; i++) {
+        if (index !== indexes[i]) {
+          isCorrect = false;
+        } else {
+          isCorrect = true;
+          break;
+        }
       }
 
-      setCorrectSound(true);
-      setScore(prev => prev  + 10);
-      setQuestion(prev => prev.map((el, idx) => idx  === index ? name : el));
-      setAnswers(prev => prev.filter(el => index  !== el.index));
+      if(isCorrect) {
+        setCorrectSound(true);
+        setScore(prev => prev  + 10);
+        setQuestion(prev => prev.map((el, idx) => idx  === index ? name : el));
+        setAnswers(prev => prev.filter(el => index  !== el.index));
+      } else {
+        setErrorSound(true);
+        setScore(prev => prev - 10);
+      }
     },
     [string],
   );
@@ -66,6 +81,7 @@ export const BibleText = () => {
   const reloadHandler = () => {
     setQuestion(wordsArray);
     setAnswers(removedWordsArray);
+    setScore(0);
   };
 
   return (
@@ -107,7 +123,7 @@ export const BibleText = () => {
                 );
               })}
             </div>
-            <div className='answer-group'>
+            <div className='answer-group-bible-tex'>
               {answers?.map((word) => {
                 return (
                   <DndItem
