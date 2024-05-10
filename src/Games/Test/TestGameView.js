@@ -97,7 +97,6 @@ export const TestGameView = () => {
   const handleSlideChange =({ activeIndex }) => {
     setActiveSlide(activeIndex);
     handleStop().then(() => {
-      setScore(0);
       setTimerSound(true);
       setIsRespond(false);
       setStartSound(false);
