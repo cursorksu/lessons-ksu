@@ -384,10 +384,16 @@ img.epr-emoji-img {
     }
 
     span, label, li, a, p {
-        font-size: 18px !important;
+        font-size: 1.5rem !important;
         line-height: 1.5 !important;
-        font-weight: 300 !important;
+        font-weight: 400 !important;
         font-family: "Montserrat", sans-serif;
+        color: #282c34 !important;
+    }
+
+    h2.title {
+        font-size: 3.5rem !important;
+        color: #282c34 !important;
     }
 
     img {

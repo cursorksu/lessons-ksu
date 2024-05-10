@@ -10,12 +10,9 @@ import {
 } from 'firebase/auth';
 import { useSignUp } from '../api/auth/useSignUp';
 import { auth } from '../api';
-import { routes } from '../router/constants';
-import { useNavigate } from 'react-router';
 import { clearAuthData } from '../store/authReducer';
 
 export const MainLayout = ({ children }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const mainMenuCollapsed  = useSelector(({ mainMenuCollapsed }) => mainMenuCollapsed);
   const { getSignUpData, signOutUser } = useSignUp();
@@ -37,7 +34,7 @@ export const MainLayout = ({ children }) => {
       localStorage.clear();
       dispatch(clearAuthData());
     });
-  }, [dispatch, navigate, signOutUser]);
+  }, [dispatch, signOutUser]);
 
   return (
     <MainContentStyled collapsed={mainMenuCollapsed}>

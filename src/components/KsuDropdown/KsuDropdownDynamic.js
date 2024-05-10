@@ -20,7 +20,7 @@ export const KsuDropdownDynamic = ({
     getAllEntities().then(data => {
       setOptions(data.map(el => getOption(el, value?.map(el => el.id))));
     });
-  }, [getAllEntities]);
+  }, [getAllEntities, value]);
 
 
   const handleChange = useCallback((_, data) => {

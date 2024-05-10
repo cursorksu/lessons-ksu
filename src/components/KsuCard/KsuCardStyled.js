@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { BG_GOLD } from '../../constants/colors';
+import { BG_GOLD, DARK_GRAY } from '../../constants/colors';
 export const KsuCardStyled = styled('div')`
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.5;
+  color: ${DARK_GRAY};
   position: relative;
   min-height: 100px;
   box-shadow: none;
