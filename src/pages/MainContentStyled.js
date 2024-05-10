@@ -125,13 +125,13 @@ export const MainContentStyled = styled('div')`
       justify-content: space-between;
       align-items: stretch;
       font-size: 1.5rem;
-      
+
       .ui.card {
         border: none;
         padding: 0;
         border-radius: 0;
         outline: none;
-        
+
         &:hover {
           outline: none;
         }
@@ -142,13 +142,13 @@ export const MainContentStyled = styled('div')`
         grid-template-columns: 1fr;
         grid-gap: 30px;
         text-align: center;
-        
+
         .subtitle {
           text-align: center;
           font-size: 20px;
         }
       }
-      
+
       iframe {
         width: 100%;
         height: 300px;

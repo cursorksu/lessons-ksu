@@ -1,9 +1,9 @@
 import { FormField, Popup } from 'semantic-ui-react';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
-import { ReactComponent as SaveIcon } from '../../assets/save.svg';
 import { ReactComponent as PrintIcon } from '../../assets/print.svg';
-import { ReactComponent as EditIcon } from '../../assets/edit.svg';
+import { ReactComponent as ScreenIcon } from '../../assets/screen.svg';
+import { ReactComponent as FullScreenIcon } from '../../assets/full-screen.svg';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
@@ -17,15 +17,13 @@ import { HTMLRenderer } from '../HTMLRender/HTMLRender';
 import {
   useAssignEntityToLesson
 } from '../../api/refs/useAssignEntityToLesson';
-import { KsuCard } from '../KsuCard';
-import { useEditEntity } from '../../api/entity/useEditEntity';
-import { DynamicList } from '../DynamicList/DynamicList';
+import clsx from 'clsx';
 
 export const LessonEntity = ({ entityName, lesson }) => {
   const { lessonId } = useParams();
   const { getEntities, entities } = useGetEntityListByIds(entityName);
   const { createEntity } = useCreateEntity(entityName);
-  const { editEntity } = useEditEntity('lessons');
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const { addEntityToArrayField, removeEntityFromArrayField } = useAssignEntityToLesson(entityName);
 
   const {control, getValues, setValue, reset} = useForm({
@@ -41,7 +39,6 @@ export const LessonEntity = ({ entityName, lesson }) => {
       .then(() => {});
   }, [lesson, entityName, getEntities]);
 
-  const [isMaterialsEdit, setIsMaterialsEdit] = useState(false);
   const [isFormShown, setIsFormShown] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
@@ -49,22 +46,6 @@ export const LessonEntity = ({ entityName, lesson }) => {
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-
-  const editMaterialsHandler = async () => {
-    const newData = {
-      id: lessonId,
-    };
-    newData.materials = getValues('material');
-    await editEntity(newData)
-      .then(() => {
-        reset({
-          text: '',
-          material: [],
-        });
-        setIsMaterialsEdit(false);
-      })
-      .catch((err) => new Error(err));
-  };
 
   const handleEntityCreate = async () => {
     try {
@@ -97,56 +78,36 @@ export const LessonEntity = ({ entityName, lesson }) => {
 
   return (
     <InfoBlockStyled>
-      <section className='ksu-content no-margin' ref={componentRef}>
+      <section className={`ksu-content no-margin ${entityName}`} ref={componentRef}>
         <aside className='aside-wrapper'>
-          <KsuCard
-            title={'Список речей для проведення'}
-            action={user?.uid && (
-              !isMaterialsEdit
-                ? (
-                  <ButtonIconStyled onClick={() => setIsMaterialsEdit(true)}>
-                    <EditIcon />
-                  </ButtonIconStyled>
-                )
-                : (
-                  <ButtonIconStyled onClick={() => editMaterialsHandler('materials')}>
-                    <SaveIcon />
-                  </ButtonIconStyled>
-                )
-            )}
-          >
-            <div>
-              {isMaterialsEdit
-                ? (
-                  <Controller
-                    name="material"
-                    control={control}
-                    render={({ field }) => (
-                      <FormField>
-                        <DynamicList
-                          field={field}
-                          initialField={field.value}
-                          onChangeField={data => setValue('material', data.value)}
-                        />
-                      </FormField>
-                    )}
-                  />
-                )
-                : (
-                  <ul>
-                    {lesson?.material?.map(el => (
-                      <li>{el.value}</li>
-                    ))}
-                  </ul>
-                )
-              }
+          {entityName === 'creative' && (
+            <div
+              className={clsx({
+                'image-wrapper': true,
+                'full-screen': isFullScreen,
+              })}
+            >
+              <div className="print-hide">
+                {!isFullScreen
+                  ? (
+                    <ButtonIconStyled onClick={() => setIsFullScreen(true)}>
+                      <FullScreenIcon />
+                    </ButtonIconStyled>
+                  )
+                  : (
+                    <ButtonIconStyled onClick={() => setIsFullScreen(false)}>
+                      <ScreenIcon />
+                    </ButtonIconStyled>
+                  )}
+              </div>
+              <img src='https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fj.png?alt=media&token=37e251a3-c8e1-4082-9743-0b1622ef27e9' alt='craft' />
             </div>
-          </KsuCard>
+          )}
         </aside>
 
         <section className='content-wrapper'>
           <div>
-            <div className='action'>
+            <div className='action print-hide'>
               <Popup
                 trigger={(!isFormShown &&
                       <ButtonIconStyled onClick={handlePrint}>
@@ -164,7 +125,7 @@ export const LessonEntity = ({ entityName, lesson }) => {
             <div className='action-top'>
               {isFormShown
                 ? (
-                  <>
+                  <div className="print-hide">
                     <Controller
                       name={'text'}
                       control={control}
@@ -185,11 +146,11 @@ export const LessonEntity = ({ entityName, lesson }) => {
                     <ButtonStyled onClick={handleEntityCreate}>
                           Save
                     </ButtonStyled>
-                  </>
+                  </div>
                 )
                 : entities.map(el => (
                   <div key={el.id}>
-                    <div className="item-action">
+                    <div className="item-action print-hide">
                       <b>{el.title}</b>
                       {user?.uid && (lesson?.createdBy.uid === user?.uid) &&(
                         <Popup
