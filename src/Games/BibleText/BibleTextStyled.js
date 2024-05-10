@@ -110,7 +110,7 @@ export const BibleTextStyled = styled('section')`
     }
   }
   
-  .answer-group {
+  .answer-group-bible-tex {
     white-space: pre-wrap;
     padding: 40px;
     height: 30vh;
