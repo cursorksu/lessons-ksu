@@ -1,13 +1,10 @@
 import React from 'react';
 import { Routes, useNavigate } from 'react-router';
-import Situations from '../Games/Situations/Situations';
-import Scala from "../Games/Scale/Scala";
 import { Route } from 'react-router-dom';
 import { MainLayout } from './MainLayout';
 import { Rate } from '../Games/Rate/Rate';
 import { ShadowCardStyled } from './MainContentStyled';
 import { gameList } from '../Games/constants/gameList';
-import { BibleText } from '../Games/BibleText/BibleText';
 
 export const Games = () => {
   const navigate = useNavigate();

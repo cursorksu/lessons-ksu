@@ -147,7 +147,7 @@ p, label, a, span {
     * {
         color: #282c34 !important;
         text-align: left;
-        font-family: 'Coco Gothic Alternate', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         font-size: 14px;
         line-height: 1.5;
     }
@@ -156,15 +156,11 @@ p, label, a, span {
     .title,
     .subtitle {
         font-size: 1.2rem;
+        margin: 1rem 0 !important;
     }
 
     h1.title {
-        font-size: 1.8rem;
-    }
-
-    h3 {
-        color: #ff6347 !important;
-        border-bottom: 1px solid #ff6347 !important;
+        font-size: 2rem;
     }
 
     span,
@@ -179,11 +175,16 @@ p, label, a, span {
         display: none !important;
     }
 
+    .aside-wrapper,
     .print-fluid {
         width: 100% !important;
         flex-basis: 100% !important;
         min-width: initial !important;
         max-width: initial !important;
+    }
+
+    .print-block {
+        display: block !important;
     }
 }
 
@@ -383,10 +384,16 @@ img.epr-emoji-img {
     }
 
     span, label, li, a, p {
-        font-size: 18px !important;
+        font-size: 1.5rem !important;
         line-height: 1.5 !important;
-        font-weight: 300 !important;
+        font-weight: 400 !important;
         font-family: "Montserrat", sans-serif;
+        color: #282c34 !important;
+    }
+
+    h2.title {
+        font-size: 3.5rem !important;
+        color: #282c34 !important;
     }
 
     img {

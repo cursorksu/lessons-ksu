@@ -15,7 +15,7 @@ export const AppRouter = () => {
     <Router>
       <Routes>
         {publicRoutes.map(({path, component}) => (
-          <Route key={path} path={path} element={component} key={path}/>
+          <Route key={path} path={path} element={component}/>
         ))}
         <Route key={`${routes.games}/scala`} path={`${routes.games}/scala`} element={<Scala />} />
         <Route key={`${routes.games}/bibleText`} path={`${routes.games}/bibleText`} element={<BibleText />} />

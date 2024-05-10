@@ -10,8 +10,6 @@ import { useDispatch } from 'react-redux';
 import { setAuthData } from '../../store/authReducer';
 import { auth, fireStore } from '../index';
 import { useTranslation } from 'react-i18next';
-import {useNavigate} from "react-router-dom";
-import {routes} from "../../router/constants";
 import { useGetAllEntities } from '../entity/useGetAllEntities';
 import { setTeachersList } from '../../store/dataReducer';
 

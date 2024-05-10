@@ -76,8 +76,8 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
 
   return (
     <InfoBlockStyled>
-      <section className='ksu-content no-margin' ref={componentRef}>
-        <aside className='aside-wrapper'>
+      <section className="ksu-content no-margin print-block" ref={componentRef}>
+        <aside className="aside-wrapper print-fluid">
           <div>
             <div
               className={clsx({
@@ -85,23 +85,25 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
                 'full-screen': isFullScreen,
               })}
             >
-              {!isFullScreen
-                ? (
-                  <ButtonIconStyled onClick={() => setIsFullScreen(true)}>
-                    <FullScreenIcon />
-                  </ButtonIconStyled>
-                )
-                : (
-                  <ButtonIconStyled onClick={() => setIsFullScreen(false)}>
-                    <ScreenIcon />
-                  </ButtonIconStyled>
-                )}
+              <dib className='print-hide'>
+                {!isFullScreen
+                  ? (
+                    <ButtonIconStyled onClick={() => setIsFullScreen(true)}>
+                      <FullScreenIcon />
+                    </ButtonIconStyled>
+                  )
+                  : (
+                    <ButtonIconStyled onClick={() => setIsFullScreen(false)}>
+                      <ScreenIcon />
+                    </ButtonIconStyled>
+                  )}
+              </dib>
               <img
                 src={lesson?.imageUrl}
                 alt={lesson?.title}
               />
             </div>
-            <div>
+            <div className="print-hide">
               <h2 className="title">Случайный стих из Библии</h2>
               <iframe
                 id="randomVerseIframe"
@@ -112,17 +114,19 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
             <KsuCard
               title={'Мета уроку'}
               action={user?.uid && (
-                !isGoalEdit
-                  ? (
-                    <ButtonIconStyled onClick={() => setIsGoalEdit(true)}>
-                      <EditIcon />
-                    </ButtonIconStyled>
-                  )
-                  : (
-                    <ButtonIconStyled onClick={() => editLessonHandler('goal')}>
-                      <SaveIcon />
-                    </ButtonIconStyled>
-                  )
+                <dib className='print-hide'>
+                  {!isGoalEdit
+                    ? (
+                      <ButtonIconStyled onClick={() => setIsGoalEdit(true)}>
+                        <EditIcon />
+                      </ButtonIconStyled>
+                    )
+                    : (
+                      <ButtonIconStyled onClick={() => editLessonHandler('goal')}>
+                        <SaveIcon />
+                      </ButtonIconStyled>
+                    )}
+                </dib>
               )}
             >
               <div>
@@ -150,23 +154,25 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
             <KsuCard
               title={'Ключове місце Біблії'}
               action={user?.uid && (
-                !isBibleEdit
-                  ? (
-                    <ButtonIconStyled onClick={() => setIsBibleEdit(true)}>
-                      <EditIcon />
-                    </ButtonIconStyled>
-                  )
-                  : (
-                    <ButtonIconStyled onClick={() => editLessonHandler('bible')}>
-                      <SaveIcon />
-                    </ButtonIconStyled>
-                  )
+                <dib className='print-hide'>
+                  {!isGoalEdit
+                    ? (
+                      <ButtonIconStyled onClick={() => setIsBibleEdit(true)}>
+                        <EditIcon />
+                      </ButtonIconStyled>
+                    )
+                    : (
+                      <ButtonIconStyled onClick={() => editLessonHandler('bible')}>
+                        <SaveIcon />
+                      </ButtonIconStyled>
+                    )}
+                </dib>
               )}
             >
               <div>
                 {isBibleEdit
                   ? (
-                    <>
+                    <div className="print-hide">
                       <Controller
                         name="bibleText"
                         control={control}
@@ -193,7 +199,7 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
                           </FormField>
                         )}
                       />
-                    </>
+                    </div>
                   )
                   : (
                     <div>
@@ -252,7 +258,7 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
           </div>
         </aside>
         <section className='content-wrapper'>
-          <div className='action'>
+          <div className='action print-hide'>
             <Popup
               trigger={(
                 <ButtonIconStyled onClick={handlePrint}>
