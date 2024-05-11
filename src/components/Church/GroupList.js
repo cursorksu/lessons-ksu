@@ -56,7 +56,7 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
     try {
       const createdGroupId = await createEntity(newData);
       await addGroupToChurch(churchId, createdGroupId);
-      for (const teacherId of newData?.teachers) {
+      for (const teacherId of newData?.teachers) { ;
         await Promise.all(await addTeacherToGroup(createdGroupId, teacherId));
       }
       reset();
@@ -100,7 +100,7 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
 
   const getTeacherName = useCallback((teacherId) => {
     const teacherObj = teachers.find(teacher => teacherId === teacher.uid);
-    return `${teacherObj?.firstName} ${teacherObj?.lastName}`;
+    return teacherObj?.firstName ? `${teacherObj?.firstName} ${teacherObj?.lastName}` : teacherObj?.fullName;
   }, [teachers]);
 
   return (
@@ -180,7 +180,7 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
           </div>
         )}
 
-        <ul className='vertical-card-lis'>
+        <ul className='groups-card-lis'>
           {groups?.map(el => (
             <ShadowCardStyled className="vertical-card group" key={el.id}>
               {isAuth && <NavLink to={`/group/${el.id}`}>go to group</NavLink>}

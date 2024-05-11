@@ -1,4 +1,3 @@
-
 import { useCallback } from 'react';
 import { fireStore } from '../index';
 import { doc, getDoc, updateDoc  } from 'firebase/firestore';

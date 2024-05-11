@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { KsuCard } from '../KsuCard';
 import { Checkbox, FormField, Popup } from 'semantic-ui-react';
 import { ButtonIconStyled } from '../ButtonStyled';
@@ -25,6 +25,13 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
   const [isTopicEdit, setIsTopicEdit] = useState(false);
   const [isGoalEdit, setIsGoalEdit] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+
+  useEffect(() => {
+    if (lesson?.memory?.length) {
+      const data = lesson?.memory?.find(el => el.id === 'test');
+      data && localStorage.setItem('test', JSON.stringify(data.settings));
+    }
+  }, [lesson]);
 
   const {control, getValues, setValue, reset} = useForm({
     defaultValues: {
@@ -258,6 +265,7 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
           </div>
         </aside>
         <section className='content-wrapper'>
+          <h2 className='title lesson-title'>{lesson?.title}</h2>
           <div className='action print-hide'>
             <Popup
               trigger={(
@@ -282,7 +290,6 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }) => {
             )}
           </div>
           <div className='action-top'>
-            <h2 className='title'>{lesson?.title}</h2>
             {isTopicEdit
               ? (
                 <Controller

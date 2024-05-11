@@ -28,12 +28,12 @@ export const InfoBlockStyled = styled.div`
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.5;
-  
+
   .img-wrapper {
     width: 100px;
     height: 100px;
     position: relative;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -43,7 +43,7 @@ export const InfoBlockStyled = styled.div`
       height: 100px;
       border-radius: 20px;
     }
-    
+
     img {
       border-radius: 20px;
       width: 100%;
@@ -55,10 +55,11 @@ export const InfoBlockStyled = styled.div`
   .button-wrapper {
     margin: 10px 0 20px;
   }
-  
+
   b {
     font-weight: 600;
   }
+
   a {
     text-align: left;
     font-size: 1.5rem;
@@ -87,6 +88,7 @@ export const InfoBlockStyled = styled.div`
       right: 0;
     }
   }
+
   ul {
     color: ${CHOCO};
     list-style-type: none;
@@ -107,10 +109,11 @@ export const InfoBlockStyled = styled.div`
       overflow: hidden;
     }
   }
+
   .contacts {
     position: relative;
     z-index: 2;
-    
+
     li {
       display: grid;
       grid-template-columns: 80px 1fr;
@@ -123,12 +126,12 @@ export const InfoBlockStyled = styled.div`
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
-      
+
       &:after {
         content: none;
       }
     }
-    
+
     address {
       white-space: pre-wrap;
       font-style: normal;
@@ -140,9 +143,11 @@ export const InfoBlockStyled = styled.div`
   .ui.card {
     box-shadow: none;
   }
+
   .content-wrapper {
     position: relative;
   }
+
   .quill {
     position: sticky;
   }
@@ -150,6 +155,7 @@ export const InfoBlockStyled = styled.div`
   .action {
     margin: 0 0 20px 0;
   }
+
   .action,
   .ql-toolbar.ql-snow {
     position: sticky;
@@ -162,7 +168,7 @@ export const InfoBlockStyled = styled.div`
     justify-content: flex-end;
     align-items: center;
     z-index: 100;
-    
+
     &:after {
       content: '';
       left: 0;
@@ -181,9 +187,9 @@ export const InfoBlockStyled = styled.div`
   }
 
   &.aside-wrapper > li {
-      display: block !important;
+    display: block !important;
   }
-  
+
   .d-flex {
     display: flex;
     justify-content: space-between;
@@ -201,24 +207,24 @@ export const InfoBlockStyled = styled.div`
       background-image: linear-gradient(to right, transparent 0%, ${CHOCO} 50%, ${CHOCO} 50%, transparent 100%);
     }
   }
-  
+
   .image-wrapper {
     height: 300px;
     margin-bottom: 30px;
     position: relative;
-    
+
     img {
       width: 100%;
       height: 300px;
       object-fit: cover;
     }
-    
+
     button {
       position: absolute;
       top: 5px;
       right: 5px;
     }
-    
+
     &.full-screen {
       position: fixed;
       top: 0;
@@ -228,7 +234,7 @@ export const InfoBlockStyled = styled.div`
       z-index: 200 !important;
       width: 100%;
       height: 100vh;
-      
+
       img {
         width: 100%;
         height: 100vh;
@@ -238,25 +244,27 @@ export const InfoBlockStyled = styled.div`
     }
   }
 
+  .groups-card-lis,
   .vertical-card-lis {
     display: grid;
     grid-template-columns: repeat(4, 260px);
-    grid-gap: 10px;
+    grid-gap: 20px;
     padding: 0 0 40px;
     position: relative;
-    
+
     .vertical-card {
       text-align: center;
-      padding:  240px 20px 20px;
+      padding: 240px 20px 20px;
       min-height: 460px;
       font-size: 2rem;
       font-family: Montserrat, sans-serif;
       font-weight: 300;
       display: block;
-      
+
       &.group {
         padding: 70px 20px 20px;
       }
+
       li {
         button {
           border-radius: 50%;
@@ -269,7 +277,7 @@ export const InfoBlockStyled = styled.div`
           }
         }
       }
-      
+
       img {
         position: absolute;
         left: 6px;
@@ -282,7 +290,7 @@ export const InfoBlockStyled = styled.div`
         z-index: 0;
       }
     }
-    
+
     button {
       border-top-right-radius: 20px;
       border-bottom-left-radius: 20px;
@@ -290,7 +298,7 @@ export const InfoBlockStyled = styled.div`
       top: 5px;
       right: 5px;
       z-index: 2;
-      
+
       svg {
         width: 16px;
         height: 16px;
@@ -304,6 +312,10 @@ export const InfoBlockStyled = styled.div`
       transform: translateX(-50%);
       z-index: 2;
     }
+  }
+
+  .groups-card-lis {
+    grid-template-columns: repeat(2, 520px);
   }
 
   .church-avatar {
@@ -354,5 +366,12 @@ export const InfoBlockStyled = styled.div`
       border-color: ${BG_GOLD};
       color: ${BG_GOLD};
     }
+  }
+
+  .lesson-title {
+    min-height: 40px !important;
+    font-family: 'Nexa Script', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 3rem !important;
   }
 `;

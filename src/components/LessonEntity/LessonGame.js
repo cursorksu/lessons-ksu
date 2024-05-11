@@ -2,7 +2,6 @@ import { Popup } from 'semantic-ui-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { InfoBlockStyled } from '../InfoBlockStyled';
-import { useEditEntity } from '../../api/entity/useEditEntity';
 import { useGetAllEntities } from '../../api/entity/useGetAllEntities';
 import { Test } from '../../Games/Test/Test';
 import {
@@ -10,10 +9,12 @@ import {
 } from '../../Games/Test/TestGameViewStyled';
 import { BibleTextLink } from '../../Games/BibleText/BibleTextStyled';
 import { BibleTextSettings } from '../../Games/BibleText/BibleTextSettings';
+import { useUpdateMemory } from '../../api/lesson/useUpdateMemory';
 
 export const LessonGame = ({ entityName, lesson }) => {
   const { getAllEntities } = useGetAllEntities('game');
-  const { editEntity } = useEditEntity('lessons');
+
+  const { updateMemory } = useUpdateMemory();
   const [games, setGames] = useState([]);
   const navigation = useNavigate();
 
@@ -81,24 +82,18 @@ export const LessonGame = ({ entityName, lesson }) => {
           {selectedGame?.key === 'test' && (
             <Test
               settings={lesson?.memory?.find(item => item.id === 'test')?.settings}
-              onSave={(data) => editEntity({
+              onSave={(data) => updateMemory({
                 id: lesson.id,
-                memory: [
-                  ...lesson?.memory,
-                  data,
-                ]
+                memory: data,
               })}
             />
           )}
 
           {selectedGame?.key === 'bibleText' && (
             <BibleTextSettings
-              onSave={(data) => editEntity({
+              onSave={(data) => updateMemory({
                 id: lesson.id,
-                memory: [
-                  ...lesson?.memory,
-                  data,
-                ]
+                memory: data
               })}
               data={{
                 bibleText: lesson?.bibleText,
