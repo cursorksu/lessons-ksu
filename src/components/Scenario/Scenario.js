@@ -88,8 +88,6 @@ export const Scenario = () => {
             </div>
           )}
         </div>
-
-
       </div>
       {user?.uid && isFormShown && (
         <CreateEntityForm
