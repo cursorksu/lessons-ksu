@@ -13,7 +13,6 @@ import { Scenario } from '../components/Scenario';
 import { ScenarioItem } from '../components/ScenarioItem';
 import { Test } from '../Games/Test/Test';
 import { TestGameView } from '../Games/Test/TestGameView';
-import { LessonEntity } from '../components/LessonEntity/LessonEntity';
 import { LessonEntityList } from '../components/LessonEntity/LessonEntityList';
 
 export const publicRoutes = [
