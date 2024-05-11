@@ -84,7 +84,7 @@ export const publicRoutes = [
   {
     path: routes.creativity,
     title: 'Creativity',
-    component: <LessonEntityList entityName={'creativity'} />,
+    component: <LessonEntityList entityName={'creative'} />,
   },
   {
     path: routes.game,

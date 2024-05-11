@@ -43,24 +43,32 @@
       "phone": "Set Phone number"
     }
   },
+  "entities": {
+    "food": "Snacks",
+    "creative": "Creative Arts",
+    "game": "Interactive Games",
+    "activeGame": "Active Games",
+    "subject": "Subject examples",
+    "memory": "Interactive games"
+  },
   "lessons": {
     "labels": {
-      "title": "Назва уроку",
-      "description": "Опис уроку",
-      "goal": "Мета уроку",
-      "tags": "Теги",
-      "bibleQuote": "Місце з Писання де це написано",
-      "bibleText": "Текст з Біблії",
-      "imageUrl": "Посилання на зображення"
+      "title": "Title",
+      "description": "Description",
+      "goal": "Goal",
+      "tags": "Tags",
+      "bibleQuote": "Bible place",
+      "bibleText": "Bible text",
+      "imageUrl": "Link to Image"
     },
     "placeholders": {
-      "title": "Додайте зрозумілу назву",
-      "description": "Додайте опис",
-      "goal": "Опишіть мету",
-      "tags": "Надрукуйте тег та натисніть ENTER",
-      "bibleQuote": "Посилання на Біблійний вірш",
-      "bibleText": "Додайте Біблійний вірш",
-      "imageUrl": "Посилання на зображення в Інтернеті"
+      "title": "Add title",
+      "description": "Add description",
+      "goal": "Describe the goal",
+      "tags": "Type teg and press ENTER",
+      "bibleQuote": "Bible Quote",
+      "bibleText": "Bible Text",
+      "imageUrl": "Link to Image from Internet"
     }
   },
   "lessonTabs": {
