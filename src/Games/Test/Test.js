@@ -38,9 +38,6 @@ export const Test = ({ onSave, settings }) => {
     settings?.length ? setTest(settings) : prevTestParsed?.length && setTest(prevTestParsed);
   }, [settings]);
 
-
-
-
   useEffect(() => {
     timoutRef.current = setTimeout(() => {
       setTest(prev => prev.map((item) => ({
