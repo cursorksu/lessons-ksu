@@ -14,6 +14,7 @@ import { ScenarioItem } from '../components/ScenarioItem';
 import { Test } from '../Games/Test/Test';
 import { TestGameView } from '../Games/Test/TestGameView';
 import { LessonEntity } from '../components/LessonEntity/LessonEntity';
+import { LessonEntityList } from '../components/LessonEntity/LessonEntityList';
 
 export const publicRoutes = [
   {
@@ -69,27 +70,27 @@ export const publicRoutes = [
   {
     path: routes.subject,
     title: 'Subject',
-    component: <LessonEntity entityName={'subject'} />,
+    component: <LessonEntityList entityName={'subject'} />,
   },
   {
     path: routes.food,
     title: 'Food',
-    component: <LessonEntity entityName={'food'} />,
+    component: <LessonEntityList entityName={'food'} />,
   },
   {
     path: routes.memory,
     title: '<Memory>',
-    component: <LessonEntity entityName={'memory'} />,
+    component: <LessonEntityList entityName={'memory'} />,
   },
   {
     path: routes.creativity,
     title: 'Creativity',
-    component: <LessonEntity entityName={'creativity'} />,
+    component: <LessonEntityList entityName={'creativity'} />,
   },
   {
     path: routes.game,
     title: 'Game',
-    component: <LessonEntity entityName={'game'} />,
+    component: <LessonEntityList entityName={'activeGame'} />,
   },
 ];
 export const authRouts = [
