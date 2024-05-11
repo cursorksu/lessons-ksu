@@ -74,10 +74,10 @@ export const LessonTabs = () => {
         </TabPane>
     },
     {
-      menuItem: { key: 'game', icon: <GameIcon />, content: t('lessonTabs.game') },
+      menuItem: { key: 'activeGame', icon: <GameIcon />, content: t('lessonTabs.game') },
       render: () =>
         <TabPane>
-          <LessonEntity entityName={'game'} lesson={lesson}/>
+          <LessonEntity entityName={'activeGame'} lesson={lesson}/>
         </TabPane>
     },
     {

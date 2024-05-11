@@ -16,6 +16,7 @@ export const CREAM = '#faebd7ff';
 export const BG_GOLD = 'rgba(163, 147,103, 0.3)';
 export const DARK_BG = 'rgba(96,81,71,0.3)';
 export const HOVER_GOLD = 'rgba(163, 147,103, 0.1)';
+export const BOX_SHADOW_GOLD = '0 2px 4px 3px rgba(163, 147,103, 0.3)';
 export const BOX_SHADOW = '0 2px 8px 4px rgba(0, 0, 0, 0.5)';
 export const BOX_SHADOW_HOVER = '0 2px 4px 2px rgba(0, 0, 0, 0.5)';
 export const ITEM_INNER = '-10px -10px 15px rgba(255, 255, 255, 0.5),\n' +

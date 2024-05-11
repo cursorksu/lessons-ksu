@@ -4,7 +4,7 @@ import { ButtonStyled } from '../ButtonStyled';
 // import { ReactComponent as PrintIcon } from '../../assets/print.svg';
 // import { ReactComponent as ScreenIcon } from '../../assets/screen.svg';
 // import { ReactComponent as FullScreenIcon } from '../../assets/full-screen.svg';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 // import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 // import { useParams } from 'react-router';
@@ -19,20 +19,23 @@ import { useSelector } from 'react-redux';
 // } from '../../api/refs/useAssignEntityToLesson';
 // import clsx from 'clsx';
 import { MainLayout } from '../../pages/MainLayout';
-import { ScenarioStyled } from '../Scenario/styles';
 // import ReactQuill from 'react-quill';
 // import { SprintCard } from '../SprintCard/SprintCard';
 // import { routes } from '../../router/constants';
 // import { getDateLocalString } from '../../utils/getDateLocalString';
 // import { PAGE_SIZE } from '../../constants/main';
 import { useTranslation } from 'react-i18next';
+import { useGetAllEntities } from '../../api/entity/useGetAllEntities';
+import { EntityListStyled } from './EntityItemStyled';
+import { EntityItemExpanded } from './components/EntityItemExpanded';
 
 export const LessonEntityList = ({ entityName, lesson }) => {
   // const { lessonId } = useParams();
   const { t } = useTranslation('tr');
-  // const { getEntities, entities } = useGetEntityListByIds(entityName);
+  const { getAllEntities } = useGetAllEntities(entityName);
   // const { createEntity } = useCreateEntity(entityName);
   // const [isFullScreen, setIsFullScreen] = useState(false);
+  const [entitiesList, setEntitiesList] = useState([]);
   // const { addEntityToArrayField, removeEntityFromArrayField } = useAssignEntityToLesson(entityName);
   //
   // const {control, getValues, setValue, reset} = useForm({
@@ -43,10 +46,9 @@ export const LessonEntityList = ({ entityName, lesson }) => {
   //   caches: false
   // });
 
-  // useEffect(() => {
-  //   lesson && lesson[entityName]?.length && getEntities(lesson[entityName])
-  //     .then(() => {});
-  // }, [lesson, entityName, getEntities]);
+  useEffect(() => {
+    getAllEntities().then(data => setEntitiesList(data));
+  }, [getAllEntities]);
 
   // const [isFormShown, setIsFormShown] = useState(false);
   const { user } = useSelector((state) => state.auth);
@@ -90,28 +92,30 @@ export const LessonEntityList = ({ entityName, lesson }) => {
       <div className="herro scenario-herro">
         <div className="title-wrapper top-container">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
-          <h1 className="title">{entityName}</h1>
+          <h1 className="title">{t(`entities.${entityName}`)}</h1>
           {user?.uid && (
             <div>
               <ButtonStyled onClick={() => null}>
-               + {t('scenario.addScenario')}
+               + {entityName}
               </ButtonStyled>
             </div>
           )}
         </div>
       </div>
-      <ScenarioStyled>
+      <EntityListStyled>
         <section className='ksu-content'>
           <aside className='aside-wrapper'>
-            <h2 className='title'>{entityName}</h2>
+            <h2>{entityName}{t(`entities.${entityName}`)}</h2>
           </aside>
           <section className='content-wrapper'>
             <div className="content-list">
-             Json {entityName}
+              {entitiesList?.length > 0 && entitiesList.map(el => (
+                <EntityItemExpanded entityName={entityName} item={el} />
+              ))}
             </div>
           </section>
         </section>
-      </ScenarioStyled>
+      </EntityListStyled>
     </MainLayout>
   );
 };
