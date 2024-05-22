@@ -146,6 +146,10 @@ export const InfoBlockStyled = styled.div`
 
   .content-wrapper {
     position: relative;
+
+    .field {
+      margin-bottom: 10px;
+    }
   }
 
   .quill {

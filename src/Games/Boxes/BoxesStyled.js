@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { NEON, NEON_HOVER, NEON_INNER } from '../../constants/colors';
-export const BibleTextLink = styled('button')`
+export const BoxesTextLink = styled('button')`
   cursor: pointer;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2015.53.13.png?alt=media&token=925fa405-957e-4fee-823f-9b9f1a3d6ad8');
   background-repeat: no-repeat;
@@ -63,35 +63,48 @@ export const GameScoreStyled = styled('section')`
   }
   `;
 
-export const BibleTextSettingsStyled = styled('section')`
-  .action-wrapper {
-    margin-top: 20px;
+export const BoxesSettingsStyled = styled('section')`
+  display: grid;
+  grid-template-columns: 30% 1fr;
+  grid-gap: 40px;
+  
+  .test-question {
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    grid-gap: 40px;
+    align-items: end;
   }
   `;
 
-export const BibleTextStyled = styled('section')`
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fbg_virs.jpg?alt=media&token=53c7bca0-89a4-4e45-87ed-29423382ddac');
-  background-repeat: no-repeat;
-  background-size: cover;
+export const BoxesStyled = styled('section')`
   height: 100vh;
+  padding-top: 150px;
+  background: #083752;
   
-  .word {
-    float: right;
-    padding: 5px 50px 10px;
-    border-radius: 60px;
-    font-family: "Coco Gothic Alternate", sans-serif;
-    line-height: 1;
-    background-color: #053b69;
-    border: 2px solid rgba(0, 255, 255, 0.5);
-    box-shadow: ${NEON_INNER};
-    margin: 5px;
-    color: #fff;
-    font-size: 50px;
-    font-weight: 700;
+  .question-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    height: calc(100vh - 150px);
+  }
+  
+  li > div {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+    width: 100%;
+    height: 160px;
     
-    &.quote {
-      display: block;
-      margin: 20px 0;
+    &.close {
+      background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2018.40.39.png?alt=media&token=e5715071-50a2-4e79-9b4f-81b0aa398826');
+    }
+    &.opening {
+      background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2015.53.13.png?alt=media&token=925fa405-957e-4fee-823f-9b9f1a3d6ad8');
+    }
+    &.open {
+      background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2015.53.13.png?alt=media&token=925fa405-957e-4fee-823f-9b9f1a3d6ad8');
     }
   }
   

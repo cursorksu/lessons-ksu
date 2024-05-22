@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {
-  BG_GOLD, BOX_SHADOW, BOX_SHADOW_GOLD, BOX_SHADOW_HOVER, DARK_GRAY, GOLD
+  BG_GOLD, BOX_SHADOW_GOLD, DARK_GRAY, GOLD
 } from '../../constants/colors';
 import { ScenarioStyled } from '../Scenario/styles';
 export const EntityListStyled = styled(ScenarioStyled)`

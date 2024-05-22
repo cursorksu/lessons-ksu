@@ -7,6 +7,7 @@
     "collections": "Collections of Lessons",
     "createCollection": "Create Collection",
     "deleteCollection": "Delete Collection",
+    "editCollection": "Edit Collection",
     "topic": "Topic",
     "subject": "Subject example",
     "game": "Games",
@@ -229,12 +230,12 @@
   "status": {
     "labels": {
       "published": "Published",
-      "waitingForApprove": "Waiting for Approve",
+      "waiting": "Waiting for Approve",
       "active": "Active",
       "draft": "Draft"
     },
     "published": "This content is visible for all users",
-    "waitingForApprove": "This content is waiting for Moderator confirmation",
+    "waiting": "This content is waiting for Moderator confirmation",
     "active": "This content is visible for your church",
     "draft": "This content is visible for you only"
   }

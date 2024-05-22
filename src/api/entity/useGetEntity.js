@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
+import { getDateLocalString } from '../../utils/getDateLocalString';
 
 export const useGetEntity = (entityName) => {
   const dispatch = useDispatch();
@@ -11,9 +12,26 @@ export const useGetEntity = (entityName) => {
       const docRef = doc(fireStore, entityName, entityId);
       const snapshot = await getDoc(docRef);
       if (snapshot.exists()) {
-        return { id: snapshot?.id, ...snapshot.data() };
-      } else {
-        return null;
+        const entity = snapshot.data();
+        const authorRef = entity.createdBy;
+
+        if (authorRef) {
+          const authorSnapshot = await getDoc(authorRef);
+
+          if (authorSnapshot.exists()) {
+            const authorData = authorSnapshot.data();
+
+            return {
+              id: snapshot?.id, ...entity,
+              createdAt: getDateLocalString(entity?.createdAt),
+              createdBy: authorData,
+            };
+          } else {
+            throw new Error(`No author reference found in the ${entityName}!`);
+          }
+        } else {
+          throw new Error(`${entityName.autoCapitalize()} does not exist!`);
+        }
       }
     } catch (error) {
       dispatch(

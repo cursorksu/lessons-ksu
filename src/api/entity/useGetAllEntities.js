@@ -5,6 +5,7 @@ import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 import { setCollectionsInStore } from '../../store/collectionsResucer';
 import { setEntity } from '../../store/entitiesReducer';
+import { getDateObject } from '../../utils/getDateLocalString';
 
 export const useGetAllEntities = (entity) => {
   const dispatch = useDispatch();
@@ -22,8 +23,7 @@ export const useGetAllEntities = (entity) => {
         }
 
         return ({
-          id: doc?.id,
-          ...data,
+          id: doc?.id, ...data, createdAt: getDateObject(data?.createdAt),
         });
       });
       setLoading(false);

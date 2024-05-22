@@ -7,7 +7,7 @@ export const getDateLocalString = (timestamp) => {
   return timestamp && dateFormat(newDate, 'dd.mm.yyyy');
 };
 export const getDateObject = (timestamp) => {
-  const milliseconds = timestamp.seconds * 1000 + Math.round(timestamp.nanoseconds / 1e6);
+  const milliseconds = timestamp?.seconds * 1000 + Math.round(timestamp?.nanoseconds / 1e6);
   const newDate = new Date(milliseconds);
 
   return newDate;

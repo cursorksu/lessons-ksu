@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { CREAM, CHOCO, DARK_BG } from '../../constants/colors';
 
 export const UserProfileStyled = styled.div`
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
   background-position: center -80px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -100,8 +99,11 @@ export const UserProfileStyled = styled.div`
   }
 
   .top-container {
-      padding: 40px;
-      background-color: ${DARK_BG};
+    padding: 40px;
+    background-color: ${DARK_BG};
+    overflow: hidden;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
+
   }
   
   .score {
@@ -109,6 +111,8 @@ export const UserProfileStyled = styled.div`
     font-family: "Coco Gothic Alternate", sans-serif;
     font-size: 18px;
     color: rgb(96, 81, 71);
+    margin: 0 !important;
+    line-height: 40px;
   }
 
   .d-flex {
@@ -129,20 +133,22 @@ export const UserProfileStyled = styled.div`
   }
   
   .estimation {
-      border: none;
-      display: flex;
-      align-items: center;
-      height: 40px;
-      h4 {
-          margin: 0;
-      }
-      img {
-          margin: 0;
-          border: none;
-          width: 46px;
-          height: 46px;
-          object-fit: contain;
-      }
+    cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    h4 {
+        margin: 0;
+    }
+    img {
+        margin: 0;
+        border: none;
+        width: 46px;
+        height: 46px;
+        object-fit: contain;
+    }
   }
 `;
 export const ChurchHeroStyled = styled.div`

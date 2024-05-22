@@ -121,4 +121,12 @@ export const SprintCardStyled = styled('div')`
     z-index: 3;
     white-space: pre-wrap;
   }
+  
+  .action {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 10;
+    display: flex;
+  } 
 `;

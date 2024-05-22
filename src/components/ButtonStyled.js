@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import {BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN} from '../constants/colors';
 
 export const ButtonStyled = styled('button')`
+  cursor: pointer;
   color: #fff;
   background-color: rgb(96,81,71);
   margin: 2px;

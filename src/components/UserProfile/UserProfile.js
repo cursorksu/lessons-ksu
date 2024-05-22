@@ -177,7 +177,7 @@ export const UserProfile = () => {
             setDefaultValues(initialValues);
             setIsFormShown(true);
           }}>
-            + {t('students.addStudent')}
+              + {t('students.addStudent')}
           </ButtonStyled>
           <ButtonStyled onClick={() =>navigate(`${routes.group}/${groupId}/games/rate`)}>
             {t('students.showResult')}

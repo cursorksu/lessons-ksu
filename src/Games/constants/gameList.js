@@ -23,4 +23,10 @@ export const gameList = [
     icon: <ListIcon  />,
     link: 'test'
   },
+  {
+    id: 4,
+    title: 'Boxes',
+    icon: <ListIcon  />,
+    link: 'test'
+  },
 ];

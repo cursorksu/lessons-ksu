@@ -53,5 +53,6 @@ export const lessonDefaultValues = {
   creative: [],
   material: [],
   title: '',
-  status: 'draft'
+  tags: [],
+  status: 4,
 };

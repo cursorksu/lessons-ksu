@@ -1,8 +1,11 @@
 import { SprintCardStyled } from './SprintCardStyled';
 import { ReactComponent as ShapeBg } from '../../assets/shape.svg';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import React from 'react';
 import {DeleteConfirmationModal} from "../DeleteConfirmationModal/DeleteConfirmationModal";
 import {useTranslation} from "react-i18next";
+import { Popup } from 'semantic-ui-react';
+import { ButtonIconStyled } from '../ButtonStyled';
 
 export const SprintCard = ({
   img,
@@ -11,9 +14,10 @@ export const SprintCard = ({
   onClick,
   titleHover,
   onDelete,
-  editEnable = true,
+  editEnable = false,
   modalTitle,
   modalContent,
+  onEdit
 }) => {
   const { t } = useTranslation('tr');
 
@@ -31,11 +35,22 @@ export const SprintCard = ({
       </div>
       <h3 className="title hover">{titleHover}</h3>
       {editEnable &&
-      <DeleteConfirmationModal
-        modalTitle={`${t(modalTitle)} ${titleHover}`}
-        modalContent={`${t(modalContent)}`}
-        onConfirm={(e) => onDelete(e, id)}
-      />
+        <div className="action">
+          <Popup
+            trigger={(
+              <ButtonIconStyled
+                onClick={(e) => onEdit(e, id)}>
+                <EditIcon />
+              </ButtonIconStyled>
+            )}
+            content='Змінити колекцію'
+          />
+          <DeleteConfirmationModal
+            modalTitle={`${t(modalTitle)} ${titleHover}`}
+            modalContent={`${t(modalContent)}`}
+            onConfirm={(e) => onDelete(e, id)}
+          />
+        </div>
       }
     </SprintCardStyled>
   );
