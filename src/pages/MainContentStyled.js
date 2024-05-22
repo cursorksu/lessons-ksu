@@ -411,4 +411,11 @@ export const MainContentStyled = styled('div')`
       text-align: center;
     }
   }
+
+  .control-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0 10px;
+  }
 `;

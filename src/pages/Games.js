@@ -1,8 +1,6 @@
 import React from 'react';
-import { Routes, useNavigate } from 'react-router';
-import { Route } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { MainLayout } from './MainLayout';
-import { Rate } from '../Games/Rate/Rate';
 import { ShadowCardStyled } from './MainContentStyled';
 import { gameList } from '../Games/constants/gameList';
 
@@ -11,10 +9,6 @@ export const Games = () => {
 
   return (
     <MainLayout>
-      <Routes>
-        <Route path={`/:groupId/games/rate`} element={<Rate />} />
-      </Routes>
-
       <div className="herro">
         <div className="title-wrapper">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>

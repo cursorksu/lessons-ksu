@@ -25,8 +25,9 @@ import {
 } from '../../constants/entities/lessonConfig';
 import { LessonEntity } from '../LessonEntity/LessonEntity';
 import { TopicToPrint } from '../ComponentsToPrint';
-import { LessonGame } from '../LessonEntity/LessonGame';
-
+import { LessonMemory } from '../LessonEntity/LessonMemory';
+import { KsuStatus } from '../KsuStatus/KsuStatus';
+import { useEditEntity } from '../../api/entity/useEditEntity';
 export const LessonTabs = () => {
   const [editFormIsOpen, setEditFormIsOpen] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
@@ -34,6 +35,7 @@ export const LessonTabs = () => {
   const { lessonId } = useParams();
   const { t } = useTranslation('tr');
   const { getEntityById } = useGetEntity('lessons');
+  const { editEntity } = useEditEntity('lessons');
   const {
     lessonData: { lesson },
     auth: { user }
@@ -84,7 +86,7 @@ export const LessonTabs = () => {
       menuItem: { key: 'memory', icon: <MemoryIcon />, content: t('lessonTabs.memory') },
       render: () =>
         <TabPane>
-          <LessonGame entityName={'memory'} lesson={lesson}/>
+          <LessonMemory entityName={'memory'} lesson={lesson}/>
         </TabPane>
     },
     {
@@ -101,30 +103,24 @@ export const LessonTabs = () => {
     content: () => componentRef.current,
   });
 
+  const [selectedStatus, setSelectedStatus] = useState(lesson?.status);
+  useEffect(() => {
+    setSelectedStatus(lesson?.status);
+  }, [lesson]);
+
+  useEffect(() => {
+    lesson && selectedStatus && editEntity({
+      id: lesson.id,
+      status: selectedStatus,
+    }).then(() => null);
+  }, [selectedStatus, lesson, editEntity]);
+
   return (
     <div rer={componentRef}>
       <div className="herro" style={{ backgroundImage: `url("${lesson?.imageUrl}")`}}>
         <div className="title-wrapper top-container">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
           <h1 className='title'>{lesson?.title}</h1>
-          {user?.uid === lesson?.createdBy?.uid &&
-            <Popup
-              trigger={(
-                <ButtonIconStyled onClick={() => setEditFormIsOpen(true)}>
-                  <EditIcon />
-                </ButtonIconStyled>
-              )}
-              content='Змінити назву та заобаження уроку'
-            />
-          }
-          <Popup
-            trigger={(
-              <ButtonIconStyled onClick={handlePrint}>
-                <PrintIcon />
-              </ButtonIconStyled>
-            )}
-            content='Надрукувати цей урок'
-          />
         </div>
       </div>
 
@@ -137,6 +133,37 @@ export const LessonTabs = () => {
           defaultValues={lesson || lessonDefaultValues}
         />
       )}
+
+      <div className="control-panel">
+        {user?.uid && lesson?.createdBy?.uid === user?.uid
+          ? (
+            <KsuStatus
+              status={selectedStatus}
+              onStatusChange={(data) => setSelectedStatus(data)}
+            />
+          )
+          : <div></div>}
+        <div>
+          {user?.uid && lesson?.createdBy?.uid === user?.uid && (
+            <Popup
+              trigger={(
+                <ButtonIconStyled onClick={() => setEditFormIsOpen(true)}>
+                  <EditIcon />
+                </ButtonIconStyled>
+              )}
+              content='Змінити назву та заобаження уроку'
+            />
+          )}
+          <Popup
+            trigger={(
+              <ButtonIconStyled onClick={handlePrint}>
+                <PrintIcon />
+              </ButtonIconStyled>
+            )}
+            content='Надрукувати цей урок'
+          />
+        </div>
+      </div>
 
       <TabStyled>
         <Tab panes={panes} />

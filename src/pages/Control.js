@@ -1,7 +1,6 @@
 import React from 'react';
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { ReactComponent as TranslateIcon } from '../assets/translate.svg';
-import { ReactComponent as GameIcon } from '../assets/game.svg';
 import { ReactComponent as CollapseIcon } from '../assets/move.svg';
 import { ReactComponent as ChurchIcon } from '../assets/church.svg';
 import { ReactComponent as UserIcon } from '../assets/user.svg';
@@ -128,7 +127,7 @@ export const Control = ({ loginWithGoogle, signOut }) => {
                   active: pathname.includes(routes.game)
                 })}
               >
-                Гра
+                {t('mainMenu.game')}
               </MenuItem>
               <MenuItem
                 icon={<PalletIcon />}
@@ -167,18 +166,6 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               })}
             >
               {t('mainMenu.show')}
-            </MenuItem>
-            <MenuItem
-              hidden={!auth?.user?.uid}
-              icon={<GameIcon />}
-              component={<Link to={`${routes.games}`} />}
-              className={clsx({
-                middle: true,
-                disabled: !auth?.user?.uid,
-                active: pathname.includes(routes.games)
-              })}
-            >
-              {t('mainMenu.game')}
             </MenuItem>
             {!auth?.token && (
               <MenuItem icon={<GoogleIcon />} onClick={loginWithGoogle}   className="big">

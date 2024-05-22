@@ -10,8 +10,9 @@ import {
 import { BibleTextLink } from '../../Games/BibleText/BibleTextStyled';
 import { BibleTextSettings } from '../../Games/BibleText/BibleTextSettings';
 import { useUpdateMemory } from '../../api/lesson/useUpdateMemory';
-
-export const LessonGame = ({ entityName, lesson }) => {
+import { BoxesSettings } from '../../Games/Boxes/BoxesSettings';
+import { BoxesTextLink } from '../../Games/Boxes/BoxesStyled';
+export const LessonMemory = ({ entityName, lesson }) => {
   const { getAllEntities } = useGetAllEntities('game');
 
   const { updateMemory } = useUpdateMemory();
@@ -70,13 +71,27 @@ export const LessonGame = ({ entityName, lesson }) => {
                 openOnTriggerMouseEnter
                 trigger={(
                   <BibleTextLink
-                    disabled={!lesson?.memory?.find(item => item.id === 'test')}
+                    disabled={!lesson?.memory?.find(item => item.id === 'bibleText')}
                     onClick={() => navigation('/games/bibleText')}
                   />
                 )}
                 content={'Коли тест буде збережено ви зможете перейти в' +
                     ' ігровий простір і побачити результат'}
               />
+            }
+            {lesson?.memory?.find(item => item.id === 'boxes') &&
+               <Popup
+                 closeOnPortalMouseLeave
+                 openOnTriggerMouseEnter
+                 trigger={(
+                   <BoxesTextLink
+                     disabled={!lesson?.memory?.find(item => item.id === 'boxes')}
+                     onClick={() => navigation('/games/boxes')}
+                   />
+                 )}
+                 content={'Коли тест буде збережено ви зможете перейти в' +
+                  ' ігровий простір і побачити результат'}
+               />
             }
           </SelectedGamesStyled>
           {selectedGame?.key === 'test' && (
@@ -99,6 +114,16 @@ export const LessonGame = ({ entityName, lesson }) => {
                 bibleText: lesson?.bibleText,
                 bibleQuote: lesson?.bibleQuote,
               }}
+            />
+          )}
+
+          {selectedGame?.key === 'boxes' && (
+            <BoxesSettings
+              onSave={(data) => updateMemory({
+                id: lesson.id,
+                memory: data
+              })}
+              data={lesson?.memory?.find(item => item.id === 'boxes')?.settings}
             />
           )}
         </section>

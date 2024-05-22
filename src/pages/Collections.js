@@ -9,16 +9,20 @@ import { useSelector } from 'react-redux';
 import { ButtonStyled } from '../components/ButtonStyled';
 import { CreateEntityForm } from '../components/CreateEntityForm/CreateEntityForm';
 import { useGetAllEntities } from '../api/entity/useGetAllEntities';
-import { getDateFromTimeStep } from '../utils/getDateFromTimeStep';
 import { useDeleteEntity } from "../api/entity/useDeleteEntity";
+import dateFormat from 'dateformat';
+import {
+  collectionConfig, defaultValues
+} from '../constants/entities/collectionsConfig';
 
 export const Collections = () => {
   const { user } = useSelector(state => state.auth);
   const navigate = useNavigate();
-  const {collections} = useSelector(store => store);
+  const { collections } = useSelector(store => store);
   const { getAllEntities } = useGetAllEntities('collections');
   const { deleteEntity } = useDeleteEntity('collections', getAllEntities);
   const { t } = useTranslation('tr');
+  const [initialValues, setInitialValues] = useState(defaultValues);
 
   useEffect( () => {
     getAllEntities().then(() => {});
@@ -36,40 +40,10 @@ export const Collections = () => {
     await deleteEntity(id);
     await getAllEntities();
   };
-
-  const formFields = [
-    {
-      inputType: 'textInput',
-      name: 'title',
-      label: 'Collection Title',
-      placeholder: `Enter title of the Collection`,
-    },
-    {
-      inputType: 'textInput',
-      name: 'description',
-      label: 'Collection description',
-      placeholder: `Enter description of Collection}`,
-    },
-    {
-      inputType: 'textInput',
-      name: 'imageUrl',
-      label: 'Image URL',
-      placeholder: `Enter image url of Collection`,
-    },
-    {
-      inputType: 'textInput',
-      name: 'tags',
-      label: 'Tags',
-      placeholder: `Use coma to provide few tags`,
-    },
-  ];
-
-  const defaultValues = {
-    description: '',
-    imageUrl: 'https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fplaceholder2.jpg?alt=media&token=e524e66b-1da1-4e89-bf19-b6ddcbc949a1',
-    title: '',
-    tags: '',
-    lessonIds: [],
+  const handleEdit = (e, id) => {
+    e.stopPropagation();
+    setIsFormShown(true);
+    setInitialValues(collections.find(el => el.id  === id));
   };
 
   return (
@@ -98,27 +72,30 @@ export const Collections = () => {
         {
           isFormShown && (
             <CreateEntityForm
-              defaultValues={defaultValues}
+              defaultValues={initialValues}
               onConfirm={() => setIsFormShown(!isFormShown)}
               onCancel={() => setIsFormShown(false)}
               entityName={'collections'}
-              fields={formFields}
+              fields={collectionConfig}
             />
           )
         }
         <div className="collections-wrapper">
           {collections?.length > 0 && collections?.map(el => (
             <SprintCard
+              key={el.id}
+              editEnable={user?.uid === el.createdBy.uid}
               modalTitle={'collections.deleteCollection'}
               modalContent={'modal.collectionDelete'}
               onDelete={(e) => handleDelete(e, el.id)}
+              onEdit={handleEdit}
               onClick={(e) => lessonsHandler(e, el.id)}
               img={el?.imageUrl}
               titleHover={el.title}
               id={el.id}
             >
               <div>
-                <div><span className="meta">{getDateFromTimeStep(el.createdAt)}</span></div>
+                <div><span className="meta">{dateFormat(el.createdAt, 'dd.mm.yyyy')}</span></div>
                 <div><span className="meta">{el.createdBy.name}</span></div>
               </div>
               <div>

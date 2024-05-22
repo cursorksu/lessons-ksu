@@ -1,5 +1,5 @@
 import { GridColumn, GridRow } from 'semantic-ui-react';
-import React, {useCallback, useEffect} from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import {useNavigate} from 'react-router';
 import { useDeleteLesson, } from '../../api/lesson';
 import { Loader } from '../Loader';
@@ -10,7 +10,7 @@ import {useLessonToCollection} from "../../api/collections/useLessonToCollection
 import {useGetLessonsInCollection} from "../../api/lesson/useGetLessonsInCollection";
 import { routes } from '../../router/constants';
 
-export const LessonList = ({ collection } ) => {
+export const LessonList = ({ collection, selectedStatus } ) => {
   const navigate = useNavigate();
   const { deleteLesson } = useDeleteLesson();
   const { unbindLessonFromCollection } = useLessonToCollection();
@@ -22,8 +22,9 @@ export const LessonList = ({ collection } ) => {
   }, [collection, getLessonsInCollection, navigate]);
 
   useEffect(() => {
-    collection?.lessonIds && getLessonsInCollection(collection.lessonIds).then(() => {});
-  }, [collection, getLessonsInCollection]);
+    collection?.lessonIds && getLessonsInCollection(collection.lessonIds, selectedStatus)
+      .then(() => {});
+  }, [collection, getLessonsInCollection, selectedStatus]);
 
   const handleClick = (id) => {
     navigate(`${id}`);
@@ -34,6 +35,12 @@ export const LessonList = ({ collection } ) => {
     await unbindLessonFromCollection(collection, id);
     await deleteLesson(id);
   }, [collection, deleteLesson, unbindLessonFromCollection]);
+
+  const filteredLessons =  useMemo(() => {
+    // TODO:  Сделать так чтобы пользователь не автор коллекции видел в
+    //  одном списке уроки опубликованные и активные своей церкви
+    return lessons?.filter(lesson => lesson.status === selectedStatus );
+  }, [lessons, selectedStatus]);
 
   return (
     <LessonListStyled>
@@ -46,7 +53,7 @@ export const LessonList = ({ collection } ) => {
               </GridColumn>
             </GridRow>
           )
-          : lessons?.map((item) => (
+          : filteredLessons?.map((item) => (
             <div className="cards-grid" key={item.id}>
               <LessonCard
                 item={item}

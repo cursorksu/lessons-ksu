@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { Popup } from 'semantic-ui-react';
 import React from 'react';
 
-export const KsuStatus = ({ status, mode, onStatusChange }) => {
+export const KsuStatus = ({ status, onStatusChange }) => {
   const { t } = useTranslation('tr');
+  // TODO: не давать править урок в статусе ожидания аппрува или давать
+  //  править тольк уроки в статусе драфт!!!
 
   const publicList = [
     {id: 4, text: 'status.labels.draft', description: 'status.draft'},
@@ -20,7 +22,7 @@ export const KsuStatus = ({ status, mode, onStatusChange }) => {
     {id: 3, text: 'status.labels.active', description: 'status.active'},
   ];
 
-  return  status !== publicStatuses.waitingForApprove
+  return  status !== publicStatuses.waiting
     ? (
       <Popup
         className="popup-menu"
@@ -30,12 +32,12 @@ export const KsuStatus = ({ status, mode, onStatusChange }) => {
           <KsuStatusStyled
             className={clsx({
               public: status === publicStatuses.published,
-              waiting: status === publicStatuses.waitingForApprove,
+              waiting: status === publicStatuses.waiting,
               active: status === publicStatuses.active,
               draft: status === publicStatuses.draft,
             })}>
             {status === publicStatuses.published && t('status.labels.published')}
-            {status === publicStatuses.waitingForApprove && t('status.labels.waitingForApprove')}
+            {status === publicStatuses.waiting && t('status.labels.waiting')}
             {status === publicStatuses.active && t('status.labels.active')}
             {status === publicStatuses.draft && t('status.labels.draft')}
           </KsuStatusStyled>
@@ -69,9 +71,9 @@ export const KsuStatus = ({ status, mode, onStatusChange }) => {
     : (
       <KsuStatusStyled
         className={clsx({
-          waiting: status === publicStatuses.waitingForApprove,
+          waiting: status === publicStatuses.waiting,
         })}>
-        {status === publicStatuses.waitingForApprove && t('status.labels.waitingForApprove')}
+        {status === publicStatuses.waiting && t('status.labels.waiting')}
       </KsuStatusStyled>
     );
 };

@@ -7,12 +7,17 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 export const useAssignEntityToLesson = () => {
   const dispatch = useDispatch();
 
-  const addEntityToArrayField = useCallback((entityName, entityId, lessonId) => {
+  const addEntityToArrayField = useCallback(async (entityName, entityId, lessonId) => {
     try {
       const lessonRef = doc(fireStore, 'lessons', lessonId);
+      const entityRef = doc(fireStore, entityName, entityId);
 
-      return updateDoc(lessonRef, {
+      await updateDoc(lessonRef, {
         [entityName]: arrayUnion(entityId)
+      });
+
+      await updateDoc(entityRef, {
+        'lessons': arrayUnion(lessonId)
       });
     } catch (error) {
       dispatch(setMessage({
@@ -25,12 +30,17 @@ export const useAssignEntityToLesson = () => {
     }
   }, [dispatch]);
 
-  const removeEntityFromArrayField = useCallback((entityName, entityId, lessonId) => {
+  const removeEntityFromArrayField = useCallback(async (entityName, entityId, lessonId) => {
     try {
       const lessonRef = doc(fireStore, 'lessons', lessonId);
+      const entityRef = doc(fireStore, entityName, entityId);
 
-      return updateDoc(lessonRef, {
+      await updateDoc(lessonRef, {
         [entityName]: arrayRemove(entityId)
+      });
+
+      await updateDoc(entityRef, {
+        'lessons': arrayRemove(lessonId)
       });
     } catch (error) {
       dispatch(setMessage({

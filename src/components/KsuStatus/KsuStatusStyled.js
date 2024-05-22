@@ -2,6 +2,13 @@ import styled from '@emotion/styled';
 import {
   CHOCO, ERROR_MAIN, PRIMARY_MAIN, SUCCESS, YELLOW_MAIN
 } from '../../constants/colors';
+export const EntityStatusMenuStyled = styled.ul`
+  padding: 0 10px 10px;
+  display: flex;
+  text-align: center;
+  margin: 0
+  
+  `;
 export const StatusListStyled = styled.ul`
   padding: 0;
   margin: 0;
@@ -36,15 +43,17 @@ export const StatusListStyled = styled.ul`
 `;
 
 export const KsuStatusStyled = styled.div`
-  margin: 2px;
-  font-size: 1.2rem;
-  padding: 10px 22px;
-  border-radius: 30px;
+  margin: 0 5px;
+  font-size: 14px;
+  padding: 12px 40px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
   font-family: Montserrat, sans-serif;
   color: white;
-  font-weight: 700;
+  font-weight: 400;
   display: inline-block;
   text-transform: uppercase;
+  background: ${CHOCO};
   
   &.draft {
     background: ${PRIMARY_MAIN};
@@ -54,7 +63,7 @@ export const KsuStatusStyled = styled.div`
     background: ${ERROR_MAIN};
   }
 
-  &.public {
+  &.published {
     background: ${SUCCESS};
   }
 

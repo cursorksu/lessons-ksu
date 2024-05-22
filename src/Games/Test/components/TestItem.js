@@ -60,7 +60,7 @@ export const TestItem = ({ item, onRemoveItem, onChange }) => {
             content={'Додати ще один варіант відповіді'}
           />
         </div>
-        {item.answer.map((el, idx) => (
+        {item.answer && item.answer.map((el, idx) => (
           <div className='test-answer' key={el.id}>
             <div>
               <LabelStyled className="input-label">Відповідь {answerIds[idx]}</LabelStyled>

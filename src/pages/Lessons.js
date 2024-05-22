@@ -12,10 +12,12 @@ import {useGetLessonsInCollection} from "../api/lesson/useGetLessonsInCollection
 import {
   lessonConfig, lessonDefaultValues
 } from '../constants/entities/lessonConfig';
+import { EntityStatusMenu } from '../components/KsuStatus/EntityStatusMenu';
 
 export const LessonsPage = () => {
   const { user } = useSelector(state => state.auth);
   const [createFormIsOpen, setCreateFormIsOpen] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(1);
   const { collectionId } = useParams();
   const { collections } = useSelector(state => state);
   const { t } = useTranslation('tr');
@@ -28,9 +30,18 @@ export const LessonsPage = () => {
 
   const handleConfirmCreation = useCallback(async (lessonId) => {
     await bindLessonToCollection(currentCollection, lessonId);
-    await getLessonsInCollection(currentCollection.lessonIds);
+    await getLessonsInCollection(currentCollection.lessonIds, selectedStatus);
 
-  }, [bindLessonToCollection, getLessonsInCollection, currentCollection]);
+  }, [
+    bindLessonToCollection,
+    getLessonsInCollection,
+    currentCollection,
+    selectedStatus,
+  ]);
+
+  const onChangeFilter = useCallback((status) => {
+    setSelectedStatus(status);
+  }, []);
 
   return (
     <MainLayout>
@@ -38,19 +49,6 @@ export const LessonsPage = () => {
         <div className="title-wrapper top-container">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
           <h1 className="title">{currentCollection.title}</h1>
-          {user?.uid && (
-            <div>
-              <Popup
-                trigger={(
-                  <ButtonStyled
-                    onClick={() => setCreateFormIsOpen(!createFormIsOpen)}>
-                    + {t('button.createLesson')}
-                  </ButtonStyled>
-                )}
-                content='Створити новий урок'
-              />
-            </div>
-          )}
         </div>
       </div>
 
@@ -63,7 +61,21 @@ export const LessonsPage = () => {
           defaultValues={lessonDefaultValues}
         />
       )}
-      <LessonList collection={currentCollection}/>
+      {user?.uid && currentCollection?.createdBy?.uid === user?.uid && (
+        <div className="control-panel">
+          <EntityStatusMenu onChangeFilter={onChangeFilter} entityName={'lessons'}/>
+          <Popup
+            trigger={(
+              <ButtonStyled
+                onClick={() => setCreateFormIsOpen(!createFormIsOpen)}>
+                + {t('button.createLesson')}
+              </ButtonStyled>
+            )}
+            content='Створити новий урок'
+          />
+        </div>
+      )}
+      <LessonList collection={currentCollection} selectedStatus={selectedStatus}/>
     </MainLayout>
   );
 };

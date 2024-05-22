@@ -18,6 +18,13 @@ import {
   useAssignEntityToLesson
 } from '../../api/refs/useAssignEntityToLesson';
 import clsx from 'clsx';
+import { InputStyled, LabelStyled } from '../InputStyled';
+
+const INITIAL_VALUES = {
+  text: '',
+  title: '',
+  imageUrl: '',
+};
 
 export const LessonEntity = ({ entityName, lesson }) => {
   const { lessonId } = useParams();
@@ -27,10 +34,7 @@ export const LessonEntity = ({ entityName, lesson }) => {
   const { addEntityToArrayField, removeEntityFromArrayField } = useAssignEntityToLesson(entityName);
 
   const {control, getValues, setValue, reset} = useForm({
-    defaultValues: {
-      text: '',
-      material: lesson?.material || [],
-    },
+    defaultValues: INITIAL_VALUES,
     caches: false
   });
 
@@ -49,8 +53,8 @@ export const LessonEntity = ({ entityName, lesson }) => {
 
   const handleEntityCreate = async () => {
     try {
-      const newValue = getValues('text');
-      const id = await createEntity({  text: newValue });
+      const newValue = getValues();
+      const id = await createEntity(newValue);
 
       if (id === undefined) {
         throw  new Error(`${entityName} Did Not Created!`);
@@ -58,10 +62,7 @@ export const LessonEntity = ({ entityName, lesson }) => {
       await addEntityToArrayField(entityName, id, lessonId);
 
       setIsFormShown(false);
-      reset({
-        text: '',
-        material: [],
-      });
+      reset(INITIAL_VALUES);
     } catch (err) {
       throw new Error(err);
     }
@@ -80,7 +81,7 @@ export const LessonEntity = ({ entityName, lesson }) => {
     <InfoBlockStyled>
       <section className={`ksu-content no-margin ${entityName}`} ref={componentRef}>
         <aside className='aside-wrapper'>
-          {entityName === 'creative' && (
+          {['creative', 'subject', 'food'].includes(entityName) && (
             <div
               className={clsx({
                 'image-wrapper': true,
@@ -100,7 +101,7 @@ export const LessonEntity = ({ entityName, lesson }) => {
                     </ButtonIconStyled>
                   )}
               </div>
-              <img src='https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fj.png?alt=media&token=37e251a3-c8e1-4082-9743-0b1622ef27e9' alt='craft' />
+              {entities && entities[0]?.imageUrl && <img src={entities[0].imageUrl} alt={entityName} />}
             </div>
           )}
         </aside>
@@ -127,10 +128,35 @@ export const LessonEntity = ({ entityName, lesson }) => {
                 ? (
                   <div className="print-hide">
                     <Controller
+                      name={'title'}
+                      control={control}
+                      render={({ field }) => (
+                        <FormField>
+                          <LabelStyled>Назва</LabelStyled>
+                          <InputStyled
+                            {...field}
+                          />
+                        </FormField>
+                      )}
+                    />
+                    <Controller
+                      name={'imageUrl'}
+                      control={control}
+                      render={({ field }) => (
+                        <FormField>
+                          <LabelStyled>Посилання на зображення</LabelStyled>
+                          <InputStyled
+                            {...field}
+                          />
+                        </FormField>
+                      )}
+                    />
+                    <Controller
                       name={'text'}
                       control={control}
                       render={({ field }) => (
                         <FormField>
+                          <LabelStyled>Контент</LabelStyled>
                           <Editor
                             {...field}
                             placeholder={'Почніть вводити текст...'}

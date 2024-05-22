@@ -2,7 +2,6 @@ import React from 'react';
 import { routes } from './constants';
 import { LessonsPage } from '../pages/Lessons';
 import { Lesson } from '../pages/Lesson';
-import { Games } from '../pages/Games';
 import { Cabinet } from '../pages/Cabinet';
 import { Collections } from '../pages/Collections';
 import {Home} from "../pages/Home";
@@ -14,6 +13,7 @@ import { ScenarioItem } from '../components/ScenarioItem';
 import { Test } from '../Games/Test/Test';
 import { TestGameView } from '../Games/Test/TestGameView';
 import { LessonEntityList } from '../components/LessonEntity/LessonEntityList';
+import { Rate } from '../Games/Rate/Rate';
 
 export const publicRoutes = [
   {
@@ -104,8 +104,8 @@ export const authRouts = [
     component: <Test />,
   },
   {
-    path: `${routes.games}`,
-    title: 'Games',
-    component: <Games />,
+    path: `${routes.group}/:groupId${routes.games}/rate`,
+    title: 'Rate',
+    component: <Rate />,
   },
 ];
