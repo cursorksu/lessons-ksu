@@ -14,7 +14,14 @@ import { KsuDropdown } from '../KsuDropdown';
 import { KsuTags } from '../KsuTags/KsuTags';
 import { useSelector } from 'react-redux';
 
-export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defaultValues = {} }) => {
+export const CreateEntityForm = ({
+  entityName,
+  onConfirm,
+  onClose,
+  fields,
+  defaultValues = {},
+  className,
+}) => {
   const [emojiIsOpen, setEmojiIsOpen] = useState(false);
   const { user } = useSelector(state => state.auth);
   const { reset, control, getValues, setValue } = useForm({
@@ -131,13 +138,14 @@ export const CreateEntityForm = ({ entityName, onConfirm, onClose, fields, defau
   }, [emojiIsOpen, defaultValues, user]);
 
   return (
-    <CreateEntityFormStyled>
+    <CreateEntityFormStyled className={className}>
       <div className="content-grid">
         {fields.map(el => {
           if (el.isIgnored) return <></>;
+
           return (
             <Controller
-              key={el.id}
+              key={el.name}
               name={el.name}
               control={control}
               render={({ field }) => (

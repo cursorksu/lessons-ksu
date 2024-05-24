@@ -26,7 +26,7 @@ export const TableStaled = styled.div`
     content: '';
     position: absolute;
     top: 0;
-    left: 100px;
+    left: 160px;
     right: 0;
     bottom: 0;
     background: rgba(255,255,255, 0.7);

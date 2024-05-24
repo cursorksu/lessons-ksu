@@ -20,20 +20,41 @@ export const useGetLessonsInCollection = () => {
         getDoc(doc(fireStore, 'lessons', lessonId))
       );
       const lessonSnapshots = await Promise.all(lessonPromises);
-      const lessonsData = lessonSnapshots
-        .map((lessonSnapshot) => {
-          const lesson = lessonSnapshot.data();
-          return {
-            id: lessonSnapshot.id,
-            ...lesson,
-            createdAt: getDateLocalString(lesson?.createdAt),
-          };
-        });
 
-      setLoading(false);
+      const lessonsData = await Promise.all(
+        lessonSnapshots.map(async (lessonSnapshot) => {
+          try {
+            const lesson = lessonSnapshot.data();
+            const authorRef = lesson?.createdBy;
+
+            if (authorRef) {
+              const authorSnapshot = await getDoc(authorRef);
+              if (authorSnapshot.exists()) {
+                const authorData = authorSnapshot.data();
+                return {
+                  id: lessonSnapshot.id,
+                  ...lesson,
+                  createdAt: getDateLocalString(lesson?.createdAt),
+                  createdBy: authorData,
+                };
+              }
+            }
+            return {
+              id: lessonSnapshot.id,
+              ...lesson,
+              createdBy: '',
+              createdAt: getDateLocalString(lesson?.createdAt),
+            };
+          } catch (err) {
+            throw err;
+          }
+        })
+      );
+
       dispatch(
         setLessonsInStore(lessonsData.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)))
       );
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       dispatch(

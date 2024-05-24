@@ -67,6 +67,7 @@ export const UserProfileStyled = styled.div`
       transition: opacity 0.3s ease-in-out;
 
       &.active {
+        color: ${CHOCO};
         background: ${CREAM};
         box-shadow: 2px 0 2px 0 rgba(0, 0, 0, 0.4);
         opacity: 1;
@@ -103,7 +104,6 @@ export const UserProfileStyled = styled.div`
     background-color: ${DARK_BG};
     overflow: hidden;
     background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
-
   }
   
   .score {
@@ -173,18 +173,18 @@ export const ChurchHeroStyled = styled.div`
   }
 
   .top-container {
-      height: 300px;
-      background-color: ${CHOCO};
-      position: relative;
-      overflow: hidden;
-      padding: 40px 40px 40px 0;
+    padding: 40px;
+    overflow: hidden;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
+    height: 300px;
+    position: relative;
       
       &:after {
         content: '';
         width: 1000px;
-        height: 800px;
+        height: 300px;
         border-radius: 50%;
-        background-color: ${CHOCO};
+        background-color: ${DARK_BG};
         position: absolute;
         top: -80px;
         right: 8%;

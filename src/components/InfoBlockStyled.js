@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 import {
-  BG_GOLD,
-  CHOCO,
-  CREAM,
-  GOLD,
-  PRIMARY_MAIN,
+  BG_GOLD, CHOCO, CREAM, GOLD, PRIMARY_MAIN,
 } from '../constants/colors';
 
 export const InfoItemStyled = styled.div`
@@ -377,5 +373,15 @@ export const InfoBlockStyled = styled.div`
     font-family: 'Nexa Script', sans-serif !important;
     font-weight: 700 !important;
     font-size: 3rem !important;
+  }
+  
+  .image-placeholder {
+    height: 300px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fplaceholder2.jpg?alt=media&token=e524e66b-1da1-4e89-bf19-b6ddcbc949a1");
+    border-radius: 4px;
   }
 `;

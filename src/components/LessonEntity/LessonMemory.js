@@ -34,9 +34,10 @@ export const LessonMemory = ({ entityName, lesson }) => {
       <section className="ksu-content no-margin" ref={componentRef}>
         <aside className="game">
           <div className="game-list">
-            {games.length >= 1 && games.map(el => {
+            {games?.length >= 1 && games.map(el => {
               return (
                 <div
+                  key={el.id}
                   onClick={() => setSelectedGame(el)}
                   className={`game-item ${selectedGame?.key === el.key && 'active'}`}
                 >

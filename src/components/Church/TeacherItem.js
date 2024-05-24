@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useGetEntity } from '../../api/entity/useGetEntity';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
-  const { getEntityById } = useGetEntity(entityName);
+  const { getUserById } = useGetEntity(entityName);
   const [entityData, setEntityData] = useState(null);
 
   useEffect(() => {
-    getEntityById(id).then((data) => {
+    getUserById(id).then((data) => {
       setEntityData(data);
     });
-  }, [id, getEntityById]);
+  }, [id, getUserById]);
 
   return (
     <ShadowCardStyled key={entityData?.id} className="vertical-card">
