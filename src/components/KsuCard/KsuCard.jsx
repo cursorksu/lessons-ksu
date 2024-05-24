@@ -8,7 +8,6 @@ export const KsuCard = ({
   action,
   children,
   className,
-  hideTitle,
   hideAction,
 }) => {
   return (
