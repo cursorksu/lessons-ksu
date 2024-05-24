@@ -1,14 +1,45 @@
-name: Deploy to Firebase Hosting on PR
-'on': pull_request
+name: Firebase Deployment
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  build_and_preview:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Checkout Repo
+        uses: actions/checkout@v2.3.2
+      - name: Install Dependencies
+        run: yarn
+      - name: Build
+        env:
+          CI: false
+        run: yarn run build
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@v2
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LESSONS_KSU }}'
-          projectId: lessons-ksu
+          name: build
+          path: build
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2.3.2
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
