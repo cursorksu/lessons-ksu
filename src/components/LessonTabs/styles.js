@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {
-  BOX_SHADOW, CREAM, DARK_BG, DARK_GRAY, GOLD
+  BOX_SHADOW, CHOCO, CREAM, DARK_BG, GOLD
 } from '../../constants/colors';
 
 export const TabStyled = styled('div')`
@@ -38,9 +38,7 @@ export const TabStyled = styled('div')`
     &.active {
       opacity: 1 !important;
       background: #fff !important;
-
-      box-shadow: ${BOX_SHADOW};
-      color: ${DARK_GRAY} !important;
+      color: ${CHOCO};!important;
       position: relative;
       z-index: 2;
     }

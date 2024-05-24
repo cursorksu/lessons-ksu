@@ -1,30 +1,26 @@
-name: Deploy to Firebase Hosting on PR
+name: Deploy to Firebase Hosting
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build_and_preview:
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
 
       - name: Deploy to Firebase
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_LESSONS_KSU }}'
-          projectId: lessons-ksu
+        run: firebase deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_LESSONS_KSU }}
