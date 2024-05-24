@@ -8,8 +8,6 @@ import Scala from "../Games/Scale/Scala";
 import { BibleText } from '../Games/BibleText/BibleText';
 import Situations from '../App';
 import { Boxes } from '../Games/Boxes/Boxes';
-import { Rate } from '../Games/Rate/Rate';
-
 export const AppRouter = () => {
   const auth = useSelector((state) => state.auth);
 
