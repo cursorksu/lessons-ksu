@@ -2,20 +2,18 @@ import { MainLayout } from '../../pages/MainLayout';
 import { BoxesStyled, GameScoreStyled } from './BoxesStyled';
 import { useSelector } from 'react-redux';
 import React, {
-  useCallback,
-  useEffect, useMemo,
+  useEffect,
   useRef,
   useState
 } from 'react';
 import { useNavigate } from 'react-router';
 import { ReactComponent as ReloadIcon } from '../../assets/reload.svg';
-import { useSplitAndRemoveWords } from '../../hooks/useSplitAndRemoveWords';
 import clsx from 'clsx';
 
 export const Boxes = () => {
   const isMenuCollapsed = useSelector(store => store.mainMenuCollapsed);
   const { lesson } = useSelector(state => state.lessonData);
-  const [score, setScore] = useState(0);
+  const [score] = useState(0);
   const [correctSound, setCorrectSound] = useState(false);
   const navigate = useNavigate();
 

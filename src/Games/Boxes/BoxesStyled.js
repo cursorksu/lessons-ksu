@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { NEON, NEON_HOVER, NEON_INNER } from '../../constants/colors';
+import { NEON, NEON_HOVER } from '../../constants/colors';
 export const BoxesTextLink = styled('button')`
   cursor: pointer;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2015.53.13.png?alt=media&token=925fa405-957e-4fee-823f-9b9f1a3d6ad8');
