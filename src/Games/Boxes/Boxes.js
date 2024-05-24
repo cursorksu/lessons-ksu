@@ -6,9 +6,9 @@ import React, {
   useRef,
   useState
 } from 'react';
+import clsx from 'clsx';
 import { useNavigate } from 'react-router';
 import { ReactComponent as ReloadIcon } from '../../assets/reload.svg';
-import clsx from 'clsx';
 
 export const Boxes = () => {
   const isMenuCollapsed = useSelector(store => store.mainMenuCollapsed);
