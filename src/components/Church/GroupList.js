@@ -99,7 +99,7 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
   }, [removeTeacherFromGroup, church, getGroups]);
 
   const getTeacherName = useCallback((teacherId) => {
-    const teacherObj = teachers.find(teacher => teacherId === teacher.uid);
+    const teacherObj = teachers?.find(teacher => teacherId === teacher.uid);
     return teacherObj?.firstName ? `${teacherObj?.firstName} ${teacherObj?.lastName}` : teacherObj?.fullName;
   }, [teachers]);
 

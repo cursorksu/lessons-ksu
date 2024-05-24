@@ -26,7 +26,7 @@ export const LessonCard = ({ item, onClick, onDelete }) => {
         <CardMeta>
           <div>
             <p>Created: {item?.createdAt}</p>
-            <p>Author: {item?.createdBy?.name}</p>
+            <p>Author: {item?.createdBy?.firstName} {item?.createdBy?.lastName}</p>
           </div>
           <ButtonIconStyled onClick={(e) => onDelete(e, item?.id)}>
             <DeleteIcon />

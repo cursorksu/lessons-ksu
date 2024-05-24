@@ -15,6 +15,13 @@ import { useNavigate, useParams } from 'react-router';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { routes } from '../../router/constants';
 import { useSelector } from 'react-redux';
+import {
+  getDateLocalString, getDateObject
+} from '../../utils/getDateLocalString';
+import {
+  getTimeStepFromString
+} from '../../utils/getDateFromTimeStep';
+import { getAge } from '../../utils/getAge';
 
 export const UserProfile = () => {
   const { user } = useSelector(state => state.auth);
@@ -50,10 +57,13 @@ export const UserProfile = () => {
 
   const [defaultValues, setDefaultValues] = useState(initialValues);
   const handleRowClick = useCallback((data) => {
+    const birthday = JSON.parse(data.birthday);
     setIsFormShown(true);
     setDefaultValues({
       ...data,
       group: groupId,
+      createdAt: getTimeStepFromString(data.createdAt),
+      birthday: birthday ? getDateObject(birthday) : new Date(),
     });
   }, [groupId]);
   const confirmationHandler = () => {
@@ -99,7 +109,7 @@ export const UserProfile = () => {
               isIgnored: false,
               render: (data) => data.birthday && (
                 <div>
-                  {/*{dateFormat(data.birthday, 'dd.mm.yyyy')}*/}
+                  {getDateLocalString(JSON.parse(data.birthday))}
                 </div>
               ),
             },
@@ -108,7 +118,7 @@ export const UserProfile = () => {
               isIgnored: true,
               render: (data) => (
                 <div>
-                  {/*{getAge(dateFormat(data.birthday, 'yyyy-mm-dd'))}*/}
+                  {getAge(data.birthday)}
                 </div>
               ),
             },
@@ -187,6 +197,7 @@ export const UserProfile = () => {
 
       {isFormShown && (
         <CreateEntityForm
+          className="sticky"
           entityName="students"
           onConfirm={confirmationHandler}
           onClose={() => setIsFormShown(false)}

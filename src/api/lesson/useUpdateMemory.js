@@ -28,14 +28,14 @@ export const useUpdateMemory = () => {
                 ...oldMemory,
                 data.memory,
               ],
-              modification_timestamp: new Date().toLocaleString(),
+              modification_timestamp: new Date().getTime(),
             }
             : {
               ...lessonFromDb,
               memory: [
                 data.memory,
               ],
-              modification_timestamp: new Date().toLocaleString(),
+              modification_timestamp: new Date().getTime(),
             } ;
 
           await updateDoc(docRef, newData);

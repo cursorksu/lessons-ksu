@@ -30,7 +30,7 @@ export const useGetEntity = (entityName) => {
             throw new Error(`No author reference found in the ${entityName}!`);
           }
         } else {
-          throw new Error(`${entityName} does not exist!`);
+          throw new Error(`${entityName.autoCapitalize()} does not exist!`);
         }
       }
     } catch (error) {

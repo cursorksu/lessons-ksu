@@ -11,7 +11,7 @@ export const KsuCard = ({
   hideAction,
 }) => {
   return (
-    <Card className={className + 'print-fluid'}>
+    <Card className={`${className || ''} print-fluid ksu-card`}>
       <KsuCardStyled>
         {image && <Image src={image} wrapped ui={false} />}
         <CardHeader><h2 className='title'>{title}</h2></CardHeader>
