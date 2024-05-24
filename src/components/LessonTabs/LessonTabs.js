@@ -12,8 +12,6 @@ import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { Popup, Tab, TabPane } from 'semantic-ui-react';
 import { useTranslation } from 'react-i18next';
 import { ButtonIconStyled } from '../ButtonStyled';
-import { ReactComponent as PrintIcon } from '../../assets/print.svg';
-import { useReactToPrint } from 'react-to-print';
 import { useGetEntity } from '../../api/entity/useGetEntity';
 import {
   setLesson as setLessonInStore,
@@ -50,12 +48,15 @@ export const LessonTabs = () => {
     setShouldUpdate(prev => !prev);
   };
 
+  const componentRef = useRef();
+
   const panes = [
     {
       menuItem: { key: 'topic', icon: <TopicIcon />, content: t('lessonTabs.topic') },
       render: () =>
-        <TabPane>
+        <TabPane key={'topic'}>
           <TopicToPrint
+            ref={componentRef}
             lesson={lesson}
             onChangeConfirm={handleConfirmCreation}
           />,
@@ -64,44 +65,39 @@ export const LessonTabs = () => {
     {
       menuItem: { key: 'subject', icon: <BookmarkIcon />, content: t('lessonTabs.subject') },
       render: () =>
-        <TabPane>
+        <TabPane key={'subject'}>
           <LessonEntity entityName={'subject'} lesson={lesson}/>,
         </TabPane>
     },
     {
       menuItem: { key: 'creative', icon: <PalletIcon />, content: t('lessonTabs.creative') },
       render: () =>
-        <TabPane>
+        <TabPane key={'creative'}>
           <LessonEntity entityName={'creative'} lesson={lesson}/>
         </TabPane>
     },
     {
       menuItem: { key: 'activeGame', icon: <GameIcon />, content: t('lessonTabs.game') },
       render: () =>
-        <TabPane>
+        <TabPane key={'activeGame'}>
           <LessonEntity entityName={'activeGame'} lesson={lesson}/>
         </TabPane>
     },
     {
       menuItem: { key: 'memory', icon: <MemoryIcon />, content: t('lessonTabs.memory') },
       render: () =>
-        <TabPane>
+        <TabPane key={'memory'}>
           <LessonMemory entityName={'memory'} lesson={lesson}/>
         </TabPane>
     },
     {
       menuItem: { key: 'food', icon: <FoodIcon />, content: t('lessonTabs.food') },
       render: () =>
-        <TabPane>
+        <TabPane key={'food'}>
           <LessonEntity entityName={'food'} lesson={lesson}/>,
         </TabPane>
     },
   ];
-
-  const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
 
   const [selectedStatus, setSelectedStatus] = useState(lesson?.status);
   useEffect(() => {
@@ -116,7 +112,7 @@ export const LessonTabs = () => {
   }, [selectedStatus, lesson, editEntity]);
 
   return (
-    <div rer={componentRef}>
+    <div>
       <div className="herro" style={{ backgroundImage: `url("${lesson?.imageUrl}")`}}>
         <div className="title-wrapper top-container">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
@@ -154,14 +150,6 @@ export const LessonTabs = () => {
               content='Змінити назву та заобаження уроку'
             />
           )}
-          <Popup
-            trigger={(
-              <ButtonIconStyled onClick={handlePrint}>
-                <PrintIcon />
-              </ButtonIconStyled>
-            )}
-            content='Надрукувати цей урок'
-          />
         </div>
       </div>
 

@@ -9,13 +9,13 @@ export const EntityToPrint = React.forwardRef(({
   lesson,
   entity,
   entityName,
-}) => {
+}, ref) => {
   const slideList = useMemo(() => {
     return entity?.list?.filter((el) => el.type === 'image');
   }, [entity]);
 
   return (
-    <Grid divided>
+    <Grid divided ref={ref}>
       <GridRow>
         <GridColumn width={16}>
           {slideList?.length > 0 && (

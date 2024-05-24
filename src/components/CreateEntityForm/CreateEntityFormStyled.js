@@ -1,10 +1,19 @@
 import styled from '@emotion/styled';
-import { PRIMARY_MAIN } from '../../constants/colors';
+import { BOX_SHADOW, PRIMARY_MAIN } from '../../constants/colors';
 
 export const CreateEntityFormStyled = styled('div')`
   background: #fff;
   padding: 40px;
   border-top: 1px solid ${PRIMARY_MAIN};
+  
+  &.sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    box-shadow: ${BOX_SHADOW};
+  }
   
   .d-flex {
     display: flex;

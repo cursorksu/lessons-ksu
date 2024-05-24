@@ -10,7 +10,6 @@ import { ButtonStyled } from '../components/ButtonStyled';
 import { CreateEntityForm } from '../components/CreateEntityForm/CreateEntityForm';
 import { useGetAllEntities } from '../api/entity/useGetAllEntities';
 import { useDeleteEntity } from "../api/entity/useDeleteEntity";
-import dateFormat from 'dateformat';
 import {
   collectionConfig, defaultValues
 } from '../constants/entities/collectionsConfig';
@@ -84,7 +83,7 @@ export const Collections = () => {
           {collections?.length > 0 && collections?.map(el => (
             <SprintCard
               key={el.id}
-              editEnable={user?.uid === el.createdBy.uid}
+              editEnable={user?.uid === el.createdBy?.uid}
               modalTitle={'collections.deleteCollection'}
               modalContent={'modal.collectionDelete'}
               onDelete={(e) => handleDelete(e, el.id)}
@@ -95,8 +94,8 @@ export const Collections = () => {
               id={el.id}
             >
               <div>
-                <div><span className="meta">{dateFormat(el.createdAt, 'dd.mm.yyyy')}</span></div>
-                <div><span className="meta">{el.createdBy.name}</span></div>
+                <div><span className="meta">{el.createdAt}</span></div>
+                <div><span className="meta">{el.createdBy?.firstName} {el.createdBy?.lastName}</span></div>
               </div>
               <div>
                 <hr/>

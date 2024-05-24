@@ -4,6 +4,7 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 import { setEntity } from '../../store/entitiesReducer';
+import { getDateLocalString } from '../../utils/getDateLocalString';
 
 export const useGetStudentsInGroup = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,12 @@ export const useGetStudentsInGroup = () => {
       const querySnapshot = await getDocs(groupsQuery);
       let groupsData = querySnapshot.docs.map((doc) => {
         const data = doc.data();
+
         return {
           id: doc.id,
           ...data,
+          birthday: JSON.stringify(data.birthday),
+          createdAt: getDateLocalString(data.createdAt),
         };
       });
       setLoading(false);

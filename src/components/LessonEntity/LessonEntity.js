@@ -102,6 +102,7 @@ export const LessonEntity = ({ entityName, lesson }) => {
                   )}
               </div>
               {entities && entities[0]?.imageUrl && <img src={entities[0].imageUrl} alt={entityName} />}
+              {!(entities && entities[0]?.imageUrl) && <div className="image-placeholder"/>}
             </div>
           )}
         </aside>

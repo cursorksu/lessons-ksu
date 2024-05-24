@@ -3,12 +3,11 @@ import {
   CREAM, ERROR_MAIN, ITEM_BG, ITEM_OUTER, NEON, SUCCESS
 } from '../../constants/colors';
 
-export const SelectedGamesStyled = styled('button')`
+export const SelectedGamesStyled = styled('div')`
   padding: 10px;
   margin-bottom: 20px;
   border-radius: 20px;
   background: ${ITEM_BG};
-  border: none;
   width: 102%;
   display: flex;
   text-align: left;
