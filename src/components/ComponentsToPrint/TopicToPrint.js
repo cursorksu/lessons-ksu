@@ -120,7 +120,7 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }, ref) 
             </div>
             <KsuCard
               title={'Мета уроку'}
-              action={user?.uid && (
+              action={user?.uid && lesson?.createdBy?.uid === user?.uid && (
                 <div className='print-hide'>
                   {!isGoalEdit
                     ? (
@@ -160,7 +160,7 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }, ref) 
             </KsuCard>
             <KsuCard
               title={'Ключове місце Біблії'}
-              action={user?.uid && (
+              action={user?.uid && lesson?.createdBy?.uid === user?.uid && (
                 <div className='print-hide'>
                   {!isGoalEdit
                     ? (
@@ -219,7 +219,7 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }, ref) 
             </KsuCard>
             <KsuCard
               title={'Що треба взяти'}
-              action={user?.uid && (
+              action={user?.uid && lesson?.createdBy?.uid === user?.uid && (
                 !isMaterialEdit
                   ? (
                     <ButtonIconStyled onClick={() => setIsMaterialEdit(true)}>
@@ -275,7 +275,7 @@ export const TopicToPrint = React.forwardRef(({ lesson, onChangeConfirm }, ref) 
               )}
               content='Надрукувати цей урок'
             />
-            {user?.uid && lesson?.createdBy?.uid === user?.uid(
+            {user?.uid && lesson?.createdBy?.uid === user?.uid && (
               !isTopicEdit
                 ? (
                   <ButtonIconStyled onClick={() => setIsTopicEdit(true)}>
