@@ -9,9 +9,11 @@ import { LessonListStyled } from './LessonListStyled';
 import {useLessonToCollection} from "../../api/collections/useLessonToCollection";
 import {useGetLessonsInCollection} from "../../api/lesson/useGetLessonsInCollection";
 import { routes } from '../../router/constants';
+import { publicStatuses } from '../../constants/statuses/publicStatuses';
 
 export const LessonList = ({ collection, selectedStatus } ) => {
   const navigate = useNavigate();
+  const { user } = useSelector(state => state.auth);
   const { deleteLesson } = useDeleteLesson();
   const { unbindLessonFromCollection } = useLessonToCollection();
   const { loading, getLessonsInCollection } = useGetLessonsInCollection();
@@ -37,9 +39,26 @@ export const LessonList = ({ collection, selectedStatus } ) => {
   }, [collection, deleteLesson, unbindLessonFromCollection]);
 
   const filteredLessons =  useMemo(() => {
-    // TODO:  Сделать так чтобы пользователь не автор коллекции видел в
-    //  одном списке уроки опубликованные и активные своей церкви
-    return lessons?.filter(lesson => lesson.status === selectedStatus );
+    // TODO:  добавить в коллекцию поле церковь и возможность изменять его
+    let filteredCollection = [];
+    if (user?.uid === collection?.createdBy?.uid) {
+      filteredCollection = lessons?.filter(lesson => lesson.status === selectedStatus);
+    } else {
+      if (!user?.uid) {
+        filteredCollection = lessons?.filter(lesson => lesson.status === publicStatuses.published);
+      }
+      if (user?.uid && user.church?.some(el => el === collection?.church)) {
+        filteredCollection = lessons?.filter(lesson =>
+          lesson.status === publicStatuses.published);
+        const activeLessons = lessons?.filter(lessons => lessons.status === publicStatuses.active);
+
+        if (activeLessons.length) {
+          filteredCollection = [...filteredCollection, ...activeLessons];
+        }
+      }
+    }
+
+    return filteredCollection;
   }, [lessons, selectedStatus]);
 
   return (

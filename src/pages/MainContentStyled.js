@@ -195,13 +195,14 @@ export const MainContentStyled = styled('div')`
         background-image: url("https://th.bing.com/th/id/OIG.MC3PObbEmuJhfsPJ8biQ");
         background-size: cover;
         background-repeat: no-repeat;
-        background-position: center -160px;
+        background-position: center top;
         text-align: center;
         color: ${CREAM};
         box-shadow: ${BOX_SHADOW};
       
         &.scenario-herro {
           background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fshow.webp?alt=media&token=2df4fc9a-e478-4f44-ae60-c0639f61c537");
+          background-position: center -160px;
         }
 
       &.collection-herro {

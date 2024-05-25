@@ -187,7 +187,10 @@ p, label, a, span {
         display: block !important;
     }
 }
-
+.ui.attached.tabular.menu {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
 .dnd-list {
     margin: 0;
     padding: 0;
