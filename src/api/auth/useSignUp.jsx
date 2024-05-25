@@ -58,7 +58,6 @@ export const useSignUp = () => {
         });
       })
       .then(() => {
-        //navigate(routes.home);
         getUsers().then(data => {
           dispatch(setTeachersList(data));
         });

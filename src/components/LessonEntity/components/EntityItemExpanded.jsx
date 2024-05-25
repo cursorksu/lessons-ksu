@@ -2,6 +2,7 @@ import { EntityItemStyled } from '../EntityItemStyled';
 import { HTMLRenderer } from '../../HTMLRender/HTMLRender';
 import React, { useState } from 'react';
 import { clsx } from 'clsx';
+import { getDateLocalString } from '../../../utils/getDateLocalString';
 
 export const EntityItemExpanded = ({entityName, item}) => {
   const [isContentShown, setIsContentShown] = useState(false);
@@ -29,21 +30,21 @@ export const EntityItemExpanded = ({entityName, item}) => {
         <div className="image">
           {item?.imageUrl
             ? <img src={item?.imageUrl} alt='item.title' />
-            : <HTMLRenderer htmlContent={findFirstImage(item.text)} />
+            : <HTMLRenderer htmlContent={findFirstImage(item?.text)} />
           }
         </div>
         <div className="item-title">
-          <h1>{item.title || <span className='light'>No title</span>}</h1>
+          <h1>{item?.title || <span className='light'>No title</span>}</h1>
           <div>
-            <div><b>Автор: </b>{item.createdBy.name}</div>
-            <div><b>Створено: </b>{JSON.stringify(item.createdAt)}</div>
+            <div><b>Автор: </b>{item.createdBy?.name}</div>
+            <div><b>Створено: </b>{item?.createdAt}</div>
             <div><b>Кількість використань: </b>{item?.lessons?.length || 0}</div>
           </div>
         </div>
       </div>
       {isContentShown && (
         <div className="text">
-          <HTMLRenderer htmlContent={item.text} />
+          <HTMLRenderer htmlContent={item?.text} />
         </div>
       )}
     </EntityItemStyled>

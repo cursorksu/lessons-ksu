@@ -25,7 +25,7 @@ import { LessonEntity } from '../LessonEntity/LessonEntity';
 import { TopicToPrint } from '../ComponentsToPrint';
 import { LessonMemory } from '../LessonEntity/LessonMemory';
 import { KsuStatus } from '../KsuStatus/KsuStatus';
-import { useEditEntity } from '../../api/entity/useEditEntity';
+
 export const LessonTabs = () => {
   const [editFormIsOpen, setEditFormIsOpen] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
@@ -33,7 +33,6 @@ export const LessonTabs = () => {
   const { lessonId } = useParams();
   const { t } = useTranslation('tr');
   const { getEntityById } = useGetEntity('lessons');
-  const { editEntity } = useEditEntity('lessons');
   const {
     lessonData: { lesson },
     auth: { user }
@@ -104,13 +103,6 @@ export const LessonTabs = () => {
     setSelectedStatus(lesson?.status);
   }, [lesson]);
 
-  useEffect(() => {
-    lesson && selectedStatus && editEntity({
-      id: lesson.id,
-      status: selectedStatus,
-    }).then(() => null);
-  }, [selectedStatus, lesson, editEntity]);
-
   return (
     <div>
       <div className="herro" style={{ backgroundImage: `url("${lesson?.imageUrl}")`}}>
@@ -135,6 +127,8 @@ export const LessonTabs = () => {
           ? (
             <KsuStatus
               status={selectedStatus}
+              entityName={'lessons'}
+              entityId={lessonId}
               onStatusChange={(data) => setSelectedStatus(data)}
             />
           )
