@@ -13,6 +13,7 @@ import { useDeleteEntity } from "../api/entity/useDeleteEntity";
 import {
   collectionConfig, defaultValues
 } from '../constants/entities/collectionsConfig';
+import { getDateLocalString } from '../utils/getDateLocalString';
 
 export const Collections = () => {
   const { user } = useSelector(state => state.auth);
@@ -45,6 +46,11 @@ export const Collections = () => {
     setInitialValues(collections.find(el => el.id  === id));
   };
 
+  const handleCreateConfirmation = async () => {
+    setIsFormShown(prev => !prev);
+    await getAllEntities();
+  };
+
   return (
     <MainLayout>
       <div className="herro collection-herro">
@@ -64,16 +70,17 @@ export const Collections = () => {
               />
             </div>
           )}
-        </div>
+        </div>ta
       </div>
 
       <div className="collections-parent-wrapper">
         {
           isFormShown && (
             <CreateEntityForm
+              className="sticky"
               defaultValues={initialValues}
-              onConfirm={() => setIsFormShown(!isFormShown)}
-              onCancel={() => setIsFormShown(false)}
+              onConfirm={() => handleCreateConfirmation()}
+              onClose={() => setIsFormShown(false)}
               entityName={'collections'}
               fields={collectionConfig}
             />
@@ -94,7 +101,7 @@ export const Collections = () => {
               id={el.id}
             >
               <div>
-                <div><span className="meta">{el.createdAt}</span></div>
+                <div><span className="meta">{getDateLocalString(JSON.parse(el.createdAt))}</span></div>
                 <div><span className="meta">{el.createdBy?.firstName} {el.createdBy?.lastName}</span></div>
               </div>
               <div>

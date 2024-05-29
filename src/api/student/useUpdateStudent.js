@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
 import { fireStore } from '../index';
-import { doc, getDoc, updateDoc  } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, Timestamp  } from 'firebase/firestore';
 import { useGetStudentProfile } from './useGetStudentProfile';
 import { useGetAllEntities } from "../entity/useGetAllEntities";
-
 export const useUpdateStudent = () => {
   const { getStudentProfile } = useGetStudentProfile();
   const { getAllEntities } = useGetAllEntities('students');
@@ -16,13 +15,9 @@ export const useUpdateStudent = () => {
         const student = profileSnap.data();
         if (student) {
           await updateDoc(studentDocRef, {
-            ...student?.profile,
             ...data,
-            modification_timestamp: new Date().getTime(),
+            modification_timestamp: Timestamp.now(),
           });
-
-          const studentList = await getAllEntities();
-          localStorage.setItem('students', JSON.stringify(studentList));
           await getAllEntities();
         }
       } catch (error) {

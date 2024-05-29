@@ -13,8 +13,9 @@ import { useAssignGroupToChurch } from '../../api/refs/useAssignGroupToChurch';
 import { useAssignGroupTeacher } from '../../api/refs/useAssignGroupTeacherю';
 import { useParams } from 'react-router';
 import { KsuTeachersDropdown } from '../KsuDropdown/KsuTeachersDropdown';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
+import { setMessage } from '../../store/notificationReducer';
 
 const initialValues = {
   title: '',
@@ -25,6 +26,7 @@ const initialValues = {
 };
 
 export const GroupList = ({ isAuth, church, onEdit }) => {
+  const dispatch = useDispatch();
   const { teachers } = useSelector(state => state.lessonData);
   const { t } = useTranslation('tr');
   const { churchId } = useParams();
@@ -54,17 +56,32 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
     const newData = getValues();
 
     try {
+      if (!newData.teachers || !Array.isArray(newData.teachers)) {
+        throw new Error('Teachers field is missing or not an array');
+      }
+
       const createdGroupId = await createEntity(newData);
       await addGroupToChurch(churchId, createdGroupId);
-      for (const teacherId of newData?.teachers) { ;
-        await Promise.all(await addTeacherToGroup(createdGroupId, teacherId));
-      }
+
+      const teacherPromises = newData.teachers.map((teacherId) => {
+        return addTeacherToGroup(createdGroupId, teacherId);
+      });
+      await Promise.all(teacherPromises);
+
       reset();
       onEdit();
       setIsFormShown(false);
       forceUpdate();
     } catch (error) {
-      throw new Error(`Error in creation group:  ${error.message}`);
+      dispatch(
+        setMessage({
+          type: 'error',
+          message: {
+            title: `Error in creation group ${error.message}:`,
+            description: error.message,
+          },
+        })
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createEntity, getValues, onEdit, reset]);

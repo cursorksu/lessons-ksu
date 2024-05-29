@@ -322,6 +322,7 @@ export const InfoBlockStyled = styled.div`
     border-radius: 4px;
     overflow: hidden;
     height: 280px;
+    margin-bottom: 20px;
 
     img {
       margin-right: 0 !important;

@@ -4,7 +4,6 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 import { setEntity } from '../../store/entitiesReducer';
-import { getDateLocalString } from '../../utils/getDateLocalString';
 
 export const useGetStudentsInGroup = () => {
   const dispatch = useDispatch();
@@ -22,8 +21,10 @@ export const useGetStudentsInGroup = () => {
         return {
           id: doc.id,
           ...data,
+          createdBy: '',
           birthday: JSON.stringify(data.birthday),
-          createdAt: getDateLocalString(data.createdAt),
+          createdAt: JSON.stringify(data.createdAt),
+          modification_timestamp: JSON.stringify(data.modification_timestamp),
         };
       });
       setLoading(false);
