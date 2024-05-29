@@ -120,7 +120,7 @@ export const GroupItem = () => {
         <div className="top-container">
           <div>
             <h1 className="title">{group?.title}</h1>
-            {teachers.map(el =>  <div key={el.id} className='subtitle'>{el.firstName + ' ' + el.lastName}</div>)}
+            {teachers?.map(el =>  <div key={el.id} className='subtitle'>{el.firstName + ' ' + el.lastName}</div>)}
           </div>
           <div>
             {group?.createdBy?.uid === user?.uid && (

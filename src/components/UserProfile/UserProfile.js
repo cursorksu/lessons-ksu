@@ -18,9 +18,6 @@ import { useSelector } from 'react-redux';
 import {
   getDateLocalString, getDateObject
 } from '../../utils/getDateLocalString';
-import {
-  getTimeStepFromString
-} from '../../utils/getDateFromTimeStep';
 import { getAge } from '../../utils/getAge';
 
 export const UserProfile = () => {
@@ -50,7 +47,6 @@ export const UserProfile = () => {
     birthday: '',
     estimation: '',
     // :TODO change to calendar date picker logic
-    listOfVisits: [new Date().toDateString()],
     isActive: true,
     group: groupId,
   };
@@ -62,8 +58,8 @@ export const UserProfile = () => {
     setDefaultValues({
       ...data,
       group: groupId,
-      createdAt: getTimeStepFromString(data.createdAt),
-      birthday: birthday ? getDateObject(birthday) : new Date(),
+      createdAt: JSON.parse(data.createdAt),
+      birthday: birthday ? getDateObject(JSON.parse(birthday)) : new Date(),
     });
   }, [groupId]);
   const confirmationHandler = () => {

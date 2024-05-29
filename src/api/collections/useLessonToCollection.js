@@ -15,7 +15,9 @@ export const useLessonToCollection = () => {
     const docSnap = await getDoc(collectionRef);
 
     if (!docSnap.exists()) throw new Error('No such document fined');
-    
+
+    console.log("bindLessonToCollection:",{ collection, lessonId, docSnap: docSnap.data() });
+
     try {
       await updateDoc(collectionRef, {
         lessonIds: arrayUnion(lessonId)
@@ -39,8 +41,11 @@ export const useLessonToCollection = () => {
     if (!collection || !collection.id) {
       throw new Error("The collection or the collection ID is not defined.");
     }
+
     const collectionRef = doc(fireStore, 'collections', collection.id);
     const docSnap = await getDoc(collectionRef);
+
+    console.log("unbindLessonFromCollection:", { collection, lessonId, docSnap: docSnap.data() });
 
     if (!docSnap.exists()) throw new Error('No such document fined');
     try {

@@ -5,7 +5,9 @@ import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 import { setCollectionsInStore } from '../../store/collectionsResucer';
 import { setEntity } from '../../store/entitiesReducer';
-import { getDateLocalString } from '../../utils/getDateLocalString';
+import {
+  getDateLocalString, getDateObject
+} from '../../utils/getDateLocalString';
 
 export const useGetAllEntities = (entity) => {
   const dispatch = useDispatch();
@@ -22,11 +24,17 @@ export const useGetAllEntities = (entity) => {
         if (authorRef) {
           const authorSnapshot = await getDoc(authorRef);
           const authorData = authorSnapshot.data();
+
           return {
             id: doc?.id,
             ...data,
-            createdAt: getDateLocalString(data?.createdAt),
-            createdBy: authorData ?? null,
+            createdAt: JSON.stringify(data?.createdAt),
+            modification_timestamp: JSON.stringify(data?.createdAt),
+            createdBy: {
+              ...authorData,
+              createdAt: JSON.stringify(authorData?.createdAt),
+              modification_timestamp: JSON.stringify(authorData?.createdAt),
+            } ?? null,
           };
         }
 
@@ -42,7 +50,8 @@ export const useGetAllEntities = (entity) => {
       if (entity === 'collections') {
         dispatch(
           setCollectionsInStore(
-            entityData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            entityData.sort((a, b) =>
+              getDateObject(JSON.parse(b.createdAt)) - getDateObject(JSON.parse(a.createdAt)))
           )
         );
       }

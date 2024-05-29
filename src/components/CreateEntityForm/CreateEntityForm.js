@@ -90,6 +90,7 @@ export const CreateEntityForm = ({
         <div className="triple-cell">
           <KsuTags
             field={field}
+            value={field.value}
             placeholder={t(`${entityName}.placeholders.${el.name}`)}
             onChange={(data) => setValue(field.name, data)}
           />

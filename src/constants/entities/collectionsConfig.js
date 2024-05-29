@@ -26,7 +26,7 @@ export const collectionConfig = [
     placeholder: `Enter image url of Collection`,
   },
   {
-    inputType: 'textInput',
+    inputType: 'tags',
     name: 'tags',
     label: 'Tags',
     placeholder: `Use coma to provide few tags`,

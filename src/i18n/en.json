@@ -13,7 +13,19 @@
     "game": "Games",
     "creativity": "Creativity",
     "memory": "Memoization",
-    "food": "Food"
+    "food": "Food",
+    "labels": {
+      "title": "Collection title",
+      "description": "Collection Description",
+      "tags": "Tags",
+      "imageUrl": "Collection image"
+    },
+    "placeholders": {
+      "title": "Enter Title",
+      "description": "Enter Description",
+      "tags": "Tags",
+      "imageUrl": "Add image url"
+    }
   },
   "students": {
     "myStudents": "My students",

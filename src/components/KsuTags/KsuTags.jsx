@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { KsuTagsStyled } from './styles';
 
-export const KsuTags = ({ placeholder, onChange }) => {
-  const [tags, setTags] = useState([]);
+export const KsuTags = ({ placeholder, onChange, field, value }) => {
+  const [tags, setTags] = useState(value ?? []);
 
   useEffect(() => {
     onChange(tags);

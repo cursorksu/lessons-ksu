@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useCallback } from 'react';
-import { addDoc, collection, doc } from 'firebase/firestore';
+import { addDoc, collection, doc, Timestamp } from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 
@@ -15,7 +15,7 @@ export const useCreateEntity = ( entity, onCreationComplete ) => {
 
       const result = await addDoc(entityCollection, {
         ...formData,
-        createdAt: new Date(),
+        createdAt: Timestamp.now(),
         createdBy: authorRef,
       });
       dispatch(

@@ -50,7 +50,10 @@ export const useSignUp = () => {
           }
 
           dispatch(setAuthData({
-            user: userData,
+            user: {
+              ...userData,
+              createdAt: JSON.stringify(userData.createdAt)
+            },
             token: auth?.currentUser?.accessToken,
           }));
 
@@ -59,7 +62,9 @@ export const useSignUp = () => {
       })
       .then(() => {
         getUsers().then(data => {
-          dispatch(setTeachersList(data));
+          dispatch(setTeachersList([
+            ...data.map(el => ({...el, createdAt: JSON.stringify(el.createdAt)})),
+          ]));
         });
       })
       .catch((error) => {
