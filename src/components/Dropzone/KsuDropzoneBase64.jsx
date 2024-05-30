@@ -5,7 +5,7 @@ import React from 'react';
 import { resizeFile } from '../../utils/resizeFile';
 import { useTranslation } from 'react-i18next';
 
-export const KsuDropzone = ({ onChange, files, multiple }) => {
+export const KsuDropzoneBase64 = ({ onChange, files, multiple }) => {
   const { t } = useTranslation('tr');
   const onDrop = async (acceptedFiles) => {
     acceptedFiles.forEach((file) => {

@@ -18,22 +18,9 @@ export const useEditEntity = (entityName) => {
           ...data,
           createdBy: entity.createdBy,
           createdAt: entity.createdAt,
-          modification_timestamp: Timestamp.now(), // Set modification_timestamp to current time
+          modification_timestamp: Timestamp.now(),
         };
-        console.log({ newData });
         if (entity) {
-          // Parse date fields
-          // if (typeof newData.createdAt === 'string') {
-          //   const createdAtObj = JSON.parse(newData.createdAt);
-          //   newData.createdAt = new Timestamp(createdAtObj.seconds, createdAtObj.nanoseconds);
-          // }
-          //
-          // // Convert createdBy to a document reference
-          // if (newData.createdBy && typeof newData.createdBy === 'object' && newData.createdBy.id) {
-          //   newData.createdBy = doc(fireStore, `users/${newData.createdBy.id}`);
-          // }
-          //
-
           await updateDoc(docRef, newData);
 
           if (entityName === 'students') {

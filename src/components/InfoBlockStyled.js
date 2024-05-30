@@ -264,8 +264,15 @@ export const InfoBlockStyled = styled.div`
       &.group {
         padding: 70px 20px 20px;
       }
-
+      h2 {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       li {
+        font-size: 16px !important;
+        line-height: 1.8 !important;
+
         button {
           border-radius: 50%;
           width: 20px;
@@ -279,12 +286,14 @@ export const InfoBlockStyled = styled.div`
       }
 
       img {
-        position: absolute;
-        left: 6px;
-        top: 6px;
-        bottom: 6px;
-        width: 248px;
+        width: 100%;
+        height: 260px;
         object-fit: cover;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         z-index: 0;

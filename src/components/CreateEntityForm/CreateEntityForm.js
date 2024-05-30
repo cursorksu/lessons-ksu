@@ -9,7 +9,7 @@ import { InputStyled, LabelStyled } from '../InputStyled';
 import EmojiPicker, { Emoji } from 'emoji-picker-react';
 import { useEditEntity } from '../../api/entity/useEditEntity';
 import { KsuDatePicker } from '../KsuDatePicker';
-import { KsuDropzone } from '../Dropzone/KsuDropzone';
+import { KsuDropzoneBase64 } from '../Dropzone/KsuDropzoneBase64';
 import { KsuDropdown } from '../KsuDropdown';
 import { KsuTags } from '../KsuTags/KsuTags';
 import { useSelector } from 'react-redux';
@@ -78,7 +78,7 @@ export const CreateEntityForm = ({
     case 'imagePicker':
       return (
         <div className="triple-cell">
-          <KsuDropzone
+          <KsuDropzoneBase64
             onChange={(data) => setValue(field.name, data)}
             files={getValues(field.name)}
             multiple={false}
@@ -98,7 +98,7 @@ export const CreateEntityForm = ({
       );
     case 'imagesPicker':
       return (
-        <KsuDropzone
+        <KsuDropzoneBase64
           onChange={(data) => setValue(field.name, data)}
           files={getValues(field.name)}
           multiple={true}

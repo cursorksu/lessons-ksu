@@ -16,8 +16,6 @@ export const useLessonToCollection = () => {
 
     if (!docSnap.exists()) throw new Error('No such document fined');
 
-    console.log("bindLessonToCollection:",{ collection, lessonId, docSnap: docSnap.data() });
-
     try {
       await updateDoc(collectionRef, {
         lessonIds: arrayUnion(lessonId)
@@ -44,8 +42,6 @@ export const useLessonToCollection = () => {
 
     const collectionRef = doc(fireStore, 'collections', collection.id);
     const docSnap = await getDoc(collectionRef);
-
-    console.log("unbindLessonFromCollection:", { collection, lessonId, docSnap: docSnap.data() });
 
     if (!docSnap.exists()) throw new Error('No such document fined');
     try {

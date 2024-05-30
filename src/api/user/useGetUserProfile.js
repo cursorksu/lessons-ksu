@@ -11,10 +11,19 @@ export const useGetUserProfile = () => {
         const docRef = doc(fireStore, `users`, uid);
         const docSnap = await getDoc(docRef);
         const user = docSnap.data();
-        const serializedUser =  {
-          id: docSnap?.id,
-          ...user,
-          createdAt: getDateLocalString(user?.createdAt) };
+
+        const churchRef = doc(fireStore, 'church', user.church[0]);
+        const churchDocSnap =  await getDoc(churchRef);
+        const church = churchDocSnap.data();
+
+
+        const serializedUser = {
+          id: docSnap?.id, ...user,
+          createdAt: getDateLocalString(user?.createdAt),
+          church: {
+            id: church?.id, title: church?.title,
+          }
+        };
         setProfile(serializedUser);
       } catch (error) {
         throw new Error(error);
