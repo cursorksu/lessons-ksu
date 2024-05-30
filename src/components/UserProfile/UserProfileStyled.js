@@ -1,11 +1,28 @@
 import styled from '@emotion/styled';
-import { CREAM, CHOCO, DARK_BG } from '../../constants/colors';
+import { CREAM, CHOCO, DARK_BG, PRIMARY_MAIN } from '../../constants/colors';
 
 export const UserProfileStyled = styled.div`
   background-position: center -80px;
   background-size: cover;
   background-repeat: no-repeat;
-  text-align: center;
+  text-align: left;
+  
+  .action-wrapper {
+    padding: 16px;
+  }
+  
+  .user-title {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid ${CREAM};
+    color: ${CREAM};
+    font-family: Montserrat, sans-serif;
+    
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
 
   .title {
     color: ${CREAM};
@@ -13,6 +30,10 @@ export const UserProfileStyled = styled.div`
     font-size: 4rem;
     font-weight: 500;
     margin: 0 !important;
+    
+    button {
+      margin-left: 20px;
+    }
   }
   .subtitle {
     color: ${CREAM};
@@ -80,30 +101,49 @@ export const UserProfileStyled = styled.div`
     }
   }
   
-  .avatar {
-    width: 160px;
-    height: 160px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    overflow: hidden;
+  .avatar-wrapper {
+    position: relative;
     margin-right: 40px;
+
+    button {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      z-index: 2;
+    }
     
-    img {
-      margin-right: 0 !important;
+    .image {
+      margin-right: 0;
+      object-fit: cover;
+      object-position: center center;
+      position: relative;
       width: 160px;
       height: 160px;
-      object-fit: cover;
-      object-position: center;
+      display: flex;
+      border-radius: 4px;
+      overflow: hidden;
     }
   }
+  
+
 
   .top-container {
-    padding: 40px;
-    background-color: ${DARK_BG};
+    position: relative;
+    padding: 20px;
     overflow: hidden;
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
+    //background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
+    background: ${CHOCO};
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background-color: ${DARK_BG};
+    }
   }
   
   .score {
@@ -117,7 +157,7 @@ export const UserProfileStyled = styled.div`
 
   .d-flex {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
   }
 
   img {
@@ -126,10 +166,12 @@ export const UserProfileStyled = styled.div`
   }
 
   .meta {
-      font-family: "Coco Gothic Alternate", sans-serif;
-      font-size: 18px;
-      color: ${CHOCO};
+      font-family: Montserrat, sans-serif;
+      font-size: 20px;
+      color: ${PRIMARY_MAIN};
       font-weight: 400;
+      line-height: 2;
+      display: block;
   }
   
   .estimation {

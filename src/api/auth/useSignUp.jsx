@@ -37,7 +37,7 @@ export const useSignUp = () => {
             avatar: user?.photoURL,
             lang: i18n?.language,
             church: [],
-            group: [],
+            groups: [],
             lessons: [],
           };
 
@@ -52,7 +52,8 @@ export const useSignUp = () => {
           dispatch(setAuthData({
             user: {
               ...userData,
-              createdAt: JSON.stringify(userData.createdAt)
+              createdAt: JSON.stringify(userData.createdAt),
+              modification_timestamp: JSON.stringify(userData.modification_timestamp),
             },
             token: auth?.currentUser?.accessToken,
           }));
@@ -63,7 +64,11 @@ export const useSignUp = () => {
       .then(() => {
         getUsers().then(data => {
           dispatch(setTeachersList([
-            ...data.map(el => ({...el, createdAt: JSON.stringify(el.createdAt)})),
+            ...data.map(el => ({
+              ...el,
+              createdAt: JSON.stringify(el.createdAt),
+              modification_timestamp: JSON.stringify(el.modification_timestamp),
+            })),
           ]));
         });
       })

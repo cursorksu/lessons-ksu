@@ -1,5 +1,5 @@
 import { UserProfileStyled } from './UserProfileStyled';
-import { Image, Tab } from 'semantic-ui-react';
+import { Tab } from 'semantic-ui-react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import { CreateEntityForm } from "../CreateEntityForm/CreateEntityForm";
@@ -10,6 +10,7 @@ import { EditStudentEstimateModal } from "../EditStudentEstimateModal/EditStuden
 import { useUpdateStudent } from "../../api/student/useUpdateStudent";
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+import { ReactComponent as SaveIcon } from '../../assets/save.svg';
 import { useDeleteEntity } from '../../api/entity/useDeleteEntity';
 import { useNavigate, useParams } from 'react-router';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
@@ -19,6 +20,9 @@ import {
   getDateLocalString, getDateObject
 } from '../../utils/getDateLocalString';
 import { getAge } from '../../utils/getAge';
+import { UserAvatarInStorage } from '../Dropzone/UserAvatarInStorage';
+import { useUpdateProfileField } from '../../api/user/useUpdateUser';
+import { NavLink } from 'react-router-dom';
 
 export const UserProfile = () => {
   const { user } = useSelector(state => state.auth);
@@ -30,11 +34,15 @@ export const UserProfile = () => {
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const { updateStudentData } = useUpdateStudent();
   const { deleteEntity } = useDeleteEntity('students');
+  const { editUserProfile } = useUpdateProfileField();
+
   const { getEntities, entities: groups } = useGetEntityListByIds('group');
+  const { getEntities: getChurches, entities: churches } = useGetEntityListByIds('church');
 
   useEffect(() => {
     getEntities(user?.groups || []);
-  }, [user, getEntities]);
+    getChurches(user?.church || []);
+  }, [user, getEntities, getChurches]);
 
   const initialValues = {
     firstName: '',
@@ -167,30 +175,114 @@ export const UserProfile = () => {
     setActiveTab(groups?.findIndex(el => el.id === groupId));
   }, [groupId, groups]);
 
+  const [isEditAvatar, setIsEditAvatar] = useState(false);
+  const handleAvatarChange = async (file) => {
+    try {
+      await editUserProfile({ uid: user.uid, avatar: file.downloadURL });
+    } catch (err) {
+      throw new Error(err);
+    } finally {
+      setIsEditAvatar(false);
+    }
+  };
+  const [titleIsEdit, setTitleIsEdit] = useState(false);
+  const [userTitle, setUserTitle] = useState('');
+  const handleTitleChange = (e) => {
+    e.stopPropagation();
+    setUserTitle(e.target.value);
+  };
+
+  const handleTitleSave = async () => {
+    if (!userTitle) return;
+    try {
+      await editUserProfile({
+        uid: user.uid,
+        avatar: user.avatar,
+        firstName: userTitle.split(' ')[0],
+        lastName: userTitle.split(' ')[1] ?? user.lastName,
+        fullName: userTitle,
+      });
+      setTitleIsEdit(false);
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+
+
   return (
     <UserProfileStyled>
       <div className="top-container">
         <div className="d-flex">
-          <Image src={user?.avatar} size='tiny' circular/>
+          <div className="avatar-wrapper">
+            {isEditAvatar
+              ? (
+                <UserAvatarInStorage
+                  folder="users"
+                  onChange={handleAvatarChange}
+                  file={user?.avatar}
+                />
+              )
+              : (
+                <>
+                  <ButtonIconStyled onClick={() => setIsEditAvatar(true)}>
+                    <EditIcon />
+                  </ButtonIconStyled>
+                  <img src={user?.avatar} alt={user?.fullName} className="image avatar"/>
+                </>
+              )}
+          </div>
           <div>
-            <h1 className="title">{user?.firstName} {user?.lastName}</h1>
+            <h1 className="title">
+              {titleIsEdit
+                ? <input
+                  className="user-title"
+                  type='text'
+                  value={userTitle}
+                  onChange={handleTitleChange}
+                />
+                : user?.fullName
+              }
+              {titleIsEdit
+                ? (
+                  <ButtonIconStyled onClick={handleTitleSave}>
+                    <SaveIcon />
+                  </ButtonIconStyled>
+                )
+                : (
+                  <ButtonIconStyled onClick={() => {
+                    setUserTitle(user?.fullName);
+                    setTitleIsEdit(true);
+                  }}>
+                    <EditIcon />
+                  </ButtonIconStyled>
+                )
+              }
+            </h1>
             <div className="meta">{user?.email}</div>
+            {churches?.length > 0 && churches.map(el => (
+              <NavLink
+                key={el.id}
+                to={`${routes.church}/${el.id}`}
+                className="meta"
+              >
+                {el.title}
+              </NavLink>
+            ))
+            }
           </div>
         </div>
-
-        <div>
-          <ButtonStyled onClick={() => {
-            setDefaultValues(initialValues);
-            setIsFormShown(true);
-          }}>
-              + {t('students.addStudent')}
-          </ButtonStyled>
-          <ButtonStyled onClick={() =>navigate(`${routes.group}/${groupId}/games/rate`)}>
-            {t('students.showResult')}
-          </ButtonStyled>
-        </div>
       </div>
-
+      <div className="action-wrapper">
+        <ButtonStyled onClick={() => {
+          setDefaultValues(initialValues);
+          setIsFormShown(true);
+        }}>
+          + {t('students.addStudent')}
+        </ButtonStyled>
+        <ButtonStyled onClick={() =>navigate(`${routes.group}/${groupId}/games/rate`)}>
+          {t('students.showResult')}
+        </ButtonStyled>
+      </div>
       {isFormShown && (
         <CreateEntityForm
           className="sticky"

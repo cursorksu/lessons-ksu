@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import { publicStatuses } from '../../constants/statuses/publicStatuses';
 import { useTranslation } from 'react-i18next';
 import { Popup } from 'semantic-ui-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useEditEntity } from '../../api/entity/useEditEntity';
 import { useSelector } from 'react-redux';
 

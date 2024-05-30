@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { PRIMARY_MAIN, BG_GOLD } from '../../constants/colors';
+import { PRIMARY_MAIN, BG_GOLD, CHOCO, CREAM } from '../../constants/colors';
 import { Grid } from 'semantic-ui-react';
 
 export const StyledDropzoneBody = styled(Grid)`
@@ -76,6 +76,23 @@ export const UvDropzoneStyled = styled('section')`
     text-align: center;
     color: ${PRIMARY_MAIN};
   } 
+  
+  &.user-avatar {
+    background: ${CREAM};
+    border: 1px dashed white;
+    display: block;
+    width: 160px;
+    height: 160px;
+  
+    [role="presentation"],
+    .accent {
+      height: 160px;
+      width: 160px;
+      color: ${CHOCO};
+      font-size: 1.3rem;
+      line-height: 1.5;
+    }
+  }
 
   img {
     width: 200px;
