@@ -29,16 +29,16 @@ export const EntityListStyled = styled(ScenarioStyled)`
     }
     .image {
       width: 200px;
-      height: 200px;
-      overflow: hidden;
-      border-radius: 100px;
-      //border: 1px solid ${GOLD};
-      box-shadow: ${BOX_SHADOW_GOLD};
+      height: auto;
+      text-align: center;
       
       img {
         width: 200px;
         height: 200px;
         object-fit: cover;
+        overflow: hidden;
+        border-radius: 100px;
+        box-shadow: ${BOX_SHADOW_GOLD};
       }
     }
   }
@@ -47,7 +47,6 @@ export const EntityListStyled = styled(ScenarioStyled)`
       display: block;
     }
   }
-  
   `;
 export const EntityItemStyled = styled('div')`
   color:  ${DARK_GRAY};
@@ -58,7 +57,6 @@ export const EntityItemStyled = styled('div')`
   border-bottom: 1px solid ${GOLD};
   padding: 20px 40px 20px 0;
   cursor: pointer;
-  
   
   &:after {
     content: '\\002B';
@@ -89,5 +87,18 @@ export const EntityItemStyled = styled('div')`
     color: ${BG_GOLD};
     font-family: "Nexa Script", sans-serif;
     font-size: 40px !important;
+  }
+  .btn-block {
+    display: grid;
+    grid-template-columns: 40px 40px 40px 1fr 40px;
+    grid-gap: 2px;
+    max-width: calc(100%  - 60px);
+  }
+  
+  .lessons-dropdown {
+    .dropdown.selection {
+      height: 40px;
+      padding: 0;
+    }
   }
 `;

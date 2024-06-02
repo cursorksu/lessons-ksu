@@ -1,14 +1,13 @@
 import styled from '@emotion/styled';
 import {
-  CHOCO, GOLD, ITEM_INNER, ITEM_OUTER, SUCCESS, YELLOW_MAIN
+  BOX_SHADOW, CHOCO, GOLD, SUCCESS, YELLOW_MAIN
 } from '../constants/colors';
 
 export const NotificationStyled = styled.div`
-  max-width: calc(100% - 80px);
-  position: absolute;
-  top: 0;
-  left: 80px;
-  right: 0;
+  max-width: 30%;
+  position: fixed;
+  top: 10px;
+  right: 10px;
   z-index: 100;
   background: white;
   text-align: center;
@@ -16,9 +15,9 @@ export const NotificationStyled = styled.div`
   color: #fff;
   font-weight: 700;
   font-family: Montserrat, sans-serif;
-  font-size: 1.6rem;
-  box-shadow: ${ITEM_OUTER};
-  border-radius: 10px;
+  font-size: 1.2rem;
+  box-shadow: ${BOX_SHADOW};
+  border-radius: 4px;
 
   &:after {
     border-radius: 10px;
@@ -29,7 +28,6 @@ export const NotificationStyled = styled.div`
     bottom: 6px;
     content: '';
     z-index: 1;
-    box-shadow: ${ITEM_INNER};
   }
   span {
     color: ${CHOCO};

@@ -8,8 +8,9 @@ export const useDeleteEntity = ( entityName ) => {
   const dispatch = useDispatch();
   const deleteEntity = useCallback(async (entityId) => {
     try {
-      const foodDocRef = doc(fireStore, entityName, entityId);
-      await deleteDoc(foodDocRef);
+      const entityDocRef = doc(fireStore, entityName, entityId);
+      await deleteDoc(entityDocRef);
+
       setMessage({
         type: 'success',
         message: {

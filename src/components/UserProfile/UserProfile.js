@@ -20,7 +20,7 @@ import {
   getDateLocalString, getDateObject
 } from '../../utils/getDateLocalString';
 import { getAge } from '../../utils/getAge';
-import { UserAvatarInStorage } from '../Dropzone/UserAvatarInStorage';
+import { SinglePhotoInStorage } from '../Dropzone/SinglePhotoInStorage';
 import { useUpdateProfileField } from '../../api/user/useUpdateUser';
 import { NavLink } from 'react-router-dom';
 
@@ -67,7 +67,7 @@ export const UserProfile = () => {
       ...data,
       group: groupId,
       createdAt: JSON.parse(data.createdAt),
-      birthday: birthday ? getDateObject(JSON.parse(birthday)) : new Date(),
+      birthday: birthday ? getDateObject(birthday) : new Date(),
     });
   }, [groupId]);
   const confirmationHandler = () => {
@@ -216,7 +216,7 @@ export const UserProfile = () => {
           <div className="avatar-wrapper">
             {isEditAvatar
               ? (
-                <UserAvatarInStorage
+                <SinglePhotoInStorage
                   folder="users"
                   onChange={handleAvatarChange}
                   file={user?.avatar}

@@ -142,6 +142,11 @@ export const StyledDropdown = styled('div')`
       font-family: Montserrat, sans-serif;
       font-weight: 300;
       font-size: 16px;
+      padding-left: 20px;
+    }
+
+    .text {
+      padding: 0 0 0 10px;
     }
     
     .ksu-option {
