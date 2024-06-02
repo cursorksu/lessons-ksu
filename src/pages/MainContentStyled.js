@@ -125,6 +125,10 @@ export const MainContentStyled = styled('div')`
       justify-content: space-between;
       align-items: stretch;
       font-size: 1.5rem;
+      
+      &.d-block {
+        display: block;
+      }
 
       .ui.card {
         border: none;

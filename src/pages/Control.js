@@ -136,7 +136,7 @@ export const Control = ({ loginWithGoogle, signOut }) => {
                   active: pathname.includes(routes.creativity)
                 })}
               >
-                Поробка
+                {t('collections.creativity')}
               </MenuItem>
               <MenuItem
                 icon={<MemoryIcon />}

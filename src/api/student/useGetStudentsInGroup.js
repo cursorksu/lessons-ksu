@@ -15,9 +15,9 @@ export const useGetStudentsInGroup = () => {
       const groupsCollection = collection(fireStore, 'students');
       const groupsQuery = query(groupsCollection, where('group', '==', groupId));
       const querySnapshot = await getDocs(groupsQuery);
+
       let groupsData = querySnapshot.docs.map((doc) => {
         const data = doc.data();
-
         return {
           id: doc.id,
           ...data,

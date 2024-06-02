@@ -6,6 +6,11 @@ export const CreateEntityFormStyled = styled('div')`
   padding: 40px;
   border-top: 1px solid ${PRIMARY_MAIN};
   
+  &.aside {
+    padding: 0 0 0 0;
+    border: none;
+  }
+  
   &.sticky {
     position: sticky;
     top: 0;
@@ -37,6 +42,37 @@ export const CreateEntityFormStyled = styled('div')`
     }
   }
     
+  .aside-form {
+    display: grid;
+    grid-gap: 10px;
+    margin: 20px 0;
+    grid-template-columns: 160px 1fr;
+    grid-template-areas: 
+      "o o o o o"
+      "a b b b b"
+      "a c c c c"
+      "a d d d d"
+      "e e e e e";
+
+    [name="lesson"] {
+      grid-area: o;
+    }
+    [name="image"] {
+      grid-area: a;
+    }
+    [name="title"] {
+      grid-area: b;
+    }
+    [name="tags"] {
+      grid-area: c;
+    }
+    [name="imageUrl"] {
+      grid-area: d;
+    }
+    [name="text"] {
+      grid-area: e;
+    }
+  }
     .content-grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;

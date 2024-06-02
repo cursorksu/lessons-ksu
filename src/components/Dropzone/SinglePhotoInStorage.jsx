@@ -5,7 +5,7 @@ import { resizeFile } from '../../utils/resizeFile';
 import { useImages } from '../../api/images/useImages';
 import { useTranslation } from 'react-i18next';
 
-export const UserAvatarInStorage = ({ onChange, file, folder }) => {
+export const SinglePhotoInStorage = ({ onChange, file, folder }) => {
   const { uploadImage } = useImages();
   const { t } = useTranslation('tr');
 

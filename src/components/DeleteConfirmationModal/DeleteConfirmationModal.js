@@ -14,7 +14,7 @@ export const DeleteConfirmationModal = ({
 }) => {
   const { t } = useTranslation('tr');
   const [open, setOpen] = useState(false);
-    
+
   const handleOpen = useCallback((e) => {
     e.stopPropagation();
     setOpen(true);
@@ -31,7 +31,6 @@ export const DeleteConfirmationModal = ({
   return (
     <DeleteConfirmationModalStyled>
       <Modal
-        keepMounted
         onClose={onCansel}
         onOpen={handleOpen}
         trigger={(
