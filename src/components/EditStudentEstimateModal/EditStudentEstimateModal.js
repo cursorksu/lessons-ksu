@@ -7,16 +7,17 @@ import {EstimationModalStyled} from "./EstimationModalStyled";
 
 export const EditStudentEstimateModal = ({ onConfirm, studentName }) => {
   const { t} = useTranslation('tr');
-  const [estimation, setEstimation,] = useState(0);
+  const [estimation, setEstimation,] = useState(null);
   const [isOpen, setIsOpen,] = useState(false);
   const confirmationHandler = async (mode) => {
     await onConfirm(mode === 'add' ? +estimation : -estimation);
     setIsOpen(false);
-    setEstimation(0);
+    setEstimation(null);
   };
   return (
     <Popup
       open={isOpen}
+      position={'top right'}
       content={(
         <EstimationModalStyled>
           <FormField>
@@ -32,7 +33,7 @@ export const EditStudentEstimateModal = ({ onConfirm, studentName }) => {
               onChange={({target}) =>
                 target.value >= -100
                 && target.value <= 100
-                && setEstimation(target.value)}
+                && setEstimation(+target.value)}
             />
           </FormField>
           <div className="action">

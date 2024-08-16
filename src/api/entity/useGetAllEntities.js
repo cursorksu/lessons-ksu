@@ -59,7 +59,9 @@ export const useGetAllEntities = (entity) => {
       if (entity === 'students') {
         const preparedData = entityData.map(el => ({
           ...el,
-          createdAt: getDateLocalString(el?.createdAt)
+          birthday: JSON.stringify(el?.birthday),
+          createdAt: JSON.stringify(el?.createdAt),
+          modification_timestamp: JSON.stringify(el?.createdAt),
         }));
         dispatch(
           setEntity({ students: preparedData })

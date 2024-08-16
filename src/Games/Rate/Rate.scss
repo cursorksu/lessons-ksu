@@ -4,6 +4,32 @@
   background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fbg-air-balon-1.jpg?alt=media&token=61814156-779a-477a-a8a5-304c946fb363");
   background-repeat: no-repeat;
   background-size: cover;
+
+  .go-back-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #faebd7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    color: #a39367;
+    transition: background-color 0.3s ease-in-out, color  0.3s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background: #a39367;
+      color: #faebd7ff;
+    }
+
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
 }
 
 .balloon {

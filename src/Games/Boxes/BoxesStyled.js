@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 import { NEON, NEON_HOVER } from '../../constants/colors';
 export const BoxesTextLink = styled('button')`
   cursor: pointer;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2015.53.13.png?alt=media&token=925fa405-957e-4fee-823f-9b9f1a3d6ad8');
+  background-color: #053b69;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fboxes(2).png?alt=media&token=305ce8fe-624d-4944-b88a-ed7cb66935ec');
   background-repeat: no-repeat;
-  background-position: center center;
   background-size: cover;
+  background-position: 10px  center;
   width: 120px;
   height: 120px;
   border-radius: 20px;
@@ -77,34 +78,34 @@ export const BoxesSettingsStyled = styled('section')`
   `;
 
 export const BoxesStyled = styled('section')`
-  height: 100vh;
   padding-top: 150px;
   background: #083752;
   
   .question-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    width: 100%;
-    height: calc(100vh - 150px);
+    list-style-type: none;
+    padding: 20px 40px;
+    margin: 0;
   }
   
-  li > div {
+  li > .question-item {
     background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
-    border-top-right-radius: 40px;
-    border-top-left-radius: 40px;
-    width: 100%;
-    height: 160px;
-    
-    &.close {
-      background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2018.40.39.png?alt=media&token=e5715071-50a2-4e79-9b4f-81b0aa398826');
-    }
-    &.opening {
-      background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2015.53.13.png?alt=media&token=925fa405-957e-4fee-823f-9b9f1a3d6ad8');
-    }
-    &.open {
-      background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-05-16%20%D0%B2%2015.53.13.png?alt=media&token=925fa405-957e-4fee-823f-9b9f1a3d6ad8');
+    width: 270px;
+    height: 280px;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fboxes.jpg?alt=media&token=771af45e-70b1-4c30-8ecf-be0449cbaf7c');
+    background-position: left center;
+    background-size: calc(270px * 4);
+    position: relative;
+
+    .show {
+      position: absolute;
+      top: -40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      z-index: 200;
     }
   }
   
