@@ -11,8 +11,9 @@ export const KsuDatePicker = ({ selected, onChange, placeholder }) => {
       <span className='icon'><CalendarIcon /></span>
       <DatePicker
         placeholderText={placeholder}
-        dateFormat="dd.MM.yyy"
+        dateFormat="dd.MM.yyyy"
         onChange={onChange}
+        readonly
         selected={selected}
         showMonthDropdown
         showYearDropdown

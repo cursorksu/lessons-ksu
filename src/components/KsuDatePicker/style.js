@@ -23,7 +23,7 @@ export const DatePickerStyled = styled('div')`
     }
     
   }
-  
+
   .react-datepicker__input-container,
   .react-datepicker-wrapper {
     display: block;

@@ -233,7 +233,7 @@ export const Test = ({ onSave, settings }) => {
             <Droppable droppableId="dnd-list">
               {(provided) => (
                 <TestTextStyled className="test dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
-                  {test.some(el => el.question?.length)
+                  {test?.some(el => el.question?.length)
                     ? test.map((testItem, idx) => (
                       <Draggable key={idx.toString()} draggableId={idx.toString()} index={idx}>
                         {(provided) => (
@@ -276,7 +276,7 @@ export const Test = ({ onSave, settings }) => {
         </p>
         <div className={clsx({
           'sticky-action': true,
-          error: test.some(el => Object.keys(el.error).some(key => el.error[key])),
+          error: test?.some(el => Object.keys(el.error).some(key => el.error[key])),
           success: testSaved && test.every(el => Object.keys(el.error).every(key => !el.error[key]))
         })}>
           <Popup

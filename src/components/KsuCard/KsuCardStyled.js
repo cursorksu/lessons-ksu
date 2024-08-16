@@ -7,7 +7,10 @@ export const KsuCardStyled = styled('div')`
   color: ${DARK_GRAY};
   position: relative;
   min-height: 100px;
-  box-shadow: none;
+  padding: 8px;
+  border: 1px solid ${BG_GOLD};
+  box-shadow: none !important;
+  background: linear-gradient(to bottom, rgba(163, 147, 103, 0), rgba(163, 147, 103, 0.3));
 
   .header h3 {
     font-family: 'Nexa Script', sans-serif;
@@ -16,10 +19,7 @@ export const KsuCardStyled = styled('div')`
   }
   
   .card-actions {
-    margin: 20px 0;
-    padding: 5px;
-    background: ${BG_GOLD};
-    border-radius: 4px;
+    margin: 20px 0 0 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;

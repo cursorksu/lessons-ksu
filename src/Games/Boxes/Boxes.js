@@ -8,12 +8,13 @@ import React, {
 } from 'react';
 import { useNavigate } from 'react-router';
 import { ReactComponent as ReloadIcon } from '../../assets/reload.svg';
-import clsx from 'clsx';
+import { BoxesItem } from './BoxesItem';
 
 export const Boxes = () => {
   const isMenuCollapsed = useSelector(store => store.mainMenuCollapsed);
   const { lesson } = useSelector(state => state.lessonData);
   const [score] = useState(0);
+  const [shouldReload, setShouldReload] = useState(false);
   const [correctSound, setCorrectSound] = useState(false);
   const navigate = useNavigate();
 
@@ -46,19 +47,7 @@ export const Boxes = () => {
   },[lesson]);
 
   const reloadHandler = () => {
-
-  };
-
-  const handleBoxClick = (el) => {
-    const newDataGame = game.map(item => (
-      item.id === el.id
-        ? {
-          ...item,
-          box: 'opening'
-        }
-        : item));
-
-    setGame(newDataGame);
+    setShouldReload(prev => !prev);
   };
 
   return (
@@ -73,14 +62,11 @@ export const Boxes = () => {
 
         <ul className="question-list">
           {game?.map(el => (
-            <li onClick={() => handleBoxClick(el)}>
-              <div className={clsx({
-                close: el.box === 'close',
-                opening: el.box === 'opening',
-                open: el.box === 'open',
-              })}/>
-              <div className='question-item'>{el.question}</div>
-            </li>
+            <BoxesItem
+              shouldReload={shouldReload}
+              element={el} key={el.id}
+              soundOn={() => setCorrectSound(true)}
+            />
           ))}
         </ul>
         {correctSound && (

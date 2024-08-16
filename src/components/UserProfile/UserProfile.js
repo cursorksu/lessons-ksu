@@ -9,7 +9,6 @@ import { studentConfig } from "../../constants/entities/studentConfig";
 import { EditStudentEstimateModal } from "../EditStudentEstimateModal/EditStudentEstimateModal";
 import { useUpdateStudent } from "../../api/student/useUpdateStudent";
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
-import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import { ReactComponent as SaveIcon } from '../../assets/save.svg';
 import { useDeleteEntity } from '../../api/entity/useDeleteEntity';
 import { useNavigate, useParams } from 'react-router';
@@ -23,6 +22,9 @@ import { getAge } from '../../utils/getAge';
 import { SinglePhotoInStorage } from '../Dropzone/SinglePhotoInStorage';
 import { useUpdateProfileField } from '../../api/user/useUpdateUser';
 import { NavLink } from 'react-router-dom';
+import {
+  DeleteConfirmationModal
+} from '../DeleteConfirmationModal/DeleteConfirmationModal';
 
 export const UserProfile = () => {
   const { user } = useSelector(state => state.auth);
@@ -31,6 +33,7 @@ export const UserProfile = () => {
   const { t } = useTranslation('tr');
   const [activeTab, setActiveTab] = useState(0);
   const [isFormShown, setIsFormShown] = useState(false);
+  const [deletedStudent, setDeletedStudent] = useState(null);
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const { updateStudentData } = useUpdateStudent();
   const { deleteEntity } = useDeleteEntity('students');
@@ -80,9 +83,18 @@ export const UserProfile = () => {
   }, [updateStudentData]);
 
   const deleteStudentHandler = useCallback(async (data) => {
-    await deleteEntity(data.id);
-    setShouldUpdate(prev => !prev);
-  }, [deleteEntity]);
+    setDeletedStudent(data);
+  }, []);
+
+  const deleteStudentConfirm = useCallback(async () => {
+    try {
+      await deleteEntity(deletedStudent?.id);
+      setShouldUpdate(prev => !prev);
+      setDeletedStudent(null);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }, [deletedStudent, deleteEntity]);
 
   const onIsActiveSwitch = useCallback(async (data) => {
     await updateStudentData(data.id, { isActive: !data.isActive });
@@ -152,9 +164,14 @@ export const UserProfile = () => {
                   <ButtonIconStyled onClick={() => handleRowClick(data)}>
                     <EditIcon/>
                   </ButtonIconStyled>
-                  <ButtonIconStyled onClick={() => deleteStudentHandler(data)}>
-                    <DeleteIcon/>
-                  </ButtonIconStyled>
+
+                  <DeleteConfirmationModal
+                    modalTitle={'Видаити учня'}
+                    modalContent={`Буде видалено всю інформацію про учня ${deletedStudent?.firstName}`}
+                    onOpen={() => deleteStudentHandler(data)}
+                    onConfirm={deleteStudentConfirm}
+                    onCansel={() => setDeletedStudent(null)}
+                  />
                 </div>
               ),
             }
@@ -168,7 +185,9 @@ export const UserProfile = () => {
     deleteStudentHandler,
     handleRowClick,
     onIsActiveSwitch,
-    updateStudentHandler
+    updateStudentHandler,
+    deletedStudent,
+    deleteStudentConfirm,
   ]);
 
   useEffect(() => {

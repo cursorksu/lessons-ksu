@@ -1,10 +1,13 @@
 import './Rate.scss';
 import React, { useCallback, useMemo } from 'react';
+import { ReactComponent as BackIcon } from '../../assets/back.svg';
 import { useSelector } from 'react-redux';
 import { Emoji } from 'emoji-picker-react';
 import { clsx } from 'clsx';
+import { NavLink, useNavigate } from 'react-router-dom';
 export const Rate = () => {
   const { students } = useSelector((state) => state.entities);
+  const navigate = useNavigate();
 
   const rateStep = useMemo(() => {
     const screenHeight = window.innerHeight;
@@ -27,6 +30,7 @@ export const Rate = () => {
   }, [rateStep, students, window.innerWidth]);
   return (
     <div className="rate-wrapper">
+      <NavLink className="go-back-button" onClick={() => navigate(-1)}><BackIcon /></NavLink>
       {students && students?.map((el, idx) => el.isActive
         ? (
           <div className={clsx({

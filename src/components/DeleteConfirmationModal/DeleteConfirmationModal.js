@@ -11,6 +11,7 @@ export const DeleteConfirmationModal = ({
   modalContent,
   onConfirm,
   onCansel,
+  onOpen,
 }) => {
   const { t } = useTranslation('tr');
   const [open, setOpen] = useState(false);
@@ -18,7 +19,8 @@ export const DeleteConfirmationModal = ({
   const handleOpen = useCallback((e) => {
     e.stopPropagation();
     setOpen(true);
-  }, []);
+    onOpen();
+  }, [onOpen]);
   const handleClose = useCallback(() => {
     onCansel && onCansel();
     setOpen(false);
