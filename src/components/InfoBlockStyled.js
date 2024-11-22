@@ -24,6 +24,8 @@ export const InfoBlockStyled = styled.div`
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.5;
+width: 100%;
+  overflow: auto;
 
   .img-wrapper {
     width: 100px;
@@ -246,13 +248,11 @@ export const InfoBlockStyled = styled.div`
 
   .groups-card-lis,
   .vertical-card-lis {
-    display: grid;
-    grid-template-columns: repeat(4, 260px);
-    grid-gap: 20px;
-    padding: 0 0 40px;
-    position: relative;
-
     .vertical-card {
+      float: left;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      min-width: 280px;
       text-align: center;
       padding: 240px 20px 20px;
       min-height: 460px;

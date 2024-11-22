@@ -83,6 +83,7 @@ export const BoxesStyled = styled('section')`
   
   .question-list {
     display: grid;
+    min-height: calc(100vh - 100px);
     grid-template-columns: repeat(4, 1fr);
     list-style-type: none;
     padding: 20px 40px;

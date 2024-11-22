@@ -16,10 +16,12 @@ export const useEditEntity = (entityName) => {
 
         const newData = {
           ...data,
+          image: entity?.image || {},
           createdBy: entity.createdBy,
           createdAt: entity.createdAt,
           modification_timestamp: Timestamp.now(),
         };
+
         if (entity) {
           await updateDoc(docRef, newData);
 
