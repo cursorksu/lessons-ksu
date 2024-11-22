@@ -94,16 +94,9 @@ export const MainContentStyled = styled('div')`
     background: #fff;
     min-height: calc(100vh - 300px);
     border-radius: 4px;
-    display: flex;
-    justify-content: stretch;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: 35% 1fr;
     padding: 20px;
-
-    .d-flex {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
     
     .title {
       color: ${CHOCO};
@@ -181,7 +174,7 @@ export const MainContentStyled = styled('div')`
       }
     }
     & > .content-wrapper {
-      flex-basis: 70%;
+      overflow: hidden;
       padding-left: 20px;
 
       .d-flex{

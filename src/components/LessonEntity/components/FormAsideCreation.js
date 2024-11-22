@@ -1,5 +1,5 @@
 import { Controller, useForm } from 'react-hook-form';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dropdown, FormField, Grid } from 'semantic-ui-react';
 import { SinglePhotoInStorage } from '../../Dropzone/SinglePhotoInStorage';
@@ -33,6 +33,17 @@ export const FormAsideCreation = ({
   const { createEntity } = useCreateEntity(entityName);
   const { t } = useTranslation('tr');
 
+  const values = useMemo(() => getValues(), [getValues]);
+
+  const handleSave = useCallback(async () => {
+    const id = defaultValues.id
+      ? await editEntity(values)
+      : await createEntity(values);
+    await onConfirm(id, values);
+    onClose && onClose();
+    reset();
+  }, [createEntity, defaultValues.id, editEntity, onClose, onConfirm, reset, values]);
+
   return (
     <CreateEntityFormStyled className={'aside'}>
       <div className="aside-form">
@@ -64,7 +75,10 @@ export const FormAsideCreation = ({
             <FormField name='image'>
               <LabelStyled>{"Обкладинка"}</LabelStyled>
               <SinglePhotoInStorage
-                onChange={field.onChange}
+                onChange={(data) => {
+                  field.onChange(data);
+                }}
+                value={field.value}
                 file={field.value}
                 folder={entityName}
               />
@@ -133,15 +147,7 @@ export const FormAsideCreation = ({
       </div>
       <Grid.Row>
         <ButtonStyled
-          onClick={async () => {
-            const newData = getValues();
-            const id = defaultValues.id
-              ? await editEntity(newData)
-              : await createEntity(newData);
-            await onConfirm(id, newData);
-            onClose && onClose();
-            reset();
-          }}>
+          onClick={handleSave}>
           {t('button.confirm')}
         </ButtonStyled>
         <ButtonStyled
