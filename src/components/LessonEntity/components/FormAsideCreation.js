@@ -1,8 +1,8 @@
 import { Controller, useForm } from 'react-hook-form';
 import React, { useCallback, useEffect, useMemo } from 'react';
+import { SinglePhotoInStorage } from '../../Dropzone/SinglePhotoInStorage';
 import { useTranslation } from 'react-i18next';
 import { Dropdown, FormField, Grid } from 'semantic-ui-react';
-import { SinglePhotoInStorage } from '../../Dropzone/SinglePhotoInStorage';
 import Editor from '../../TextEditor';
 import { useEditEntity } from '../../../api/entity/useEditEntity';
 import { useCreateEntity } from '../../../api/entity/useCreateEntity';
