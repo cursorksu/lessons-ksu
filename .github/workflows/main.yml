@@ -10,16 +10,29 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2.3.2
-      - name: Install Dependencies
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
         run: npm install
+
+      # Step 4: Build the project
       - name: Build
         env:
           CI: false
         run: npm run build
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@v2
+
+      # Step 5: Upload build artifact
+      - name: Upload Production Artifact
+        uses: actions/upload-artifact@v3
         with:
           name: build
           path: build
@@ -29,17 +42,21 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2.3.2
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Download build artifact
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: build
           path: build
+
+      # Step 3: Deploy to Firebase
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
