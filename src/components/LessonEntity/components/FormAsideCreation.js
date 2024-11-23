@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { SinglePhotoInStorage } from '../../Dropzone/SinglePhotoInStorage';
 import { useTranslation } from 'react-i18next';
 import { Dropdown, FormField, Grid } from 'semantic-ui-react';
-import Editor from '../../TextEditor';
 import { useEditEntity } from '../../../api/entity/useEditEntity';
 import { useCreateEntity } from '../../../api/entity/useCreateEntity';
 import {
@@ -13,6 +12,7 @@ import { InputStyled, LabelStyled } from '../../InputStyled';
 import { KsuTags } from '../../KsuTags/KsuTags';
 import { ButtonStyled } from '../../ButtonStyled';
 import { StyledDropdown } from '../../KsuDropdown/StyledDropdown';
+import Editor from '../../TextEditor';
 
 export const FormAsideCreation = ({
   entityName,
