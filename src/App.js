@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { AppRouter } from './router';
+import { Notification } from './components/Notification';
+import { Provider } from 'react-redux';
+import store from './store';
+import 'react-datepicker/dist/react-datepicker.css';
+import 'semantic-ui-css/semantic.min.css';
+import './i18n';
+import './App.scss';
 
-function App() {
+function Situations() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <>
+        <Notification />
+        <AppRouter />
+      </>
+    </Provider>
   );
 }
 
-export default App;
+export default Situations;

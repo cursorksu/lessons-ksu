@@ -1,0 +1,254 @@
+{
+  "modal": {
+    "collectionDelete": "If you delete this collection all it lessons, images and other staff in it will be reachable out of it",
+    "churchDelete": "If you delete this church all it lessons, images and other staff in it will be reachable out of it"
+  },
+  "collections": {
+    "collections": "Collections of Lessons",
+    "createCollection": "Create Collection",
+    "deleteCollection": "Delete Collection",
+    "editCollection": "Edit Collection",
+    "topic": "Topic",
+    "subject": "Subject example",
+    "game": "Games",
+    "creativity": "Creativity",
+    "memory": "Memoization",
+    "food": "Food",
+    "labels": {
+      "title": "Collection title",
+      "description": "Collection Description",
+      "tags": "Tags",
+      "imageUrl": "Collection image"
+    },
+    "placeholders": {
+      "title": "Enter Title",
+      "description": "Enter Description",
+      "tags": "Tags",
+      "imageUrl": "Add image url"
+    }
+  },
+  "students": {
+    "myStudents": "My students",
+    "showResult": "Show result",
+    "addStudent": "Add student",
+    "deleteStudent": "Delete student",
+    "editStudent": "Edit student data",
+    "labels": {
+      "avatar": "Student Avatar",
+      "address": "Student`s address",
+      "about": "About me",
+      "birthday": "Day of Birth",
+      "years": "How old is student",
+      "firstName": "First Name",
+      "secondName": "Last Name",
+      "phone": "Phone number",
+      "estimation": "Money",
+      "action": "Action"
+    },
+    "placeholders": {
+      "avatar": "Choice Emoji for Avatar",
+      "address": "Enter student`s address",
+      "about": "Fill your hobby, pets, habits... Something interesting about you",
+      "birthday": "Enter the day of Birth",
+      "years": "Enter the amount of years",
+      "firstName": "Student First Name",
+      "secondName": "Student Last Name",
+      "phone": "Set Phone number"
+    }
+  },
+  "entities": {
+    "food": "Snacks",
+    "creative": "Creative Arts",
+    "game": "Interactive Games",
+    "activeGame": "Active Games",
+    "subject": "Subject examples",
+    "memory": "Interactive games"
+  },
+  "lessons": {
+    "labels": {
+      "title": "Title",
+      "description": "Description",
+      "goal": "Goal",
+      "tags": "Tags",
+      "bibleQuote": "Bible place",
+      "bibleText": "Bible text",
+      "imageUrl": "Link to Image"
+    },
+    "placeholders": {
+      "title": "Add title",
+      "description": "Add description",
+      "goal": "Describe the goal",
+      "tags": "Type teg and press ENTER",
+      "bibleQuote": "Bible Quote",
+      "bibleText": "Bible Text",
+      "imageUrl": "Link to Image from Internet"
+    }
+  },
+  "lessonTabs": {
+    "topic": "Lesson Topic",
+    "subject": "Subject example",
+    "creative": "Creativity",
+    "game": "Games",
+    "memory": "Memory",
+    "food": "Snack"
+  },
+  "entity": {
+    "goal": "Lesson goal",
+    "text": "Bible text",
+    "description": "Description",
+    "staff": "Staff",
+    "quote": "Place in Bible",
+    "title": "The Title of the lesson",
+    "tags": "Add tags",
+    "createdDate": "Created at: ",
+    "author": "Created by: "
+  },
+  "scenario": {
+    "addScenario": "Add Scenario",
+    "deleteScenario": "Delete scenario",
+    "labels": {
+      "avatar": "Scenario main image",
+      "title": "Scenario title",
+      "createdDate": "Created date",
+      "author": "Author name",
+      "church": "Church",
+      "content": "Content",
+      "isPublic": "is Public",
+      "isModeratorApproved": "is Approved",
+      "tags": "Provide some tags for show",
+      "videos": "Videos",
+      "soundtracks": "Sounds"
+    },
+    "placeholders": {
+      "avatar": "Scenario main image",
+      "title": "Scenario title",
+      "createdDate": "Created date",
+      "author": "Author name",
+      "church": "Select church",
+      "content": "Create Scenario content",
+      "isPublic": "Scenario will published",
+      "isModeratorApproved": "Moderator is approved",
+      "tags": "Type something and press enter",
+      "videos": "Provide link for video",
+      "soundtracks": "Upload sounds for show"
+    }
+  },
+  "church": {
+    "deleteChurch": "Delete Church",
+    "addChurch": "Add Church",
+    "labels": {
+      "avatar": "Church logo",
+      "title": "Title of church",
+      "address": "Address",
+      "createdDate": "Creation date",
+      "about": "About us",
+      "phone": "Phone",
+      "email": "Email",
+      "web": "Website",
+      "pastor": "Pastor",
+      "pictures": "Album",
+      "groups": "Our Children groups",
+      "teachers": "Our Teachers"
+    },
+    "placeholders": {
+      "avatar": "Upload Church logo",
+      "title": "Enter title",
+      "address": "Enter address",
+      "createdDate": "Select date",
+      "about": "Put few words about the church strategy and vision",
+      "phone": "Enter contact number",
+      "email": "Enter church`s email",
+      "web": "Provide the link to your website",
+      "pastor": "Enter the Pastor Name",
+      "pictures": "Upload few pictures",
+      "groups": "Create Sunday school groups",
+      "teachers": "Add the teachers"
+    }
+  },
+  "group": {
+    "title": "Our Groups",
+    "label": {
+      "teachers": "Teachers",
+      "description": "Description",
+      "title": "Title"
+    },
+    "placeholder": {
+      "teachers": "Select teachers",
+      "description": "Enter details",
+      "title": "Add title"
+    }
+  },
+  "mainMenu": {
+    "lang": "Select Language",
+    "en": "English",
+    "ua": "Ukrainian",
+    "ru": "Russian",
+    "settings": "Settings",
+    "community": "Churches",
+    "cabinet": "User Profile",
+    "collapse": "Collapse",
+    "goBack": "Go back",
+    "sharedBoard": "Shared Panel",
+    "show": "Scenarios",
+    "home": "Home page",
+    "game": "Games"
+  },
+  "button": {
+    "createProject": "Create Project",
+    "delete": "Delete",
+    "stopProject": "Stop project",
+    "startProject": "Start project",
+    "cancel": "Cancel",
+    "savePhoto": "Save photo",
+    "upload": "Upload",
+    "uploadPhoto": "Upload Photo",
+    "cabinet": "To the personal office",
+    "addProduct": "Add a product",
+    "add": "Add",
+    "remove": "Remove",
+    "createLesson": "Create lesson",
+    "accept": "Accept",
+    "confirm": "Confirm",
+    "reject": "Reject"
+  },
+  "errors": {
+    "passwordsMatch": "Passwords must match",
+    "limitProjectName": "Limit Project name 60 symbols",
+    "userAlreadyExist": "User with this email already exist in database",
+    "common": "Something went wrong, try again",
+    "required": "This field is required",
+    "joinAgreement": "You agree to receive notifications",
+    "conditionsAgreement": "You should fill Condition agreement",
+    "emailFormat": "Please check Email format",
+    "passwordMin": "Minimum number of characters 6",
+    "passwordMax": "Minimum number of characters 20",
+    "emptyField": "It is important that this field is filled",
+    "agreementUnsigned": "It is important that you agree to data processing",
+    "notNumber": "Not a number",
+    "decreaseSymbols": "It is necessary to reduce the description to 500 characters",
+    "bindingError": {
+      "title": "Error binding lesson to collection",
+      "description": "An error occurred while binding the lesson to the collection."
+    },
+    "unbindingError": {
+      "title": "Error unbinding lesson from collection",
+      "description": "An error occurred while unbinding the lesson from the collection."
+    },
+    "fetchingError": {
+      "title": "Error fetching lessons",
+      "description": "An error occurred while fetching lessons."
+    }
+  },
+  "status": {
+    "labels": {
+      "published": "Published",
+      "waiting": "Waiting for Approve",
+      "active": "Active",
+      "draft": "Draft"
+    },
+    "published": "This content is visible for all users",
+    "waiting": "This content is waiting for Moderator confirmation",
+    "active": "This content is visible for your church",
+    "draft": "This content is visible for you only"
+  }
+}
