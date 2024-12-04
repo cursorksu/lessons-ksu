@@ -28,6 +28,104 @@ h3 {
     border-top-color: #a39367 !important;
 }
 
+.react-datepicker__header__dropdown  {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 10px;
+    margin: 0 10px;
+}
+
+.react-datepicker__navigation--years {
+    background-image: url('./assets/chevron-up.svg');
+    background-size: 34px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.react-datepicker__navigation--years-previous {
+    transform: rotate(180deg);
+}
+
+.react-datepicker__month-dropdown-container,
+.react-datepicker__year-dropdown-container {
+    margin: 0;
+    background: #faebd7ff;
+    border-radius: 4px;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.react-datepicker__year-select,
+.react-datepicker__month-select {
+    border-color: #a39367;
+    width: 100%;
+    outline: none !important;
+    background: #faebd7ff;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 30px;
+
+    &:active {
+        outline: none;
+        background: #faebd7ff;
+    }
+}
+.react-datepicker__month-container {
+    box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.3)
+}
+.react-datepicker__year-dropdown,
+.react-datepicker__month-dropdown {
+    background: #a39367;
+    box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__year-read-view--down-arrow {
+    right: 10px;
+    top: 10px;
+}
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow,
+.react-datepicker__navigation-icon::before {
+    border-color: #a39367;
+}
+
+.react-datepicker__year-option,
+.react-datepicker__month-option,
+.react-datepicker__year-dropdown,
+.react-datepicker__month-dropdown,
+.react-datepicker__current-month,
+.react-datepicker__header {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 30px;
+}
+.react-datepicker__header {
+    background-color: rgba(163, 147,103, 0.3);
+}
+.react-datepicker__day-name,
+.react-datepicker__day {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #282c34;
+    font-family: 'Montserrat', sans-serif;
+    width: 2.5rem;
+    height: 2.5rem;
+    &:hover {
+        background-color: rgba(163, 147,103, 0.3);
+    }
+}
+.react-datepicker__day--selected {
+    background-color: #a39367;
+    color: #fff;
+    font-weight: bold;
+}
+
+
 .lessons {
     position: relative;
     background-size: cover;
@@ -441,6 +539,61 @@ img.epr-emoji-img {
 }
 .content-wrapper .ql-size-huge {
     font-size: 32px !important;
+}
+
+.shadow-point {
+    width: 200px;
+    height: 200px;
+    background-color: #fae349;
+    border-radius: 50%;
+    animation: shadow 1s infinite alternate;
+    color: #282c34;
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 700;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        right: -3px;
+        bottom: -3px;
+        border: 4px dotted white;
+        border-radius: 50%;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        right: 3px;
+        bottom: 3px;
+        border: 4px dotted rgba(163, 147,103, 0.3);
+        border-radius: 50%;
+    }
+
+    &:not(.show) {
+        display: none;
+    }
+
+    &:hover {
+        transition: transform 0.3s ease-in-out;
+        transform: scale(2);
+    }
+
+}
+
+@keyframes shadow {
+    from {
+        box-shadow: 0 0 55px 10px #fae349;
+    }
+    to {
+        box-shadow: 0 0 90px 20px #fff;
+    }
 }
 
 @keyframes content-size {
