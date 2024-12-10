@@ -26,7 +26,6 @@ function Situations() {
     return () => {
       clearTimeout(animationTimeout);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const shuffleArray = (array) => {

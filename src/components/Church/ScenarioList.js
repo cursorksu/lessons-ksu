@@ -37,7 +37,6 @@ export const ScenarioList = ({
         ),
       });
       onEdit();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [church, teachers]
   );
@@ -45,7 +44,6 @@ export const ScenarioList = ({
   const handleChangeTeacherList = useCallback(
     async (data) => {
       setTeachersList(data);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [church, teachers]
   );
@@ -67,7 +65,6 @@ export const ScenarioList = ({
 
     setIsFormShown(false);
     onEdit();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [church, teachersList, editEntity, onEdit, teachers]);
 
   const getStatus = useCallback((scenario) => {}, []);

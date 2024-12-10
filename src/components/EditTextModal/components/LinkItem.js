@@ -21,7 +21,6 @@ export const LinkItem = ({
       value: link,
       text,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [link, text]);
 
   return (

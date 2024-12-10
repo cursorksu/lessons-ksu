@@ -25,7 +25,6 @@ export const DropzoneField = ({ field, onChange }) => {
     field.size && setSize(field.size);
     field.hideElement && setHideElement(field.hideElement);
     field.addToSlideShow && setAddToSlideShow(field.addToSlideShow);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onDrop = async (acceptedFiles) => {
@@ -47,7 +46,6 @@ export const DropzoneField = ({ field, onChange }) => {
         hideElement,
         addToSlideShow,
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image, description, size, hideElement, addToSlideShow]);
 
   const viewHandler = useCallback(() => {

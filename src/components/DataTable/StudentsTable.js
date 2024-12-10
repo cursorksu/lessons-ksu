@@ -32,7 +32,6 @@ export const StudentsTable = ({
 
   useEffect(() => {
     getGetStudentsInGroup(groupId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldUpdate, groupId]);
 
   return (

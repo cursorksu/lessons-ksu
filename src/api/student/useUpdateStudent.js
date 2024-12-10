@@ -24,7 +24,6 @@ export const useUpdateStudent = () => {
         throw new Error(error);
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [getStudentProfile, getAllEntities]
   );
 

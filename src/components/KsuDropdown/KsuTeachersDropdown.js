@@ -19,7 +19,6 @@ export const KsuTeachersDropdown = ({
   const [searchString, setSearchString] = useState('');
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
     console.log({ searchString });
   }, [searchString]);
 

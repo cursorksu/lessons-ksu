@@ -30,7 +30,6 @@ export const VeremLayout = ({ children }) => {
       .catch((error) => {
         throw new Error(error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth, getSignUpData]);
 
   const signOut = useCallback(async () => {

@@ -53,7 +53,6 @@ export const ScenarioItem = () => {
       await deleteEntity(id);
       setShouldUpdate((prev) => !prev);
       navigate(routes.scenario);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [deleteEntity]
   );

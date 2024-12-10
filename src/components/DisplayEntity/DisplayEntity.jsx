@@ -3,7 +3,7 @@ import { TopicStyled } from './style';
 import { clsx } from 'clsx';
 
 export const DisplayEntity = ({ entity }) => {
-  const mappedData = Array.isArray(entity) ? entity : entity?.list ?? [];
+  const mappedData = Array.isArray(entity) ? entity : (entity?.list ?? []);
 
   return (
     <TopicStyled>

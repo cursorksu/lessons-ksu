@@ -18,7 +18,6 @@ function Scala() {
     return () => {
       clearTimeout(animationTimeout);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const shuffleArray = (array) => {
@@ -43,7 +42,6 @@ function Scala() {
   }, []);
 
   useEffect(() => {
-    // eslint-disable-next-line
     animationTimeout = setTimeout(() => {
       audioIsPlaying && setAudioIsPlaying(false);
     }, 1500);

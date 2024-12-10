@@ -18,7 +18,6 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
     async (teacherId) => {
       await removeTeacherFromChurch(church.id, teacherId);
       onEdit();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [church]
   );

@@ -42,7 +42,6 @@ export const KsuDropdown = ({
         );
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entityName, getAllEntities, optionsIds]);
 
   useEffect(() => {
@@ -56,7 +55,6 @@ export const KsuDropdown = ({
     (_, data) => {
       const currentData = optionsData?.find((el) => el.id === data.value);
       currentData && onChange(currentData);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [onChange, options]
   );
