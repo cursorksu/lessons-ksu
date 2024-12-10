@@ -1,62 +1,14 @@
-name: Firebase Deployment
+steps:
+  - name: Checkout code
+    uses: actions/checkout@v3
 
-on:
-  push:
-    branches:
-      - main
+  - name: Set up Node.js
+    uses: actions/setup-node@v3
+    with:
+      node-version: '18'
 
-jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      # Step 1: Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v3
+  - name: Install dependencies
+    run: npm install
 
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Build the project
-      - name: Build
-        env:
-          CI: false
-        run: npm run build
-
-      # Step 5: Upload build artifact
-      - name: Upload Production Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: build
-
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      # Step 1: Checkout repository
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      # Step 2: Download build artifact
-      - name: Download Artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
-
-      # Step 3: Deploy to Firebase
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  - name: Build the project
+    run: npm run build
