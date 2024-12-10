@@ -639,7 +639,7 @@ export const VeremMainContentStyled = styled('div')`
   }
   .verem-church-title {
     position: absolute;
-    background: #fff;
+    background: rgba(255, 255,255, 0.7);
     z-index: 10;
     top: 0;
     text-align: center;
