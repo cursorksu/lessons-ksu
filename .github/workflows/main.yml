@@ -6,9 +6,7 @@ on:
       - main
 
 jobs:
-
   build:
-
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -20,23 +18,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Рекомендуется использовать стабильную LTS-версию
+          node-version: '20'
 
-      # Step 3: Clear Cache
-      - name: Clear cache
-        run: rm -rf node_modules yarn.lock
-
-      # Step 4: Install dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: yarn install
 
-      # Step 5: Build the project
+      # Step 4: Build the project
       - name: Build
         env:
           CI: false
-        run: yarn build
+        run: yarn run build
 
-      # Step 6: Upload build artifact
+      # Step 5: Upload build artifact
       - name: Upload Production Artifact
         uses: actions/upload-artifact@v3
         with:
