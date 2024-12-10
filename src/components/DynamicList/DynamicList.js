@@ -15,12 +15,10 @@ export const DynamicList = ({ field, onChangeField }) => {
 
   useEffect(() => {
     field.value && setList(field.value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     onChangeField && onChangeField({ ...field, value: list });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list]);
 
   const onChange = (e, id) => {

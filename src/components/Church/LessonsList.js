@@ -31,7 +31,6 @@ export const LessonsList = ({ isAuth, teachers, church, onEdit, lessons }) => {
         ),
       });
       onEdit();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [church, teachers]
   );
@@ -39,7 +38,6 @@ export const LessonsList = ({ isAuth, teachers, church, onEdit, lessons }) => {
   const handleChangeTeacherList = useCallback(
     async (data) => {
       setTeachersList(data);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [church, teachers]
   );
@@ -61,7 +59,6 @@ export const LessonsList = ({ isAuth, teachers, church, onEdit, lessons }) => {
 
     setIsFormShown(false);
     onEdit();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [church, teachersList, editEntity, onEdit, teachers]);
 
   return (

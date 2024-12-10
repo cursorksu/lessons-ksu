@@ -2,7 +2,7 @@ import './Rate.scss';
 import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Emoji } from 'emoji-picker-react';
-import { clsx } from 'clsx';
+import clsx from 'clsx';
 export const Rate = () => {
   const { students } = useSelector((state) => state.entities);
 
@@ -17,7 +17,6 @@ export const Rate = () => {
       );
     }
     return (screenHeight - 300) / largestRate;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [students, window.innerHeight]);
   const balloonStyle = useCallback(
     (el, idx) => {
@@ -25,7 +24,6 @@ export const Rate = () => {
         bottom: !el.estimation ? 50 + rateStep : 50 + rateStep * el.estimation,
         left: 100 + ((window.innerWidth - 100) / students.length) * idx,
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [rateStep, students, window.innerWidth]
   );

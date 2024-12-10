@@ -46,7 +46,6 @@ export const Scenario = () => {
     getPublishedScenarioList().then((data) => {
       setScenario(data);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldUpdate]);
 
   useEffect(() => {

@@ -89,7 +89,6 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
         })
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createEntity, getValues, onEdit, reset]);
 
   const deleteGroup = useCallback(

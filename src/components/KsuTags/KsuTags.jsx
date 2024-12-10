@@ -6,7 +6,6 @@ export const KsuTags = ({ placeholder, onChange, field, value }) => {
 
   useEffect(() => {
     onChange(tags);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags]);
 
   function handleKeyDown(e) {

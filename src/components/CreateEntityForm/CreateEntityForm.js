@@ -137,7 +137,6 @@ export const CreateEntityForm = ({
           />
         );
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
     [emojiIsOpen, defaultValues, user]
   );

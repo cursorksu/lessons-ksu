@@ -19,7 +19,6 @@ export const MediaItem = ({ field, index, handleRemove, handleChange }) => {
       value: link,
       text,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [media, text]);
 
   return (
