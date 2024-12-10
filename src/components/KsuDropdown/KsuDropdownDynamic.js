@@ -17,16 +17,25 @@ export const KsuDropdownDynamic = ({
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
 
   useEffect(() => {
-    getAllEntities().then(data => {
-      setOptions(data.map(el => getOption(el, value?.map(el => el.id))));
+    getAllEntities().then((data) => {
+      setOptions(
+        data.map((el) =>
+          getOption(
+            el,
+            value?.map((el) => el.id)
+          )
+        )
+      );
     });
   }, [getAllEntities, value]);
 
-
-  const handleChange = useCallback((_, data) => {
-    setDropdownIsOpen(false);
-    onChange(data);
-  }, [onChange]);
+  const handleChange = useCallback(
+    (_, data) => {
+      setDropdownIsOpen(false);
+      onChange(data);
+    },
+    [onChange]
+  );
 
   return (
     <StyledDropdown>

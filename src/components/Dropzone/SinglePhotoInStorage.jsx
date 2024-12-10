@@ -31,7 +31,7 @@ export const SinglePhotoInStorage = ({ onChange, file, folder }) => {
       {({ getRootProps, getInputProps }) => (
         <UvDropzoneStyled className="user-avatar">
           <div {...getRootProps()}>
-            <input {...getInputProps()} accept=".png,.jpg,.svg"/>
+            <input {...getInputProps()} accept=".png,.jpg,.svg" />
             <span className="accent">+ {t('button.uploadPhoto')}</span>
           </div>
         </UvDropzoneStyled>

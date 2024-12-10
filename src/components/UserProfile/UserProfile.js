@@ -1,13 +1,13 @@
 import { UserProfileStyled } from './UserProfileStyled';
 import { Tab } from 'semantic-ui-react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from "react-i18next";
-import { CreateEntityForm } from "../CreateEntityForm/CreateEntityForm";
-import {ButtonIconStyled, ButtonStyled} from "../ButtonStyled";
-import { StudentsTable } from "../DataTable/StudentsTable";
-import { studentConfig } from "../../constants/entities/studentConfig";
-import { EditStudentEstimateModal } from "../EditStudentEstimateModal/EditStudentEstimateModal";
-import { useUpdateStudent } from "../../api/student/useUpdateStudent";
+import { useTranslation } from 'react-i18next';
+import { CreateEntityForm } from '../CreateEntityForm/CreateEntityForm';
+import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
+import { StudentsTable } from '../DataTable/StudentsTable';
+import { studentConfig } from '../../constants/entities/studentConfig';
+import { EditStudentEstimateModal } from '../EditStudentEstimateModal/EditStudentEstimateModal';
+import { useUpdateStudent } from '../../api/student/useUpdateStudent';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import { ReactComponent as SaveIcon } from '../../assets/save.svg';
@@ -17,7 +17,8 @@ import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { routes } from '../../router/constants';
 import { useSelector } from 'react-redux';
 import {
-  getDateLocalString, getDateObject
+  getDateLocalString,
+  getDateObject,
 } from '../../utils/getDateLocalString';
 import { getAge } from '../../utils/getAge';
 import { SinglePhotoInStorage } from '../Dropzone/SinglePhotoInStorage';
@@ -25,7 +26,7 @@ import { useUpdateProfileField } from '../../api/user/useUpdateUser';
 import { NavLink } from 'react-router-dom';
 
 export const UserProfile = () => {
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const { groupId } = useParams();
   const { t } = useTranslation('tr');
@@ -37,7 +38,8 @@ export const UserProfile = () => {
   const { editUserProfile } = useUpdateProfileField();
 
   const { getEntities, entities: groups } = useGetEntityListByIds('group');
-  const { getEntities: getChurches, entities: churches } = useGetEntityListByIds('church');
+  const { getEntities: getChurches, entities: churches } =
+    useGetEntityListByIds('church');
 
   useEffect(() => {
     getEntities(user?.groups || []);
@@ -60,119 +62,137 @@ export const UserProfile = () => {
   };
 
   const [defaultValues, setDefaultValues] = useState(initialValues);
-  const handleRowClick = useCallback((data) => {
-    const birthday = JSON.parse(data.birthday);
-    setIsFormShown(true);
-    setDefaultValues({
-      ...data,
-      group: groupId,
-      createdAt: JSON.parse(data.createdAt),
-      birthday: birthday ? getDateObject(birthday) : new Date(),
-    });
-  }, [groupId]);
+  const handleRowClick = useCallback(
+    (data) => {
+      const birthday = JSON.parse(data.birthday);
+      setIsFormShown(true);
+      setDefaultValues({
+        ...data,
+        group: groupId,
+        createdAt: JSON.parse(data.createdAt),
+        birthday: birthday ? getDateObject(birthday) : new Date(),
+      });
+    },
+    [groupId]
+  );
   const confirmationHandler = () => {
-    setShouldUpdate(prev => !prev);
+    setShouldUpdate((prev) => !prev);
   };
 
-  const updateStudentHandler = useCallback(async (estimation, data) => {
-    await updateStudentData(data.id, { estimation: +data.estimation + estimation });
-    setShouldUpdate(prev => !prev);
-  }, [updateStudentData]);
+  const updateStudentHandler = useCallback(
+    async (estimation, data) => {
+      await updateStudentData(data.id, {
+        estimation: +data.estimation + estimation,
+      });
+      setShouldUpdate((prev) => !prev);
+    },
+    [updateStudentData]
+  );
 
-  const deleteStudentHandler = useCallback(async (data) => {
-    await deleteEntity(data.id);
-    setShouldUpdate(prev => !prev);
-  }, [deleteEntity]);
+  const deleteStudentHandler = useCallback(
+    async (data) => {
+      await deleteEntity(data.id);
+      setShouldUpdate((prev) => !prev);
+    },
+    [deleteEntity]
+  );
 
-  const onIsActiveSwitch = useCallback(async (data) => {
-    await updateStudentData(data.id, { isActive: !data.isActive });
-    setShouldUpdate(prev => !prev);
-  }, [updateStudentData]);
+  const onIsActiveSwitch = useCallback(
+    async (data) => {
+      await updateStudentData(data.id, { isActive: !data.isActive });
+      setShouldUpdate((prev) => !prev);
+    },
+    [updateStudentData]
+  );
 
-  const handleTabChange = useCallback(({ activeIndex }) => {
-    setActiveTab(activeIndex);
-    const activeGroup = groups[activeIndex];
-    navigate(`${routes.cabinet}/${user?.uid}${routes.group}/${activeGroup.id}`);
-  }, [user, groups, navigate]);
+  const handleTabChange = useCallback(
+    ({ activeIndex }) => {
+      setActiveTab(activeIndex);
+      const activeGroup = groups[activeIndex];
+      navigate(
+        `${routes.cabinet}/${user?.uid}${routes.group}/${activeGroup.id}`
+      );
+    },
+    [user, groups, navigate]
+  );
 
-  const panes = useMemo(() => (groups?.map((item) => (
-    {
-      menuItem: {
-        key: item.id,
-        content: item.title
-      },
-      render: () => (
-        <StudentsTable
-          onSwitch={onIsActiveSwitch}
-          selectedRow={defaultValues.id}
-          shouldUpdate={shouldUpdate}
-          columns={[
-            ...studentConfig.filter(el => el.name !== 'birthday'),
-            {
-              name: 'birthday',
-              isIgnored: false,
-              render: (data) => data.birthday && (
-                <div>
-                  {getDateLocalString(JSON.parse(data.birthday))}
-                </div>
-              ),
-            },
-            {
-              name: 'years',
-              isIgnored: true,
-              render: (data) => (
-                <div>
-                  {getAge(data.birthday)}
-                </div>
-              ),
-            },
-            {
-              name: 'estimation',
-              label: 'Динарики',
-              placeholder: 'Динарики',
-              render: (data) => (
-                <div className="estimation">
-                  <h3 className="score">
-                    {data.estimation}
-                  </h3>
-                  <EditStudentEstimateModal
-                    studentName={data.firstName}
-                    onConfirm={(estimation) => updateStudentHandler(estimation, data)}
-                  />
-                </div>
-              ),
-              isIgnored: true,
-            },
-            {
-              inputType: null,
-              name: 'action',
-              label: 'Змiнити',
-              render: (data) => (
-                <div>
-                  <ButtonIconStyled onClick={() => handleRowClick(data)}>
-                    <EditIcon/>
-                  </ButtonIconStyled>
-                  <ButtonIconStyled onClick={() => deleteStudentHandler(data)}>
-                    <DeleteIcon/>
-                  </ButtonIconStyled>
-                </div>
-              ),
-            }
-          ]}/>
-      ),
-    })
-  )), [
-    groups,
-    shouldUpdate,
-    defaultValues,
-    deleteStudentHandler,
-    handleRowClick,
-    onIsActiveSwitch,
-    updateStudentHandler
-  ]);
+  const panes = useMemo(
+    () =>
+      groups?.map((item) => ({
+        menuItem: {
+          key: item.id,
+          content: item.title,
+        },
+        render: () => (
+          <StudentsTable
+            onSwitch={onIsActiveSwitch}
+            selectedRow={defaultValues.id}
+            shouldUpdate={shouldUpdate}
+            columns={[
+              ...studentConfig.filter((el) => el.name !== 'birthday'),
+              {
+                name: 'birthday',
+                isIgnored: false,
+                render: (data) =>
+                  data.birthday && (
+                    <div>{getDateLocalString(JSON.parse(data.birthday))}</div>
+                  ),
+              },
+              {
+                name: 'years',
+                isIgnored: true,
+                render: (data) => <div>{getAge(data.birthday)}</div>,
+              },
+              {
+                name: 'estimation',
+                label: 'Динарики',
+                placeholder: 'Динарики',
+                render: (data) => (
+                  <div className="estimation">
+                    <h3 className="score">{data.estimation}</h3>
+                    <EditStudentEstimateModal
+                      studentName={data.firstName}
+                      onConfirm={(estimation) =>
+                        updateStudentHandler(estimation, data)
+                      }
+                    />
+                  </div>
+                ),
+                isIgnored: true,
+              },
+              {
+                inputType: null,
+                name: 'action',
+                label: 'Змiнити',
+                render: (data) => (
+                  <div>
+                    <ButtonIconStyled onClick={() => handleRowClick(data)}>
+                      <EditIcon />
+                    </ButtonIconStyled>
+                    <ButtonIconStyled
+                      onClick={() => deleteStudentHandler(data)}>
+                      <DeleteIcon />
+                    </ButtonIconStyled>
+                  </div>
+                ),
+              },
+            ]}
+          />
+        ),
+      })),
+    [
+      groups,
+      shouldUpdate,
+      defaultValues,
+      deleteStudentHandler,
+      handleRowClick,
+      onIsActiveSwitch,
+      updateStudentHandler,
+    ]
+  );
 
   useEffect(() => {
-    setActiveTab(groups?.findIndex(el => el.id === groupId));
+    setActiveTab(groups?.findIndex((el) => el.id === groupId));
   }, [groupId, groups]);
 
   const [isEditAvatar, setIsEditAvatar] = useState(false);
@@ -208,78 +228,85 @@ export const UserProfile = () => {
     }
   };
 
-
   return (
     <UserProfileStyled>
       <div className="top-container">
         <div className="d-flex">
           <div className="avatar-wrapper">
             {isEditAvatar
-              ? (
-                <SinglePhotoInStorage
-                  folder="users"
-                  onChange={handleAvatarChange}
-                  file={user?.avatar}
+? (
+              <SinglePhotoInStorage
+                folder="users"
+                onChange={handleAvatarChange}
+                file={user?.avatar}
+              />
+            )
+: (
+              <>
+                <ButtonIconStyled onClick={() => setIsEditAvatar(true)}>
+                  <EditIcon />
+                </ButtonIconStyled>
+                <img
+                  src={user?.avatar}
+                  alt={user?.fullName}
+                  className="image avatar"
                 />
-              )
-              : (
-                <>
-                  <ButtonIconStyled onClick={() => setIsEditAvatar(true)}>
-                    <EditIcon />
-                  </ButtonIconStyled>
-                  <img src={user?.avatar} alt={user?.fullName} className="image avatar"/>
-                </>
-              )}
+              </>
+            )}
           </div>
           <div>
             <h1 className="title">
               {titleIsEdit
-                ? <input
+? (
+                <input
                   className="user-title"
-                  type='text'
+                  type="text"
                   value={userTitle}
                   onChange={handleTitleChange}
                 />
-                : user?.fullName
-              }
+              )
+: (
+                user?.fullName
+              )}
               {titleIsEdit
-                ? (
-                  <ButtonIconStyled onClick={handleTitleSave}>
-                    <SaveIcon />
-                  </ButtonIconStyled>
-                )
-                : (
-                  <ButtonIconStyled onClick={() => {
+? (
+                <ButtonIconStyled onClick={handleTitleSave}>
+                  <SaveIcon />
+                </ButtonIconStyled>
+              )
+: (
+                <ButtonIconStyled
+                  onClick={() => {
                     setUserTitle(user?.fullName);
                     setTitleIsEdit(true);
                   }}>
-                    <EditIcon />
-                  </ButtonIconStyled>
-                )
-              }
+                  <EditIcon />
+                </ButtonIconStyled>
+              )}
             </h1>
             <div className="meta">{user?.email}</div>
-            {churches?.length > 0 && churches.map(el => (
-              <NavLink
-                key={el.id}
-                to={`${routes.church}/${el.id}`}
-                className="meta"
-              >
-                {el.title}
-              </NavLink>
-            ))
-            }
+            {churches?.length > 0 &&
+              churches.map((el) => (
+                <NavLink
+                  key={el.id}
+                  to={`${routes.church}/${el.id}`}
+                  className="meta">
+                  {el.title}
+                </NavLink>
+              ))}
           </div>
         </div>
       </div>
       <div className="action-wrapper">
-        <ButtonStyled onClick={() => {
-          setDefaultValues(initialValues);
-          setIsFormShown(true);
-        }}>
+        <ButtonStyled
+          onClick={() => {
+            setDefaultValues(initialValues);
+            setIsFormShown(true);
+          }}>
           + {t('students.addStudent')}
         </ButtonStyled>
-        <ButtonStyled onClick={() =>navigate(`${routes.group}/${groupId}/games/rate`)}>
+        <ButtonStyled
+          onClick={() => navigate(`${routes.group}/${groupId}/games/rate`)}>
           {t('students.showResult')}
         </ButtonStyled>
       </div>

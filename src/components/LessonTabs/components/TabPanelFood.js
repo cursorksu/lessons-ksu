@@ -10,29 +10,31 @@ export const TabPanelFood = ({ lesson }) => {
   const { createFood } = useCreateFood();
   const { getFoodIdById } = useGetFoodById();
 
-  useEffect( () => {
+  useEffect(() => {
     if (lesson?.food && Array.isArray(lesson?.food)) {
-      lesson?.food
-        .forEach(async (item) => await getFoodIdById(item));
+      lesson?.food.forEach(async (item) => await getFoodIdById(item));
     }
-  }, [lesson,  getFoodIdById]);
+  }, [lesson, getFoodIdById]);
 
   const { food } = useSelector((state) => state.lessonData);
 
-  const handleAddCraft = useCallback(async (craftFormData) => {
-    return await createFood(lesson?.id, craftFormData);
-  }, [createFood, lesson]);
+  const handleAddCraft = useCallback(
+    async (craftFormData) => {
+      return await createFood(lesson?.id, craftFormData);
+    },
+    [createFood, lesson]
+  );
 
   return (
     <TabPane>
       <div className="btn-wrapper">
         <CreateModal
           onSubmit={handleAddCraft}
-          buttonText='Додати частування'
-          modalTitle='Створити нову інструкцію виготовлення смаколика'
-          label='Назва смаколика'
-          placeholder='Введіть назву смаколика'
-          entity='food'
+          buttonText="Додати частування"
+          modalTitle="Створити нову інструкцію виготовлення смаколика"
+          label="Назва смаколика"
+          placeholder="Введіть назву смаколика"
+          entity="food"
         />
       </div>
       <EntityToPrint

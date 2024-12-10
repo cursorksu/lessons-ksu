@@ -13,20 +13,24 @@ export const LessonCard = ({ item, onClick, onDelete }) => {
   return (
     <Card>
       <LessonCardStyled onClick={() => onClick(item?.id)}>
-        <div className='card-img-wrapper' ref={wrapperRef}>
+        <div className="card-img-wrapper" ref={wrapperRef}>
           {imagesLoaded && <img src={item?.imageUrl} alt={item?.title} />}
           {!imagesLoaded && <ImageIcon />}
         </div>
         <CardContent>
           <p className="description">{item?.goal}</p>
-          <h2 className='title card-title'>{item?.title}</h2>
+          <h2 className="title card-title">{item?.title}</h2>
           <p className="quote">{item?.bibleText}</p>
-          <div className="quote"><b>{item?.bibleQuote}</b></div>
+          <div className="quote">
+            <b>{item?.bibleQuote}</b>
+          </div>
         </CardContent>
         <CardMeta>
           <div>
             <p>Created: {item?.createdAt}</p>
-            <p>Author: {item?.createdBy?.firstName} {item?.createdBy?.lastName}</p>
+            <p>
+              Author: {item?.createdBy?.firstName} {item?.createdBy?.lastName}
+            </p>
           </div>
           <ButtonIconStyled onClick={(e) => onDelete(e, item?.id)}>
             <DeleteIcon />

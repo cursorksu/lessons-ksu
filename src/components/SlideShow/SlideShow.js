@@ -15,58 +15,60 @@ import clsx from 'clsx';
 export const SlideShow = ({ slideList }) => {
   const [fullScreen, setFullScreen] = useState(false);
 
-  return (<>
-    <SwiperSlider
-      className={clsx('print-hide', {
-        'full-screen': fullScreen,
-      })}
-      slidesPerView={1}
-      keyboard={{
-        enabled: true,
-      }}
-      loop
-      navigation
-      centeredSlides={true}
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false,
-      }}
-      effect={'cube'}
-      grabCursor={true}
-      pagination={{
-        clickable: true,
-        dynamicBullets: true,
-      }}
-      modules={[Keyboard, Pagination, Navigation]}
-    >
-      <Popup
-        trigger={(
-          <ButtonIconStyled
-            onClick={() => setFullScreen((prev) => !prev)}
-            className='print-hide full-screen-button'
-          >
-            {fullScreen
-              ? <ScreenIcon />
-              : <FullScreenIcon />}
-          </ButtonIconStyled>
-        )}
-        content={`${fullScreen ? 'Вимкнути' : 'Встановити'} повноекранний режим`}
-      />
+  return (
+    <>
+      <SwiperSlider
+        className={clsx('print-hide', {
+          'full-screen': fullScreen,
+        })}
+        slidesPerView={1}
+        keyboard={{
+          enabled: true,
+        }}
+        loop
+        navigation
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        effect={'cube'}
+        grabCursor={true}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
+        }}
+        modules={[Keyboard, Pagination, Navigation]}>
+        <Popup
+          trigger={
+            <ButtonIconStyled
+              onClick={() => setFullScreen((prev) => !prev)}
+              className="print-hide full-screen-button">
+              {fullScreen ? <ScreenIcon /> : <FullScreenIcon />}
+            </ButtonIconStyled>
+          }
+          content={`${
+            fullScreen ? 'Вимкнути' : 'Встановити'
+          } повноекранний режим`}
+        />
 
-      {slideList?.map((el) => (<SwiperSlide key={el?.id}>
-        <img src={el.value} alt={el.description} />
-        <div className='description'>
-          <p>{el.description}</p>
+        {slideList?.map((el) => (
+          <SwiperSlide key={el?.id}>
+            <img src={el.value} alt={el.description} />
+            <div className="description">
+              <p>{el.description}</p>
+            </div>
+          </SwiperSlide>
+        ))}
+
+        <div className="button-next">
+          <ArrowLeft />
         </div>
-      </SwiperSlide>))}
 
-      <div className='button-next'>
-        <ArrowLeft />
-      </div>
-
-      <div className='button-prev'>
-        <ArrowRight />
-      </div>
-    </SwiperSlider>
-  </>);
+        <div className="button-prev">
+          <ArrowRight />
+        </div>
+      </SwiperSlider>
+    </>
+  );
 };

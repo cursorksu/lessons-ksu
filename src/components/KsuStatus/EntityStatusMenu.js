@@ -9,18 +9,22 @@ export const EntityStatusMenu = ({ onChangeFilter, entityName }) => {
   const { t } = useTranslation('tr');
   const [activeStatus, setActiveStatus] = useState(1);
 
-  const { lessons } = useSelector(store => store.lessonData);
+  const { lessons } = useSelector((store) => store.lessonData);
 
   const amountOfItems = useMemo(() => {
     if (lessons?.length) {
-      const publishedAmount = lessons
-        .filter(el => el.status === publicStatuses.published).length;
-      const activeAmount = lessons
-        .filter(el => el.status === publicStatuses.active).length;
-      const waitingAmount = lessons
-        .filter(el => el.status === publicStatuses.waiting).length;
-      const draftAmount = lessons
-        .filter(el => el.status === publicStatuses.draft).length;
+      const publishedAmount = lessons.filter(
+        (el) => el.status === publicStatuses.published
+      ).length;
+      const activeAmount = lessons.filter(
+        (el) => el.status === publicStatuses.active
+      ).length;
+      const waitingAmount = lessons.filter(
+        (el) => el.status === publicStatuses.waiting
+      ).length;
+      const draftAmount = lessons.filter(
+        (el) => el.status === publicStatuses.draft
+      ).length;
 
       return {
         published: publishedAmount,

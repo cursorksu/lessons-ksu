@@ -12,51 +12,51 @@ export const dataSlice = createSlice({
   reducers: {
     setLessons: (state, action) => ({
       ...state,
-      lessons: action.payload
+      lessons: action.payload,
     }),
     setLesson: (state, action) => ({
       ...state,
-      lesson: action.payload
+      lesson: action.payload,
     }),
     setTopic: (state, action) => ({
       ...state,
-      topic: action.payload
+      topic: action.payload,
     }),
     setCraft: (state, action) => ({
       ...state,
-      craft: {...state.craft, ...action.payload}
+      craft: { ...state.craft, ...action.payload },
     }),
     setCraftList: (state, action) => ({
       ...state,
-      craftList: [...state.craftList, ...action.payload]
+      craftList: [...state.craftList, ...action.payload],
     }),
     setFood: (state, action) => ({
       ...state,
-      food: {...state.food, ...action.payload}
+      food: { ...state.food, ...action.payload },
     }),
     setFoodList: (state, action) => ({
       ...state,
-      foodList: [...state.foodList, ...action.payload]
+      foodList: [...state.foodList, ...action.payload],
     }),
     setSubject: (state, action) => ({
       ...state,
-      subject: {...state.subject, ...action.payload}
+      subject: { ...state.subject, ...action.payload },
     }),
     setSubjectList: (state, action) => ({
       ...state,
-      subject: [...state.subject, ...action.payload]
+      subject: [...state.subject, ...action.payload],
     }),
     setGame: (state, action) => ({
       ...state,
-      game: {...state.game, ...action.payload}
+      game: { ...state.game, ...action.payload },
     }),
     setGameList: (state, action) => ({
       ...state,
-      gameList: action.payload
+      gameList: action.payload,
     }),
     setTeachersList: (state, action) => ({
       ...state,
-      teachers: action.payload
+      teachers: action.payload,
     }),
   },
 });

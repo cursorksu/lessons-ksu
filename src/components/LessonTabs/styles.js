@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import {
-  BOX_SHADOW, CHOCO, CREAM, DARK_BG, GOLD
+  BOX_SHADOW,
+  CHOCO,
+  CREAM,
+  DARK_BG,
+  GOLD,
 } from '../../constants/colors';
 
 export const TabStyled = styled('div')`

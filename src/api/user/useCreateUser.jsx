@@ -9,22 +9,31 @@ export const useCreateUser = () => {
     try {
       const userDock = doc(fireStore, `/users/${userObj?.uid}`);
       const createdAt = Timestamp.now();
-      const userData = await setDoc(userDock, { ...userObj, createdAt, groups: [] });
-      dispatch(setMessage({
-        type: 'success',
-        message: {
-          title: `Hi ${userObj.fullName}!`,
-          description: `Your Account was successfully created! Now you can Log in`,
-        },
-      }));
+      const userData = await setDoc(userDock, {
+        ...userObj,
+        createdAt,
+        groups: [],
+      });
+      dispatch(
+        setMessage({
+          type: 'success',
+          message: {
+            title: `Hi ${userObj.fullName}!`,
+            description: `Your Account was successfully created! Now you can Log in`,
+          },
+        })
+      );
       return userData?.uid;
     } catch (error) {
-      dispatch(setMessage({
-        type: 'error', message: {
-          title: 'Error User Creation:',
-          description: error.message,
-        },
-      }));
+      dispatch(
+        setMessage({
+          type: 'error',
+          message: {
+            title: 'Error User Creation:',
+            description: error.message,
+          },
+        })
+      );
     }
   };
 

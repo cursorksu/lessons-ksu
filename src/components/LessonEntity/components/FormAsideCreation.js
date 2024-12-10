@@ -6,9 +6,7 @@ import { SinglePhotoInStorage } from '../../Dropzone/SinglePhotoInStorage';
 import Editor from '../../TextEditor';
 import { useEditEntity } from '../../../api/entity/useEditEntity';
 import { useCreateEntity } from '../../../api/entity/useCreateEntity';
-import {
-  CreateEntityFormStyled
-} from '../../CreateEntityForm/CreateEntityFormStyled';
+import { CreateEntityFormStyled } from '../../CreateEntityForm/CreateEntityFormStyled';
 import { InputStyled, LabelStyled } from '../../InputStyled';
 import { KsuTags } from '../../KsuTags/KsuTags';
 import { ButtonStyled } from '../../ButtonStyled';
@@ -23,7 +21,8 @@ export const FormAsideCreation = ({
 }) => {
   const { reset, control, getValues } = useForm({
     defaultValues,
-    caches: false });
+    caches: false,
+  });
 
   useEffect(() => {
     reset(defaultValues);
@@ -37,11 +36,11 @@ export const FormAsideCreation = ({
     <CreateEntityFormStyled className={'aside'}>
       <div className="aside-form">
         <Controller
-          name='image'
+          name="image"
           control={control}
           render={({ field }) => (
-            <FormField name='image'>
-              <LabelStyled>{"Обкладинка"}</LabelStyled>
+            <FormField name="image">
+              <LabelStyled>{'Обкладинка'}</LabelStyled>
               <StyledDropdown className="lessons-dropdown">
                 <Dropdown
                   placeholder="Виберіть один з уроків"
@@ -53,16 +52,15 @@ export const FormAsideCreation = ({
                   options={lessonsOptions}
                 />
               </StyledDropdown>
-
             </FormField>
           )}
         />
         <Controller
-          name='image'
+          name="image"
           control={control}
           render={({ field }) => (
-            <FormField name='image'>
-              <LabelStyled>{"Обкладинка"}</LabelStyled>
+            <FormField name="image">
+              <LabelStyled>{'Обкладинка'}</LabelStyled>
               <SinglePhotoInStorage
                 onChange={field.onChange}
                 file={field.value}
@@ -72,10 +70,10 @@ export const FormAsideCreation = ({
           )}
         />
         <Controller
-          name='title'
+          name="title"
           control={control}
           render={({ field }) => (
-            <FormField name='title'>
+            <FormField name="title">
               <LabelStyled>{t(`${entityName}.labels.title`)}</LabelStyled>
               <InputStyled
                 value={field.value}
@@ -87,11 +85,11 @@ export const FormAsideCreation = ({
           )}
         />
         <Controller
-          name='imageUrl'
+          name="imageUrl"
           control={control}
           render={({ field }) => (
-            <FormField name='imageUrl'>
-              <LabelStyled>{"Посилання на зображення"}</LabelStyled>
+            <FormField name="imageUrl">
+              <LabelStyled>{'Посилання на зображення'}</LabelStyled>
               <InputStyled
                 value={field.value}
                 {...field}
@@ -102,10 +100,10 @@ export const FormAsideCreation = ({
           )}
         />
         <Controller
-          name='tags'
+          name="tags"
           control={control}
           render={({ field }) => (
-            <FormField name='tags'>
+            <FormField name="tags">
               <LabelStyled>{t(`${entityName}.labels.tags`)}</LabelStyled>
               <KsuTags
                 field={field}
@@ -117,10 +115,10 @@ export const FormAsideCreation = ({
           )}
         />
         <Controller
-          name='text'
+          name="text"
           control={control}
           render={({ field }) => (
-            <FormField name='text'>
+            <FormField name="text">
               <LabelStyled>{t(`${entityName}.labels.text`)}</LabelStyled>
               <Editor
                 placeholder={'Почніть вводити текст...'}

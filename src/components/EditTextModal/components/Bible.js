@@ -6,7 +6,8 @@ export const Bible = ({ field }) => {
   return (
     <FormField>
       <InputStyled
-        id="quote"F
+        id="quote"
+        F
         name="quote"
         placeholder="Місце з Писання"
         value={field.value}

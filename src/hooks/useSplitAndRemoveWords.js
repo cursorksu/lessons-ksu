@@ -8,7 +8,10 @@ export function useSplitAndRemoveWords(inputString) {
   const removedWordsArray = [];
 
   // Массив для исходных индексов слов
-  const originalIndexes = Array.from({ length: wordsArray.length }, (_, index) => index);
+  const originalIndexes = Array.from(
+    { length: wordsArray.length },
+    (_, index) => index
+  );
 
   // Случайный выбор индексов слов для удаления
   const randomIndexesToRemove = [];
@@ -18,13 +21,13 @@ export function useSplitAndRemoveWords(inputString) {
   }
 
   // Удаление слов из исходного массива и добавление их в массив удаленных слов
-  randomIndexesToRemove.forEach(index => {
+  randomIndexesToRemove.forEach((index) => {
     removedWordsArray.push({ word: wordsArray[index], index });
     wordsArray[index] = ''; // Замена удаленного слова на пустую строку
   });
 
   return {
     wordsArray,
-    removedWordsArray
+    removedWordsArray,
   };
 }

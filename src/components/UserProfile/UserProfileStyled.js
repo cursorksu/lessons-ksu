@@ -6,18 +6,18 @@ export const UserProfileStyled = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   text-align: left;
-  
+
   .action-wrapper {
     padding: 16px;
   }
-  
+
   .user-title {
     background: transparent;
     border: none;
     border-bottom: 1px solid ${CREAM};
     color: ${CREAM};
     font-family: Montserrat, sans-serif;
-    
+
     &:active,
     &:focus {
       outline: none;
@@ -30,7 +30,7 @@ export const UserProfileStyled = styled.div`
     font-size: 4rem;
     font-weight: 500;
     margin: 0 !important;
-    
+
     button {
       margin-left: 20px;
     }
@@ -53,10 +53,16 @@ export const UserProfileStyled = styled.div`
       bottom: -10px;
       right: -50%;
       transform: translateX(-50%);
-      background-image: linear-gradient(to right, transparent 0%, ${CREAM} 50%, ${CREAM} 50%, transparent 100%);
+      background-image: linear-gradient(
+        to right,
+        transparent 0%,
+        ${CREAM} 50%,
+        ${CREAM} 50%,
+        transparent 100%
+      );
     }
   }
-  
+
   .info {
     width: 60%;
     margin: auto;
@@ -74,7 +80,7 @@ export const UserProfileStyled = styled.div`
     max-width: calc(100% - 80px);
     overflow-y: hidden;
     overflow-x: auto;
-    
+
     .item {
       background: white;
       font-family: Montserrat, sans-serif;
@@ -93,14 +99,13 @@ export const UserProfileStyled = styled.div`
         box-shadow: 2px 0 2px 0 rgba(0, 0, 0, 0.4);
         opacity: 1;
       }
-      
+
       &:hover {
         background: ${CREAM};
-       
       }
     }
   }
-  
+
   .avatar-wrapper {
     position: relative;
     margin-right: 40px;
@@ -111,7 +116,7 @@ export const UserProfileStyled = styled.div`
       left: 5px;
       z-index: 2;
     }
-    
+
     .image {
       margin-right: 0;
       object-fit: cover;
@@ -124,8 +129,6 @@ export const UserProfileStyled = styled.div`
       overflow: hidden;
     }
   }
-  
-
 
   .top-container {
     position: relative;
@@ -145,10 +148,10 @@ export const UserProfileStyled = styled.div`
       background-color: ${DARK_BG};
     }
   }
-  
+
   .score {
     min-width: 60px;
-    font-family: "Coco Gothic Alternate", sans-serif;
+    font-family: 'Coco Gothic Alternate', sans-serif;
     font-size: 18px;
     color: rgb(96, 81, 71);
     margin: 0 !important;
@@ -156,24 +159,24 @@ export const UserProfileStyled = styled.div`
   }
 
   .d-flex {
-      display: flex;
-      align-items: flex-start;
+    display: flex;
+    align-items: flex-start;
   }
 
   img {
-      margin-right: 40px;
-      border: 1px solid ${CREAM};
+    margin-right: 40px;
+    border: 1px solid ${CREAM};
   }
 
   .meta {
-      font-family: Montserrat, sans-serif;
-      font-size: 20px;
-      color: ${PRIMARY_MAIN};
-      font-weight: 400;
-      line-height: 2;
-      display: block;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+    color: ${PRIMARY_MAIN};
+    font-weight: 400;
+    line-height: 2;
+    display: block;
   }
-  
+
   .estimation {
     cursor: pointer;
     border: none;
@@ -182,14 +185,14 @@ export const UserProfileStyled = styled.div`
     align-items: center;
     height: 40px;
     h4 {
-        margin: 0;
+      margin: 0;
     }
     img {
-        margin: 0;
-        border: none;
-        width: 46px;
-        height: 46px;
-        object-fit: contain;
+      margin: 0;
+      border: none;
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
     }
   }
 `;
@@ -204,7 +207,7 @@ export const ChurchHeroStyled = styled.div`
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    
+
     img {
       margin-right: 0 !important;
       width: 100%;
@@ -217,34 +220,34 @@ export const ChurchHeroStyled = styled.div`
   .top-container {
     padding: 40px;
     overflow: hidden;
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8');
     height: 300px;
     position: relative;
-      
-      &:after {
-        content: '';
-        width: 1000px;
-        height: 300px;
-        border-radius: 50%;
-        background-color: ${DARK_BG};
-        position: absolute;
-        top: -80px;
-        right: 8%;
-        z-index: 1;
-      }
 
-      &:before {
-        content: '';
-        width: 1000px;
-        height: 800px;
-        border-radius: 50%;
-        background-color: ${CREAM};
-        position: absolute;
-        top: -60px;
-        right: 10%;
-        z-index: 1;
-      }
-    
+    &:after {
+      content: '';
+      width: 1000px;
+      height: 300px;
+      border-radius: 50%;
+      background-color: ${DARK_BG};
+      position: absolute;
+      top: -80px;
+      right: 8%;
+      z-index: 1;
+    }
+
+    &:before {
+      content: '';
+      width: 1000px;
+      height: 800px;
+      border-radius: 50%;
+      background-color: ${CREAM};
+      position: absolute;
+      top: -60px;
+      right: 10%;
+      z-index: 1;
+    }
+
     .title {
       text-align: right;
       position: relative;
@@ -252,7 +255,7 @@ export const ChurchHeroStyled = styled.div`
       text-overflow: ellipsis;
       z-index: 2;
       color: ${CREAM};
-      
+
       &:after {
         content: '';
         width: 500px;
@@ -260,7 +263,11 @@ export const ChurchHeroStyled = styled.div`
         position: absolute;
         bottom: 0;
         right: 0;
-        background-image: linear-gradient(to right, transparent 0%, ${CREAM} 100%);
+        background-image: linear-gradient(
+          to right,
+          transparent 0%,
+          ${CREAM} 100%
+        );
       }
     }
     .actions {
@@ -270,7 +277,7 @@ export const ChurchHeroStyled = styled.div`
       bottom: 0;
       right: 0;
       min-height: 50px;
-      
+
       .button-wrapper {
         right: 10px;
         bottom: 10px;
@@ -286,7 +293,7 @@ export const ChurchHeroStyled = styled.div`
         z-index: 2;
         margin: 20px 0;
         color: ${CREAM};
-        
+
         p {
           margin: 0;
           text-align: right;

@@ -1,5 +1,12 @@
 import { useCallback, useState } from 'react';
-import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  orderBy,
+  limit,
+  getDocs,
+} from 'firebase/firestore';
 import { fireStore } from '../index';
 import { setMessage } from '../../store/notificationReducer';
 import { useDispatch } from 'react-redux';
@@ -15,10 +22,7 @@ export const useGetFilteredScenario = () => {
 
     try {
       const scenarioCollection = collection(fireStore, 'scenario');
-      const filteredQuery = query(
-        scenarioCollection,
-        where('status', '==', 1),
-      );
+      const filteredQuery = query(scenarioCollection, where('status', '==', 1));
 
       const querySnapshotAll = await getDocs(filteredQuery);
       const size = querySnapshotAll.size;
@@ -27,7 +31,7 @@ export const useGetFilteredScenario = () => {
       const paginatedQuery = query(
         filteredQuery,
         orderBy('createdAt', 'desc'),
-        limit(itemsPerPage),
+        limit(itemsPerPage)
       );
 
       const querySnapshot = await getDocs(paginatedQuery);

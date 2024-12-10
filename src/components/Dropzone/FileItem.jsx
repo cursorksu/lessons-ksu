@@ -13,20 +13,19 @@ export const UvFileItem = ({ files, handleRemove }) => {
   return (
     <div>
       {files?.length
-        ? files?.map(el => {
+? (
+        files?.map((el) => {
           return (
             <FileItemStyled key={el.name}>
-              <span>
-                {el?.name?.split('.')[0]}
-              </span>
+              <span>{el?.name?.split('.')[0]}</span>
               <div component="span" className="secondaryGray">
                 {el?.name && getExe(el?.name)}
               </div>
               <div>
                 {!el?.progress || el?.progress === 100
                   ? Math.round((el?.size / 1000000 + Number.EPSILON) * 100) /
-                100 +
-                'MB'
+                      100 +
+                    'MB'
                   : `${el?.bytesTransferred} Kb of ${el?.totalBytes} Kb`}
               </div>
 
@@ -36,8 +35,10 @@ export const UvFileItem = ({ files, handleRemove }) => {
             </FileItemStyled>
           );
         })
-        : <></>
-      }
+      )
+: (
+        <></>
+      )}
     </div>
   );
 };

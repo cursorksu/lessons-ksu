@@ -6,7 +6,7 @@ export const entitiesReducer = createSlice({
   name: 'entities',
   initialState,
   reducers: {
-    setEntity: (_, action) => (action.payload),
+    setEntity: (_, action) => action.payload,
   },
 });
 

@@ -8,7 +8,9 @@ import { ReactComponent as CalendarIcon } from '../../assets/calendar.svg';
 export const KsuDatePicker = ({ selected, onChange, placeholder }) => {
   return (
     <DatePickerStyled>
-      <span className='icon'><CalendarIcon /></span>
+      <span className="icon">
+        <CalendarIcon />
+      </span>
       <DatePicker
         placeholderText={placeholder}
         dateFormat="dd.MM.yyy"

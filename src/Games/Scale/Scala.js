@@ -1,9 +1,9 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './Scala.scss';
 import data from './data.json';
 import Coin from './assets/sounds/coin.mp3';
 import Skrip from './assets/sounds/skrip.mp3';
-import {ScalaPlank} from "./components/ScalaPlank";
+import { ScalaPlank } from './components/ScalaPlank';
 
 function Scala() {
   const [cards, setCards] = useState([]);
@@ -13,7 +13,7 @@ function Scala() {
 
   useEffect(() => {
     const randomIndices = createRandomArray();
-    setCards(randomIndices.map(index => data[index]));
+    setCards(randomIndices.map((index) => data[index]));
 
     return () => {
       clearTimeout(animationTimeout);
@@ -21,7 +21,7 @@ function Scala() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const shuffleArray = array => {
+  const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
@@ -36,8 +36,10 @@ function Scala() {
 
   let animationTimeout;
   useEffect(() => {
-    const cardIndices = shuffleArray(Array.from({ length: data.length }, (_, i) => i));
-    setCards(cardIndices.map(index => data[index]));
+    const cardIndices = shuffleArray(
+      Array.from({ length: data.length }, (_, i) => i)
+    );
+    setCards(cardIndices.map((index) => data[index]));
   }, []);
 
   useEffect(() => {
@@ -49,54 +51,56 @@ function Scala() {
     animationTimeout = setTimeout(() => {
       scalaIsActive && setScalaIsActive(false);
     }, 400);
-
   }, [audioIsPlaying]);
 
-  const cardsLeft = useMemo(() => cards.slice(0, cards.length / 2), [cards] );
+  const cardsLeft = useMemo(() => cards.slice(0, cards.length / 2), [cards]);
   const cardsRight = useMemo(() => cards.slice(cards.length / 2), [cards]);
   const onCardClick = (e, card) => {
     e.stopPropagation();
-    const activeCardIndex = cards?.findIndex(el => card.id === el.id);
+    const activeCardIndex = cards?.findIndex((el) => card.id === el.id);
     const updatedCards = [...cards];
     updatedCards[activeCardIndex] = {
       ...updatedCards[activeCardIndex],
-      isActive: !updatedCards[activeCardIndex].isActive
+      isActive: !updatedCards[activeCardIndex].isActive,
     };
     setAudioIsPlaying(true);
     setCards(updatedCards);
   };
 
   const onAlertClick = (e, card, isGood) => {
-    e.stopPropagation();  animationTimeout = setTimeout(() => {
+    e.stopPropagation();
+    animationTimeout = setTimeout(() => {
       setScalaIsActive(true);
     }, 1500);
-    setIsEval(prev => {
-      if(isGood) {
+    setIsEval((prev) => {
+      if (isGood) {
         return prev + 1;
       } else {
         return prev - 1;
       }
     });
-    setCards(cards.map(el => {
-      if (el.id === card.id) {
-        return {
-          ...el,
-          isActive: false,
-          isUsed: true,
-        };
-      } else {
-        return {
-          ...el,
-          isActive: false,
-        };
-      }
-    }));
+    setCards(
+      cards.map((el) => {
+        if (el.id === card.id) {
+          return {
+            ...el,
+            isActive: false,
+            isUsed: true,
+          };
+        } else {
+          return {
+            ...el,
+            isActive: false,
+          };
+        }
+      })
+    );
   };
 
   return (
     <div className="scala">
-      <div className='coins'>
-        {cardsLeft.map(el => (
+      <div className="coins">
+        {cardsLeft.map((el) => (
           <ScalaPlank
             key={el.id}
             card={el}
@@ -106,17 +110,17 @@ function Scala() {
         ))}
       </div>
       <div>
-        <div className="center"/>
+        <div className="center" />
         <div
-          className={`caps ${scalaIsActive && "is-active"}`}
+          className={`caps ${scalaIsActive && 'is-active'}`}
           style={{
             transform: `rotate(${-isEval}deg) translate(-50%, 0)`,
-            transition: "transform 2s",
+            transition: 'transform 2s',
           }}
         />
       </div>
-      <div className='coins'>
-        {cardsRight.map(el => (
+      <div className="coins">
+        {cardsRight.map((el) => (
           <ScalaPlank
             key={el.id}
             card={el}
@@ -127,12 +131,12 @@ function Scala() {
       </div>
       {scalaIsActive && (
         <audio autoPlay={true}>
-          <source src={Skrip} type="audio/mpeg"/>
+          <source src={Skrip} type="audio/mpeg" />
         </audio>
       )}
       {audioIsPlaying && (
         <audio autoPlay={true}>
-          <source src={Coin} type="audio/mpeg"/>
+          <source src={Coin} type="audio/mpeg" />
         </audio>
       )}
     </div>

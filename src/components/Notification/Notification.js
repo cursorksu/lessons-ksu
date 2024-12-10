@@ -21,10 +21,9 @@ export const Notification = () => {
   return (
     <TransitionablePortal open={!!notification?.type}>
       <NotificationStyled
-        className={clsx(notification?.type, { open: notification?.type })}
-      >
+        className={clsx(notification?.type, { open: notification?.type })}>
         <b>{notification?.message.title}</b>
-        <span>  </span>
+        <span> </span>
         <span>{notification?.message.description}</span>
       </NotificationStyled>
     </TransitionablePortal>

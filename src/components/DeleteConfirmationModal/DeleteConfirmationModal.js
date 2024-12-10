@@ -1,10 +1,15 @@
-import React, {useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
-import { Modal, ModalActions, ModalContent, ModalHeader } from 'semantic-ui-react';
-import {DeleteConfirmationModalStyled} from "./DeleteConfirmationModalStyled";
-import { useTranslation } from "react-i18next";
+import {
+  Modal,
+  ModalActions,
+  ModalContent,
+  ModalHeader,
+} from 'semantic-ui-react';
+import { DeleteConfirmationModalStyled } from './DeleteConfirmationModalStyled';
+import { useTranslation } from 'react-i18next';
 
 export const DeleteConfirmationModal = ({
   modalTitle,
@@ -23,25 +28,27 @@ export const DeleteConfirmationModal = ({
     onCansel && onCansel();
     setOpen(false);
   }, [onCansel]);
-  const handleConfirm = useCallback((e) => {
-    onConfirm(e);
-    setOpen(false);
-  }, [onConfirm]);
+  const handleConfirm = useCallback(
+    (e) => {
+      onConfirm(e);
+      setOpen(false);
+    },
+    [onConfirm]
+  );
 
   return (
     <DeleteConfirmationModalStyled>
       <Modal
         onClose={onCansel}
         onOpen={handleOpen}
-        trigger={(
+        trigger={
           <ButtonIconStyled onClick={handleOpen} className={'delete-button'}>
             <DeleteIcon />
           </ButtonIconStyled>
-        )}
+        }
         size="small"
-        open={open}
-      >
-        <ModalHeader className='title'>
+        open={open}>
+        <ModalHeader className="title">
           <h2>{modalTitle}</h2>
           <ButtonIconStyled onClick={handleClose}>
             <CloseIcon />
@@ -49,7 +56,9 @@ export const DeleteConfirmationModal = ({
         </ModalHeader>
         <ModalContent>{modalContent}</ModalContent>
         <ModalActions>
-          <ButtonStyled onClick={handleClose}>{t('button.cancel')}</ButtonStyled>
+          <ButtonStyled onClick={handleClose}>
+            {t('button.cancel')}
+          </ButtonStyled>
           <ButtonStyled onClick={handleConfirm}>
             {t('button.delete')}
           </ButtonStyled>

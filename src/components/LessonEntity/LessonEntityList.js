@@ -21,7 +21,8 @@ export const LessonEntityList = ({ entityName }) => {
   const { t } = useTranslation('tr');
   const { user } = useSelector((state) => state.auth);
   const { getAllEntities } = useGetAllEntities(entityName);
-  const { getEntities: getMyLessons, entities: lessons } = useGetEntityListByIds('lessons');
+  const { getEntities: getMyLessons, entities: lessons } =
+    useGetEntityListByIds('lessons');
   const [options, setOptions] = useState([]);
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const [isAsideFormOpen, setIsAsideFormOpen] = useState(false);
@@ -29,18 +30,20 @@ export const LessonEntityList = ({ entityName }) => {
   const [selectedEntity, setSelectedEntity] = useState(initialValue);
 
   useEffect(() => {
-    getAllEntities().then(data => setEntitiesList(data));
+    getAllEntities().then((data) => setEntitiesList(data));
   }, [getAllEntities, shouldUpdate]);
 
   useEffect(() => {
-    user?.uid &&
-    getMyLessons(user?.lessons).then(() => {});
+    user?.uid && getMyLessons(user?.lessons).then(() => {});
   }, [getMyLessons, user]);
 
   useEffect(() => {
-    lessons.length > 0 && setOptions(lessons
-      .filter(el => el.status === publicStatuses.draft)
-      .map(el => getOption(el)));
+    lessons.length > 0 &&
+      setOptions(
+        lessons
+          .filter((el) => el.status === publicStatuses.draft)
+          .map((el) => getOption(el))
+      );
   }, [lessons]);
 
   return (
@@ -52,15 +55,15 @@ export const LessonEntityList = ({ entityName }) => {
         </div>
       </div>
       <EntityListStyled>
-        <section className='ksu-content'>
-          <aside className='aside-wrapper d-block'>
+        <section className="ksu-content">
+          <aside className="aside-wrapper d-block">
             <h2>{t(`entities.${entityName}`)}</h2>
             {user?.uid && (
               <div>
                 <ButtonStyled onClick={() => setIsAsideFormOpen(true)}>
                   + {entityName}
                 </ButtonStyled>
-                {isAsideFormOpen &&
+                {isAsideFormOpen && (
                   <FormAsideCreation
                     entityName={entityName}
                     onConfirm={() => {
@@ -72,27 +75,28 @@ export const LessonEntityList = ({ entityName }) => {
                     defaultValues={selectedEntity}
                     lessonsOptions={[]}
                   />
-                }
+                )}
               </div>
             )}
           </aside>
-          <section className='content-wrapper'>
+          <section className="content-wrapper">
             <div className="content-list">
-              {entitiesList?.length > 0 && entitiesList.map(el => (
-                <EntityItemExpanded
-                  lessonsOptions={options}
-                  onLessonSelect={(e) => e.stopPropagation()}
-                  onConfirm={() => setShouldUpdate((prev) => !prev)}
-                  onEdit={(e, data) => {
-                    e.stopPropagation();
-                    setIsAsideFormOpen(true);
-                    setSelectedEntity(data);
-                  }}
-                  key={el.id}
-                  entityName={entityName}
-                  item={el}
-                />
-              ))}
+              {entitiesList?.length > 0 &&
+                entitiesList.map((el) => (
+                  <EntityItemExpanded
+                    lessonsOptions={options}
+                    onLessonSelect={(e) => e.stopPropagation()}
+                    onConfirm={() => setShouldUpdate((prev) => !prev)}
+                    onEdit={(e, data) => {
+                      e.stopPropagation();
+                      setIsAsideFormOpen(true);
+                      setSelectedEntity(data);
+                    }}
+                    key={el.id}
+                    entityName={entityName}
+                    item={el}
+                  />
+                ))}
             </div>
           </section>
         </section>

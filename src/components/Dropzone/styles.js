@@ -7,12 +7,12 @@ export const StyledDropzoneBody = styled(Grid)`
   display: grid;
   grid-template-columns: 1fr 6fr;
   gap: 8px;
-  
+
   .dz-row {
     padding-top: 5px !important;
     padding-bottom: 5px !important;
   }
-  
+
   &.ui.grid {
     margin: -5px !important;
   }
@@ -20,14 +20,14 @@ export const StyledDropzoneBody = styled(Grid)`
     padding-left: 5px !important;
     padding-right: 5px !important;
   }
-  
+
   .size-box {
     margin-left: 15px !important;
     text-align: center;
   }
   .image {
     color: #abaaa8;
-    
+
     &.active {
       color: ${PRIMARY_MAIN};
     }
@@ -41,7 +41,7 @@ export const StyledDropzoneBody = styled(Grid)`
     font-size: 14px;
     color: rgba(0, 0, 0, 0.6) !important;
     display: inline-block;
-    
+
     &:before {
       content: none !important;
     }
@@ -60,8 +60,8 @@ export const UvDropzoneStyled = styled('section')`
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  
-  [role="presentation"],
+
+  [role='presentation'],
   .accent {
     height: 200px;
     width: 200px;
@@ -75,16 +75,16 @@ export const UvDropzoneStyled = styled('section')`
     align-items: center;
     text-align: center;
     color: ${PRIMARY_MAIN};
-  } 
-  
+  }
+
   &.user-avatar {
     background: ${CREAM};
     border: 1px dashed white;
     display: block;
     width: 160px;
     height: 160px;
-  
-    [role="presentation"],
+
+    [role='presentation'],
     .accent {
       height: 160px;
       width: 160px;
@@ -118,7 +118,7 @@ export const KsuDropzoneStyled = styled('section')`
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-gap: 20px;
-  
+
   img {
     width: 100%;
     height: 200px;

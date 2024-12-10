@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
-import {
-  BG_GOLD, CHOCO, CREAM, GOLD, PRIMARY_MAIN,
-} from '../constants/colors';
+import { BG_GOLD, CHOCO, CREAM, GOLD, PRIMARY_MAIN } from '../constants/colors';
 
 export const InfoItemStyled = styled.div`
   border-radius: 4px;
@@ -10,7 +8,7 @@ export const InfoItemStyled = styled.div`
   padding: 7px 32px 7px 7px;
   color: ${CREAM};
   position: relative;
-  
+
   button {
     position: absolute;
     top: 0;
@@ -24,7 +22,7 @@ export const InfoBlockStyled = styled.div`
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.5;
-width: 100%;
+  width: 100%;
   overflow: auto;
 
   .img-wrapper {
@@ -206,7 +204,13 @@ width: 100%;
       bottom: 10px;
       right: -50%;
       transform: translateX(-50%);
-      background-image: linear-gradient(to right, transparent 0%, ${CHOCO} 50%, ${CHOCO} 50%, transparent 100%);
+      background-image: linear-gradient(
+        to right,
+        transparent 0%,
+        ${CHOCO} 50%,
+        ${CHOCO} 50%,
+        transparent 100%
+      );
     }
   }
 
@@ -242,7 +246,6 @@ width: 100%;
         height: 100vh;
         object-fit: cover;
       }
-
     }
   }
 
@@ -347,22 +350,22 @@ width: 100%;
     margin-bottom: 20px;
     border-bottom: 1px solid ${GOLD};
   }
-  
+
   .material-list {
     position: relative;
-    
+
     .ui.checkbox label {
       font-size: 20px;
       line-height: 2;
       white-space: pre-wrap;
-      
+
       &:before {
         width: 30px;
         height: 30px;
         border-color: ${GOLD};
         top: 10px;
       }
-      
+
       &:after {
         color: ${GOLD};
         font-size: 20px;
@@ -371,8 +374,8 @@ width: 100%;
       }
     }
 
-    .ui.checkbox input:checked:focus~label:before,
-    .ui.checkbox input:checked:focus~label:after {
+    .ui.checkbox input:checked:focus ~ label:before,
+    .ui.checkbox input:checked:focus ~ label:after {
       border-color: ${BG_GOLD};
       color: ${BG_GOLD};
     }
@@ -384,14 +387,14 @@ width: 100%;
     font-weight: 700 !important;
     font-size: 3rem !important;
   }
-  
+
   .image-placeholder {
     height: 300px;
     width: 100%;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fplaceholder2.jpg?alt=media&token=e524e66b-1da1-4e89-bf19-b6ddcbc949a1");
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fplaceholder2.jpg?alt=media&token=e524e66b-1da1-4e89-bf19-b6ddcbc949a1');
     border-radius: 4px;
   }
 `;

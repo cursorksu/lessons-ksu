@@ -7,7 +7,8 @@ import { useParams } from 'react-router';
 import { useGetEntity } from '../../api/entity/useGetEntity';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import {
-  getDateLocalString, getDateObject
+  getDateLocalString,
+  getDateObject,
 } from '../../utils/getDateLocalString';
 import { InfoBlockStyled } from '../InfoBlockStyled';
 import { useSelector } from 'react-redux';
@@ -16,7 +17,7 @@ import { GroupList } from './GroupList';
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
 
 export const Church = () => {
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { churchId } = useParams();
   const [church, setChurch] = useState({});
   const { getEntityById } = useGetEntity('church');
@@ -24,7 +25,7 @@ export const Church = () => {
   const [shouldUpdate, setShouldUpdate] = useState(false);
 
   const getChurch = useCallback(async () => {
-    await getEntityById(churchId).then(data => {
+    await getEntityById(churchId).then((data) => {
       setChurch(data);
     });
   }, [getEntityById, churchId]);
@@ -34,16 +35,22 @@ export const Church = () => {
   }, [shouldUpdate, churchId, getEntityById, getChurch]);
 
   const confirmationHandler = async (_, churchData) => {
-    setShouldUpdate(prev => !prev);
+    setShouldUpdate((prev) => !prev);
   };
 
   const onEditList = useCallback(async () => {
-    setShouldUpdate(prev => !prev);
+    setShouldUpdate((prev) => !prev);
   }, []);
 
   return (
     <MainLayout>
-      <div className="herro" style={{ backgroundImage: `url("${church?.avatar && church?.avatar[0]?.base64}")`}}>
+      <div
+        className="herro"
+        style={{
+          backgroundImage: `url("${
+            church?.avatar && church?.avatar[0]?.base64
+          }")`,
+        }}>
         <div className="title-wrapper top-container">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
           <h1 className="title">{church?.title}</h1>
@@ -64,37 +71,55 @@ export const Church = () => {
           fields={churchConfig}
           defaultValues={{
             ...church,
-            createdDate: church?.createdDate && getDateObject(church?.createdDate),
+            createdDate:
+              church?.createdDate && getDateObject(church?.createdDate),
           }}
         />
       )}
       <div>
-        <section className='ksu-content'>
-          <aside className='aside-wrapper'>
-            <InfoBlockStyled className='aside'>
-              <h2 className='title'>
-                <p>Started {church?.createdDate && getDateLocalString(church?.createdDate)}</p>
+        <section className="ksu-content">
+          <aside className="aside-wrapper">
+            <InfoBlockStyled className="aside">
+              <h2 className="title">
+                <p>
+                  Started{' '}
+                  {church?.createdDate &&
+                    getDateLocalString(church?.createdDate)}
+                </p>
               </h2>
               <div className="church-avatar">
-                <img src={church?.avatar && church?.avatar[0]?.base64} alt="pastor avatar"/>
+                <img
+                  src={church?.avatar && church?.avatar[0]?.base64}
+                  alt="pastor avatar"
+                />
               </div>
             </InfoBlockStyled>
-            <InfoBlockStyled>
-              {church?.about}
-            </InfoBlockStyled>
-            <InfoBlockStyled className='aside-wrapper'>
+            <InfoBlockStyled>{church?.about}</InfoBlockStyled>
+            <InfoBlockStyled className="aside-wrapper">
               <ShadowCardStyled>
                 <ul className="contacts">
-                  <li><b>Pastor: </b> <address>{church?.pastor}</address></li>
-                  <li><b>Address: </b> <address>{church?.address}</address></li>
-                  <li><b>Email: </b> <a href={`mailto:${church?.email}`}>{church?.email}</a></li>
-                  <li><b>Web Site: </b> <a href={church?.web}>{church?.web}</a></li>
-                  <li><b>Phone: </b><a href={`tel:${church?.phone}`}>{church?.phone}</a></li>
+                  <li>
+                    <b>Pastor: </b> <address>{church?.pastor}</address>
+                  </li>
+                  <li>
+                    <b>Address: </b> <address>{church?.address}</address>
+                  </li>
+                  <li>
+                    <b>Email: </b>{' '}
+                    <a href={`mailto:${church?.email}`}>{church?.email}</a>
+                  </li>
+                  <li>
+                    <b>Web Site: </b> <a href={church?.web}>{church?.web}</a>
+                  </li>
+                  <li>
+                    <b>Phone: </b>
+                    <a href={`tel:${church?.phone}`}>{church?.phone}</a>
+                  </li>
                 </ul>
               </ShadowCardStyled>
             </InfoBlockStyled>
           </aside>
-          <section className='content-wrapper'>
+          <section className="content-wrapper">
             {church && (
               <TeachersList
                 isAuth={church?.createdBy?.uid === user?.uid}

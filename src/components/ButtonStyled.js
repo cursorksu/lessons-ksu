@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
-import {BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN} from '../constants/colors';
+import { BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN } from '../constants/colors';
 
 export const ButtonStyled = styled('button')`
   cursor: pointer;
   color: #fff;
-  background-color: rgb(96,81,71);
+  background-color: rgb(96, 81, 71);
   margin: 2px;
   padding: 10px;
   font-weight: 300;
@@ -32,7 +32,7 @@ export const ButtonStyled = styled('button')`
     background-color: ${PRIMARY_MAIN};
     border: none;
   }
-  
+
   &:disabled {
     opacity: 0.3;
     cursor: default;
@@ -55,10 +55,10 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   border-radius: 10%;
   padding: 0;
   margin: 2px;
-    
-    &:disabled:hover {
-        background-color: ${CHOCO};
-    }
+
+  &:disabled:hover {
+    background-color: ${CHOCO};
+  }
 
   svg {
     width: 20px;

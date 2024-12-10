@@ -10,29 +10,31 @@ export const TabPanelSubject = ({ lesson }) => {
   const { createSubject } = useCreateSubject();
   const { getSubjectIdById } = useGetSubjectById();
 
-  useEffect( () => {
+  useEffect(() => {
     if (lesson?.subject && Array.isArray(lesson?.subject)) {
-      lesson?.subject
-        .forEach(async (item) => await getSubjectIdById(item));
+      lesson?.subject.forEach(async (item) => await getSubjectIdById(item));
     }
-  }, [lesson,  getSubjectIdById]);
+  }, [lesson, getSubjectIdById]);
 
   const { subject } = useSelector((state) => state.lessonData);
 
-  const handleAddCraft = useCallback(async (craftFormData) => {
-    return await createSubject(lesson?.id, craftFormData);
-  }, [createSubject, lesson]);
+  const handleAddCraft = useCallback(
+    async (craftFormData) => {
+      return await createSubject(lesson?.id, craftFormData);
+    },
+    [createSubject, lesson]
+  );
 
   return (
     <TabPane>
       <div className="btn-wrapper">
         <CreateModal
           onSubmit={handleAddCraft}
-          buttonText='Додати предметний урок'
-          modalTitle='Створіть структуру Предметного уроку'
-          label='Назва уроку'
-          placeholder='Введіть назву уроку'
-          entity='subject'
+          buttonText="Додати предметний урок"
+          modalTitle="Створіть структуру Предметного уроку"
+          label="Назва уроку"
+          placeholder="Введіть назву уроку"
+          entity="subject"
         />
       </div>
       <EntityToPrint

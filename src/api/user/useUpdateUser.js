@@ -33,19 +33,23 @@ export const useUpdateProfileField = () => {
         if (entity) {
           await updateDoc(docRef, userData);
 
-          dispatch(setAuthData({
-            user: {
-              ...userData,
-              modification_timestamp: JSON.stringify(userData.modification_timestamp),
-            },
-          }));
+          dispatch(
+            setAuthData({
+              user: {
+                ...userData,
+                modification_timestamp: JSON.stringify(
+                  userData.modification_timestamp
+                ),
+              },
+            })
+          );
         }
       } catch (error) {
         const docRef = doc(fireStore, `/users/${data.uid}`);
         const profileSnap = await getDoc(docRef);
         const entity = profileSnap.data();
 
-        if ( entity.avatar !== data.avatar) {
+        if (entity.avatar !== data.avatar) {
           await deleteImage(data.avatar);
         }
 

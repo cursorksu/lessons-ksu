@@ -14,7 +14,7 @@ export const KsuCardStyled = styled('div')`
     font-size: 1.8rem;
     margin-bottom: 0 !important;
   }
-  
+
   .card-actions {
     margin: 20px 0;
     padding: 5px;
@@ -28,7 +28,7 @@ export const KsuCardStyled = styled('div')`
     position: absolute;
     top: 0;
     right: 0;
-    
+
     & > div {
       padding: 0;
     }

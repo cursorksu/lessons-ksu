@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import {
-  BOX_SHADOW, CHOCO, GOLD, SUCCESS, YELLOW_MAIN
+  BOX_SHADOW,
+  CHOCO,
+  GOLD,
+  SUCCESS,
+  YELLOW_MAIN,
 } from '../constants/colors';
 
 export const NotificationStyled = styled.div`

@@ -26,16 +26,22 @@ export const KsuTags = ({ placeholder, onChange, field, value }) => {
   return (
     <KsuTagsStyled>
       <div className={`tags-input-container ${focused && 'focused'}`}>
-        {tags.map((tag, index) => (<div className='tag-item' key={index}>
-          <span className='text'>{tag}</span>
-          <span
-            className='close' onClick={() => removeTag(index)}>&times;</span>
-        </div>))}
+        {tags.map((tag, index) => (
+          <div className="tag-item" key={index}>
+            <span className="text">{tag}</span>
+            <span className="close" onClick={() => removeTag(index)}>
+              &times;
+            </span>
+          </div>
+        ))}
         <input
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          onKeyDown={handleKeyDown} type='text' className='tags-input'
-          placeholder={placeholder} />
+          onKeyDown={handleKeyDown}
+          type="text"
+          className="tags-input"
+          placeholder={placeholder}
+        />
       </div>
     </KsuTagsStyled>
   );

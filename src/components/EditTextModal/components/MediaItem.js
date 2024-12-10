@@ -5,15 +5,11 @@ import { ReactComponent as RemoveIcon } from '../../../assets/minus.svg';
 import { ButtonIconStyled } from '../../ButtonStyled';
 import {
   InputFieldStyled,
-  InputStyled, TextareaAutosizeStyled
+  InputStyled,
+  TextareaAutosizeStyled,
 } from '../../InputStyled';
 
-export const MediaItem = ({
-  field,
-  index,
-  handleRemove,
-  handleChange,
-}) => {
+export const MediaItem = ({ field, index, handleRemove, handleChange }) => {
   const [media, setMedia] = useState(field.value);
   const [text, setText] = useState(field.text);
 
@@ -27,33 +23,34 @@ export const MediaItem = ({
   }, [media, text]);
 
   return (
-    <Draggable key={index.toString()} draggableId={index.toString()} index={index}>
+    <Draggable
+      key={index.toString()}
+      draggableId={index.toString()}
+      index={index}>
       {(provided) => (
         <BlockWrapperInputStyled
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
+          {...provided.dragHandleProps}>
           <InputFieldStyled>
             <label htmlFor={field?.id}>
-              Ми не можемо зберігати повні відео у нашій базі
-              даних, яка фінансується на кошти волотнерів і
-              власні кошти розробніків
+              Ми не можемо зберігати повні відео у нашій базі даних, яка
+              фінансується на кошти волотнерів і власні кошти розробніків
             </label>
             <br />
             <label htmlFor={field?.id}>
-              Але ви можете розмістити своє відео в YouTube і
-              додати посилання на нього тут.
+              Але ви можете розмістити своє відео в YouTube і додати посилання
+              на нього тут.
             </label>
             <br />
             <label htmlFor={field?.id}>
-              На даний момент платформа корректно працює
-              тільки з посиланнями з YouTube.
+              На даний момент платформа корректно працює тільки з посиланнями з
+              YouTube.
             </label>
             <br />
             <label htmlFor={field?.id}>
-              Для вставки відео використовуйте посилання,
-              яке з'являється після натискання кнопки "Поділитися"
+              Для вставки відео використовуйте посилання, яке з'являється після
+              натискання кнопки "Поділитися"
             </label>
             <br />
             <br />
@@ -61,24 +58,21 @@ export const MediaItem = ({
               key={field?.id}
               id={field?.id}
               name={field.type}
-              placeholder='Додайте посилання на відео'
+              placeholder="Додайте посилання на відео"
               value={field.value}
               onChange={(e) => setMedia(e.target.value)}
             />
             <br />
-            <label htmlFor={field?.id}>
-              Додайте опис до відео
-            </label>
+            <label htmlFor={field?.id}>Додайте опис до відео</label>
             <TextareaAutosizeStyled
-              placeholder='Додайте опис відео'
+              placeholder="Додайте опис відео"
               value={field.text}
               onChange={(e) => setText(e.target.value)}
             />
           </InputFieldStyled>
           <ButtonIconStyled
             className="remove-handle"
-            onClick={() => handleRemove(field?.id)}
-          >
+            onClick={() => handleRemove(field?.id)}>
             <RemoveIcon />
           </ButtonIconStyled>
         </BlockWrapperInputStyled>

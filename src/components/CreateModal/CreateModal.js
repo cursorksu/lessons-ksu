@@ -7,7 +7,13 @@ import { InputStyled } from '../InputStyled';
 import { PRIMARY_MAIN } from '../../constants/colors';
 import { useSelector } from 'react-redux';
 import { EditModalStyled } from '../EditModal/style';
-import { FormField, Modal, ModalActions, ModalContent, ModalHeader } from 'semantic-ui-react';
+import {
+  FormField,
+  Modal,
+  ModalActions,
+  ModalContent,
+  ModalHeader,
+} from 'semantic-ui-react';
 
 const INITIAL_LESSON = {
   title: '',
@@ -51,21 +57,22 @@ export const CreateModal = ({
         keepMounted
         onClose={handleClose}
         onOpen={handleOpen}
-        trigger={!(lesson?.[entity]?.length) && (
-          <ButtonStyled onClick={handleOpen}>
-            <AddCraftIcon style={{ marginRight: '12px' }} />
-            {buttonText}
-          </ButtonStyled>
-        )}
-        open={isOpen}
-      >
-        <ModalHeader className='title'>
+        trigger={
+          !lesson?.[entity]?.length && (
+            <ButtonStyled onClick={handleOpen}>
+              <AddCraftIcon style={{ marginRight: '12px' }} />
+              {buttonText}
+            </ButtonStyled>
+          )
+        }
+        open={isOpen}>
+        <ModalHeader className="title">
           {modalTitle}
           <ButtonIconStyled onClick={handleClose}>
             <CloseIcon />
           </ButtonIconStyled>
         </ModalHeader>
-        <ModalContent image className='dynamic-list'>
+        <ModalContent image className="dynamic-list">
           <Controller
             name="title"
             control={control}
@@ -83,7 +90,7 @@ export const CreateModal = ({
                 />
                 {formState.errors['title'] && (
                   <label sx={{ color: PRIMARY_MAIN }}>
-                        Потрібно заповнити це поле
+                    Потрібно заповнити це поле
                   </label>
                 )}
               </FormField>
@@ -93,7 +100,7 @@ export const CreateModal = ({
         <ModalActions>
           <ButtonStyled onClick={handleClose}>Відмінити</ButtonStyled>
           <ButtonStyled onClick={handleSubmit(onSubmitHandler)}>
-              Зберегти
+            Зберегти
           </ButtonStyled>
         </ModalActions>
       </Modal>

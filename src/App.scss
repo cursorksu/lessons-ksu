@@ -7,9 +7,13 @@
 }
 
 .main-content {
-    background: url("https://cdn.pixabay.com/photo/2017/02/06/22/50/background-2044512_1280.jpg");
-    background-size: cover;
+    padding-bottom: 200px;
+    background-size: 450px 450px;
+    background-repeat: no-repeat;
+    background-position: left -40px bottom -50px ;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Ftulep.png?alt=media&token=96d3f024-5df8-4e82-80ca-049f306701a0');
     min-height: 100vh;
+    background-color: #fbfaf1;
 }
 .popup-menu {
     padding: 0 !important;
@@ -636,3 +640,134 @@ img.epr-emoji-img {
     }
 }
 
+.balls-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+
+    img  {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+.ball {
+    position: absolute;
+    background-color: #af931b;
+    border-radius: 50%;
+    animation: changeSize 4s ease-in-out infinite;
+}
+
+/* Анимация изменения размера шариков */
+@keyframes changeSize {
+    0%, 100% {
+        width: 8px;
+        height: 8px;
+    }
+    50% {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@keyframes changeSizeLarge {
+    0%, 100% {
+        width: 8px;
+        height: 8px;
+    }
+    50% {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Позиционирование шариков на случайных местах с учётом их увеличения */
+#ball1 {
+    top: 10px;
+    left: 30px;
+    animation-delay: 0s;
+    animation-duration: 4s;
+}
+
+#ball2 {
+    top: 50px;
+    left: 180px;
+    animation-delay: 0.3s;
+    animation-duration: 4.5s;
+}
+
+#ball3 {
+    top: 80px;
+    left: 120px;
+    animation-delay: 0.6s;
+    animation-duration: 3.8s;
+}
+
+#ball4 {
+    top: 150px;
+    left: 50px;
+    animation-delay: 0.9s;
+    animation-duration: 5s;
+}
+
+#ball5 {
+    top: 200px;
+    left: 180px;
+    animation-delay: 1.2s;
+    animation-duration: 4.2s;
+}
+
+#ball6 {
+    top: 20px;
+    left: 200px;
+    animation-delay: 1.5s;
+    animation-duration: 3.5s;
+}
+
+#ball7 {
+    top: 170px;
+    left: 80px;
+    animation-delay: 1.8s;
+    animation-duration: 4.3s;
+}
+
+#ball8 {
+    top: 120px;
+    left: 40px;
+    animation-delay: 2.1s;
+    animation-duration: 4.1s;
+}
+
+#ball9 {
+    top: 30px;
+    left: 100px;
+    animation-delay: 2.4s;
+    animation-duration: 4.6s;
+}
+
+#ball10 {
+    top: 60px;
+    left: 160px;
+    animation-delay: 2.7s;
+    animation-duration: 3.9s;
+}
+
+#ball11 {
+    top: 140px;
+    left: 20px;
+    animation-delay: 3s;
+    animation-duration: 4.7s;
+}
+
+#ball12 {
+    top: 190px;
+    left: 70px;
+    animation-delay: 3.3s;
+    animation-duration: 4.4s;
+}
+
+/* Два шарика с большими размерами */
+#ball1, #ball2 {
+    animation-name: changeSizeLarge;
+}

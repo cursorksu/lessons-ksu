@@ -14,18 +14,22 @@ import { clearAuthData } from '../store/authReducer';
 
 export const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
-  const mainMenuCollapsed  = useSelector(({ mainMenuCollapsed }) => mainMenuCollapsed);
+  const mainMenuCollapsed = useSelector(
+    ({ mainMenuCollapsed }) => mainMenuCollapsed
+  );
   const { getSignUpData, signOutUser } = useSignUp();
 
   const loginWithGoogle = useCallback(async () => {
-    await setPersistence(auth, browserLocalPersistence).then(() => {
-      const provider = new GoogleAuthProvider();
-      signInWithPopup(auth, provider).then(async () => {
-        await getSignUpData();
+    await setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider).then(async () => {
+          await getSignUpData();
+        });
+      })
+      .catch((error) => {
+        throw new Error(error);
       });
-    }).catch((error) => {
-      throw new Error(error);
-    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth, getSignUpData]);
 
@@ -39,9 +43,7 @@ export const MainLayout = ({ children }) => {
   return (
     <MainContentStyled collapsed={mainMenuCollapsed}>
       <Control loginWithGoogle={loginWithGoogle} signOut={signOut} />
-      <div className="main-content">
-        {children}
-      </div>
+      <div className="main-content">{children}</div>
     </MainContentStyled>
   );
 };

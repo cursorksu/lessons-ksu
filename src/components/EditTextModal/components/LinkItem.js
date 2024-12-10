@@ -25,14 +25,16 @@ export const LinkItem = ({
   }, [link, text]);
 
   return (
-    <Draggable key={index.toString()} draggableId={index.toString()} index={index}>
+    <Draggable
+      key={index.toString()}
+      draggableId={index.toString()}
+      index={index}>
       {(provided) => (
         <BlockWrapperInputStyled
-          className='grid'
+          className="grid"
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
+          {...provided.dragHandleProps}>
           <InputFieldStyled>
             <label>{label.value}</label>
             <InputStyled
@@ -53,8 +55,7 @@ export const LinkItem = ({
           </InputFieldStyled>
           <ButtonIconStyled
             className="remove-handle"
-            onClick={() => handleRemove(field?.id)}
-          >
+            onClick={() => handleRemove(field?.id)}>
             <RemoveIcon />
           </ButtonIconStyled>
         </BlockWrapperInputStyled>

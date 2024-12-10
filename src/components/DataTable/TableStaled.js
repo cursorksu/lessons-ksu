@@ -17,7 +17,8 @@ export const TableStaled = styled.div`
     margin: auto;
   }
   .slider.checkbox label:after {
-    background: ${ERROR_MAIN} linear-gradient(transparent,rgba(255,255,255,.5)) !important;
+    background: ${ERROR_MAIN}
+      linear-gradient(transparent, rgba(255, 255, 255, 0.5)) !important;
   }
   tr {
     position: relative;
@@ -29,22 +30,22 @@ export const TableStaled = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255,255,255, 0.7);
+    background: rgba(255, 255, 255, 0.7);
   }
   .ui.celled.definition.table thead:not(.full-width) th:first-of-type {
     background: ${CREAM} !important;
-    color: rgba(0, 0, 0, .87) !important;
+    color: rgba(0, 0, 0, 0.87) !important;
     font-weight: 600;
     box-shadow: none;
-    
   }
-  thead, tfoot {
+  thead,
+  tfoot {
     font-size: 1.2rem;
     line-height: 1.2rem;
     text-align: center;
     th {
       background: ${CREAM} !important;
-      color: rgba(0, 0, 0, .87) !important;
+      color: rgba(0, 0, 0, 0.87) !important;
       font-weight: 400;
     }
   }
@@ -52,15 +53,17 @@ export const TableStaled = styled.div`
   tr.is-active:after {
     content: none;
   }
-  .ui.table tr.active  {
-    background: ${BG_GOLD} linear-gradient(transparent,rgba(255,255,255,.5)) !important;
+  .ui.table tr.active {
+    background: ${BG_GOLD}
+      linear-gradient(transparent, rgba(255, 255, 255, 0.5)) !important;
   }
   .is-active {
     .slider.checkbox label:after {
-      background: ${SUCCESS} linear-gradient(transparent,rgba(255,255,255,.5)) !important;
+      background: ${SUCCESS}
+        linear-gradient(transparent, rgba(255, 255, 255, 0.5)) !important;
     }
   }
-  
+
   .d-flex {
     display: flex;
     justify-content: center;

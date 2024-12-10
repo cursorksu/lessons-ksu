@@ -58,16 +58,18 @@ export const DropzoneField = ({ field, onChange }) => {
   }, []);
   return (
     <StyledDropzoneBody>
-      <Grid.Row className='dz-row'>
+      <Grid.Row className="dz-row">
         <Grid.Column width={4}>
-          <LabelStyled className='label'>Зображення</LabelStyled>
+          <LabelStyled className="label">Зображення</LabelStyled>
           <Dropzone onDrop={onDrop} multiple={false}>
             {({ getRootProps, getInputProps }) => (
               <UvDropzoneStyled>
                 <div {...getRootProps()}>
                   <input {...getInputProps()} accept=".png,.jpg" />
-                  {!image &&  <span className="accent">+ Додати зображення</span>}
-                  {image &&  <img src={image} alt={image} />}
+                  {!image && (
+                    <span className="accent">+ Додати зображення</span>
+                  )}
+                  {image && <img src={image} alt={image} />}
                 </div>
               </UvDropzoneStyled>
             )}
@@ -82,16 +84,14 @@ export const DropzoneField = ({ field, onChange }) => {
                   <ButtonIconStyled
                     id={'viewButton'}
                     onClick={viewHandler}
-                    className='print-hide'>
-                    {hideElement
-                      ? <ClosedViewIcon />
-                      : <ViewIcon />
-                    }
+                    className="print-hide">
+                    {hideElement ? <ClosedViewIcon /> : <ViewIcon />}
                   </ButtonIconStyled>
                   <Checkbox
-                    label={hideElement
-                      ? 'Відображати під час друку'
-                      : 'Приховати під час друку'
+                    label={
+                      hideElement
+                        ? 'Відображати під час друку'
+                        : 'Приховати під час друку'
                     }
                     onChange={(e, data) => setHideElement(data.checked)}
                     checked={hideElement}
@@ -101,34 +101,32 @@ export const DropzoneField = ({ field, onChange }) => {
                   <ButtonIconStyled
                     id={'sliderButton'}
                     onClick={slideShowHandler}
-                    className='print-hide'>
-                    {addToSlideShow
-                      ? <NotAddToSlider />
-                      : <AddToSlider />
-                    }
+                    className="print-hide">
+                    {addToSlideShow ? <NotAddToSlider /> : <AddToSlider />}
                   </ButtonIconStyled>
                   <Checkbox
-                    label={addToSlideShow
-                      ? 'Не додавати до презентації'
-                      : 'Додати до презентації'
+                    label={
+                      addToSlideShow
+                        ? 'Не додавати до презентації'
+                        : 'Додати до презентації'
                     }
                     onChange={(e, data) => setAddToSlideShow(data.checked)}
                     checked={addToSlideShow}
                   />
                 </Grid.Row>
-                <hr/>
+                <hr />
                 <Grid.Row>
                   <LabelStyled>Ширина зображення на сторінці</LabelStyled>
                   <Grid>
-                    <Grid.Row className='size-box'>
+                    <Grid.Row className="size-box">
                       <Grid.Column width={4}>
                         <Radio
                           label={() => (
-                            <Image className={clsx({active: size === '100'})}>
+                            <Image className={clsx({ active: size === '100' })}>
                               <ImageIcon />
                             </Image>
                           )}
-                          name='radioGroup'
+                          name="radioGroup"
                           value={'100'}
                           checked={size === '100'}
                           onChange={() => setSize('100')}
@@ -138,12 +136,12 @@ export const DropzoneField = ({ field, onChange }) => {
                       <Grid.Column width={3}>
                         <Radio
                           label={() => (
-                            <Image className={clsx({active: size === '60'})}>
+                            <Image className={clsx({ active: size === '60' })}>
                               <ImageIcon />
                             </Image>
                           )}
-                          name='radioGroup'
-                          value='60'
+                          name="radioGroup"
+                          value="60"
                           checked={size === '60'}
                           onChange={() => setSize('60')}
                         />
@@ -152,12 +150,12 @@ export const DropzoneField = ({ field, onChange }) => {
                       <Grid.Column width={2}>
                         <Radio
                           label={() => (
-                            <Image className={clsx({active: size === '30'})}>
+                            <Image className={clsx({ active: size === '30' })}>
                               <ImageIcon />
                             </Image>
                           )}
-                          name='radioGroup'
-                          value='30'
+                          name="radioGroup"
+                          value="30"
                           checked={size === '30'}
                           onChange={() => setSize('30')}
                         />

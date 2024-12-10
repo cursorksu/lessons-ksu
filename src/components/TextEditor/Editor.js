@@ -43,19 +43,19 @@ Editor.modules = {
       { list: 'ordered' },
       { list: 'bullet' },
       { indent: '-1' },
-      { indent: '+1' }
+      { indent: '+1' },
     ],
     ['link', 'image', 'video'],
-    ['clean']
+    ['clean'],
   ],
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false
+    matchVisual: false,
   },
   imageResize: {
     parchment: Quill.import('parchment'),
-    modules: ['Resize', 'DisplaySize']
-  }
+    modules: ['Resize', 'DisplaySize'],
+  },
 };
 
 Editor.formats = [
@@ -72,7 +72,7 @@ Editor.formats = [
   'indent',
   'link',
   'image',
-  'video'
+  'video',
 ];
 
 export default Editor;

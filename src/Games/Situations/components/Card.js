@@ -14,43 +14,50 @@ export const Card = ({ card, onClick, alertClick }) => {
   useEffect(() => {
     setAudioIsPlaying(card.isUsed);
   }, [card]);
-  
-  if (!card.isActive) {
-    return <div className="card" onClick={(e) => onClick(e, card)}/>;
-  }
-  
-  return (
-    <div className={clsx({
-      card: true,
-      'is-active': card.isActive,
-      'is-used': card.isUsed,
-    })}>
-      {card.status === 1 && <div className="card-img">
-        <img src={FamilyImage} alt="img"/>
-        {audioIsPlaying && (
-          <audio autoPlay={true}>
-            <source src={Glasses} type="audio/mpeg"/>
-          </audio>
-        )}
-      </div>}
 
-      {card.status === 2 && <div className="card-img">
-        <img src={BoyImage} alt="img"/>
-        {audioIsPlaying && (
-          <audio autoPlay={true}>
-            <source src={Glass} type="audio/mpeg"/>
-          </audio>
-        )}
-      </div>}
-      {card.status === 3 && <div className="card-img">
-        <img src={JesusImage} alt="img"/>
-        {audioIsPlaying && (
-          <audio autoPlay={true}>
-            <source src={Udar} type="audio/mpeg"/>
-          </audio>
-        )}
-      </div>}
-      {card.isUsed && card.status !== 3 && <div className="broken-glass"/>}
+  if (!card.isActive) {
+    return <div className="card" onClick={(e) => onClick(e, card)} />;
+  }
+
+  return (
+    <div
+      className={clsx({
+        card: true,
+        'is-active': card.isActive,
+        'is-used': card.isUsed,
+      })}>
+      {card.status === 1 && (
+        <div className="card-img">
+          <img src={FamilyImage} alt="img" />
+          {audioIsPlaying && (
+            <audio autoPlay={true}>
+              <source src={Glasses} type="audio/mpeg" />
+            </audio>
+          )}
+        </div>
+      )}
+
+      {card.status === 2 && (
+        <div className="card-img">
+          <img src={BoyImage} alt="img" />
+          {audioIsPlaying && (
+            <audio autoPlay={true}>
+              <source src={Glass} type="audio/mpeg" />
+            </audio>
+          )}
+        </div>
+      )}
+      {card.status === 3 && (
+        <div className="card-img">
+          <img src={JesusImage} alt="img" />
+          {audioIsPlaying && (
+            <audio autoPlay={true}>
+              <source src={Udar} type="audio/mpeg" />
+            </audio>
+          )}
+        </div>
+      )}
+      {card.isUsed && card.status !== 3 && <div className="broken-glass" />}
       <div className="card-text">
         {card.text}
         <span className="alert" onClick={(e) => alertClick(e, card)}>

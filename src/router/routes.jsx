@@ -4,7 +4,7 @@ import { LessonsPage } from '../pages/Lessons';
 import { Lesson } from '../pages/Lesson';
 import { Cabinet } from '../pages/Cabinet';
 import { Collections } from '../pages/Collections';
-import {Home} from "../pages/Home";
+import { Home } from '../pages/Home';
 import { ChurchesList } from '../components/ChurchesList';
 import { Church } from '../components/Church';
 import { GroupItem } from '../components/GroupItem';
@@ -14,6 +14,7 @@ import { Test } from '../Games/Test/Test';
 import { TestGameView } from '../Games/Test/TestGameView';
 import { LessonEntityList } from '../components/LessonEntity/LessonEntityList';
 import { Rate } from '../Games/Rate/Rate';
+import { VeremChurch } from '../components/VeremChurch/VeremChurch';
 
 export const publicRoutes = [
   {
@@ -38,6 +39,11 @@ export const publicRoutes = [
   },
   {
     path: `${routes.church}/:churchId`,
+    title: 'Church',
+    component: <VeremChurch />,
+  },
+  {
+    path: `${routes.church}/old/:churchId`,
     title: 'Church',
     component: <Church />,
   },

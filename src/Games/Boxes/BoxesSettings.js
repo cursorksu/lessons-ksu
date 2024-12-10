@@ -14,16 +14,17 @@ import { InputStyled, LabelStyled } from '../../components/InputStyled';
 
 export const BoxesSettings = ({ data, onSave }) => {
   const [testSaved, setTestSaved] = useState(false);
-  const [test, setTest] = useState([ {
-    id: uuidv4(),
-    question: '',
-    error: { questionLength: '' },
-  }
+  const [test, setTest] = useState([
+    {
+      id: uuidv4(),
+      question: '',
+      error: { questionLength: '' },
+    },
   ]);
   const dispatch = useDispatch();
 
   const addQuestion = () => {
-    setTest(prev => [
+    setTest((prev) => [
       {
         id: uuidv4(),
         question: '',
@@ -38,11 +39,12 @@ export const BoxesSettings = ({ data, onSave }) => {
   }, [data]);
 
   const handleCancel = () => {
-    setTest([ {
-      id: uuidv4(),
-      question: '',
-      error: { questionLength: '' },
-    }
+    setTest([
+      {
+        id: uuidv4(),
+        question: '',
+        error: { questionLength: '' },
+      },
     ]);
   };
 
@@ -92,28 +94,29 @@ export const BoxesSettings = ({ data, onSave }) => {
   }
 
   const onRemoveItem = (id) => {
-    setTest(prev => prev.filter(el => el.id !== id));
+    setTest((prev) => prev.filter((el) => el.id !== id));
   };
 
   const handleChangeItem = (id, content) => {
     if (typeof content === 'string') {
       if (content?.length > 200) {
-        setTest(prev => prev.map((item) => ({
-          ...item,
-          error: {
-            ...item.error,
-            questionLength: 'Для цього типу гир довжина запитання не може' +
-              ' перевищувати 160 символів',
-          },
-        })));
+        setTest((prev) =>
+          prev.map((item) => ({
+            ...item,
+            error: {
+              ...item.error,
+              questionLength:
+                'Для цього типу гир довжина запитання не може' +
+                ' перевищувати 160 символів',
+            },
+          }))
+        );
 
         return;
       }
-      setTest(prev => prev.map(el =>
-        el.id === id
-          ? {...el, question: content}
-          : el
-      ));
+      setTest((prev) =>
+        prev.map((el) => (el.id === id ? { ...el, question: content } : el))
+      );
     }
   };
 
@@ -126,48 +129,67 @@ export const BoxesSettings = ({ data, onSave }) => {
             <DragDropContext onDragEnd={handleOnDragEnd}>
               <Droppable droppableId="dnd-list">
                 {(provided) => (
-                  <TestTextStyled className="test dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
-                    {test.some(el => el.question?.length)
-                      ? test?.map((testItem, idx) => (
-                        <Draggable key={idx.toString()} draggableId={idx.toString()} index={idx}>
+                  <TestTextStyled
+                    className="test dnd-list"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}>
+                    {test.some((el) => el.question?.length)
+? (
+                      test?.map((testItem, idx) => (
+                        <Draggable
+                          key={idx.toString()}
+                          draggableId={idx.toString()}
+                          index={idx}>
                           {(provided) => (
                             <li
                               key={testItem.id}
                               className="test-item"
                               ref={provided.innerRef}
                               {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                            >
-                              <div className='drag-handler' />
-                              <span className="test-text-question"><b>{idx + 1}. {testItem.question}</b></span>
+                              {...provided.dragHandleProps}>
+                              <div className="drag-handler" />
+                              <span className="test-text-question">
+                                <b>
+                                  {idx + 1}. {testItem.question}
+                                </b>
+                              </span>
                             </li>
                           )}
                         </Draggable>
                       ))
-                      : <div className="empty-test">Тут з'являться питання тесту</div>}
+                    )
+: (
+                      <div className="empty-test">
+                        Тут з'являться питання тесту
+                      </div>
+                    )}
                   </TestTextStyled>
                 )}
               </Droppable>
             </DragDropContext>
-
           </div>
-          <br/>
+          <br />
         </aside>
-        <section className='content-wrapper'>
-          <h2 className='title'>
-            Додайте питання
-          </h2>
-          <div className={clsx({
-            'sticky-action': true,
-            error: test.some(el => Object.keys(el.error).some(key => el.error[key])),
-            success: testSaved && test.every(el => Object.keys(el.error).every(key => !el.error[key]))
-          })}>
+        <section className="content-wrapper">
+          <h2 className="title">Додайте питання</h2>
+          <div
+            className={clsx({
+              'sticky-action': true,
+              error: test.some((el) =>
+                Object.keys(el.error).some((key) => el.error[key])
+              ),
+              success:
+                testSaved &&
+                test.every((el) =>
+                  Object.keys(el.error).every((key) => !el.error[key])
+                ),
+            })}>
             <Popup
               closeOnPortalMouseLeave
               openOnTriggerMouseEnter
-              trigger={(
+              trigger={
                 <ButtonIconStyled onClick={addQuestion}>+</ButtonIconStyled>
-              )}
+              }
               content={'Додати питання до тесту'}
             />
             {test?.length && (
@@ -177,13 +199,19 @@ export const BoxesSettings = ({ data, onSave }) => {
               </>
             )}
           </div>
-          {test?.map(el => {
+          {test?.map((el) => {
             return (
               <div className="question-wrapper ">
-                {el.error.questionLength && <ValidationErrorStyled>{el.error.questionLength}</ValidationErrorStyled>}
-                <div className='test-question'>
+                {el.error.questionLength && (
+                  <ValidationErrorStyled>
+                    {el.error.questionLength}
+                  </ValidationErrorStyled>
+                )}
+                <div className="test-question">
                   <div>
-                    <LabelStyled className="input-label">Текст питання</LabelStyled>
+                    <LabelStyled className="input-label">
+                      Текст питання
+                    </LabelStyled>
                     <InputStyled
                       id={el.id}
                       name={'question'}
@@ -195,14 +223,13 @@ export const BoxesSettings = ({ data, onSave }) => {
                   <Popup
                     closeOnPortalMouseLeave
                     openOnTriggerMouseEnter
-                    trigger={(
+                    trigger={
                       <ButtonIconStyled
                         className="remove-handle"
-                        onClick={() => onRemoveItem(el.id)}
-                      >
+                        onClick={() => onRemoveItem(el.id)}>
                         <RemoveIcon />
                       </ButtonIconStyled>
-                    )}
+                    }
                     content={'Видалити питання з тесту'}
                   />
                 </div>

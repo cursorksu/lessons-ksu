@@ -1,12 +1,7 @@
 import { useDrop } from 'react-dnd';
 import { DARK_GRAY, GOLD, PRIMARY_MAIN_RGBA } from '../../constants/colors';
 
-export const DndContainer = ({
-  accept,
-  onDrop,
-  className,
-  content,
-}) => {
+export const DndContainer = ({ accept, onDrop, className, content }) => {
   const [{ isOver, canDrop }, drop] = useDrop({
     accept,
     drop: onDrop,
@@ -29,8 +24,7 @@ export const DndContainer = ({
       className={className}
       ref={drop}
       style={{ backgroundColor }}
-      data-testid="dustbin"
-    >
+      data-testid="dustbin">
       <>{content}</>
     </span>
   );

@@ -9,15 +9,14 @@ export const EstimationModalStyled = styled('div')`
     margin-top: 10px;
   }
   .d-flex {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
   }
-    
-    button {
-        padding: 5px 10px;
-        min-width: 110px;
-    }
-    
+
+  button {
+    padding: 5px 10px;
+    min-width: 110px;
+  }
 `;

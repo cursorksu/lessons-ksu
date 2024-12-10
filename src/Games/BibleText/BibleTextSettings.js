@@ -12,8 +12,6 @@ export const BibleTextSettings = ({ data, onSave }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-
     data && setIsSaved(text !== data?.bibleText || quote !== data?.bibleQuote);
   }, [data, text, quote]);
 
@@ -44,7 +42,7 @@ export const BibleTextSettings = ({ data, onSave }) => {
           type: 'success',
           message: {
             title: `Success`,
-            description:  `Bible text was saved successfully`,
+            description: `Bible text was saved successfully`,
           },
         })
       );
@@ -77,12 +75,9 @@ export const BibleTextSettings = ({ data, onSave }) => {
           onChange={({ target }) => setQuote(target.value)}
         />
 
-        <div className='action-wrapper'>
+        <div className="action-wrapper">
           <ButtonStyled onClick={handleCancel}>Відмінити</ButtonStyled>
-          <ButtonStyled
-            disabled={!isSaved}
-            onClick={handleSave}
-          >
+          <ButtonStyled disabled={!isSaved} onClick={handleSave}>
             Зберігти
           </ButtonStyled>
         </div>

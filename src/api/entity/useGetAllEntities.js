@@ -6,7 +6,8 @@ import { setMessage } from '../../store/notificationReducer';
 import { setCollectionsInStore } from '../../store/collectionsResucer';
 import { setEntity } from '../../store/entitiesReducer';
 import {
-  getDateLocalString, getDateObject
+  getDateLocalString,
+  getDateObject,
 } from '../../utils/getDateLocalString';
 
 export const useGetAllEntities = (entity) => {
@@ -30,11 +31,12 @@ export const useGetAllEntities = (entity) => {
             ...data,
             createdAt: JSON.stringify(data?.createdAt),
             modification_timestamp: JSON.stringify(data?.createdAt),
-            createdBy: {
-              ...authorData,
-              createdAt: JSON.stringify(authorData?.createdAt),
-              modification_timestamp: JSON.stringify(authorData?.createdAt),
-            } ?? null,
+            createdBy:
+              {
+                ...authorData,
+                createdAt: JSON.stringify(authorData?.createdAt),
+                modification_timestamp: JSON.stringify(authorData?.createdAt),
+              } ?? null,
           };
         }
 
@@ -50,20 +52,21 @@ export const useGetAllEntities = (entity) => {
       if (entity === 'collections') {
         dispatch(
           setCollectionsInStore(
-            entityData.sort((a, b) =>
-              getDateObject(JSON.parse(b.createdAt)) - getDateObject(JSON.parse(a.createdAt)))
+            entityData.sort(
+              (a, b) =>
+                getDateObject(JSON.parse(b.createdAt)) -
+                getDateObject(JSON.parse(a.createdAt))
+            )
           )
         );
       }
 
       if (entity === 'students') {
-        const preparedData = entityData.map(el => ({
+        const preparedData = entityData.map((el) => ({
           ...el,
-          createdAt: getDateLocalString(el?.createdAt)
+          createdAt: getDateLocalString(el?.createdAt),
         }));
-        dispatch(
-          setEntity({ students: preparedData })
-        );
+        dispatch(setEntity({ students: preparedData }));
       }
 
       setLoading(false);

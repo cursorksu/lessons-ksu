@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { fireStore } from '../index';
-import { doc, getDoc, updateDoc, Timestamp  } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
 import { useGetStudentProfile } from './useGetStudentProfile';
-import { useGetAllEntities } from "../entity/useGetAllEntities";
+import { useGetAllEntities } from '../entity/useGetAllEntities';
 export const useUpdateStudent = () => {
   const { getStudentProfile } = useGetStudentProfile();
   const { getAllEntities } = useGetAllEntities('students');

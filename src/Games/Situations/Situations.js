@@ -9,7 +9,10 @@ import { Grid, GridColumn, GridRow } from 'semantic-ui-react';
 function Situations() {
   const [cards, setCards] = useState(data);
   const [hammerIsActive, setHammerIsActive] = useState(false);
-  const [selectedCardPosition, setSelectedCardPosition] = useState({ x: 0, y: 0 });
+  const [selectedCardPosition, setSelectedCardPosition] = useState({
+    x: 0,
+    y: 0,
+  });
   const [audioIsPlaying, setAudioIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -18,7 +21,7 @@ function Situations() {
 
   useEffect(() => {
     const randomIndices = createRandomArray();
-    setCards(randomIndices.map(index => data[index]));
+    setCards(randomIndices.map((index) => data[index]));
 
     return () => {
       clearTimeout(animationTimeout);
@@ -26,7 +29,7 @@ function Situations() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const shuffleArray = array => {
+  const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
@@ -42,20 +45,23 @@ function Situations() {
   let animationTimeout;
 
   const onCardClick = (e, card) => {
-    const activeCardIndex = cards?.findIndex(el => card.id === el.id);
+    const activeCardIndex = cards?.findIndex((el) => card.id === el.id);
     const updatedCards = [...cards];
     updatedCards[activeCardIndex] = {
       ...updatedCards[activeCardIndex],
-      isActive: !updatedCards[activeCardIndex].isActive
+      isActive: !updatedCards[activeCardIndex].isActive,
     };
     setCards(updatedCards);
   };
 
   const onAlertClick = (e, card) => {
-    const activeCardIndex = cards?.findIndex(el => card.id === el.id);
+    const activeCardIndex = cards?.findIndex((el) => card.id === el.id);
     const updatedCards = [...cards];
 
-    updatedCards[activeCardIndex] = { ...updatedCards[activeCardIndex], isUsed: !updatedCards[activeCardIndex].isUsed };
+    updatedCards[activeCardIndex] = {
+      ...updatedCards[activeCardIndex],
+      isUsed: !updatedCards[activeCardIndex].isUsed,
+    };
     setHammerIsActive(true);
     animationTimeout = setTimeout(() => {
       setCards(updatedCards);
@@ -69,7 +75,7 @@ function Situations() {
     <div className="situations">
       <Grid>
         <GridRow>
-          {cards.map(el => (
+          {cards.map((el) => (
             <GridColumn width={4}>
               <Card
                 key={el.id}
@@ -82,17 +88,20 @@ function Situations() {
         </GridRow>
       </Grid>
       <div
-        style={{ top: `${selectedCardPosition.y - 100}px`, left: `${selectedCardPosition.x}px`}}
+        style={{
+          top: `${selectedCardPosition.y - 100}px`,
+          left: `${selectedCardPosition.x}px`,
+        }}
         className={clsx({
           'hammer-holder': true,
           active: hammerIsActive,
         })}>
-        <div className={clsx({ hammer: true, active: hammerIsActive })}/>
+        <div className={clsx({ hammer: true, active: hammerIsActive })} />
       </div>
 
       {audioIsPlaying && (
         <audio autoPlay={true}>
-          <source src={Udar} type="audio/mpeg"/>
+          <source src={Udar} type="audio/mpeg" />
         </audio>
       )}
     </div>

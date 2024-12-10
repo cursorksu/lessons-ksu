@@ -10,13 +10,13 @@ export const DndItemStyled = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+
   .input {
     flex-basis: calc(100% - 50px);
     width: calc(100% - 50px);
     position: relative;
     margin-right: 20px;
-    
+
     &:after {
       content: '';
       width: 4px;
@@ -24,7 +24,9 @@ export const DndItemStyled = styled.li`
       border-radius: 50%;
       background: ${GOLD};
       display: block;
-      box-shadow: 0 -11px ${GOLD}, 0 11px ${GOLD};
+      box-shadow:
+        0 -11px ${GOLD},
+        0 11px ${GOLD};
       margin: -3px auto;
       position: absolute;
       right: -12px;

@@ -14,13 +14,15 @@ export const TitleItem = ({
   handleChange,
 }) => {
   return (
-    <Draggable key={index.toString()} draggableId={index.toString()} index={index}>
+    <Draggable
+      key={index.toString()}
+      draggableId={index.toString()}
+      index={index}>
       {(provided) => (
         <BlockWrapperInputStyled
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
+          {...provided.dragHandleProps}>
           <InputFieldStyled>
             <label htmlFor={field?.id}>{label}</label>
             <InputStyled
@@ -34,8 +36,7 @@ export const TitleItem = ({
           </InputFieldStyled>
           <ButtonIconStyled
             className="remove-handle"
-            onClick={() => handleRemove(field?.id)}
-          >
+            onClick={() => handleRemove(field?.id)}>
             <RemoveIcon />
           </ButtonIconStyled>
         </BlockWrapperInputStyled>

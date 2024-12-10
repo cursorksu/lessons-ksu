@@ -1,8 +1,4 @@
-import {
-  getRedirectResult,
-  onAuthStateChanged,
-  signOut,
-} from 'firebase/auth';
+import { getRedirectResult, onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useCreateUser } from '../user/useCreateUser';
 import { useCallback } from 'react';
@@ -49,27 +45,35 @@ export const useSignUp = () => {
             await createUser(profile);
           }
 
-          dispatch(setAuthData({
-            user: {
-              ...userData,
-              createdAt: JSON.stringify(userData.createdAt),
-              modification_timestamp: JSON.stringify(userData.modification_timestamp),
-            },
-            token: auth?.currentUser?.accessToken,
-          }));
+          dispatch(
+            setAuthData({
+              user: {
+                ...userData,
+                createdAt: JSON.stringify(userData.createdAt),
+                modification_timestamp: JSON.stringify(
+                  userData.modification_timestamp
+                ),
+              },
+              token: auth?.currentUser?.accessToken,
+            })
+          );
 
           return profile;
         });
       })
       .then(() => {
-        getUsers().then(data => {
-          dispatch(setTeachersList([
-            ...data.map(el => ({
-              ...el,
-              createdAt: JSON.stringify(el.createdAt),
-              modification_timestamp: JSON.stringify(el.modification_timestamp),
-            })),
-          ]));
+        getUsers().then((data) => {
+          dispatch(
+            setTeachersList([
+              ...data.map((el) => ({
+                ...el,
+                createdAt: JSON.stringify(el.createdAt),
+                modification_timestamp: JSON.stringify(
+                  el.modification_timestamp
+                ),
+              })),
+            ])
+          );
         });
       })
       .catch((error) => {

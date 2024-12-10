@@ -17,7 +17,7 @@ export const TopicStyled = styled.div`
     position: relative;
     padding-bottom: 12px;
     margin-bottom: 12px;
-    
+
     &:after {
       content: '';
       width: 70%;
@@ -31,9 +31,9 @@ export const TopicStyled = styled.div`
     .declaration {
       font-weight: 700;
       color: ${GOLD};
-      
+
       &:after {
-        content: "\\2015";
+        content: '\\2015';
         display: inline-block;
         margin-left: 12px;
       }
@@ -60,7 +60,7 @@ export const TopicStyled = styled.div`
     text-decoration: none;
     font-style: italic;
   }
-  
+
   .image-holder {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -80,13 +80,13 @@ export const TopicStyled = styled.div`
       width: 100%;
       height: 320px;
     }
-    
+
     label {
       display: block;
       padding: 5px;
     }
   }
-  
+
   ul {
     list-style-type: none;
     margin: 0;
@@ -97,7 +97,7 @@ export const TopicStyled = styled.div`
       margin: 0 0 8px 0;
 
       &:before {
-        content: "\\2015";
+        content: '\\2015';
         display: inline-block;
         margin-right: 12px;
       }

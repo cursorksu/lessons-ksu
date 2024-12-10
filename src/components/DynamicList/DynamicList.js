@@ -78,16 +78,21 @@ export const DynamicList = ({ field, onChangeField }) => {
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="dnd-list">
           {(provided) => (
-            <ul className="dnd-list" {...provided.droppableProps} ref={provided.innerRef}>
+            <ul
+              className="dnd-list"
+              {...provided.droppableProps}
+              ref={provided.innerRef}>
               {list?.map((el, index) => {
                 return (
-                  <Draggable key={index.toString()} draggableId={index.toString()} index={index}>
+                  <Draggable
+                    key={index.toString()}
+                    draggableId={index.toString()}
+                    index={index}>
                     {(provided) => (
                       <DndItemStyled
                         ref={provided.innerRef}
                         {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
+                        {...provided.dragHandleProps}>
                         <InputStyled
                           id={`${el?.id}`}
                           name={`${el?.id}`}
@@ -98,8 +103,7 @@ export const DynamicList = ({ field, onChangeField }) => {
                         />
                         <ButtonIconStyled
                           className="remove-handle"
-                          onClick={() => handleRemove(el?.id)}
-                        >
+                          onClick={() => handleRemove(el?.id)}>
                           <RemoveIcon />
                         </ButtonIconStyled>
                       </DndItemStyled>

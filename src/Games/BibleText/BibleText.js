@@ -12,8 +12,8 @@ import { ReactComponent as ReloadIcon } from '../../assets/reload.svg';
 import { useSplitAndRemoveWords } from '../../hooks/useSplitAndRemoveWords';
 
 export const BibleText = () => {
-  const isMenuCollapsed = useSelector(store => store.mainMenuCollapsed);
-  const { lesson } = useSelector(state => state.lessonData);
+  const isMenuCollapsed = useSelector((store) => store.mainMenuCollapsed);
+  const { lesson } = useSelector((state) => state.lessonData);
   const [score, setScore] = useState(0);
   const [correctSound, setCorrectSound] = useState(false);
   const [errorSound, setErrorSound] = useState(false);
@@ -38,7 +38,7 @@ export const BibleText = () => {
     };
   }, [errorSound, correctSound]);
 
-  const game = lesson?.memory?.find(el => el.id === 'bibleText');
+  const game = lesson?.memory?.find((el) => el.id === 'bibleText');
   const string = `${game?.settings?.bibleText}`;
   const { wordsArray, removedWordsArray } = useSplitAndRemoveWords(string);
   const [question, setQuestion] = useState(wordsArray);
@@ -65,17 +65,19 @@ export const BibleText = () => {
         }
       }
 
-      if(isCorrect) {
+      if (isCorrect) {
         setCorrectSound(true);
-        setScore(prev => prev  + 10);
-        setQuestion(prev => prev.map((el, idx) => idx  === index ? name : el));
-        setAnswers(prev => prev.filter(el => index  !== el.index));
+        setScore((prev) => prev + 10);
+        setQuestion((prev) =>
+          prev.map((el, idx) => (idx === index ? name : el))
+        );
+        setAnswers((prev) => prev.filter((el) => index !== el.index));
       } else {
         setErrorSound(true);
-        setScore(prev => prev - 10);
+        setScore((prev) => prev - 10);
       }
     },
-    [string],
+    [string]
   );
 
   const reloadHandler = () => {
@@ -96,22 +98,24 @@ export const BibleText = () => {
         </GameScoreStyled>
         <DndProvider backend={HTML5Backend} context={window}>
           <div>
-            <div className='question-group'>
+            <div className="question-group">
               {question?.map((word, index) => {
-                return (word ?
+                return word
+? (
                   <span
                     key={index}
                     className={clsx({
                       word: true,
                       empty: !word,
-                    })}
-                  >
+                    })}>
                     <>{word}</>
-                  </span> :
+                  </span>
+                )
+: (
                   <DndContainer
                     key={index}
                     allowedDropEffect="move"
-                    accept={answers.map(el => el.word)}
+                    accept={answers.map((el) => el.word)}
                     lastDroppedItem={null}
                     onDrop={(item) => handleDrop(index, item)}
                     className={clsx({
@@ -123,7 +127,7 @@ export const BibleText = () => {
                 );
               })}
             </div>
-            <div className='answer-group-bible-tex'>
+            <div className="answer-group-bible-tex">
               {answers?.map((word) => {
                 return (
                   <DndItem
@@ -133,8 +137,7 @@ export const BibleText = () => {
                     isDropped={false}
                     className={clsx({
                       word: true,
-                    })}
-                  >
+                    })}>
                     {word.word}
                   </DndItem>
                 );
@@ -144,13 +147,19 @@ export const BibleText = () => {
         </DndProvider>
         {correctSound && (
           <audio autoPlay={true}>
-            <source src="https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/sounds%2FcorrectSound.mp3?alt=media&token=dd985855-cdb5-40cd-9f1b-18543f5072e2" type="audio/mpeg" />
+            <source
+              src="https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/sounds%2FcorrectSound.mp3?alt=media&token=dd985855-cdb5-40cd-9f1b-18543f5072e2"
+              type="audio/mpeg"
+            />
             Your browser does not support the audio element.
           </audio>
         )}
         {errorSound && (
           <audio autoPlay={true}>
-            <source src="https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/sounds%2FerrorSound.mp3?alt=media&token=31e41692-7cdb-4b12-a489-60ea471f0828" type="audio/mpeg" />
+            <source
+              src="https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/sounds%2FerrorSound.mp3?alt=media&token=31e41692-7cdb-4b12-a489-60ea471f0828"
+              type="audio/mpeg"
+            />
             Your browser does not support the audio element.
           </audio>
         )}

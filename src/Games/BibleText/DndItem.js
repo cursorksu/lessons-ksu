@@ -8,7 +8,7 @@ export const DndItem = ({ name, className, isDropped, type }) => {
         opacity: monitor.isDragging() ? 0.4 : 1,
       }),
     }),
-    [name, type],
+    [name, type]
   );
 
   return (

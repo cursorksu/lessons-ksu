@@ -23,10 +23,11 @@ export const CreateEntityForm = ({
   className,
 }) => {
   const [emojiIsOpen, setEmojiIsOpen] = useState(false);
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { reset, control, getValues, setValue } = useForm({
     defaultValues,
-    caches: false });
+    caches: false,
+  });
   const emojiHandler = async (emj) => {
     await setValue('avatar', emj.unified);
     await setEmojiIsOpen(false);
@@ -40,108 +41,111 @@ export const CreateEntityForm = ({
   const { createEntity } = useCreateEntity(entityName);
   const { t } = useTranslation('tr');
 
-  const getElement = useCallback((el, field) => {
-    switch (el.inputType) {
-    case 'emojiPicker':
-      return (
-        <div className="d-flex duo-cell">
-          <div className="avatar">
-            <Emoji size={80} unified={getValues('avatar')} />
-          </div>
-          <Popup
-            closeOnPortalMouseLeave={false}
-            openOnTriggerClick
-            open={emojiIsOpen}
-            trigger={(
-              <ButtonStyled
-                onClick={() => setEmojiIsOpen(prev => !prev)}
-              >
-                {t(`${entityName}.placeholders.${el.name}`)}
-              </ButtonStyled>
-            )}
-            content={ <EmojiPicker
-              width={'100%'}
+  const getElement = useCallback(
+    (el, field) => {
+      switch (el.inputType) {
+      case 'emojiPicker':
+        return (
+          <div className="d-flex duo-cell">
+            <div className="avatar">
+              <Emoji size={80} unified={getValues('avatar')} />
+            </div>
+            <Popup
+              closeOnPortalMouseLeave={false}
+              openOnTriggerClick
               open={emojiIsOpen}
-              onEmojiClick={emojiHandler}
-            />}
+              trigger={
+                <ButtonStyled onClick={() => setEmojiIsOpen((prev) => !prev)}>
+                  {t(`${entityName}.placeholders.${el.name}`)}
+                </ButtonStyled>
+              }
+              content={
+                <EmojiPicker
+                  width={'100%'}
+                  open={emojiIsOpen}
+                  onEmojiClick={emojiHandler}
+                />
+              }
+            />
+          </div>
+        );
+      case 'datePicker':
+        return (
+          <KsuDatePicker
+            selected={field.value}
+            placeholder={t(`${entityName}.placeholders.${el.name}`)}
+            onChange={(date) => setValue(el.name, date)}
           />
-        </div>
-      );
-    case 'datePicker':
-      return (
-        <KsuDatePicker
-          selected={field.value}
-          placeholder={t(`${entityName}.placeholders.${el.name}`)}
-          onChange={(date) => setValue(el.name, date)}
-        />
-      );
-    case 'imagePicker':
-      return (
-        <div className="triple-cell">
+        );
+      case 'imagePicker':
+        return (
+          <div className="triple-cell">
+            <KsuDropzoneBase64
+              onChange={(data) => setValue(field.name, data)}
+              files={getValues(field.name)}
+              multiple={false}
+            />
+          </div>
+        );
+      case 'tags':
+        return (
+          <div className="triple-cell">
+            <KsuTags
+              field={field}
+              value={field.value}
+              placeholder={t(`${entityName}.placeholders.${el.name}`)}
+              onChange={(data) => setValue(field.name, data)}
+            />
+          </div>
+        );
+      case 'imagesPicker':
+        return (
           <KsuDropzoneBase64
             onChange={(data) => setValue(field.name, data)}
             files={getValues(field.name)}
-            multiple={false}
+            multiple={true}
           />
-        </div>
-      );
-    case 'tags':
-      return (
-        <div className="triple-cell">
-          <KsuTags
-            field={field}
-            value={field.value}
+        );
+      case 'multiselectDropdown':
+        return (
+          <KsuDropdown
             placeholder={t(`${entityName}.placeholders.${el.name}`)}
+            entityName={el.entity}
+            {...field}
             onChange={(data) => setValue(field.name, data)}
+            multiple={true}
+            optionsIds={user ? user[el.entity] : []}
           />
-        </div>
-      );
-    case 'imagesPicker':
-      return (
-        <KsuDropzoneBase64
-          onChange={(data) => setValue(field.name, data)}
-          files={getValues(field.name)}
-          multiple={true}
-        />
-      );
-    case 'multiselectDropdown':
-      return (
-        <KsuDropdown
-          placeholder={t(`${entityName}.placeholders.${el.name}`)}
-          entityName={el.entity}
-          {...field}
-          onChange={(data) => setValue(field.name, data)}
-          multiple={true}
-          optionsIds={user ? user[el.entity] : []}
-        />
-      );
-    case 'dropdown':
-      return (
-        <KsuDropdown
-          placeholder={t(`${entityName}.placeholders.${el.name}`)}
-          entityName={el.entity}
-          {...field}
-          onChange={(data) => setValue(field.name, data)}
-          multiple={false}
-          optionsIds={user[el.entity]}
-        />
-      );
-    default:
-      return (
-        <InputStyled
-          value={field.value}
-          {...field}
-          placeholder={t(`${entityName}.placeholders.${field.name}`)}
-        />
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [emojiIsOpen, defaultValues, user]);
+        );
+      case 'dropdown':
+        return (
+          <KsuDropdown
+            placeholder={t(`${entityName}.placeholders.${el.name}`)}
+            entityName={el.entity}
+            {...field}
+            onChange={(data) => setValue(field.name, data)}
+            multiple={false}
+            optionsIds={user[el.entity]}
+          />
+        );
+      default:
+        return (
+          <InputStyled
+            value={field.value}
+            {...field}
+            placeholder={t(`${entityName}.placeholders.${field.name}`)}
+          />
+        );
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [emojiIsOpen, defaultValues, user]
+  );
 
   return (
     <CreateEntityFormStyled className={className}>
       <div className="content-grid">
-        {fields.map(el => {
+        {fields.map((el) => {
           if (el.isIgnored) return <></>;
 
           return (
@@ -151,7 +155,9 @@ export const CreateEntityForm = ({
               control={control}
               render={({ field }) => (
                 <FormField>
-                  <LabelStyled>{t(`${entityName}.labels.${el.name}`)}</LabelStyled>
+                  <LabelStyled>
+                    {t(`${entityName}.labels.${el.name}`)}
+                  </LabelStyled>
                   {getElement(el, field)}
                 </FormField>
               )}

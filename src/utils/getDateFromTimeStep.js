@@ -10,7 +10,6 @@ export const getTimeStepFromString = (string) => {
 
   return {
     seconds: seconds,
-    nanoseconds: 0
+    nanoseconds: 0,
   };
 };
-

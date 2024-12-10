@@ -36,7 +36,7 @@ const initialValues = {
 
 export const GroupItem = () => {
   const { groupId } = useParams();
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { getEntityById } = useGetEntity('group');
   const [isFormShown, setIsFormShown] = useState(false);
   const [group, setGroup] = useState({});
@@ -49,7 +49,8 @@ export const GroupItem = () => {
   const navigate = useNavigate();
   const [defaultValues, setDefaultValues] = useState(initialValues);
 
-  const { getEntities: getTeachers, entities: teachers } = useGetEntityListByIds('users');
+  const { getEntities: getTeachers, entities: teachers } =
+    useGetEntityListByIds('users');
 
   useEffect(() => {
     if (!user?.uid) {
@@ -63,7 +64,7 @@ export const GroupItem = () => {
   }, [group]);
 
   useEffect(() => {
-    getEntityById(groupId).then(data => setGroup(data));
+    getEntityById(groupId).then((data) => setGroup(data));
   }, [groupId, getEntityById]);
 
   const handleRowClick = (data) => {
@@ -78,41 +79,65 @@ export const GroupItem = () => {
 
   const confirmationHandler = (id, data) => {
     const studentList = localStorage.getItem('students');
-    const studentListParsed = studentList?.length ? JSON.parse(studentList) : [];
-    if(isEdit) {
+    const studentListParsed = studentList?.length
+      ? JSON.parse(studentList)
+      : [];
+    if (isEdit) {
       setIsFormShown(false);
       setDefaultValues({
         ...initialValues,
         group: groupId,
       });
-      localStorage.setItem('students', JSON.stringify(studentListParsed.map(el => el.id === defaultValues.id ? defaultValues : el)));
+      localStorage.setItem(
+        'students',
+        JSON.stringify(
+          studentListParsed.map((el) =>
+            el.id === defaultValues.id ? defaultValues : el
+          )
+        )
+      );
     } else {
       const newData = {
-        id, ...data,
+        id,
+        ...data,
       };
-      localStorage.setItem('students', JSON.stringify([...studentListParsed,  newData]));
+      localStorage.setItem(
+        'students',
+        JSON.stringify([...studentListParsed, newData])
+      );
     }
     setIsAddStudentFormShown(false);
-    setShouldUpdate(prev => !prev);
+    setShouldUpdate((prev) => !prev);
   };
 
-  const updateStudentHandler = useCallback(async (estimation, data) => {
-    await updateStudentData(data.id, { estimation: +data.estimation + estimation });
-    setIsAddStudentFormShown(false);
-    setShouldUpdate(prev => !prev);
-  }, [updateStudentData]);
+  const updateStudentHandler = useCallback(
+    async (estimation, data) => {
+      await updateStudentData(data.id, {
+        estimation: +data.estimation + estimation,
+      });
+      setIsAddStudentFormShown(false);
+      setShouldUpdate((prev) => !prev);
+    },
+    [updateStudentData]
+  );
 
-  const deleteStudentHandler = useCallback(async (data) => {
-    await deleteEntity(data.id);
-    setIsAddStudentFormShown(false);
-    setShouldUpdate(prev => !prev);
-  }, [deleteEntity]);
+  const deleteStudentHandler = useCallback(
+    async (data) => {
+      await deleteEntity(data.id);
+      setIsAddStudentFormShown(false);
+      setShouldUpdate((prev) => !prev);
+    },
+    [deleteEntity]
+  );
 
-  const onIsActiveSwitch = useCallback(async (data) => {
-    await updateStudentData(data.id, { isActive: !data.isActive });
-    setIsAddStudentFormShown(false);
-    setShouldUpdate(prev => !prev);
-  }, [updateStudentData]);
+  const onIsActiveSwitch = useCallback(
+    async (data) => {
+      await updateStudentData(data.id, { isActive: !data.isActive });
+      setIsAddStudentFormShown(false);
+      setShouldUpdate((prev) => !prev);
+    },
+    [updateStudentData]
+  );
 
   return (
     <MainLayout>
@@ -120,17 +145,22 @@ export const GroupItem = () => {
         <div className="top-container">
           <div>
             <h1 className="title">{group?.title}</h1>
-            {teachers?.map(el =>  <div key={el.id} className='subtitle'>{el.firstName + ' ' + el.lastName}</div>)}
+            {teachers?.map((el) => (
+              <div key={el.id} className="subtitle">
+                {el.firstName + ' ' + el.lastName}
+              </div>
+            ))}
           </div>
           <div>
             {group?.createdBy?.uid === user?.uid && (
               <div className="d-flex">
                 <Popup
                   trigger={
-                    <ButtonIconStyled onClick={() => {
-                      setIsFormShown(true);
-                      setIsAddStudentFormShown(false);
-                    }}>
+                    <ButtonIconStyled
+                      onClick={() => {
+                        setIsFormShown(true);
+                        setIsAddStudentFormShown(false);
+                      }}>
                       <EditIcon />
                     </ButtonIconStyled>
                   }
@@ -138,17 +168,19 @@ export const GroupItem = () => {
                   basic
                 />
 
-                <ButtonStyled onClick={() => {
-                  setDefaultValues({
-                    ...initialValues,
-                    group: groupId,
-                  });
-                  setIsAddStudentFormShown(true);
-                  setIsFormShown(false);
-                }}>
+                <ButtonStyled
+                  onClick={() => {
+                    setDefaultValues({
+                      ...initialValues,
+                      group: groupId,
+                    });
+                    setIsAddStudentFormShown(true);
+                    setIsFormShown(false);
+                  }}>
                   + {t('students.addStudent')}
                 </ButtonStyled>
-                <ButtonStyled onClick={() =>navigate(`/group/${groupId}/games/rate`)}>
+                <ButtonStyled
+                  onClick={() => navigate(`/group/${groupId}/games/rate`)}>
                   {t('students.showResult')}
                 </ButtonStyled>
               </div>
@@ -180,15 +212,14 @@ export const GroupItem = () => {
           selectedRow={defaultValues.id}
           shouldUpdate={shouldUpdate}
           columns={[
-            ...studentConfig.filter(el => el.name !== 'birthday'),
+            ...studentConfig.filter((el) => el.name !== 'birthday'),
             {
               name: 'birthday',
               isIgnored: false,
-              render: (data) => data.birthday && (
-                <div>
-                  {/*{dateFormat(data.birthday, 'dd.mm.yyyy')}*/}
-                </div>
-              ),
+              render: (data) =>
+                data.birthday && (
+                  <div>{/*{dateFormat(data.birthday, 'dd.mm.yyyy')}*/}</div>
+                ),
             },
             {
               name: 'years',
@@ -205,12 +236,12 @@ export const GroupItem = () => {
               placeholder: 'Динарики',
               render: (data) => (
                 <div className="estimation">
-                  <h3 className="score">
-                    {data.estimation}
-                  </h3>
+                  <h3 className="score">{data.estimation}</h3>
                   <EditStudentEstimateModal
                     studentName={data.firstName}
-                    onConfirm={(estimation) => updateStudentHandler(estimation, data)}
+                    onConfirm={(estimation) =>
+                      updateStudentHandler(estimation, data)
+                    }
                   />
                 </div>
               ),
@@ -223,15 +254,16 @@ export const GroupItem = () => {
               render: (data) => (
                 <div>
                   <ButtonIconStyled onClick={() => handleRowClick(data)}>
-                    <EditIcon/>
+                    <EditIcon />
                   </ButtonIconStyled>
                   <ButtonIconStyled onClick={() => deleteStudentHandler(data)}>
-                    <DeleteIcon/>
+                    <DeleteIcon />
                   </ButtonIconStyled>
                 </div>
               ),
-            }
-          ]}/>
+            },
+          ]}
+        />
       </UserProfileStyled>
     </MainLayout>
   );

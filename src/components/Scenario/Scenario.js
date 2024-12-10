@@ -11,9 +11,7 @@ import { SprintCard } from '../SprintCard/SprintCard';
 import { getDateLocalString } from '../../utils/getDateLocalString';
 import { useNavigate } from 'react-router';
 import { routes } from '../../router/constants';
-import {
-  useGetFilteredScenario
-} from '../../api/scenario/useGetFilteredScenario';
+import { useGetFilteredScenario } from '../../api/scenario/useGetFilteredScenario';
 import { clsx } from 'clsx';
 import { useDeleteEntity } from '../../api/entity/useDeleteEntity';
 import { PAGE_SIZE } from '../../constants/main';
@@ -41,35 +39,37 @@ export const Scenario = () => {
   const [scenario, setScenario] = useState([]);
   const { getPublishedScenarioList, totalCount } = useGetFilteredScenario();
   const { deleteEntity } = useDeleteEntity('scenario');
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getPublishedScenarioList().then(data => {
+    getPublishedScenarioList().then((data) => {
       setScenario(data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldUpdate]);
 
-
   useEffect(() => {
-    user?.church?.length && setDefaultValues(prev => ({
-      ...prev,
-      church: user?.church[0],
-    }));
+    user?.church?.length &&
+      setDefaultValues((prev) => ({
+        ...prev,
+        church: user?.church[0],
+      }));
   }, [user]);
   const confirmationHandler = async () => {
-    getPublishedScenarioList().then(data => {
+    getPublishedScenarioList().then((data) => {
       setScenario(data);
     });
   };
 
-
-  const onDelete = useCallback(async (e, id) => {
-    e.stopPropagation();
-    await deleteEntity(id);
-    setShouldUpdate(prev => !prev);
-  }, [deleteEntity]);
+  const onDelete = useCallback(
+    async (e, id) => {
+      e.stopPropagation();
+      await deleteEntity(id);
+      setShouldUpdate((prev) => !prev);
+    },
+    [deleteEntity]
+  );
 
   return (
     <MainLayout>
@@ -79,10 +79,11 @@ export const Scenario = () => {
           <h1 className="title">{t('mainMenu.show')}</h1>
           {user?.uid && (
             <div>
-              <ButtonStyled onClick={() => {
-                setDefaultValues(initialValues);
-                setIsFormShown(true);
-              }}>
+              <ButtonStyled
+                onClick={() => {
+                  setDefaultValues(initialValues);
+                  setIsFormShown(true);
+                }}>
                 + {t('scenario.addScenario')}
               </ButtonStyled>
             </div>
@@ -99,16 +100,26 @@ export const Scenario = () => {
         />
       )}
       <ScenarioStyled>
-        <section className='ksu-content'>
-          <aside className='aside-wrapper'>
-            <h2 className='title'>Вибирайте сценарії за тегами та назвою</h2>
+        <section className="ksu-content">
+          <aside className="aside-wrapper">
+            <h2 className="title">Вибирайте сценарії за тегами та назвою</h2>
             <ul>
-              <li>Попасть на стр сценариев можно
+              <li>
+                Попасть на стр сценариев можно
                 <ul>
-                  <li>со страницы церкви - к конкретному сценарию и к списку сценариев церкви в статусе active</li>
-                  <li>со страницы пользователя - к конкретному сценарию и к списку
-                    сценариев созданных пользователем (сортировать по статусту драфт, эктив... и т п) </li>
-                  <li>из бокового меню к полному списку опубликованных сценариев ✅</li>
+                  <li>
+                    со страницы церкви - к конкретному сценарию и к списку
+                    сценариев церкви в статусе active
+                  </li>
+                  <li>
+                    со страницы пользователя - к конкретному сценарию и к списку
+                    сценариев созданных пользователем (сортировать по статусту
+                    драфт, эктив... и т п){' '}
+                  </li>
+                  <li>
+                    из бокового меню к полному списку опубликованных сценариев
+                    ✅
+                  </li>
                 </ul>
               </li>
               <li>Сценарий создает пользователь</li>
@@ -116,70 +127,86 @@ export const Scenario = () => {
               <li>Сценарий можно распечатать</li>
               <li>Значит у него особые стили для печати</li>
               <li>Сценарий должен иметь галочку "опубликовать"</li>
-              <li>Сценарии с полем public = true попадают на борду к модератору для модерации</li>
-              <li>Нужен Телеграм бот для оповещения модератора о новых поступлениях</li>
-              <li>Сценарии с полем moderatorApproved = true становятся доступными для просмотра без регистрации</li>
-              <li>Во время создания сценария создается или выбирается
-                из существующих тег по которому может осуществляться выборка из списка сценариев</li>
+              <li>
+                Сценарии с полем public = true попадают на борду к модератору
+                для модерации
+              </li>
+              <li>
+                Нужен Телеграм бот для оповещения модератора о новых
+                поступлениях
+              </li>
+              <li>
+                Сценарии с полем moderatorApproved = true становятся доступными
+                для просмотра без регистрации
+              </li>
+              <li>
+                Во время создания сценария создается или выбирается из
+                существующих тег по которому может осуществляться выборка из
+                списка сценариев
+              </li>
             </ul>
-            <ReactQuill theme="snow" value={value} onChange={setValue}/>
+            <ReactQuill theme="snow" value={value} onChange={setValue} />
           </aside>
-          <section className='content-wrapper'>
+          <section className="content-wrapper">
             <div className="content-list">
-              {scenario?.length >= 0 && scenario.map(el => {
-                return (
-                  <SprintCard
-                    key={el.id}
-                    editEnable={el.createdBy?.uid === user?.uid}
-                    onDelete={(e) => onDelete(e, el.id)}
-                    modalTitle={'church.deleteChurch'}
-                    modalContent={'modal.churchDelete'}
-                    onClick={(e) => navigate(`${routes.scenario}/${el.id}`)}
-                    img={el?.avatar[0]?.base64}
-                    titleHover={el.title}
-                    id={el.id}
-                  >
-                    <div>
-                      <div><span className="meta">{getDateLocalString(el.createdDate)}</span></div>
-                      <div><span className="meta">{el.author}</span></div>
-                    </div>
-                    <div>
-                      <hr/>
-                      <div><span className="meta description">{el.tags[0]}</span></div>
-                      <h3 className="title">{el.title}</h3>
-                    </div>
-                  </SprintCard>
-                );
-              }) }
+              {scenario?.length >= 0 &&
+                scenario.map((el) => {
+                  return (
+                    <SprintCard
+                      key={el.id}
+                      editEnable={el.createdBy?.uid === user?.uid}
+                      onDelete={(e) => onDelete(e, el.id)}
+                      modalTitle={'church.deleteChurch'}
+                      modalContent={'modal.churchDelete'}
+                      onClick={(e) => navigate(`${routes.scenario}/${el.id}`)}
+                      img={el?.avatar[0]?.base64}
+                      titleHover={el.title}
+                      id={el.id}>
+                      <div>
+                        <div>
+                          <span className="meta">
+                            {getDateLocalString(el.createdDate)}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="meta">{el.author}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <hr />
+                        <div>
+                          <span className="meta description">{el.tags[0]}</span>
+                        </div>
+                        <h3 className="title">{el.title}</h3>
+                      </div>
+                    </SprintCard>
+                  );
+                })}
             </div>
-            {totalCount > PAGE_SIZE &&
-              <div className='pagination'>
+            {totalCount > PAGE_SIZE && (
+              <div className="pagination">
                 <ButtonIconStyled
-                  className={clsx({activePage: pageIndex === 1})}
-                  onClick={() => setPageIndex(1)}
-                >
+                  className={clsx({ activePage: pageIndex === 1 })}
+                  onClick={() => setPageIndex(1)}>
                   1
                 </ButtonIconStyled>
                 <ButtonIconStyled
-                  className={clsx({activePage: pageIndex === 2})}
-                  onClick={() => setPageIndex(2)}
-                >
+                  className={clsx({ activePage: pageIndex === 2 })}
+                  onClick={() => setPageIndex(2)}>
                   2
                 </ButtonIconStyled>
                 <ButtonIconStyled
-                  className={clsx({activePage: pageIndex === 3})}
-                  onClick={() => setPageIndex(3)}
-                >
+                  className={clsx({ activePage: pageIndex === 3 })}
+                  onClick={() => setPageIndex(3)}>
                   3
                 </ButtonIconStyled>
                 <ButtonIconStyled
-                  className={clsx({activePage: pageIndex === 4})}
-                  onClick={() => setPageIndex(4)}
-                >
+                  className={clsx({ activePage: pageIndex === 4 })}
+                  onClick={() => setPageIndex(4)}>
                   4
                 </ButtonIconStyled>
               </div>
-            }
+            )}
           </section>
         </section>
       </ScenarioStyled>

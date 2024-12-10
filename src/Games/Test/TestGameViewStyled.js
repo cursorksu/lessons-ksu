@@ -1,6 +1,11 @@
 import styled from '@emotion/styled';
 import {
-  CREAM, ERROR_MAIN, ITEM_BG, ITEM_OUTER, NEON, SUCCESS
+  CREAM,
+  ERROR_MAIN,
+  ITEM_BG,
+  ITEM_OUTER,
+  NEON,
+  SUCCESS,
 } from '../../constants/colors';
 
 export const SelectedGamesStyled = styled('div')`
@@ -26,11 +31,11 @@ export const MillionerLink = styled('button')`
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
   margin-right: 20px;
-  
+
   &:hover {
     opacity: 1;
   }
-  
+
   &:disabled {
     opacity: 0.4;
   }

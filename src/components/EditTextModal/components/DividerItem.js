@@ -5,28 +5,25 @@ import { Draggable } from '@hello-pangea/dnd';
 import { BlockWrapperInputStyled } from '../style';
 import { InputFieldStyled } from '../../InputStyled';
 
-export const DividerItem = ({
-  field,
-  index,
-  handleRemove,
-}) => {
+export const DividerItem = ({ field, index, handleRemove }) => {
   return (
-    <Draggable key={index.toString()} draggableId={index.toString()} index={index}>
+    <Draggable
+      key={index.toString()}
+      draggableId={index.toString()}
+      index={index}>
       {(provided) => (
         <BlockWrapperInputStyled
-          className='divider'
+          className="divider"
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
+          {...provided.dragHandleProps}>
           <InputFieldStyled>
             <label>Розділювач</label>
-            <hr/>
+            <hr />
           </InputFieldStyled>
           <ButtonIconStyled
             className="remove-handle"
-            onClick={() => handleRemove(field?.id)}
-          >
+            onClick={() => handleRemove(field?.id)}>
             <RemoveIcon />
           </ButtonIconStyled>
         </BlockWrapperInputStyled>

@@ -11,34 +11,46 @@ export const Rate = () => {
     let largestRate = 100;
     if (students) {
       largestRate = Math.max(
-        ...students?.map(el => el.estimation ? +el.estimation : 0)
-          .filter(rate => !isNaN(rate))
+        ...students
+          ?.map((el) => (el.estimation ? +el.estimation : 0))
+          .filter((rate) => !isNaN(rate))
       );
     }
     return (screenHeight - 300) / largestRate;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [students, window.innerHeight]);
-  const balloonStyle = useCallback((el, idx) => {
-    return ({
-      bottom: !el.estimation ? 50 + rateStep : 50 + rateStep * el.estimation,
-      left: 100 + (window.innerWidth - 100) / students.length * idx,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rateStep, students, window.innerWidth]);
+  const balloonStyle = useCallback(
+    (el, idx) => {
+      return {
+        bottom: !el.estimation ? 50 + rateStep : 50 + rateStep * el.estimation,
+        left: 100 + ((window.innerWidth - 100) / students.length) * idx,
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [rateStep, students, window.innerWidth]
+  );
   return (
     <div className="rate-wrapper">
-      {students && students?.map((el, idx) => el.isActive
-        ? (
-          <div className={clsx({
-            balloon: true,
-            feather: true,
-          })} style={balloonStyle(el, idx)}>
-            <div className='name'><h2>{el.estimation}</h2> {el.firstName + ' ' + el.secondName}</div>
-            <Emoji size={50} unified={el.avatar} />
-          </div>
-        )
-        : <></>)
-      }
+      {students &&
+        students?.map((el, idx) =>
+          el.isActive
+? (
+            <div
+              className={clsx({
+                balloon: true,
+                feather: true,
+              })}
+              style={balloonStyle(el, idx)}>
+              <div className="name">
+                <h2>{el.estimation}</h2> {el.firstName + ' ' + el.secondName}
+              </div>
+              <Emoji size={50} unified={el.avatar} />
+            </div>
+          )
+: (
+            <></>
+          )
+        )}
     </div>
   );
 };

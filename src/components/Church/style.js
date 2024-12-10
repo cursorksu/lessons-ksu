@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const ChurchStyled = styled('div')`
   max-width: 70%;
   margin: 40px auto;
-  
+
   .ksu-button {
     position: static;
   }
@@ -17,7 +17,7 @@ export const ChurchStyled = styled('div')`
     justify-content: stretch;
     align-items: stretch;
     gap: 20px;
-    
+
     & > div {
       flex-basis: 50%;
     }

@@ -14,15 +14,15 @@ export const SprintCardStyled = styled('div')`
   border-radius: 4px;
   overflow: hidden;
   box-shadow: ${BOX_SHADOW};
-  
+
   &:hover {
     box-shadow: ${BOX_SHADOW_HOVER};
     .title.hover {
-        opacity: 1;
-        transition: opacity 0.6s linear;
+      opacity: 1;
+      transition: opacity 0.6s linear;
     }
   }
-  
+
   img {
     position: absolute;
     top: 0;
@@ -34,7 +34,7 @@ export const SprintCardStyled = styled('div')`
     object-position: right;
     object-fit: cover;
   }
-  
+
   .content {
     position: absolute;
     left: 0;
@@ -85,14 +85,14 @@ export const SprintCardStyled = styled('div')`
   }
 
   .meta {
-    font-family: "Coco Gothic Alternate", sans-serif;
+    font-family: 'Coco Gothic Alternate', sans-serif;
     font-size: 14px;
     font-weight: 300;
     color: ${CREAM};
     opacity: 0.5;
     text-align: left;
   }
-  
+
   .description {
     min-height: 60px;
     overflow: hidden;
@@ -121,12 +121,12 @@ export const SprintCardStyled = styled('div')`
     z-index: 3;
     white-space: pre-wrap;
   }
-  
+
   .action {
     position: absolute;
     top: 5px;
     right: 5px;
     z-index: 10;
     display: flex;
-  } 
+  }
 `;

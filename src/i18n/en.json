@@ -147,8 +147,8 @@
       "web": "Website",
       "pastor": "Pastor",
       "pictures": "Album",
-      "groups": "Our Children groups",
-      "teachers": "Our Teachers"
+      "groups": "Children groups",
+      "teachers": "Teachers"
     },
     "placeholders": {
       "avatar": "Upload Church logo",

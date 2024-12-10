@@ -9,7 +9,7 @@ export const LessonCardStyled = styled.div`
   height: 600px;
   box-sizing: border-box;
   cursor: pointer;
- 
+
   position: relative;
   background-size: cover;
   overflow: hidden;
@@ -25,18 +25,18 @@ export const LessonCardStyled = styled.div`
     justify-content: center;
     align-items: center;
     color: ${CREAM};
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
 
-      img {
-        transform: none;
-        height: 240px;
-        width: 100%;
-        object-fit: cover;
-        position: static;
-        max-width: initial;
-        max-height: initial;
-      }
-    
+    img {
+      transform: none;
+      height: 240px;
+      width: 100%;
+      object-fit: cover;
+      position: static;
+      max-width: initial;
+      max-height: initial;
+    }
+
     svg {
       opacity: 0.3;
       width: 60px;
@@ -53,7 +53,7 @@ export const LessonCardStyled = styled.div`
     align-items: center;
     padding: 15px;
     background: dimgrey;
-    
+
     p {
       color: #fff;
       margin: 0;
@@ -67,7 +67,7 @@ export const LessonCardStyled = styled.div`
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     padding-bottom: 10px;
   }
-  
+
   .description {
     display: -webkit-box;
     -webkit-line-clamp: 2;

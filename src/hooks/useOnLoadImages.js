@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export const useOnLoadImages = (ref) => {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-
     const updateStatus = (images) => {
       setStatus(
         images.map((image) => image.complete).every((item) => item === true)
@@ -21,11 +20,11 @@ export const useOnLoadImages = (ref) => {
     }
 
     imagesLoaded.forEach((image) => {
-      image.addEventListener("load", () => updateStatus(imagesLoaded), {
-        once: true
+      image.addEventListener('load', () => updateStatus(imagesLoaded), {
+        once: true,
       });
-      image.addEventListener("error", () => updateStatus(imagesLoaded), {
-        once: true
+      image.addEventListener('error', () => updateStatus(imagesLoaded), {
+        once: true,
       });
     });
 

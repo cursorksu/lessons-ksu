@@ -11,7 +11,7 @@ export const LabelStyled = styled.label`
     font-size: 14px;
     color: rgba(0, 0, 0, 0.6);
     display: block;
-    
+
     &.inline {
       display: inline-block;
     }
@@ -32,22 +32,22 @@ export const InputFieldStyled = styled.div`
 `;
 
 export const InputStyled = styled.input`
-    width: 100%;
-    border-radius: 4px;
-    padding: 5px 12px;
-    border: 1px solid ${PRIMARY_MAIN};
-    height: 40px;
-    line-height: 40px;
-    font-family: Montserrat, sans-serif;
-    font-weight: 300;
-    font-size: 1.2rem;
-    color: ${PRIMARY_MAIN};
+  width: 100%;
+  border-radius: 4px;
+  padding: 5px 12px;
+  border: 1px solid ${PRIMARY_MAIN};
+  height: 40px;
+  line-height: 40px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  color: ${PRIMARY_MAIN};
 
-    &:focus {
-      outline: none;
-      border: 1px solid ${PRIMARY_MAIN};
-      background-color: ${CREAM};
-    }
+  &:focus {
+    outline: none;
+    border: 1px solid ${PRIMARY_MAIN};
+    background-color: ${CREAM};
+  }
 `;
 
 export const TextareaAutosizeStyled = styled(TextArea)`

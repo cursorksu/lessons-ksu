@@ -1,13 +1,17 @@
 import styled from '@emotion/styled';
 import {
-  BG_GOLD, ERROR_MAIN, GOLD, PRIMARY_MAIN, SUCCESS,
+  BG_GOLD,
+  ERROR_MAIN,
+  GOLD,
+  PRIMARY_MAIN,
+  SUCCESS,
 } from '../../../constants/colors';
 
 export const TestWrapperStyled = styled('div')`
   display: grid;
   grid-template-columns: 30% 70%;
   grid-gap: 20px;
-  
+
   .aside-wrapper {
     border-right: 1px solid ${GOLD};
     padding-right: 20px;
@@ -24,11 +28,10 @@ export const TestItemStyled = styled('div')`
     'answer0 answer1'
     'answer2 answer3'
     'answer4 answer5'
-    'answer6 answer7'
-  ;
+    'answer6 answer7';
 
   grid-gap: 30px;
-  
+
   .test-question {
     grid-area: question;
   }
@@ -65,13 +68,14 @@ export const TestItemStyled = styled('div')`
     position: relative;
     font-size: 1.5rem;
   }
-  .test-answer, .test-question {
+  .test-answer,
+  .test-question {
     display: grid;
     grid-template-columns: 1fr 60px 40px 40px;
     grid-gap: 10px;
     align-items: center;
     position: relative;
-    
+
     .input-label {
       font-size: 12px;
       position: absolute;
@@ -82,16 +86,18 @@ export const TestItemStyled = styled('div')`
     background: ${PRIMARY_MAIN} !important;
   }
   .checkbox label:after {
-    background: ${ERROR_MAIN} linear-gradient(transparent,rgba(255,255,255,.5)) !important;
+    background: ${ERROR_MAIN}
+      linear-gradient(transparent, rgba(255, 255, 255, 0.5)) !important;
   }
   .checkbox.checked label:after {
-    background: ${SUCCESS} linear-gradient(transparent,rgba(255,255,255,.5)) !important;
+    background: ${SUCCESS}
+      linear-gradient(transparent, rgba(255, 255, 255, 0.5)) !important;
   }
 `;
 
 export const TestTextStyled = styled('ul')`
   list-style-type: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   font-weight: 300;
   padding: 20px 0 0;
@@ -101,7 +107,7 @@ export const TestTextStyled = styled('ul')`
     line-height: 1.8;
     white-space: pre-wrap;
   }
-  
+
   .empty-test {
     width: 100%;
     height: 300px;
@@ -114,14 +120,14 @@ export const TestTextStyled = styled('ul')`
     align-items: center;
     background: ${BG_GOLD};
   }
-  
+
   .test-item {
     position: relative;
     background: #fff;
     padding-left: 36px;
     display: block;
     margin-bottom: 20px;
-    
+
     &:hover {
       .drag-handler::before,
       .drag-handler::after {
@@ -156,25 +162,24 @@ export const TestTextStyled = styled('ul')`
       top: 8px;
     }
   }
-  
+
   ul {
     padding: 10px 0;
     display: grid;
     justify-content: stretch;
     align-items: flex-start;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 10px; 
+    grid-gap: 10px;
     list-style-type: none;
-    
+
     li {
       display: block;
       white-space: pre-wrap;
-      
+
       b {
         display: inline-block;
         margin-right: 10px;
       }
-      
     }
   }
 `;

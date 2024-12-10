@@ -16,21 +16,20 @@ export const KsuTagsStyled = styled.div`
     font-family: Montserrat, sans-serif;
     color: ${PRIMARY_MAIN};
     font-width: 300;
-    
+
     &.focused {
       background-color: ${HOVER_GOLD};
     }
   }
 
-  .tag-item{
-    background-color:${CREAM};
+  .tag-item {
+    background-color: ${CREAM};
     display: inline-block;
     padding: 3px 3px 3px 9px;
     border-radius: 16px;
     color: ${CHOCO};
-    
   }
-  .tag-item .close{
+  .tag-item .close {
     height: 20px;
     width: 20px;
     background-color: ${CHOCO};

@@ -4,7 +4,7 @@ import { PRIMARY_MAIN } from '../../constants/colors';
 export const DatePickerStyled = styled('div')`
   min-width: 100%;
   position: relative;
-  
+
   .icon {
     position: absolute;
     top: 50%;
@@ -15,15 +15,14 @@ export const DatePickerStyled = styled('div')`
     height: 20px;
     color: ${PRIMARY_MAIN};
     z-index: 10;
-    
+
     svg {
       display: inline-block;
       width: 100%;
       height: 20px;
     }
-    
   }
-  
+
   .react-datepicker__input-container,
   .react-datepicker-wrapper {
     display: block;
@@ -46,7 +45,7 @@ export const DatePickerStyled = styled('div')`
     &:focus-visible {
       outline: none;
     }
-    
+
     &::placeholder {
       font-family: Montserrat, sans-serif;
       font-weight: 300;
