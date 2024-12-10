@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting
+name: Firebase Deployment
 
 on:
   push:
@@ -6,36 +6,63 @@ on:
       - main
 
 jobs:
-  build_and_deploy:
-    runs-on: ubuntu-latest
 
+  build:
+
+    name: Build
+    runs-on: ubuntu-latest
     steps:
-      # Checkout кода
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Установить Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 16 # Убедитесь, что версия Node.js совместима с проектом
+          node-version: '18' # Рекомендуется использовать стабильную LTS-версию
 
-      # Установить Yarn
-      - name: Install Yarn
-        run: npm install -g yarn
+      # Step 3: Clear Cache
+      - name: Clear cache
+        run: rm -rf node_modules yarn.lock
 
-      # Установить зависимости через Yarn
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: yarn install
 
-      # Построить проект
-      - name: Build project
+      # Step 5: Build the project
+      - name: Build
+        env:
+          CI: false
         run: yarn build
 
-      # Деплой на Firebase
-      - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      # Step 6: Upload build artifact
+      - name: Upload Production Artifact
+        uses: actions/upload-artifact@v3
         with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          channelId: live
+          name: build
+          path: build
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Download build artifact
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
+
+      # Step 3: Deploy to Firebase
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
