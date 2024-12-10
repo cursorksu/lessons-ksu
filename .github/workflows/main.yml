@@ -22,13 +22,13 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       # Step 4: Build the project
       - name: Build
         env:
           CI: false
-        run: yarn run build
+        run: npm run build
 
       # Step 5: Upload build artifact
       - name: Upload Production Artifact
