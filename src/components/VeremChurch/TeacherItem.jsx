@@ -25,16 +25,16 @@ export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
       />
       <ul>
         <li>
-          <b>Students:</b> {entityData?.students?.length}
+          <span>Students: </span> {entityData?.students?.length}
         </li>
         <li>
-          <b>Groups:</b> {entityData?.groups?.length}
+          <span>Groups: </span> {entityData?.groups?.length}
         </li>
         <li>
-          <b>Created lessons:</b> {entityData?.lessons?.length}
+          <span>Created lessons: </span> {entityData?.lessons?.length}
         </li>
         <li>
-          <b>Created scenarios:</b> {entityData?.scenarios?.length}
+          <span>Created scenarios: </span> {entityData?.scenarios?.length}
         </li>
       </ul>
       {isAuth && (

@@ -48,7 +48,7 @@ export const VeremChips = styled('span')`
   font-family: 'Montserrat', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -57,15 +57,14 @@ export const VeremChips = styled('span')`
 `;
 
 export const VeremChipsSmall = styled(VeremChips)`
-  padding: 3px 22px;
-  font-size: 12px;
+  padding: 3px 26px;
+  font-size: 14px;
   text-transform: none;
-  font-weight: 900;
+  font-weight: 800;
 `;
 
 export const VeremLink = styled('a')`
   color: ${VEREM_GOLD};
-  display: inline-block;
   font-size: 14px;
   font-weight: 900;
   letter-spacing: 0.07em;
@@ -77,6 +76,16 @@ export const VeremLink = styled('a')`
   margin: 0;
   padding: 0;
   transition: color 0.3s ease;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 10px;
+  }
 
   &:hover {
     color: ${CHOCO};

@@ -14,6 +14,7 @@ import { Emoji } from 'emoji-picker-react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { useGetStudentsInGroup } from '../../api/student/useGetStudentsInGroup';
+import clsx from 'clsx';
 
 export const StudentsTable = ({
   selectedRow,

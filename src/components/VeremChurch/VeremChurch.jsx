@@ -21,6 +21,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { TeachersList } from './TeachersList';
 import { ChurchItemStyled } from './style';
+import { ContentList } from './ContentList';
 
 export const VeremChurch = () => {
   const { user } = useSelector((state) => state.auth);
@@ -56,7 +57,7 @@ export const VeremChurch = () => {
           <div>
             <img
               className="logo"
-              src="https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/Black.png?alt=media&token=7a67912e-d6c3-408f-bc31-819eafa5cb60"
+              src={church?.logo}
               alt="logo png"
             />
           </div>
@@ -105,27 +106,29 @@ export const VeremChurch = () => {
             />
           </div>
           <div className="content">
-            <h3>
-              <VeremChips>{`${t('church.labels.about')}`}</VeremChips>
-            </h3>
-            <h3>
-              Started{' '}
-              {church?.createdDate && getDateLocalString(church?.createdDate)}
-            </h3>
-            {church?.about}
-          </div>
-          <div className="content">
-            <h3>
-              <VeremChips>{`${t('church.labels.pastor')}`}</VeremChips>
-            </h3>
-            <h3>{church?.pastor}</h3>
-            <ChurchItemStyled>
-              <img
-                src={
-                  'https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpastor.jpg?alt=media&token=297b7dc7-8cdc-42d3-a347-03ab113d2f58'
-                }
-                alt="pastor avatar"
-              />
+            <div className="content-block">
+              <h3>
+                <VeremChips>{`${t('church.labels.pastor')}`}</VeremChips>
+              </h3>
+              <h3>{church?.pastor}</h3>
+              <ChurchItemStyled>
+                <img
+                    src={
+                      'https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpastor.jpg?alt=media&token=297b7dc7-8cdc-42d3-a347-03ab113d2f58'
+                    }
+                    alt="pastor avatar"
+                />
+              </ChurchItemStyled>
+            </div>
+
+            <div className="content-block">
+              <h3>
+                <VeremChips>{`${t('church.labels.about')}`}</VeremChips>
+              </h3>
+              <h3>
+                Started{' '}
+                {church?.createdDate && getDateLocalString(church?.createdDate)}
+              </h3>
 
               <ul className="contacts">
                 <li>
@@ -149,24 +152,32 @@ export const VeremChurch = () => {
                   </VeremLink>
                 </li>
               </ul>
-            </ChurchItemStyled>
+              {church?.about}
+            </div>
           </div>
           <div className="content">
-            <div>
-              {church && (
-                <TeachersList
-                  isAuth={church?.createdBy?.uid === user?.uid}
-                  onEdit={onEditList}
-                  church={church}
-                />
+              {church && church?.teachers?.length && (
+                  <div className="content-block">
+                    <TeachersList
+                        isAuth={church?.createdBy?.uid === user?.uid}
+                        onEdit={onEditList}
+                        church={church}
+                    />
+                  </div>
               )}
-              {church && (
-                <GroupList
-                  isAuth={church?.createdBy?.uid === user?.uid}
-                  onEdit={getChurch}
-                  church={church}
-                />
-              )}
+              {church && church?.groups?.length ? (
+                  <div className="content-block">
+                    <GroupList
+                        isAuth={church?.createdBy?.uid === user?.uid}
+                        onEdit={getChurch}
+                        church={church}
+                    />
+                  </div>
+              ) : <div className={'content-block-placeholder'}>{t('group.no-group')}</div>}
+          </div>
+          <div className="content">
+            <div className="content-block">
+              <ContentList />
             </div>
           </div>
           <section className="verem-content">

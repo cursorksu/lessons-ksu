@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 import {
-  BOX_SHADOW,
-  BOX_SHADOW_HOVER,
-  CHOCO,
-  CREAM,
-  DARK_BG,
-  GOLD,
-  ITEM_BG,
-  ITEM_INNER,
-  ITEM_OUTER,
-  PRIMARY_MAIN,
-  VEREM_CREAM_BG,
-  VEREM_TEXT,
+    BOX_SHADOW,
+    BOX_SHADOW_HOVER,
+    CHOCO,
+    CREAM,
+    DARK_BG,
+    GOLD,
+    ITEM_BG,
+    ITEM_INNER,
+    ITEM_OUTER,
+    PRIMARY_MAIN,
+    VEREM_CREAM_BG, VEREM_GOLD,
+    VEREM_TEXT,
 } from '../constants/colors';
 
 export const ShadowCardStyled = styled('li')`
@@ -96,7 +96,7 @@ export const MainContentStyled = styled('div')`
 
   .ksu-content {
     margin: 40px;
-    background: navajowhite;
+    border: 1px solid ${VEREM_GOLD};
     min-height: calc(100vh - 300px);
     border-radius: 4px;
     display: grid;
@@ -536,55 +536,6 @@ export const VeremMainContentStyled = styled('div')`
     min-height: initial;
   }
 
-  .collapsed-menu {
-    font-size: 1.14rem;
-    display: flex;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 200;
-    box-shadow: ${BOX_SHADOW_HOVER};
-
-    .active {
-      background: rgba(255, 255, 255, 0.7);
-      color: ${CHOCO} !important;
-    }
-
-    li ul li {
-      a {
-        padding: 0 0 0 50px;
-      }
-      &.active {
-        background: #fff;
-      }
-    }
-
-    svg {
-      width: 20px;
-      height: 20px;
-      display: inline-block;
-    }
-
-    .middle {
-      svg {
-        width: 25px;
-        height: 25px;
-      }
-    }
-
-    .big {
-      svg {
-        width: 30px;
-        height: 30px;
-      }
-    }
-  }
-  .collapsed-menu .ps-menu-button {
-    color: #282c34 !important;
-  }
-
   [data-popper-escaped] .ps-menu-button {
     padding: 0 10px;
   }
@@ -595,6 +546,9 @@ export const VeremMainContentStyled = styled('div')`
     padding: 0 0 0 10px;
   }
   .contacts {
+      margin: 0;
+      padding: 0;
+      
     li {
       line-height: 20px;
       display: flex;
@@ -604,7 +558,7 @@ export const VeremMainContentStyled = styled('div')`
       margin-bottom: 10px;
 
       span {
-        font-weight: 900;
+        font-weight: 700;
         display: block;
         margin-right: 10px;
       }
@@ -613,12 +567,13 @@ export const VeremMainContentStyled = styled('div')`
   .church-avatar {
     width: 100%;
     position: relative;
+    overflow: hidden;
 
     &:after {
       content: '';
       position: absolute;
       top: -150px;
-      left: 50%;
+      left: 90%;
       transform: translate(-50%, 0) rotate(80deg);
       width: 270px;
       height: 270px;
@@ -629,24 +584,39 @@ export const VeremMainContentStyled = styled('div')`
 
     .img {
       width: 100%;
-      height: 46vh;
+      height: 400px;
       background-attachment: fixed;
-      background-position: top -150px center;
+      background-position: top center;
       background-repeat: no-repeat;
       background-size: cover;
       filter: blur(2px);
     }
   }
+  .content-block {
+    margin-bottom: 40px;
+  }
+  
+  .content-block-placeholder {
+    margin-bottom: 40px;
+    padding: 40px;
+    height: 400px;
+    border: 1px solid ${VEREM_GOLD};
+    font-size: 30px;
+    text-align: center;
+    color: #a39367;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .verem-church-title {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.9);
-    z-index: 10;
+    position: relative;
+    z-index: 0;
     top: 0;
     text-align: center;
     display: grid;
-    grid-template-columns: 20% 1fr;
-    left: ${({ collapsed }) => (collapsed ? '80px' : '250px')};
-    width: auto;
+    grid-template-columns: 15% 1fr 60px;
+    width: 60%;
+    margin: auto;
 
     .title-info {
       display: flex;
@@ -656,16 +626,18 @@ export const VeremMainContentStyled = styled('div')`
       padding: 20px;
     }
     .title {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
+      font-family: "Yeseva One", serif;
+      font-size: 36px;
       margin: 0 !important;
+      line-height: 1.5;
+      letter-spacing: 2px;
     }
 
     .subtitle {
       font-family: 'Montserrat', sans-serif;
       font-size: 12px;
       font-style: normal;
-      font-weight: 900;
+      font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       white-space: nowrap;
@@ -676,6 +648,12 @@ export const VeremMainContentStyled = styled('div')`
       padding: 20px;
       width: 160px;
       height: auto;
+    }
+    
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 `;
