@@ -17,13 +17,13 @@ export const useGetLessonsInCollection = () => {
       setLoading(true);
 
       try {
-        const lessonPromises = lessonIds.map((lessonId) =>
+        const lessonPromises = lessonIds?.map((lessonId) =>
           getDoc(doc(fireStore, 'lessons', lessonId))
         );
         const lessonSnapshots = await Promise.all(lessonPromises);
 
         const lessonsData = await Promise.all(
-          lessonSnapshots.map(async (lessonSnapshot) => {
+          lessonSnapshots?.map(async (lessonSnapshot) => {
             try {
               const lesson = lessonSnapshot.data();
               const authorRef = lesson?.createdBy;

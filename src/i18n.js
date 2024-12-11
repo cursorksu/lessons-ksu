@@ -16,7 +16,7 @@ const resources = {
     tr: en,
   },
 };
-const userLanguage = navigator.language || navigator.userLanguage;
+const userLanguage = 'ua' || navigator.language || navigator.userLanguage;
 i18next.init({
   lng: userLanguage.split('-')[0],
   fallbackLng: ['ru', 'en', 'ua'],

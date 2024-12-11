@@ -1,18 +1,44 @@
 import styled from '@emotion/styled';
 
+export const VeremContentChurchItem = styled('div')`
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    h4 {
+       text-align: left;
+    }
+    
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+    margin-right: 20px;
+  }
+
+`;
+
 export const ChurchItemStyled = styled('div')`
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 1em;
+  line-height: 20px;
   font-family: 'Montserrat', sans-serif;
   color: #000;
-  letter-spacing: 0.05em;
-  font-weight: 600;
 
   ul {
     list-style-type: none;
     padding: 0;
     margin-top: 20px;
     text-align: left;
+    
+    li {
+      margin-bottom: 10px;
+    }
+    
+    span {
+      font-weight: 700;
+    }
   }
 
   img {
