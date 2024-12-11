@@ -11,7 +11,17 @@ export const churchConfig = [
   // },
   {
     inputType: 'textInput',
+    name: 'subtitle',
+    isIgnored: false,
+  },
+  {
+    inputType: 'textInput',
     name: 'title',
+    isIgnored: false,
+  },
+  {
+    inputType: 'textInput',
+    name: 'city',
     isIgnored: false,
   },
   {
