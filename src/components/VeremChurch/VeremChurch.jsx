@@ -89,6 +89,7 @@ export const VeremChurch = () => {
           <SlideShow
               navigation={false}
               blur
+              autoplay={true}
               slideList={church?.pictures?.length ?
                 church?.pictures.map((el, id) => ({id, value: el})) : [{ id: 1, value: PHOTO_PLACEHOLDER}]}
           />

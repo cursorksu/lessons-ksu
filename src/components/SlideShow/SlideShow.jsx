@@ -12,7 +12,7 @@ import { ButtonIconStyled } from '../ButtonStyled';
 import { Popup } from 'semantic-ui-react';
 import clsx from 'clsx';
 
-export const SlideShow = ({ slideList, blur, autoplay, navigation = true }) => {
+export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true }) => {
     const [ fullScreen, setFullScreen ] = useState(false);
 
     return (
@@ -38,7 +38,10 @@ export const SlideShow = ({ slideList, blur, autoplay, navigation = true }) => {
                     clickable: true,
                     dynamicBullets: true,
                 }}
-                modules={[ Autoplay, Keyboard, Pagination, Navigation ]}>
+                modules={autoplay
+                         ? [ Autoplay, Keyboard, Pagination, Navigation ]
+                         : [ Keyboard, Pagination, Navigation ] }
+            >
                 <Popup
                     trigger={
                         <ButtonIconStyled
