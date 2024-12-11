@@ -15,7 +15,6 @@ export const useGetLessonsInCollection = () => {
   const getLessonsInCollection = useCallback(
     async (lessonIds, status) => {
       setLoading(true);
-      console.log('lessons fetched')
 
       try {
         const lessonPromises = lessonIds?.map((lessonId) =>

@@ -19,9 +19,13 @@ export const useGetEntityListByIds = (entityName) => {
           if (snapshot.exists()) {
             return { id: snapshot.id, ...snapshot.data() };
           }
+
+          console.log({ data: snapshot.id});
           return null;
         });
         const resolvedEntities = await Promise.all(promises);
+
+        console.log({ entityName, resolvedEntities: resolvedEntities});
         setEntities(resolvedEntities.filter((entity) => entity !== null));
       } catch (error) {
         dispatch(setMessage(null));

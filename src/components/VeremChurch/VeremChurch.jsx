@@ -72,9 +72,9 @@ export const VeremChurch = () => {
             )}
           </div>
           <div className="title-info">
-            <p className="subtitle">євангельська церква</p>
+            <p className="subtitle">{church?.subtitle}</p>
             <h1 className="title">"{church?.title}"</h1>
-            <VeremChipsSmall>м. Ківерці</VeremChipsSmall>
+            <VeremChipsSmall>{church?.city}</VeremChipsSmall>
           </div>
 
           <div className="actions">

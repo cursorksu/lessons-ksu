@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { CHOCO, VEREM_GOLD, VEREM_GOLD_BG } from '../../constants/colors';
 
 export const VeremContentChurchItem = styled('div')`
     display: flex;
@@ -17,9 +18,41 @@ export const VeremContentChurchItem = styled('div')`
     display: block;
     margin-right: 20px;
   }
-
 `;
 
+
+export const GroupItemStyled = styled('div')`
+     border: 1px solid ${VEREM_GOLD};
+     padding: 0 30px;
+     margin-bottom: 40px;
+     
+     .group-link {
+          font-size: 1em;
+          line-height: 20px;
+          font-family: 'Montserrat', sans-serif;
+          color: ${VEREM_GOLD};
+          font-weight: 600;
+          text-align: center;
+          display: block;
+          width: 100%;
+          padding: 10px;
+          border-bottom: 1px solid ${VEREM_GOLD};
+          transition: color 0.3s ease;
+
+        &:hover {
+          color: ${CHOCO}
+             border-bottom: 1px solid ${CHOCO};
+        }
+     }
+   
+    .group-title {
+        text-align: center;
+        font-family: "Yeseva One", serif;
+        font-size: 28px;
+        line-height: 1.5;
+        letter-spacing: 2px;
+    }
+  `;
 export const ChurchItemStyled = styled('div')`
   font-size: 1em;
   line-height: 20px;
@@ -43,7 +76,7 @@ export const ChurchItemStyled = styled('div')`
 
   img {
     width: 100%;
-    height: 300px;
+    height: 350px;
     object-fit: cover;
     border-radius: 0;
   }
