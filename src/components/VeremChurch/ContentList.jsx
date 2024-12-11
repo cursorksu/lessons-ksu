@@ -6,41 +6,49 @@ import { useGetLessonsInCollection } from '../../api/lesson/useGetLessonsInColle
 import { useSelector } from 'react-redux';
 import { VeremContentChurchItem } from './style';
 
-export const ContentList = () => {
+export const ContentList = ({ contentType, contentList }) => {
     const { t } = useTranslation('tr');
     const { getLessonsInCollection } = useGetLessonsInCollection();
 
     const { lessons } = useSelector(state => state.lessonData);
 
-
     useEffect(() => {
-        getLessonsInCollection([ 'JAYSwQ9uMQxW0m5EvwU0', 'TpyBYyskyUGJWjltNCYq', 'cUuWLb9AtrQWMxTDQqlZ', 'hpRXO468Mk5P6XC3gpbX' ]);
-    }, []);
+        contentType === 'lessons'
+            && !!contentList?.length
+            && getLessonsInCollection(contentList, 1);
+    }, [contentType, contentList]);
 
     return (
         <div>
-            <div className="content-block">
-                <h3>
-                    <VeremChips>{`${t('church.labels.content')}`}</VeremChips>
-                </h3>
-                <h3>
-                    Уроки
-                </h3>
-                {lessons?.map(el => (
-                    <VeremContentChurchItem>
-                        <img src={el.imageUrl} alt="lesson pict"/>
-                        <div>
-                            <h4>{el.title}</h4>
-                            <p>Created: {el.createdAt}</p>
-                        </div>
-                    </VeremContentChurchItem>
-                ))}
-                <VeremLink href="/collections"><ArrowIcon/>до списку уроків</VeremLink>
-            </div>
-
-            <div className="content-block-placeholder">
-                Ще нема доданих сценаріїв
-            </div>
+            {
+                !contentList?.length ? (
+                    <div className="content-block-placeholder">
+                        {contentType === 'lessons'
+                         ? t('church.labels.no-lessons')
+                         : t('church.labels.no-scenarios')
+                        }
+                    </div>
+                ) : (
+                    <div className="content-block">
+                        <h3>
+                            <VeremChips>{`${t('church.labels.content')}`}</VeremChips>
+                        </h3>
+                        <h3>
+                            {t(`church.labels.${contentType}`)}
+                        </h3>
+                        {lessons?.map(el => (
+                            <VeremContentChurchItem>
+                                <img src={el.imageUrl} alt="lesson pict"/>
+                                <div>
+                                    <h4>{el.title}</h4>
+                                    <p>Created: {el.createdAt}</p>
+                                </div>
+                            </VeremContentChurchItem>
+                        ))}
+                        <VeremLink href="/collections"><ArrowIcon/>{t('church.labels.to-lessons')}</VeremLink>
+                    </div>
+                )
+            }
         </div>
     );
 };

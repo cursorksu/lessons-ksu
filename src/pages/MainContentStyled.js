@@ -586,10 +586,16 @@ export const VeremMainContentStyled = styled('div')`
       width: 100%;
       height: 400px;
       background-attachment: fixed;
-      background-position: top center;
+      background-repeat: no-repeat;
+      background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;
       filter: blur(2px);
+    }
+    
+    .full-screen .img{
+      height: 100vh;
+      filter: none;
     }
   }
   .content-block {
@@ -603,6 +609,7 @@ export const VeremMainContentStyled = styled('div')`
     border: 1px solid ${VEREM_GOLD};
     font-size: 30px;
     text-align: center;
+    letter-spacing: 0.01em;
     color: #a39367;
     display: flex;
     justify-content: center;
