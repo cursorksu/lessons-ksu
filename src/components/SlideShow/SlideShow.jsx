@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation, Keyboard } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation, Keyboard } from 'swiper/modules';
 import { ReactComponent as ArrowLeft } from '../../assets/arrow-left.svg';
 import { ReactComponent as ArrowRight } from '../../assets/arrow-right.svg';
 import { ReactComponent as ScreenIcon } from '../../assets/screen.svg';
@@ -29,8 +29,8 @@ export const SlideShow = ({ slideList, blur, autoplay, navigation = true }) => {
                 navigation={navigation}
                 centeredSlides={true}
                 autoplay={{
-                    delay: 100,
-                    disableOnInteraction: true,
+                    delay: 3000,
+                    disableOnInteraction: false,
                 }}
                 effect={'cube'}
                 grabCursor={true}
@@ -38,7 +38,7 @@ export const SlideShow = ({ slideList, blur, autoplay, navigation = true }) => {
                     clickable: true,
                     dynamicBullets: true,
                 }}
-                modules={[ Keyboard, Pagination, Navigation ]}>
+                modules={[ Autoplay, Keyboard, Pagination, Navigation ]}>
                 <Popup
                     trigger={
                         <ButtonIconStyled
