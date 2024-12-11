@@ -22,6 +22,8 @@ import { useTranslation } from 'react-i18next';
 import { TeachersList } from './TeachersList';
 import { ChurchItemStyled } from './style';
 import { ContentList } from './ContentList';
+import { SlideShow } from '../SlideShow';
+import { PHOTO_PLACEHOLDER } from '../../constants/main';
 
 export const VeremChurch = () => {
   const { user } = useSelector((state) => state.auth);
@@ -55,11 +57,19 @@ export const VeremChurch = () => {
       <div className="hero">
         <div className="verem-church-title">
           <div>
-            <img
+            {church?.logo ? (
+                <img
+                    className="logo"
+                    src={church?.logo}
+                    alt="logo png"
+                />
+            ) : (
+              <img
               className="logo"
-              src={church?.logo}
+              src={PHOTO_PLACEHOLDER}
               alt="logo png"
-            />
+              />
+            )}
           </div>
           <div className="title-info">
             <p className="subtitle">євангельська церква</p>
@@ -76,12 +86,13 @@ export const VeremChurch = () => {
           </div>
         </div>
         <div className="church-avatar">
-          <div
-            className="img"
-            style={{
-              backgroundImage:
-                'url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/photo_2024-12-10_01-23-25.jpg?alt=media&token=52790f3c-a9fd-4469-8ba7-72f194d9aa25")',
-            }}></div>
+          <SlideShow
+              navigation={false}
+              blur
+              autoplay={true}
+              slideList={church?.pictures?.length ?
+                church?.pictures.map((el, id) => ({id, value: el})) : [{ id: 1, value: PHOTO_PLACEHOLDER}]}
+          />
         </div>
       </div>
       {isFormShown && (
@@ -113,9 +124,7 @@ export const VeremChurch = () => {
               <h3>{church?.pastor}</h3>
               <ChurchItemStyled>
                 <img
-                    src={
-                      'https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpastor.jpg?alt=media&token=297b7dc7-8cdc-42d3-a347-03ab113d2f58'
-                    }
+                    src={church?.avatar && church?.avatar[0].path || PHOTO_PLACEHOLDER}
                     alt="pastor avatar"
                 />
               </ChurchItemStyled>
@@ -177,29 +186,12 @@ export const VeremChurch = () => {
           </div>
           <div className="content">
             <div className="content-block">
-              <ContentList />
+              <ContentList contentType={'lessons'} contentList={church?.lessons}/>
+            </div>
+            <div className="content-block">
+              <ContentList contentType={'scenarios'} contentList={church?.scenarios}/>
             </div>
           </div>
-          <section className="verem-content">
-            {/*{church && (*/}
-            {/*  <LessonsList*/}
-            {/*    isAuth={church?.createdBy?.uid === user?.uid}*/}
-            {/*    teachers={church?.groups}*/}
-            {/*    lessons={church?.lessons}*/}
-            {/*    onEdit={getChurch}*/}
-            {/*    church={church}*/}
-            {/*  />*/}
-            {/*)}*/}
-            {/*{church && (*/}
-            {/*  <ScenarioList*/}
-            {/*    isAuth={church?.createdBy?.uid === user?.uid}*/}
-            {/*    teachers={church?.groups}*/}
-            {/*    scenarios={church?.scenario}*/}
-            {/*    onEdit={onEditList}*/}
-            {/*    church={church}*/}
-            {/*  />*/}
-            {/*)}*/}
-          </section>
         </VeremChurchContent>
       </div>
     </VeremLayout>

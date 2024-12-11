@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { setMessage } from '../../store/notificationReducer';
 import { VeremChips } from '../VeremChurch/VeremChurchContent';
+import { InfoBlockStyled } from '../InfoBlockStyled';
 
 const initialValues = {
   title: '',

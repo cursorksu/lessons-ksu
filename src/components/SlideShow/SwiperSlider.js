@@ -6,7 +6,7 @@ export const SwiperSlider = styled(Swiper)`
   .full-screen-button {
     position: absolute;
     top: 20px;
-    left: 20px;
+    right: 20px;
     z-index: 1100;
 
     svg {

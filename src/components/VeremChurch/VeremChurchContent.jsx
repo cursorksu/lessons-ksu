@@ -22,6 +22,7 @@ export const VeremChurchContent = styled('section')`
     position: absolute;
     top: -260px;
     right: 0;
+    z-index: 120;
   }
 
   h3 {

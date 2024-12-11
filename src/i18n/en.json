@@ -147,9 +147,15 @@
       "web": "Website",
       "pastor": "Pastor",
       "pictures": "Album",
+      "lessons": "Lessons",
+      "scenarios": "Scenarios",
       "groups": "Children groups",
       "teachers": "Teachers",
-      "content": "Content list"
+      "to-lessons": "Go to lessons list",
+      "to-scenarios": "Go to scenarios list",
+      "content": "Content list",
+      "no-scenarios": "We don't have any scenarios created yet",
+      "no-lessons": "We don't have any lessons created yet"
     },
     "placeholders": {
       "avatar": "Upload Church logo",
@@ -167,7 +173,7 @@
     }
   },
   "group": {
-    "no-group": "We have not groups yet",
+    "no-group": "We don't have any created groups yet",
     "title": "Our Groups",
     "label": {
       "teachers": "Teachers",
