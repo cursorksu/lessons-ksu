@@ -47,7 +47,7 @@ const ImageCropper = () => {
                         crop={crop}
                         zoom={zoom}
                         rotation={rotation}
-                        aspect={4 / 3} // Пропорции (например, 4:3)
+                        aspect={1 / 1} // Пропорции (например, 4:3)
                         onCropChange={setCrop}
                         onZoomChange={setZoom}
                         onCropComplete={onCropComplete}
