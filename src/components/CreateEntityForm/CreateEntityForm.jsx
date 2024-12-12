@@ -13,6 +13,7 @@ import { KsuDropzoneBase64 } from '../Dropzone/KsuDropzoneBase64';
 import { KsuDropdown } from '../KsuDropdown';
 import { KsuTags } from '../KsuTags/KsuTags';
 import { useSelector } from 'react-redux';
+import ImageCropper from '../ImageCroper/ImageCroper';
 
 export const CreateEntityForm = ({
   entityName,
@@ -143,6 +144,7 @@ export const CreateEntityForm = ({
 
   return (
     <CreateEntityFormStyled className={className}>
+        <ImageCropper />
       <div className="content-grid">
         {fields.map((el) => {
           if (el.isIgnored) return <></>;

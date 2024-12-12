@@ -25,7 +25,6 @@ export const useGetEntityListByIds = (entityName) => {
         });
         const resolvedEntities = await Promise.all(promises);
 
-        console.log({ entityName, resolvedEntities: resolvedEntities});
         setEntities(resolvedEntities.filter((entity) => entity !== null));
       } catch (error) {
         dispatch(setMessage(null));
