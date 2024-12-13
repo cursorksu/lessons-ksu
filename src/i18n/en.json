@@ -258,5 +258,7 @@
     "waiting": "This content is waiting for Moderator confirmation",
     "active": "This content is visible for your church",
     "draft": "This content is visible for you only"
-  }
+  },
+  "fullScreenOn": "Full screen on",
+  "fullScreenOff": "Full screen off"
 }

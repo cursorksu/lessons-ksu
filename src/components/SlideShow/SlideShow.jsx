@@ -11,9 +11,11 @@ import 'swiper/css/pagination';
 import { ButtonIconStyled } from '../ButtonStyled';
 import { Popup } from 'semantic-ui-react';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true }) => {
     const [ fullScreen, setFullScreen ] = useState(false);
+    const { t } = useTranslation('tr');
 
     return (
         <>
@@ -50,9 +52,7 @@ export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true
                             {fullScreen ? <ScreenIcon/> : <FullScreenIcon/>}
                         </ButtonIconStyled>
                     }
-                    content={`${
-                        fullScreen ? 'Вимкнути' : 'Встановити'
-                    } повноекранний режим`}
+                    content={fullScreen ? t('fullScreenOff') : t('fullScreenOn')}
                 />
 
                 {slideList?.map((el) => (

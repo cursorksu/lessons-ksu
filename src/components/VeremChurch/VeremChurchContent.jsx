@@ -20,9 +20,9 @@ export const VeremChurchContent = styled('section')`
 
   .balls-container {
     position: absolute;
-    top: -260px;
-    right: 0;
-    z-index: 120;
+    top: -240px;
+    right: 20px;
+    z-index: 1;
   }
 
   h3 {

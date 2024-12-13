@@ -10,6 +10,13 @@ export const UserProfileStyled = styled.div`
   .action-wrapper {
     padding: 16px;
   }
+  
+  .tab-title {
+      button {
+         display: inline-block;
+         margin-left: 20px;
+      }
+  }
 
   .user-title {
     background: transparent;

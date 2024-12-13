@@ -1,9 +1,10 @@
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
 import { ButtonIconStyled } from '../ButtonStyled';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useGetEntity } from '../../api/entity/useGetEntity';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { ChurchItemStyled } from './style';
+import { USER_AVATAR_PLACEHOLDER } from '../../constants/main';
 export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
   const { getUserById } = useGetEntity(entityName);
   const [entityData, setEntityData] = useState(null);
@@ -14,13 +15,19 @@ export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
     });
   }, [id, getUserById]);
 
-  return (
+    const isRealAvatar = useMemo(() => {
+      const regex = /googleusercontent/;
+      return regex.test(entityData?.avatar)
+    },  [entityData]);
+
+    return (
     <ChurchItemStyled key={entityData?.id}>
       <h3>
         {entityData?.firstName} {entityData?.lastName}
       </h3>
       <img
-        src={entityData?.avatar && entityData?.avatar}
+          className={isRealAvatar && 'avatar-placeholder'}
+        src={isRealAvatar ? USER_AVATAR_PLACEHOLDER : entityData?.avatar}
         alt={entityData?.firstName}
       />
       <ul>

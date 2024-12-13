@@ -573,10 +573,11 @@ export const VeremMainContentStyled = styled('div')`
       content: '';
       position: absolute;
       top: -150px;
-      left: 90%;
-      transform: translate(-50%, 0) rotate(80deg);
+      left: 70px;
+      transform: translate(-50%, 0) rotate(-130deg);
       width: 270px;
       height: 270px;
+      z-index: 100;
       background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Frise.png?alt=media&token=364431b2-8bb9-480f-a945-31ca01c9b764');
       background-size: contain;
       background-repeat: no-repeat;
@@ -593,9 +594,11 @@ export const VeremMainContentStyled = styled('div')`
       filter: blur(2px);
     }
     
-    .full-screen .img{
-      height: 100vh;
-      filter: none;
+    .full-screen {
+        .img{
+          height: 100vh;
+          filter: none;
+        }
     }
   }
   .content-block {
