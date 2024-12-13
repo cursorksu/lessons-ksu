@@ -58,6 +58,14 @@ export const ChurchItemStyled = styled('div')`
   line-height: 20px;
   font-family: 'Montserrat', sans-serif;
   color: #000;
+  
+   .avatar-placeholder {
+      object-fit: contain;
+      width: 60%;
+      object-position: center center;
+      display: block;
+      margin: auto;
+   }
 
   ul {
     list-style-type: none;
