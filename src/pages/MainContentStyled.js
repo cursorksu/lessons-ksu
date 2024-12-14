@@ -106,7 +106,7 @@ export const MainContentStyled = styled('div')`
     .title {
       color: ${CHOCO};
       font-size: 2rem;
-      font-family: Montserrat, sans-serif;
+      font-family: Comfortaa, sans-serif;
       font-weight: 300;
       padding-bottom: 30px;
       white-space: pre-wrap;
@@ -160,7 +160,7 @@ export const MainContentStyled = styled('div')`
       .title {
         color: ${CHOCO};
         font-size: 2rem;
-        font-family: Montserrat, sans-serif;
+        font-family: Comfortaa, sans-serif;
         font-weight: 300;
         padding-bottom: 20px;
         white-space: pre-wrap;
@@ -222,13 +222,13 @@ export const MainContentStyled = styled('div')`
       z-index: 1;
     }
     .title {
-      font-family: 'Nexa Script', sans-serif;
+      font-family: 'Yeseva One', sans-serif;
       font-size: 4rem;
       font-weight: 500;
       margin: 0 !important;
     }
     .subtitle {
-      font-family: 'Nexa Script', sans-serif;
+      font-family: 'Yeseva One', sans-serif;
       font-size: 2rem;
       font-weight: 500;
       margin: 0 !important;
@@ -281,7 +281,7 @@ export const MainContentStyled = styled('div')`
   }
 
   .title {
-    font-family: 'Nexa Script', sans-serif;
+    font-family: 'Yeseva One', sans-serif;
     font-size: 3rem;
     font-weight: 500;
     margin: 0 !important;
@@ -644,7 +644,7 @@ export const VeremMainContentStyled = styled('div')`
     }
 
     .subtitle {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Comfortaa', sans-serif;
       font-size: 12px;
       font-style: normal;
       font-weight: 600;

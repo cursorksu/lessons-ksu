@@ -3,7 +3,7 @@ import { BG_GOLD, CREAM, ERROR_MAIN, SUCCESS } from '../../constants/colors';
 
 export const TableStaled = styled.div`
   padding: 0 40px 40px;
-  font-family: Montserrat, sans-serif;
+  font-family: Comfortaa, sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
   border-top-right-radius: 0;

@@ -46,7 +46,7 @@ export const TestGameViewStyled = styled('div')`
   height: 100vh;
   overflow: hidden;
   color: ${CREAM};
-  font-family: "Coco Gothic Alternate", sans-serif;
+  font-family: "Comfortaa", sans-serif;
   font-size: 3.3rem;
   font-weight: 600;
   background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2F4884837.jpg?alt=media&token=8791a5e4-4444-4b0c-a23e-49a2b05c00dc");
@@ -153,7 +153,7 @@ export const TestGameViewStyled = styled('div')`
       font-style: normal;
       
       .mic-content {
-        font-family: "Coco Gothic Alternate", sans-serif;
+        font-family: "Comfortaa", sans-serif;
       }
     }
     
@@ -166,7 +166,7 @@ export const TestGameViewStyled = styled('div')`
       flex-direction: column;
       
       h1 {
-        font-family: "Coco Gothic Alternate", sans-serif;
+        font-family: "Comfortaa", sans-serif;
         font-size: 8rem;
         font-weight: 700;
         padding-bottom: 60px;
@@ -244,7 +244,7 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .question {
-    font-family: "Coco Gothic Alternate", sans-serif;
+    font-family: "Comfortaa, sans-serif;
     color: #fff;
     font-size: 38px;
     margin: 40px 0 100px;
@@ -264,7 +264,7 @@ export const TestGameViewStyled = styled('div')`
   }
   
   .answer  {
-    font-family: "Coco Gothic Alternate", sans-serif;
+    font-family: "Comfortaa", sans-serif;
     background-color: #053b69;
     border: 2px solid rgba(0, 255, 255, 0.5);
     box-shadow:

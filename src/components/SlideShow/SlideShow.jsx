@@ -8,10 +8,10 @@ import { ReactComponent as FullScreenIcon } from '../../assets/full-screen.svg';
 import { SwiperSlider } from './SwiperSlider';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { ButtonIconStyled } from '../ButtonStyled';
 import { Popup } from 'semantic-ui-react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import { ButtonIconStyled } from '../ButtonStyled';
 
 export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true }) => {
     const [ fullScreen, setFullScreen ] = useState(false);

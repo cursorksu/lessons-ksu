@@ -97,7 +97,7 @@ export const TestItemStyled = styled('div')`
 
 export const TestTextStyled = styled('ul')`
   list-style-type: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 1.2rem;
   font-weight: 300;
   padding: 20px 0 0;

@@ -18,7 +18,7 @@ export const NotificationStyled = styled.div`
   padding: 10px 40px;
   color: #fff;
   font-weight: 700;
-  font-family: Montserrat, sans-serif;
+  font-family: Comfortaa, sans-serif;
   font-size: 1.2rem;
   box-shadow: ${BOX_SHADOW};
   border-radius: 4px;

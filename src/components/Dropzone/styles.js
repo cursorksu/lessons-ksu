@@ -36,7 +36,7 @@ export const StyledDropzoneBody = styled(Grid)`
   label {
     padding-left: 5px !important;
     background: transparent;
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
     font-weight: 300;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.6) !important;
@@ -69,7 +69,7 @@ export const UvDropzoneStyled = styled('section')`
     background: transparent;
     display: flex;
     font-size: 1.2rem;
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
     font-weight: 300;
     justify-content: center;
     align-items: center;

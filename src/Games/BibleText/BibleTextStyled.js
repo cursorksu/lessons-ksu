@@ -32,7 +32,7 @@ export const GameScoreStyled = styled('section')`
   .score {
     text-align: center;
     font-size: 60px;
-    font-family: 'Coco Gothic Alternate', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
   }
 
   .quote {
@@ -40,7 +40,7 @@ export const GameScoreStyled = styled('section')`
     left: 40px;
     top: 40px;
     font-size: 40px;
-    font-family: 'Coco Gothic Alternate', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     font-weight: 600;
   }
 
@@ -82,7 +82,7 @@ export const BibleTextStyled = styled('section')`
     float: right;
     padding: 5px 50px 10px;
     border-radius: 60px;
-    font-family: 'Coco Gothic Alternate', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     line-height: 1;
     background-color: #053b69;
     border: 2px solid rgba(0, 255, 255, 0.5);

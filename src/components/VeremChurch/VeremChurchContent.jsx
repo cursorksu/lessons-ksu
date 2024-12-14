@@ -8,7 +8,7 @@ export const VeremChurchContent = styled('section')`
   grid-gap: 40px;
   font-size: 14px;
   line-height: 1.5;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   color: #000;
   letter-spacing: 0.05em;
   font-weight: bold;
@@ -27,7 +27,7 @@ export const VeremChurchContent = styled('section')`
 
   h3 {
     line-height: 1.5;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     color: #000;
     letter-spacing: 0.05em;
     text-align: center;
@@ -46,10 +46,10 @@ export const VeremChips = styled('span')`
   border-radius: 30px;
   font-size: 18px;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -67,7 +67,7 @@ export const VeremChipsSmall = styled(VeremChips)`
 export const VeremLink = styled('a')`
   color: ${VEREM_GOLD};
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: 0.07em;
   max-width: 100%;
   white-space: nowrap;

@@ -23,7 +23,7 @@ export const UserProfileStyled = styled.div`
     border: none;
     border-bottom: 1px solid ${CREAM};
     color: ${CREAM};
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
 
     &:active,
     &:focus {
@@ -33,7 +33,7 @@ export const UserProfileStyled = styled.div`
 
   .title {
     color: ${CREAM};
-    font-family: 'Nexa Script', sans-serif;
+    font-family: 'Yeseva One', sans-serif;
     font-size: 4rem;
     font-weight: 500;
     margin: 0 !important;
@@ -44,7 +44,7 @@ export const UserProfileStyled = styled.div`
   }
   .subtitle {
     color: ${CREAM};
-    font-family: 'Nexa Script', sans-serif;
+    font-family: 'Yeseva One', sans-serif;
     font-size: 2rem;
     font-weight: 500;
     margin: 0 !important;
@@ -74,7 +74,7 @@ export const UserProfileStyled = styled.div`
     width: 60%;
     margin: auto;
     color: #000;
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
     font-size: 1.2rem;
     text-align: center;
     font-weight: 400;
@@ -90,7 +90,7 @@ export const UserProfileStyled = styled.div`
 
     .item {
       background: white;
-      font-family: Montserrat, sans-serif;
+      font-family: Comfortaa, sans-serif;
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
       font-size: 1.5em;
@@ -158,7 +158,7 @@ export const UserProfileStyled = styled.div`
 
   .score {
     min-width: 60px;
-    font-family: 'Coco Gothic Alternate', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     font-size: 18px;
     color: rgb(96, 81, 71);
     margin: 0 !important;
@@ -176,7 +176,7 @@ export const UserProfileStyled = styled.div`
   }
 
   .meta {
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
     font-size: 20px;
     color: ${PRIMARY_MAIN};
     font-weight: 400;
@@ -293,7 +293,7 @@ export const ChurchHeroStyled = styled.div`
     }
     &.scenario {
       .meta {
-        font-family: Montserrat, sans-serif;
+        font-family: Comfortaa, sans-serif;
         font-size: 1.5em;
         font-weight: 300;
         position: relative;
