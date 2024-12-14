@@ -18,7 +18,7 @@ export const InfoItemStyled = styled.div`
 `;
 
 export const InfoBlockStyled = styled.div`
-  font-family: Montserrat, sans-serif;
+  font-family: Comfortaa, sans-serif;
   font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.5;
@@ -260,7 +260,7 @@ export const InfoBlockStyled = styled.div`
       padding: 240px 20px 20px;
       min-height: 460px;
       font-size: 2rem;
-      font-family: Montserrat, sans-serif;
+      font-family: Comfortaa, sans-serif;
       font-weight: 300;
       display: block;
 
@@ -383,7 +383,7 @@ export const InfoBlockStyled = styled.div`
 
   .lesson-title {
     min-height: 40px !important;
-    font-family: 'Nexa Script', sans-serif !important;
+    font-family: 'Yeseva One', sans-serif !important;
     font-weight: 700 !important;
     font-size: 3rem !important;
   }

@@ -32,7 +32,7 @@ export const TabStyled = styled('div')`
     transition: opacity 0.3s ease-in-out !important;
     font-size: 1.5rem !important;
     font-weight: 300 !important;
-    font-family: Montserrat, sans-serif !important;
+    font-family: Comfortaa, sans-serif !important;
     box-shadow: ${BOX_SHADOW};
     
     &:hover {

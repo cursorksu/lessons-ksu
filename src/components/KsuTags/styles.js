@@ -13,7 +13,7 @@ export const KsuTagsStyled = styled.div`
     gap: 3px;
     min-height: 36px;
     font-size: 1.2rem;
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
     color: ${PRIMARY_MAIN};
     font-width: 300;
 
@@ -50,13 +50,13 @@ export const KsuTagsStyled = styled.div`
     border: none;
     outline: none;
     font-size: 1.2rem;
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
     color: ${PRIMARY_MAIN};
     font-weight: 300;
 
     &::placeholder {
       font-size: 1.2rem;
-      font-family: Montserrat, sans-serif;
+      font-family: Comfortaa, sans-serif;
       color: ${PRIMARY_MAIN};
       font-weight: 300;
     }

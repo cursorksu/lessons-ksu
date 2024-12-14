@@ -9,8 +9,8 @@ import { ReactComponent as AddToSlider } from '../../assets/album.svg';
 import { ReactComponent as NotAddToSlider } from '../../assets/folder.svg';
 import { ReactComponent as ImageIcon } from '../../assets/image.svg';
 import { UvDropzoneStyled, StyledDropzoneBody } from './styles';
-import { ButtonIconStyled } from '../ButtonStyled';
 import clsx from 'clsx';
+import { ButtonIconStyled } from '../ButtonStyled';
 
 export const DropzoneField = ({ field, onChange }) => {
   const [image, setImage] = useState('');

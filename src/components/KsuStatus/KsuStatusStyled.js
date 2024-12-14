@@ -30,14 +30,14 @@ export const StatusListStyled = styled.ul`
   }
 
   .title {
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
     color: ${CHOCO};
     font-size: 1.4rem;
     text-align: left;
     font-weight: 700;
   }
   .description {
-    font-family: Montserrat, sans-serif;
+    font-family: Comfortaa, sans-serif;
     color: ${CHOCO};
     font-size: 1rem;
     text-align: left;
@@ -51,7 +51,7 @@ export const KsuStatusStyled = styled.div`
   padding: 12px 40px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
-  font-family: Montserrat, sans-serif;
+  font-family: Comfortaa, sans-serif;
   color: white;
   font-weight: 400;
   display: inline-block;

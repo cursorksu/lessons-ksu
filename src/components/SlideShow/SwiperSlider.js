@@ -60,7 +60,7 @@ export const SwiperSlider = styled(Swiper)`
     }
 
     .description {
-      font-family: Montserrat, sans-serif;
+      font-family: Comfortaa, sans-serif;
       font-weight: 300;
       font-size: 1.2rem;
       color: white;

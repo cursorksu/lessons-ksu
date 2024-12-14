@@ -1,72 +1,73 @@
 import styled from '@emotion/styled';
-import { BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN } from '../constants/colors';
+import { BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN, VEREM_GOLD } from '../constants/colors';
 
 export const ButtonStyled = styled('button')`
-  cursor: pointer;
-  color: #fff;
-  background-color: rgb(96, 81, 71);
-  margin: 2px;
-  padding: 10px;
-  font-weight: 300;
-  text-transform: uppercase;
-  max-height: 36px;
-  transition: background-color 0.3s ease-in-out;
-  border: none;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-  min-width: 148px;
-
-  span {
-    white-space: nowrap;
-    display: inline-block;
-  }
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
+  background: linear-gradient(90deg, #f0c674, ${VEREM_GOLD}, ${VEREM_GOLD}, #f0c674);
+  background-size: 200%;
+  color: white;
+  font-family: Comfortaa, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 3s ease;
 
   &:hover {
-    background-color: ${PRIMARY_MAIN};
-    border: none;
+    animation: slow-shine 3s infinite linear;
+  }
+  
+  &:first-of-type {
+    margin-right: 20px;
+  }
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 0 10px 0 0;
+  }
+  
+  &:focus {
+    outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при фокусе */
+    outline-offset: 4px; /* Отступ для эстетичности */
   }
 
-  &:disabled {
-    opacity: 0.3;
-    cursor: default;
+  &:active {
+    outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при активации */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Эффект вдавливания */
   }
 
-  &.Mui-disabled {
-    background: ${BG_GRAY};
-    color: ${TEXT_MAIN};
+  @keyframes slow-shine {
+    0% {
+      background-color: linear-gradient(90deg, #f0c674, ${VEREM_GOLD}, ${VEREM_GOLD}, #f0c674);
+      background-position: 0% 0%;
+    }
+    100% {
+      background-color: linear-gradient(90deg, #f0c674, ${VEREM_GOLD}, ${VEREM_GOLD}, #f0c674);
+      background-position: 200% 200%;
+    }
   }
 `;
 
 export const ButtonIconStyled = styled(ButtonStyled)`
-  width: 36px;
-  flex-basis: 36px;
-  min-width: initial;
-  height: 36px;
-  display: inline-flex;
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10%;
-  padding: 0;
-  margin: 2px;
-
-  &:disabled:hover {
-    background-color: ${CHOCO};
-  }
-
+  float: left;
+  
   svg {
-    width: 20px;
-    height: 20px;
     margin: 0;
   }
-
-  &.row-action {
-    background: transparent;
+  
+  &:hover {
+    animation: slow-shine 2s infinite linear;
   }
 `;

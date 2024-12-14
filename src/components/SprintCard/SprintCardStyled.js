@@ -52,7 +52,7 @@ export const SprintCardStyled = styled('div')`
 
   .title {
     white-space: pre-wrap;
-    font-family: 'Nexa Script', sans-serif;
+    font-family: 'Yeseva One', sans-serif;
     font-size: 1.8rem;
     font-weight: 300;
     margin: 0 !important;
@@ -85,7 +85,7 @@ export const SprintCardStyled = styled('div')`
   }
 
   .meta {
-    font-family: 'Coco Gothic Alternate', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
     font-size: 14px;
     font-weight: 300;
     color: ${CREAM};

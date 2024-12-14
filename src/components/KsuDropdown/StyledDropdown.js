@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BG_GOLD, PRIMARY_MAIN, TEXT_MAIN } from '../../constants/colors';
+import { BG_GOLD, CHOCO, PRIMARY_MAIN, TEXT_MAIN, VEREM_GOLD } from '../../constants/colors';
 
 export const StyledDropdown = styled('div')`
   min-width: 100%;
@@ -7,31 +7,37 @@ export const StyledDropdown = styled('div')`
   border-radius: 4px;
 
   .ui.top.right.pointing.dropdown > .menu {
-    width: 300px;
-    color: ${TEXT_MAIN};
-    min-width: 50% !important;
+    color: ${CHOCO};
+    margin: 0;
   }
 
   .ui.dropdown .menu .item .image,
   .ui.dropdown .menu .item img,
   .ui.dropdown .text .image,
   .ui.dropdown .text img {
-    margin-top: 0;
+    margin-top: -10px;
     margin-bottom: 0;
     min-width: 40px;
     min-height: 40px;
+  }
+  
+  .ui.multiple.search.dropdown > .text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
   }
 
   input {
     border: none;
   }
   .dropdown {
-    font-weight: 300;
-    font-size: 1.5rem;
+    font-weight: 400;
+    font-size: 1.2rem;
 
     .text {
-      color: ${PRIMARY_MAIN};
-      font-weight: 300;
+      color: ${CHOCO};
+      font-weight: 400;
       font-size: 1.2rem;
     }
 
@@ -51,14 +57,13 @@ export const StyledDropdown = styled('div')`
       }
     }
   }
-  .dropdown.icon {
+  .ui.selection.dropdown>.delete.icon, .ui.selection.dropdown>.dropdown.icon, .ui.selection.dropdown>.search.icon {
     position: absolute;
-    top: 50%;
-    right: 5px;
+    top: 14px;
+    right: 20px;
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    color: ${PRIMARY_MAIN};
+    font-size: 20px;
+    color: ${VEREM_GOLD};
     z-index: 10;
 
     svg {
@@ -75,25 +80,25 @@ export const StyledDropdown = styled('div')`
   .ui.selection.active.dropdown .menu,
   .ui.selection.active.dropdown {
     box-shadow: none;
-    border: 1px solid ${PRIMARY_MAIN};
-    border-bottom-right-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
+    border: 1px solid ${VEREM_GOLD};
+    border-bottom-right-radius: 30px !important;
+    border-bottom-left-radius: 30px !important;
   }
 
   .ui.label {
-    border: 1px solid ${PRIMARY_MAIN};
+    border: 1px solid ${VEREM_GOLD};
     background-color: ${BG_GOLD};
     width: 80%;
     position: relative;
     transition: background-color 0.3s ease-in-out;
-    display: inline-grid !important;
     grid-template-columns: 40px auto;
     grid-gap: 10px;
     padding-right: 15px;
+    border-radius: 40px;
     box-shadow: none;
 
     .ksu-option {
-      color: ${PRIMARY_MAIN};
+      color: ${CHOCO};
     }
 
     .description {
@@ -107,39 +112,41 @@ export const StyledDropdown = styled('div')`
 
     .icon {
       position: absolute;
-      top: 5px;
-      right: 5px;
-      color: ${PRIMARY_MAIN};
+      right: 10px;
+      top: 12px;
+      color: ${VEREM_GOLD};
       width: 20px;
       height: 20px;
+      
+      &:hover {
+        color: ${PRIMARY_MAIN}
+      }
     }
   }
 
   .dropdown.selection {
     width: 100%;
-    border-radius: 4px;
-    padding: 5px 32px 5px 5px;
-    border: 1px solid #a39367;
+    border-radius: 30px;
+    padding: 5px 32px 5px 10px;
+    border: 1px solid ${VEREM_GOLD};
     min-height: 40px;
     line-height: 40px;
-    display: block;
-    font-family: Montserrat, sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    color: ${PRIMARY_MAIN};
+    font-family: Comfortaa, sans-serif;
+    font-weight: 400;
+    color: ${CHOCO};
 
     &:hover {
-      border-color: ${PRIMARY_MAIN};
+      border-color: ${VEREM_GOLD};
       box-shadow: none;
       transition: background-color 0.3s ease-in-out;
     }
     &:focus-visible {
-      outline: none;
-      border: 1px solid ${PRIMARY_MAIN};
+        outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при фокусе */
+        outline-offset: 4px; /* Отступ для эстетичности */
     }
 
     &::placeholder {
-      font-family: Montserrat, sans-serif;
+      font-family: Comfortaa, sans-serif;
       font-weight: 300;
       font-size: 16px;
       padding-left: 20px;

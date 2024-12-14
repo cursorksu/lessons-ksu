@@ -18,7 +18,11 @@ import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 import { setMessage } from '../../store/notificationReducer';
 import { VeremChips } from './VeremChurchContent';
 import { GroupTeachersList } from './GroupTeachersList';
-import { GroupItemStyled } from './style';
+import { ChurchItemStyled, GroupItemStyled } from './style';
+import { ReactComponent as AddIcon } from '../../assets/add.svg';
+import { ReactComponent as RemoveIcon } from '../../assets/minus.svg';
+import clsx from 'clsx';
+import { DeleteConfirmationModal } from '../DeleteConfirmationModal/DeleteConfirmationModal';
 
 const initialValues = {
     title: '',
@@ -142,13 +146,11 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
     return (
         <>
             <div>
-                <div className="d-flex">
-                    <h3>
-                        <VeremChips>{t('church.labels.groups')}</VeremChips>
-                    </h3>
+                <div className={clsx({ 'd-flex-between': isAuth, 'd-flex-center': !isAuth })}>
+                    <VeremChips>{t('church.labels.groups')}</VeremChips>
                     {isAuth && (
                         <ButtonIconStyled onClick={() => setIsFormShown((prev) => !prev)}>
-                            {!isFormShown ? '+' : '-'}
+                            {!isFormShown ? <AddIcon/> : <RemoveIcon/>}
                         </ButtonIconStyled>
                     )}
                 </div>
@@ -222,9 +224,17 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
                 {groups?.map((el) => (
                     <GroupItemStyled key={el.id}>
                         {isAuth && (
-                            <NavLink to={`/group/${el.id}`} className={'group-link'}>
-                                go to group
-                            </NavLink>)}
+                            <div className={'d-flex-between'}>
+                                <NavLink to={`/group/${el.id}`} className={'group-link'}>
+                                    go to group
+                                </NavLink>
+                                <DeleteConfirmationModal
+                                    modalTitle={`${t('modal.title.deleteTeacher')} ${el?.title.toString()}`}
+                                    modalContent={`${t('modal.teacherDelete')}`}
+                                    onConfirm={() => deleteGroup(el)}
+                                />
+                            </div>
+                        )}
                         <div>
                             <img src={el?.avatar && el?.avatar} alt={el.firstName}/>
                             <h1 className={'group-title'}>{el.title}</h1>
@@ -242,11 +252,6 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
                                  <h5>Вчителі не доєднані</h5>
                              )}
                         </div>
-                        {isAuth && (
-                            <ButtonIconStyled onClick={() => deleteGroup(el)}>
-                                <CloseIcon/>
-                            </ButtonIconStyled>
-                        )}
                     </GroupItemStyled>
                 ))}
             </div>

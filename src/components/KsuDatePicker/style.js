@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { PRIMARY_MAIN } from '../../constants/colors';
+import { CHOCO, PRIMARY_MAIN, VEREM_GOLD } from '../../constants/colors';
 
 export const DatePickerStyled = styled('div')`
   min-width: 100%;
@@ -8,12 +8,12 @@ export const DatePickerStyled = styled('div')`
   .icon {
     position: absolute;
     top: 50%;
-    left: 5px;
+    left: 12px;
     transform: translateY(-50%);
     display: inline-block;
     width: 20px;
     height: 20px;
-    color: ${PRIMARY_MAIN};
+    color: ${VEREM_GOLD};
     z-index: 10;
 
     svg {
@@ -30,25 +30,25 @@ export const DatePickerStyled = styled('div')`
   }
 
   input {
-    width: 100%;
-    border-radius: 4px;
-    padding: 5px 12px 5px 32px;
-    border: 1px solid #a39367;
-    height: 2.6rem;
-    line-height: 2.6rem;
-    display: block;
-    font-family: Montserrat, sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    color: ${PRIMARY_MAIN};
-
-    &:focus-visible {
-      outline: none;
-    }
-
+      width: 100%;
+      border-radius: 40px;
+      padding: 5px 12px 5px 40px;
+      border: 1px solid ${VEREM_GOLD};
+      height: 40px;
+      line-height: 40px;
+      font-family: Comfortaa, sans-serif;
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: ${CHOCO};
+    
+      &:focus {
+        border: 1px solid ${VEREM_GOLD};
+        outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при фокусе */
+        outline-offset: 4px; /* Отступ для эстетичности */
+      }
     &::placeholder {
-      font-family: Montserrat, sans-serif;
-      font-weight: 300;
+      font-family: Comfortaa, sans-serif;
+      font-weight: 400;
       font-size: 16px;
     }
   }

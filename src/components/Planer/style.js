@@ -6,7 +6,7 @@ export const PlanerContainerStyled = styled('div')`
   padding: 20px;
   background: ${CREAM};
   .rbc-event {
-      font-family: Montserrat, sans-serif;
+      font-family: Comfortaa, sans-serif;
       color: #1b171c;
       font-weight: 500;
       

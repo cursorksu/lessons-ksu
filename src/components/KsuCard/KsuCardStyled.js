@@ -10,7 +10,7 @@ export const KsuCardStyled = styled('div')`
   box-shadow: none;
 
   .header h3 {
-    font-family: 'Nexa Script', sans-serif;
+    font-family: 'Yeseva One', sans-serif;
     font-size: 1.8rem;
     margin-bottom: 0 !important;
   }

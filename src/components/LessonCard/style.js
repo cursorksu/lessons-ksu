@@ -3,7 +3,7 @@ import { CREAM } from '../../constants/colors';
 
 export const LessonCardStyled = styled.div`
   color: white !important;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 1.5rem;
   font-weight: 300;
   height: 600px;

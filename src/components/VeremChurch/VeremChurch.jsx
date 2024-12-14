@@ -20,7 +20,7 @@ import {
 } from './VeremChurchContent';
 import { useTranslation } from 'react-i18next';
 import { TeachersList } from './TeachersList';
-import { ChurchItemStyled, GoldIconButton, GoldButton } from './style';
+import { ChurchItemStyled } from './style';
 import { ContentList } from './ContentList';
 import { SlideShow } from '../SlideShow';
 import { PHOTO_PLACEHOLDER } from '../../constants/main';
@@ -75,10 +75,6 @@ export const VeremChurch = () => {
             <p className="subtitle">{church?.subtitle}</p>
             <h1 className="title">"{church?.title}"</h1>
             <VeremChipsSmall>{church?.city}</VeremChipsSmall>
-            <div>
-              <GoldButton><EditIcon />Gold Button</GoldButton>
-              <GoldIconButton><EditIcon/></GoldIconButton>
-            </div>
           </div>
 
           <div className="actions">

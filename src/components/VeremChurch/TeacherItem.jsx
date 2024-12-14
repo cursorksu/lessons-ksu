@@ -4,6 +4,7 @@ import { ChurchItemStyled } from './style';
 import { USER_AVATAR_PLACEHOLDER } from '../../constants/main';
 import { DeleteConfirmationModal } from '../DeleteConfirmationModal/DeleteConfirmationModal';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
     const { getUserById } = useGetEntity(entityName);
@@ -23,9 +24,21 @@ export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
 
     return (
         <ChurchItemStyled key={entityData?.id}>
-            <h3>
-                {entityData?.firstName} {entityData?.lastName}
-            </h3>
+            <div
+                className={clsx({ 'd-flex-between': isAuth, 'd-flex-center': !isAuth })}
+                style={{ marginBottom: '20px'}}
+            >
+                <h3>
+                    {entityData?.firstName} {entityData?.lastName}
+                </h3>
+                {isAuth && (
+                    <DeleteConfirmationModal
+                        modalTitle={`${t('modal.title.deleteTeacher')} ${entityData?.fullName.toString()}`}
+                        modalContent={`${t('modal.teacherDelete')}`}
+                        onConfirm={() => removeEntity(entityData?.id)}
+                    />
+                )}
+            </div>
             <img
                 className={isRealAvatar && 'avatar-placeholder'}
                 src={isRealAvatar ? USER_AVATAR_PLACEHOLDER : entityData?.avatar}
@@ -45,13 +58,6 @@ export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
                     <span>Created scenarios: </span> {entityData?.scenarios?.length}
                 </li>
             </ul>
-            {isAuth && (
-                <DeleteConfirmationModal
-                    modalTitle={`${t('modal.title.deleteTeacher')} ${entityData?.fullName.toString()}`}
-                    modalContent={`${t('modal.teacherDelete')}`}
-                    onConfirm={() => removeEntity(entityData?.id)}
-                />
-            )}
         </ChurchItemStyled>
     );
 };

@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ButtonIconStyled } from '../ButtonStyled';
 import { CreateEntityForm } from '../CreateEntityForm/CreateEntityForm';
 import { churchConfig } from '../../constants/entities/churchConfig';
 import { MainLayout } from '../../pages/MainLayout';
@@ -15,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { TeachersList } from './TeachersList';
 import { GroupList } from './GroupList';
 import { ShadowCardStyled } from '../../pages/MainContentStyled';
+import { ButtonIconStyled } from '../ButtonStyled';
 
 export const Church = () => {
   const { user } = useSelector((state) => state.auth);
