@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BG_GOLD, CHOCO, PRIMARY_MAIN, TEXT_MAIN, VEREM_GOLD } from '../../constants/colors';
+import { BG_GOLD, CHOCO, PRIMARY_MAIN, VEREM_GOLD } from '../../constants/colors';
 
 export const StyledDropdown = styled('div')`
   min-width: 100%;
