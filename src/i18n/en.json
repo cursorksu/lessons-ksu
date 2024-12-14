@@ -1,7 +1,11 @@
 {
   "modal": {
     "collectionDelete": "If you delete this collection all it lessons, images and other staff in it will be reachable out of it",
-    "churchDelete": "If you delete this church all it lessons, images and other staff in it will be reachable out of it"
+    "churchDelete": "If you delete this church all it lessons, images and other staff in it will be reachable out of it",
+    "teacherDelete": "Do you want to remove this teacher?",
+    "title": {
+      "deleteTeacher": "Remove teacher"
+    }
   },
   "collections": {
     "collections": "Collections of Lessons",

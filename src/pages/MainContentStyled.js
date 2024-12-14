@@ -591,7 +591,7 @@ export const VeremMainContentStyled = styled('div')`
       background-position: center center;
       background-repeat: no-repeat;
       background-size: cover;
-      filter: blur(2px);
+      filter: brightness(0.7);
     }
     
     .full-screen {
