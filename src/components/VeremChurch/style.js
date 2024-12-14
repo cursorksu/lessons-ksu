@@ -89,3 +89,73 @@ export const ChurchItemStyled = styled('div')`
     border-radius: 0;
   }
 `;
+
+export const GoldButton = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  background: linear-gradient(90deg, #f0c674, ${VEREM_GOLD}, ${VEREM_GOLD}, #f0c674);
+  background-size: 200%;
+  color: white;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 3s ease;
+
+  &:hover {
+    animation: slow-shine 3s infinite linear;
+  }
+  
+  svg {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    margin: 0 10px 0 0;
+  }
+  
+  &:focus {
+    outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при фокусе */
+    outline-offset: 4px; /* Отступ для эстетичности */
+  }
+
+  &:active {
+    outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при активации */
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Эффект вдавливания */
+  }
+
+  @keyframes slow-shine {
+    0% {
+      background-color: linear-gradient(90deg, #f0c674, ${VEREM_GOLD}, ${VEREM_GOLD}, #f0c674);
+      background-position: 0% 0%;
+    }
+    100% {
+      background-color: linear-gradient(90deg, #f0c674, ${VEREM_GOLD}, ${VEREM_GOLD}, #f0c674);
+      background-position: 200% 200%;
+    }
+  }
+`;
+
+
+export const GoldIconButton = styled(GoldButton)`
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  
+  svg {
+    margin: 0;
+  }
+  
+  &:hover {
+    animation: slow-shine 2s infinite linear;
+  }
+`;
+

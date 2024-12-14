@@ -8,6 +8,10 @@
     box-sizing: border-box;
 }
 
+.ui.dimmer  {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .main-content {
     padding-bottom: 200px;
     background-size: 450px 450px;

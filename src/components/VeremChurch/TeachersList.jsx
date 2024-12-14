@@ -1,10 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { InfoBlockStyled } from '../InfoBlockStyled';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { useAssignTeacherChurch } from '../../api/refs/useAssignTeacherChurch';
 import { TeacherItem } from './TeacherItem';
 import { KsuTeachersDropdown } from '../KsuDropdown/KsuTeachersDropdown';
-import { LabelStyled } from '../InputStyled';
 import { useTranslation } from 'react-i18next';
 import { VeremChips } from './VeremChurchContent';
 
@@ -35,6 +33,10 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
     setIsFormShown(false);
     onEdit();
   }, [church, addTeacherToChurch, onEdit, teacherIdxList]);
+
+  const onDelete = useCallback(() => {
+
+  })
 
   return (
     <>
