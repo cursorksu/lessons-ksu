@@ -9,7 +9,7 @@ export const Games = () => {
 
   return (
     <MainLayout>
-      <div className="herro">
+      <div className="hero">
         <div className="title-wrapper">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
           <h1 className="title">Інтерактивні розваги</h1>

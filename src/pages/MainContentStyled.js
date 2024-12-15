@@ -7,29 +7,29 @@ import {
     DARK_BG,
     GOLD,
     ITEM_BG,
-    ITEM_INNER,
-    ITEM_OUTER,
     PRIMARY_MAIN,
-    VEREM_CREAM_BG, VEREM_GOLD,
-    VEREM_TEXT,
+    VEREM_GOLD,
 } from '../constants/colors';
 
 export const ShadowCardStyled = styled('li')`
-  box-shadow:
-    ${ITEM_OUTER},
-    inset 10px 10px 15px rgba(70, 70, 70, 0.12);
   position: relative;
   background: ${ITEM_BG};
-  border-radius: 20px;
+  border-radius: 30px;
+  border: 1px solid ${VEREM_GOLD};
   list-style-type: none;
-  padding: 30px;
+  padding: 20px;
   margin: 0;
-  font-size: 3rem;
-  color: ${PRIMARY_MAIN};
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 60px 1fr;
-  align-items: center;
+  font-size: 1.5rem;
+  color: ${VEREM_GOLD};
+  text-align: center;
+  
+  h2 {
+    font-size: 1.2rem;
+    font-family: "Comfortaa", serif;
+    font-weight: 700;
+    color: ${CHOCO};
+    margin: 0;
+  }
 
   &.in-aside {
     margin-bottom: 20px;
@@ -39,31 +39,30 @@ export const ShadowCardStyled = styled('li')`
     display: block;
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
     }
   }
 
-  &:after {
-    border-radius: 20px;
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    left: 6px;
-    bottom: 6px;
-    content: '';
-    z-index: 1;
-    box-shadow: ${ITEM_INNER};
-  }
-
   &.active {
-    background: rgba(163, 147, 103, 0.7)
-      linear-gradient(transparent, rgba(255, 255, 255, 0.3));
-    color: white;
+    outline: 2px solid ${VEREM_GOLD};
+    outline-offset: 4px; 
+    
+    .icon-holder {
+      margin: auto;
+      border-radius: 50%;
+      background: #fff;
+      padding: 10px;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   .subtitle {
-    font-size: 1.8rem;
+    font-size: 1.2rem;
     text-align: center;
     white-space: pre-wrap;
     color: ${CHOCO};
@@ -71,9 +70,81 @@ export const ShadowCardStyled = styled('li')`
 
   svg {
     display: block;
-    width: 60px;
-    height: 60px;
+    margin: 10px auto;
+    width: 40px;
+    height: 40px;
   }
+`;
+
+export const HomeContentStyled = styled('div')`
+    padding: 40px;
+
+    .title {
+      color: ${CHOCO};
+      font-size: 1.5rem;
+      font-family: Comfortaa, sans-serif;
+      font-weight: 700;
+      padding-bottom: 30px;
+      white-space: pre-wrap;
+    }
+
+    & > .aside-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      grid-gap: 30px;
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+
+      &.d-block {
+        display: block;
+      }
+
+      .ui.card {
+        border: none;
+        padding: 0;
+        border-radius: 0;
+        outline: none;
+
+        &:hover {
+          outline: none;
+        }
+      }
+
+      .game-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 30px;
+        text-align: center;
+
+        .subtitle {
+          text-align: center;
+          font-size: 20px;
+        }
+      }
+
+      iframe {
+        width: 100%;
+        height: 300px;
+        border-radius: 4px;
+      }
+    }
+    & > .content-wrapper {
+      overflow: visible;
+      
+      .title {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .d-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
 `;
 
 export const MainContentStyled = styled('div')`
@@ -86,12 +157,10 @@ export const MainContentStyled = styled('div')`
 
   .benefits {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 20px;
     margin: 0;
     padding: 0;
-    height: 724px;
-    grid-template-rows: 1fr 1fr 1fr;
   }
 
   .ksu-content {
@@ -100,20 +169,19 @@ export const MainContentStyled = styled('div')`
     min-height: calc(100vh - 300px);
     border-radius: 4px;
     display: grid;
-    grid-template-columns: 35% 1fr;
+    grid-template-columns: 30% 70%;
     padding: 20px;
 
     .title {
       color: ${CHOCO};
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-family: Comfortaa, sans-serif;
-      font-weight: 300;
+      font-weight: 700;
       padding-bottom: 30px;
       white-space: pre-wrap;
     }
 
     & > .aside-wrapper {
-      flex-basis: 30%;
       position: relative;
       border-right: 1px solid ${PRIMARY_MAIN};
       padding-right: 20px;
@@ -122,7 +190,7 @@ export const MainContentStyled = styled('div')`
       flex-direction: column;
       justify-content: space-between;
       align-items: stretch;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
 
       &.d-block {
         display: block;
@@ -159,9 +227,9 @@ export const MainContentStyled = styled('div')`
 
       .title {
         color: ${CHOCO};
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-family: Comfortaa, sans-serif;
-        font-weight: 300;
+        font-weight: 700;
         padding-bottom: 20px;
         white-space: pre-wrap;
         position: relative;
@@ -185,7 +253,7 @@ export const MainContentStyled = styled('div')`
       }
     }
     & > .content-wrapper {
-      overflow: hidden;
+      overflow: visible;
       padding-left: 20px;
 
       .d-flex {
@@ -196,7 +264,7 @@ export const MainContentStyled = styled('div')`
     }
   }
 
-  .herro {
+  .hero {
     width: 100%;
     height: 200px;
     position: relative;
@@ -208,12 +276,12 @@ export const MainContentStyled = styled('div')`
     color: ${CREAM};
     box-shadow: ${BOX_SHADOW};
 
-    &.scenario-herro {
+    &.scenario-hero {
       background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fshow.webp?alt=media&token=2df4fc9a-e478-4f44-ae60-c0639f61c537');
       background-position: center -160px;
     }
 
-    &.collection-herro {
+    &.collection-hero {
       background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpixlr-image-generator-e835cbe4-3908-4f0c-9d40-916dc0cccff5.jpg?alt=media&token=3ac4b81d-2975-48b2-a33a-0740871357fb');
     }
 
@@ -607,6 +675,7 @@ export const VeremMainContentStyled = styled('div')`
   
   .content-block-placeholder {
     margin-bottom: 40px;
+    border-radius: 30px;
     padding: 40px;
     height: 400px;
     border: 1px solid ${VEREM_GOLD};

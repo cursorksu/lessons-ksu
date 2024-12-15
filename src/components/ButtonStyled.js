@@ -21,8 +21,8 @@ export const ButtonStyled = styled('button')`
     animation: slow-shine 3s infinite linear;
   }
   
-  &:first-of-type {
-    margin-right: 20px;
+  &:not(:first-of-type) {
+    margin-left: 20px;
   }
   
   svg {

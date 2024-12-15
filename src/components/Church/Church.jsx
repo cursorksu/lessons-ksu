@@ -45,7 +45,7 @@ export const Church = () => {
   return (
     <MainLayout>
       <div
-        className="herro"
+        className="hero"
         style={{
           backgroundImage: `url("${
             church?.avatar && church?.avatar[0]?.base64

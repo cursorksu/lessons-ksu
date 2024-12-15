@@ -103,7 +103,7 @@ export const EntityItemExpanded = ({
                 modalTitle={t(`delete.${entityName}.title`)}
                 modalContent={t(`delete.${entityName}.content`)}
                 onConfirm={handleDelete}
-                onCansel={() => {}}
+                onCancel={() => {}}
               />
             )}
             {user?.uid === item?.createdBy.uid && (

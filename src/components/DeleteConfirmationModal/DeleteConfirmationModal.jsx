@@ -15,7 +15,7 @@ export const DeleteConfirmationModal = ({
   modalTitle,
   modalContent,
   onConfirm,
-  onCansel,
+  onCancel,
 }) => {
   const { t } = useTranslation('tr');
   const [open, setOpen] = useState(false);
@@ -25,9 +25,9 @@ export const DeleteConfirmationModal = ({
     setOpen(true);
   }, []);
   const handleClose = useCallback(() => {
-    onCansel && onCansel();
+    onCancel && onCancel();
     setOpen(false);
-  }, [onCansel]);
+  }, [ onCancel]);
   const handleConfirm = useCallback(
     (e) => {
       onConfirm(e);
@@ -39,7 +39,7 @@ export const DeleteConfirmationModal = ({
   return (
     <DeleteConfirmationModalStyled>
       <Modal
-        onClose={onCansel}
+        onClose={onCancel}
         onOpen={handleOpen}
         trigger={
           <ButtonIconStyled onClick={handleOpen} className={'delete-button'}>

@@ -2,6 +2,9 @@ import { TextArea } from 'semantic-ui-react';
 import styled from '@emotion/styled';
 import { BG_GOLD, CHOCO, CREAM, PRIMARY_MAIN, VEREM_GOLD } from '../constants/colors';
 
+export const FormStyled = styled.div`
+  margin: 10px 0;
+`;
 export const LabelStyled = styled.label`
     color: ${VEREM_GOLD};
     margin-bottom: 8px;
@@ -22,6 +25,7 @@ export const InputFieldStyled = styled.div`
   font-weight: 400;
   font-size: 14px;
   color: ${VEREM_GOLD};
+  margin-bottom: 10px;
 
   .label,
   label {

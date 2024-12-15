@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { InfoBlockStyled } from '../InfoBlockStyled';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
-import { InputStyled, LabelStyled } from '../InputStyled';
+import { FormStyled, InputFieldStyled, InputStyled, LabelStyled } from '../InputStyled';
 import { Controller, useForm } from 'react-hook-form';
 import { FormField } from 'semantic-ui-react';
 import { useTranslation } from 'react-i18next';
@@ -156,12 +156,12 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
                 </div>
 
                 {isFormShown && (
-                    <div>
+                    <FormStyled>
                         <Controller
                             name="title"
                             control={control}
                             render={({ field }) => (
-                                <FormField>
+                                <InputFieldStyled>
                                     <LabelStyled className="label">
                                         {t(`group.label.title`)}
                                     </LabelStyled>
@@ -170,14 +170,14 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
                                         {...field}
                                         placeholder={t(`group.placeholder.title`)}
                                     />
-                                </FormField>
+                                </InputFieldStyled>
                             )}
                         />
                         <Controller
                             name="description"
                             control={control}
                             render={({ field }) => (
-                                <FormField>
+                                <InputFieldStyled>
                                     <LabelStyled className="label">
                                         {t(`group.label.description`)}
                                     </LabelStyled>
@@ -186,14 +186,14 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
                                         {...field}
                                         placeholder={t(`group.placeholder.description`)}
                                     />
-                                </FormField>
+                                </InputFieldStyled>
                             )}
                         />
                         <Controller
                             name="teachers"
                             control={control}
                             render={({ field }) => (
-                                <FormField>
+                                <InputFieldStyled>
                                     <LabelStyled className="label">
                                         {t('group.label.teachers')}
                                     </LabelStyled>
@@ -206,7 +206,7 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
                                         pointing={'top right'}
                                         onChange={handleChangeTeachersList}
                                     />
-                                </FormField>
+                                </InputFieldStyled>
                             )}
                         />
                         <div className="button-wrapper">
@@ -219,7 +219,7 @@ export const GroupList = ({ isAuth, church, onEdit }) => {
                                 Cancel
                             </ButtonStyled>
                         </div>
-                    </div>
+                    </FormStyled>
                 )}
                 {groups?.map((el) => (
                     <GroupItemStyled key={el.id}>

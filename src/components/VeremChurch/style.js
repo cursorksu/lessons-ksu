@@ -23,8 +23,10 @@ export const VeremContentChurchItem = styled('div')`
 
 export const GroupItemStyled = styled('div')`
      border: 1px solid ${VEREM_GOLD};
-     padding: 30px 30px 0;
+     padding: 20px 30px 0;
      margin: 40px 0;
+     background: #fff;
+     border-radius: 30px;
      
      .group-link {
           font-size: 1em;
@@ -49,6 +51,7 @@ export const GroupItemStyled = styled('div')`
         text-align: center;
         font-family: "Yeseva One", serif;
         font-size: 28px;
+        font-weight: 400;
         line-height: 1.5;
         letter-spacing: 2px;
         margin-top: 0 !important;
