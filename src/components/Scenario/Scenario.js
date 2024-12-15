@@ -72,7 +72,7 @@ export const Scenario = () => {
 
   return (
     <MainLayout>
-      <div className="herro scenario-herro">
+      <div className="hero scenario-hero">
         <div className="title-wrapper top-container">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
           <h1 className="title">{t('mainMenu.show')}</h1>

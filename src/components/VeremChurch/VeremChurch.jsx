@@ -24,6 +24,7 @@ import { ChurchItemStyled } from './style';
 import { ContentList } from './ContentList';
 import { SlideShow } from '../SlideShow';
 import { PHOTO_PLACEHOLDER } from '../../constants/main';
+import { BigModal } from '../Modal/BigModal';
 
 export const VeremChurch = () => {
   const { user } = useSelector((state) => state.auth);
@@ -79,9 +80,26 @@ export const VeremChurch = () => {
 
           <div className="actions">
             {church?.createdBy?.uid === user?.uid && (
-              <ButtonIconStyled onClick={() => setIsFormShown(true)}>
-                <EditIcon />
-              </ButtonIconStyled>
+                <BigModal
+                  icon={<EditIcon />}
+                  isOpen={isFormShown}
+                  onCancel={() => {}}
+                  setIsOpen={setIsFormShown}
+                  modalTitle={'Edit Church'}
+                  onConfirm={confirmationHandler}
+                >
+                  <CreateEntityForm
+                    entityName="church"
+                    onConfirm={confirmationHandler}
+                    onClose={() => setIsFormShown(false)}
+                    fields={churchConfig}
+                    defaultValues={{
+                      ...church,
+                      createdDate:
+                          church?.createdDate && getDateObject(church?.createdDate),
+                    }}
+                  />
+                </BigModal>
             )}
           </div>
         </div>
@@ -95,19 +113,6 @@ export const VeremChurch = () => {
           />
         </div>
       </div>
-      {isFormShown && (
-        <CreateEntityForm
-          entityName="church"
-          onConfirm={confirmationHandler}
-          onClose={() => setIsFormShown(false)}
-          fields={churchConfig}
-          defaultValues={{
-            ...church,
-            createdDate:
-              church?.createdDate && getDateObject(church?.createdDate),
-          }}
-        />
-      )}
       <div>
         <VeremChurchContent>
           <div className="balls-container">
@@ -124,7 +129,7 @@ export const VeremChurch = () => {
               <h3>{church?.pastor}</h3>
               <ChurchItemStyled>
                 <img
-                    src={church?.avatar && church?.avatar[0].path || PHOTO_PLACEHOLDER}
+                    src={church?.pastorAvatar || PHOTO_PLACEHOLDER}
                     alt="pastor avatar"
                 />
               </ChurchItemStyled>

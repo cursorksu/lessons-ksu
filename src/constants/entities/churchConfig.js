@@ -4,19 +4,29 @@ export const churchConfig = [
     name: 'avatar',
     isIgnored: false,
   },
-  // {
-  //   inputType: 'imagesPicker',
-  //   name: 'pictures',
-  //   isIgnored: false,
-  // },
   {
-    inputType: 'textInput',
-    name: 'subtitle',
+    inputType: 'imagePicker',
+    name: 'pastorAvatar',
+    isIgnored: false,
+  },
+  {
+    inputType: 'imagePicker',
+    name: 'logo',
     isIgnored: false,
   },
   {
     inputType: 'textInput',
     name: 'title',
+    isIgnored: false,
+  },
+  {
+    inputType: 'textInput',
+    name: 'pastor',
+    isIgnored: false,
+  },
+  {
+    inputType: 'textInput',
+    name: 'subtitle',
     isIgnored: false,
   },
   {
@@ -37,7 +47,7 @@ export const churchConfig = [
   {
     inputType: 'textInput',
     name: 'about',
-    isIgnored: false,
+    isIgnored: true,
   },
   {
     inputType: 'textInput',
@@ -52,11 +62,6 @@ export const churchConfig = [
   {
     inputType: 'textInput',
     name: 'web',
-    isIgnored: false,
-  },
-  {
-    inputType: 'textInput',
-    name: 'pastor',
     isIgnored: false,
   },
   {

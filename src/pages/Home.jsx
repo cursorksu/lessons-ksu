@@ -7,7 +7,7 @@ import { ReactComponent as GameIcon } from '../assets/game.svg';
 import { ReactComponent as PrintIcon } from '../assets/print.svg';
 import { ReactComponent as UsersIcon } from '../assets/users.svg';
 import { ReactComponent as CalendarIcon } from '../assets/calendar.svg';
-import { ShadowCardStyled } from './MainContentStyled';
+import { HomeContentStyled, ShadowCardStyled } from './MainContentStyled';
 //import { useTranslation } from 'react-i18next';
 
 const list = [
@@ -191,7 +191,7 @@ const list = [
   {
     id: 8,
     title:
-      'Відслідковуйте практику успішних служінь та масштабуйте здобутий Всесвітньою Церковю досвід',
+      'Відслідковуйте практику успішних служінь та масштабуйте досвід',
     icon: <ChurchIcon />,
     text: (
       <div>
@@ -220,14 +220,14 @@ export const Home = () => {
 
   return (
     <MainLayout>
-      <div className="herro">
-        <div className="title-wrapper">
-          <h2 className="subtitle"> Kids Spiritual Universe</h2>
-          <h1 className="title">Дитячий Духовний Всесвіт</h1>
-        </div>
-      </div>
+      {/*<div className="hero">*/}
+      {/*  <div className="title-wrapper">*/}
+      {/*    <h2 className="subtitle">Kids Spiritual Universe</h2>*/}
+      {/*    <h1 className="title">Дитячий Духовний Всесвіт</h1>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
 
-      <section className="ksu-content">
+      <HomeContentStyled>
         <aside className="aside-wrapper">
           <div>
             <h2 className="title">{activeItem.title}</h2>
@@ -253,13 +253,13 @@ export const Home = () => {
                 key={el.id}
                 className={active === el.id && 'active'}
                 onClick={() => setActive(el.id)}>
-                {el.icon}
-                <h2 className="subtitle">{el.title}</h2>
+                <div className="icon-holder">{el.icon}</div>
+                <h2>{el.title}</h2>
               </ShadowCardStyled>
             ))}
           </ul>
         </section>
-      </section>
+      </HomeContentStyled>
     </MainLayout>
   );
 };

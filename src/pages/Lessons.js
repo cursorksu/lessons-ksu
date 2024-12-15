@@ -52,7 +52,7 @@ export const LessonsPage = () => {
 
   return (
     <MainLayout>
-      <div className="herro collection-herro">
+      <div className="hero collection-hero">
         <div className="title-wrapper top-container">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
           <h1 className="title">{currentCollection.title}</h1>

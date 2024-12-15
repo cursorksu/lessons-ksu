@@ -135,7 +135,7 @@ export const ChurchesList = () => {
               modalTitle={'church.deleteChurch'}
               modalContent={'modal.churchDelete'}
               onClick={(e) => cardClickHandler(e, el.id)}
-              img={el?.avatar[0]?.base64}
+              img={el?.avatar}
               titleHover={el.title}
               id={el.id}>
               <div>

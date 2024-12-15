@@ -138,7 +138,7 @@ export const LessonTabs = () => {
   return (
     <div>
       <div
-        className="herro"
+        className="hero"
         style={{ backgroundImage: `url("${lesson?.imageUrl}")` }}>
         <div className="title-wrapper top-container">
           <h2 className="subtitle"> Kids Spiritual Universe</h2>
