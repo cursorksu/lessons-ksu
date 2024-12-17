@@ -13,6 +13,10 @@ export const SwiperSlider = styled(Swiper)`
       width: 24px !important;
       height: 24px !important;
     }
+    
+    &.edit {
+      right: 60px;
+    }
   }
 
   &.swiper {

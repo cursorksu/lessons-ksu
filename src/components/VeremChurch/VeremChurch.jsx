@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { VeremLayout } from '../../pages/VeremLayout';
 import { GroupList } from './GroupList';
 import { CreateEntityForm } from '../CreateEntityForm/CreateEntityForm';
-import { ButtonIconStyled } from '../ButtonStyled';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useGetEntity } from '../../api/entity/useGetEntity';
@@ -25,6 +24,8 @@ import { ContentList } from './ContentList';
 import { SlideShow } from '../SlideShow';
 import { PHOTO_PLACEHOLDER } from '../../constants/main';
 import { BigModal } from '../Modal/BigModal';
+import { EditAboutUs } from './EditAboutUs';
+import clsx from 'clsx';
 
 export const VeremChurch = () => {
   const { user } = useSelector((state) => state.auth);
@@ -52,6 +53,8 @@ export const VeremChurch = () => {
   const onEditList = useCallback(async () => {
     setShouldUpdate((prev) => !prev);
   }, []);
+
+  const isAuth = useMemo(() => church?.createdBy?.uid === user?.uid, [church, user]);
 
   return (
     <VeremLayout>
@@ -85,7 +88,7 @@ export const VeremChurch = () => {
                   isOpen={isFormShown}
                   onCancel={() => {}}
                   setIsOpen={setIsFormShown}
-                  modalTitle={'Edit Church'}
+                  modalTitle={t('church.editChurch')}
                   onConfirm={confirmationHandler}
                 >
                   <CreateEntityForm
@@ -105,6 +108,7 @@ export const VeremChurch = () => {
         </div>
         <div className="church-avatar">
           <SlideShow
+              onEdit={true}
               navigation={false}
               blur
               autoplay={true}
@@ -137,7 +141,10 @@ export const VeremChurch = () => {
 
             <div className="content-block">
               <h3>
-                <VeremChips>{`${t('church.labels.about')}`}</VeremChips>
+                <div className={clsx({ 'd-flex-between': isAuth, 'd-flex-center': !isAuth })} style={{ marginBottom: '20px'}}>
+                  <VeremChips>{`${t('church.labels.about')}`}</VeremChips>
+                  {isAuth && <EditAboutUs church={church} forceUpdate={setShouldUpdate}/>}
+                </div>
               </h3>
               <h3>
                 Started{' '}
@@ -172,20 +179,18 @@ export const VeremChurch = () => {
           <div className="content">
                 <div className="content-block">
                   <TeachersList
-                      isAuth={church?.createdBy?.uid === user?.uid}
+                      isAuth={isAuth}
                       onEdit={onEditList}
                       church={church}
                   />
                 </div>
-              {church && church?.groups?.length ? (
-                  <div className="content-block">
-                    <GroupList
-                        isAuth={church?.createdBy?.uid === user?.uid}
-                        onEdit={getChurch}
-                        church={church}
-                    />
-                  </div>
-              ) : <div className={'content-block-placeholder'}>{t('group.no-group')}</div>}
+                <div className="content-block">
+                  <GroupList
+                      isAuth={isAuth}
+                      onEdit={getChurch}
+                      church={church}
+                  />
+                </div>
           </div>
           <div className="content">
             <div className="content-block">

@@ -1,5 +1,5 @@
 import { Modal, ModalHeader } from 'semantic-ui-react';
-import { ButtonIconStyled } from '../ButtonStyled';
+import { ButtonIconMiniStyled, ButtonIconStyled } from '../ButtonStyled';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import React, { useCallback } from 'react';
 
@@ -8,8 +8,8 @@ export const BigModal = ({
                              setIsOpen,
                              modalTitle,
                              onCancel,
-                             onConfirm,
                              icon,
+                             size = 'big',
                              children
                          }) => {
 
@@ -21,24 +21,18 @@ export const BigModal = ({
         onCancel && onCancel();
         setIsOpen(false);
     }, [ onCancel ]);
-    const handleConfirm = useCallback(
-        (e) => {
-            onConfirm(e);
-            setIsOpen(false);
-        },
-        [ onConfirm ]
-    );
 
     return (
         <Modal
+            className={'ksu-modal'}
             onClose={onCancel}
             onOpen={handleOpen}
             trigger={
-                <ButtonIconStyled onClick={handleOpen} className={'trigger-button'}>
+                <ButtonIconMiniStyled onClick={handleOpen} className={'trigger-button'}>
                     {icon}
-                </ButtonIconStyled>
+                </ButtonIconMiniStyled>
             }
-            size="big"
+            size={size}
             open={isOpen}
         >
             <ModalHeader className="title">

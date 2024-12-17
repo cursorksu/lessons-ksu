@@ -7,14 +7,12 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 export const useAssignGroupTeacher = () => {
   const dispatch = useDispatch();
 
-  // Привязка учителей к группе
   const addTeacherToGroup = useCallback(
     (groupId, teacherId) => {
       try {
         const groupRef = doc(fireStore, 'group', groupId);
         const teacherRef = doc(fireStore, 'users', teacherId);
 
-        // Обновление списка учителей группы и списка групп учителя
         const updateGroupPromise = updateDoc(groupRef, {
           teachers: arrayUnion(teacherId),
         });

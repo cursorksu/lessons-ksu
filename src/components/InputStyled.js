@@ -46,37 +46,33 @@ export const InputStyled = styled.input`
   color: ${CHOCO};
 
   &:focus {
-    outline: none;
     border: 1px solid ${VEREM_GOLD};
-    outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при фокусе */
-    outline-offset: 4px; /* Отступ для эстетичности */
+    outline: 2px solid ${VEREM_GOLD};
+    outline-offset: 4px; 
   }
 `;
 
 export const TextareaAutosizeStyled = styled(TextArea)`
   border: 1px solid ${PRIMARY_MAIN};
-  resize: none;
-  transition:
-    border-color,
-    0.3s ease-in-out;
+  resize: vertical;
   cursor: pointer;
   font-family: Comfortaa, sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 1.5rem;
+  min-height: 270px;
   color: ${CHOCO};
   box-sizing: border-box;
-  background-color: transparent;
-  border-radius: 4px;
-  padding: 5px 12px;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 20px;
   display: block;
   width: 100%;
 
   &:focus,
   &:focus-visible {
-    border-color: ${VEREM_GOLD};
-    background-color: ${BG_GOLD};
-    outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при фокусе */
-    outline-offset: 4px; /* Отступ для эстетичности */
+    border: 1px solid ${VEREM_GOLD};
+    outline: 2px solid ${VEREM_GOLD};
+    outline-offset: 4px;
   }
 `;

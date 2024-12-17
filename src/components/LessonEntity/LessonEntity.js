@@ -170,7 +170,7 @@ export const LessonEntity = ({ entityName, lesson }) => {
                       </FormField>
                     )}
                   />
-                  <ButtonStyled onClick={handleCancel}>Cancel</ButtonStyled>
+                  <ButtonStyled className="secondary" onClick={handleCancel}>Cancel</ButtonStyled>
                   <ButtonStyled onClick={handleEntityCreate}>Save</ButtonStyled>
                 </div>
               )

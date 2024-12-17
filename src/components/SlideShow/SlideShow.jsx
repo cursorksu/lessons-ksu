@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, Keyboard } from 'swiper/modules';
+import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { ReactComponent as ArrowLeft } from '../../assets/arrow-left.svg';
 import { ReactComponent as ArrowRight } from '../../assets/arrow-right.svg';
 import { ReactComponent as ScreenIcon } from '../../assets/screen.svg';
@@ -11,9 +12,9 @@ import 'swiper/css/pagination';
 import { Popup } from 'semantic-ui-react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { ButtonIconStyled } from '../ButtonStyled';
+import { ButtonIconMiniStyled } from '../ButtonStyled';
 
-export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true }) => {
+export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true, onEdit }) => {
     const [ fullScreen, setFullScreen ] = useState(false);
     const { t } = useTranslation('tr');
 
@@ -44,13 +45,25 @@ export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true
                          ? [ Autoplay, Keyboard, Pagination, Navigation ]
                          : [ Keyboard, Pagination, Navigation ] }
             >
+                {!!onEdit && (
+                    <Popup
+                        trigger={
+                            <ButtonIconMiniStyled
+                                onClick={() => setFullScreen((prev) => !prev)}
+                                className="print-hide full-screen-button edit">
+                                <EditIcon />
+                            </ButtonIconMiniStyled>
+                        }
+                        content={'Edit Photos'}
+                    />
+                )}
                 <Popup
                     trigger={
-                        <ButtonIconStyled
+                        <ButtonIconMiniStyled
                             onClick={() => setFullScreen((prev) => !prev)}
                             className="print-hide full-screen-button">
                             {fullScreen ? <ScreenIcon/> : <FullScreenIcon/>}
-                        </ButtonIconStyled>
+                        </ButtonIconMiniStyled>
                     }
                     content={fullScreen ? t('fullScreenOff') : t('fullScreenOn')}
                 />

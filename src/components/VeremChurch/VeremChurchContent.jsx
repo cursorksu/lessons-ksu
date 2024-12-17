@@ -21,7 +21,7 @@ export const VeremChurchContent = styled('section')`
   .balls-container {
     position: absolute;
     top: -240px;
-    right: 20px;
+    right: 40px;
     z-index: 1;
   }
 

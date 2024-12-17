@@ -674,6 +674,7 @@ export const VeremMainContentStyled = styled('div')`
   }
   
   .content-block-placeholder {
+    margin-top: 20px;
     margin-bottom: 40px;
     border-radius: 30px;
     padding: 40px;

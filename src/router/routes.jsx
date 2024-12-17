@@ -6,7 +6,6 @@ import { Cabinet } from '../pages/Cabinet';
 import { Collections } from '../pages/Collections';
 import { Home } from '../pages/Home';
 import { ChurchesList } from '../components/ChurchesList';
-import { Church } from '../components/Church';
 import { GroupItem } from '../components/GroupItem';
 import { Scenario } from '../components/Scenario';
 import { ScenarioItem } from '../components/ScenarioItem';
@@ -41,11 +40,6 @@ export const publicRoutes = [
     path: `${routes.church}/:churchId`,
     title: 'Church',
     component: <VeremChurch />,
-  },
-  {
-    path: `${routes.church}/old/:churchId`,
-    title: 'Church',
-    component: <Church />,
   },
   {
     path: `${routes.group}/:groupId`,

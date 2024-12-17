@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CHOCO, VEREM_GOLD, VEREM_GOLD_BG } from '../../constants/colors';
+import { CHOCO, VEREM_GOLD } from '../../constants/colors';
 
 export const VeremContentChurchItem = styled('div')`
     display: flex;
@@ -23,10 +23,25 @@ export const VeremContentChurchItem = styled('div')`
 
 export const GroupItemStyled = styled('div')`
      border: 1px solid ${VEREM_GOLD};
-     padding: 20px 30px 0;
+     padding: 20px 30px 20px;
      margin: 40px 0;
      background: #fff;
      border-radius: 30px;
+     
+     .teacher-item {
+        line-height: 40px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        
+        &.empty {
+          justify-content: center;
+        }
+        
+        button {
+          margin-right: 20px;
+        }
+     }
      
      .group-link {
           font-size: 1em;

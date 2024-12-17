@@ -9,7 +9,7 @@ import { getDateLocalString } from '../../../utils/getDateLocalString';
 import { ButtonIconStyled } from '../../ButtonStyled';
 import { useDeleteEntity } from '../../../api/entity/useDeleteEntity';
 import { useSelector } from 'react-redux';
-import { DeleteConfirmationModal } from '../../DeleteConfirmationModal/DeleteConfirmationModal';
+import { DeleteConfirmationModal } from '../../Modal/DeleteConfirmationModal';
 import { useTranslation } from 'react-i18next';
 import { useAssignEntityToLesson } from '../../../api/refs/useAssignEntityToLesson';
 import { StyledDropdown } from '../../KsuDropdown/StyledDropdown';
