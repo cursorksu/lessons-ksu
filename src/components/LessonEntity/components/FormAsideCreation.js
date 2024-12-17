@@ -143,10 +143,11 @@ export const FormAsideCreation = ({
           {t('button.confirm')}
         </ButtonStyled>
         <ButtonStyled
-          onClick={async () => {
-            onClose && onClose();
-            reset();
-          }}>
+            className="secondary"
+            onClick={async () => {
+                onClose && onClose();
+                reset();
+              }}>
           {t('button.cancel')}
         </ButtonStyled>
       </Grid.Row>

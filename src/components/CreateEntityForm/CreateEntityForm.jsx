@@ -13,6 +13,7 @@ import { KsuDropdown } from '../KsuDropdown';
 import { KsuTags } from '../KsuTags/KsuTags';
 import { useSelector } from 'react-redux';
 import ImageCropper from '../ImageCroper/ImageCroper';
+import ModalContent from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalContent';
 
 export const CreateEntityForm = ({
                                      entityName,
@@ -140,28 +141,38 @@ export const CreateEntityForm = ({
 
     return (
         <>
-            <CreateEntityFormStyled>
-                {fields.map((el) => {
-                    if (el.isIgnored) return <></>;
+            <ModalContent>
+                <CreateEntityFormStyled>
+                    {fields.map((el) => {
+                        if (el.isIgnored) return <></>;
 
-                    return (
-                        <Controller
-                            key={el.name}
-                            name={el.name}
-                            control={control}
-                            render={({ field }) => (
-                                <InputFieldStyled>
-                                    <LabelStyled>
-                                        {t(`${entityName}.labels.${el.name}`)}
-                                    </LabelStyled>
-                                    {getElement(el, field)}
-                                </InputFieldStyled>
-                            )}
-                        />
-                    );
-                })}
-            </CreateEntityFormStyled>
+                        return (
+                            <Controller
+                                key={el.name}
+                                name={el.name}
+                                control={control}
+                                render={({ field }) => (
+                                    <InputFieldStyled>
+                                        <LabelStyled>
+                                            {t(`${entityName}.labels.${el.name}`)}
+                                        </LabelStyled>
+                                        {getElement(el, field)}
+                                    </InputFieldStyled>
+                                )}
+                            />
+                        );
+                    })}
+                </CreateEntityFormStyled>
+            </ModalContent>
             <ModalActions>
+                <ButtonStyled
+                    className="secondary"
+                    onClick={async () => {
+                        onClose && onClose();
+                        reset();
+                    }}>
+                    {t('button.cancel')}
+                </ButtonStyled>
                 <ButtonStyled
                     onClick={async () => {
                         const newData = getValues();
@@ -169,19 +180,11 @@ export const CreateEntityForm = ({
                                    ? await editEntity(newData)
                                    : await createEntity(newData);
 
-                        console.log({ newData })
                         await onConfirm(id, newData);
                         onClose && onClose();
                         reset();
                     }}>
                     {t('button.confirm')}
-                </ButtonStyled>
-                <ButtonStyled
-                    onClick={async () => {
-                        onClose && onClose();
-                        reset();
-                    }}>
-                    {t('button.cancel')}
                 </ButtonStyled>
             </ModalActions>
         </>

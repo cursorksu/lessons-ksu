@@ -1,0 +1,2 @@
+export const MODAL_BG_1 = 'https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2FShapoe.png?alt=media&token=52063a67-b545-40dc-ba3c-cdc2a479b8e9';
+export const MODAL_BG_2 = 'https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2FTexture.png?alt=media&token=f9a48c42-a930-4e19-9a8b-f9eb2193171a';

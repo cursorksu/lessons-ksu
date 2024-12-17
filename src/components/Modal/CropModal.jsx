@@ -45,17 +45,18 @@ export const CropModal = ({
             </ModalContent>
             <ModalActions>
                 <ButtonStyled
+                    className="secondary"
+                    onClick={async () => {
+                        onCancel();
+                    }}>
+                    {t('button.cancel')}
+                </ButtonStyled>
+                <ButtonStyled
                     onClick={async () => {
                         onConfirm();
                         onCancel();
                     }}>
                     Crop
-                </ButtonStyled>
-                <ButtonStyled
-                    onClick={async () => {
-                       onCancel();
-                    }}>
-                    {t('button.cancel')}
                 </ButtonStyled>
             </ModalActions>
         </Modal>

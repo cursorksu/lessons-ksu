@@ -81,8 +81,7 @@ export const StyledDropdown = styled('div')`
   .ui.selection.active.dropdown {
     box-shadow: none;
     border: 1px solid ${VEREM_GOLD};
-    border-bottom-right-radius: 30px !important;
-    border-bottom-left-radius: 30px !important;
+    border-radius: 30px !important;
   }
 
   .ui.label {

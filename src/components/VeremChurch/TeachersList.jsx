@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
+import { ButtonIconMiniStyled, ButtonStyled } from '../ButtonStyled';
 import { useAssignTeacherChurch } from '../../api/refs/useAssignTeacherChurch';
 import { TeacherItem } from './TeacherItem';
 import { KsuTeachersDropdown } from '../KsuDropdown/KsuTeachersDropdown';
@@ -46,9 +46,9 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
             <div className={clsx({ 'd-flex-between': isAuth, 'd-flex-center': !isAuth })} style={{ marginBottom: '20px'}}>
                 <VeremChips>{`${t('church.labels.teachers')}`}</VeremChips>
                 {isAuth && (
-                    <ButtonIconStyled onClick={() => setIsFormShown((prev) => !prev)}>
+                    <ButtonIconMiniStyled onClick={() => setIsFormShown((prev) => !prev)}>
                         {!isFormShown ? <AddIcon/> : <RemoveIcon/>}
-                    </ButtonIconStyled>
+                    </ButtonIconMiniStyled>
                 )}
             </div>
 

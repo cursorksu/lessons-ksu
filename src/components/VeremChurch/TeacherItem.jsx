@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useGetEntity } from '../../api/entity/useGetEntity';
 import { ChurchItemStyled } from './style';
 import { USER_AVATAR_PLACEHOLDER } from '../../constants/main';
-import { DeleteConfirmationModal } from '../DeleteConfirmationModal/DeleteConfirmationModal';
+import { DeleteConfirmationModal } from '../Modal/DeleteConfirmationModal';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 

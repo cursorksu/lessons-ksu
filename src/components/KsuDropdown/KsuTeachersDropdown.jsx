@@ -1,8 +1,9 @@
 import { Dropdown } from 'semantic-ui-react';
 import { StyledDropdown } from './StyledDropdown';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getOption } from '../../utils/getOption';
 import { useSelector } from 'react-redux';
+import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 
 export const KsuTeachersDropdown = ({
   onChange,
@@ -16,26 +17,31 @@ export const KsuTeachersDropdown = ({
   const [options, setOptions] = useState([]);
   const [searchedOptions, setSearchedOptions] = useState(options);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const [searchString, setSearchString] = useState('');
+  const { getEntities: getTeachers, entities: localTeachers } =
+      useGetEntityListByIds('users');
 
   useEffect(() => {
-    console.log({ searchString });
-  }, [searchString]);
+    setOptions(
+        localTeachers?.map((el) =>
+            getOption(
+                el,
+                value?.map((el) => el?.id)
+            )
+        )
+    );
+    setSearchedOptions(
+        localTeachers?.map((el) =>
+            getOption(
+                el,
+                value?.map((el) => el?.id)
+            )
+        )
+    );
+  }, [optionsIds, localTeachers])
 
   useEffect(() => {
     if (optionsIds) {
-      const newList = [];
-      for (const teacherId of optionsIds) {
-        const selectedTeachers = teachers.filter((el) => el?.uid === teacherId);
-        selectedTeachers?.map((el) =>
-          getOption(
-            el,
-            value?.map((el) => el?.id)
-          )
-        );
-      }
-      setOptions(newList);
-      setSearchedOptions(newList);
+      getTeachers(optionsIds);
     } else {
       setOptions(
         teachers?.map((el) =>
@@ -71,9 +77,9 @@ export const KsuTeachersDropdown = ({
         placeholder={placeholder}
         multiple={multiple}
         onClick={() => setDropdownIsOpen(true)}
-        onSearchChange={(_, data) => setSearchString(data.searchQuery)}
         onChange={handleChange}
         options={searchedOptions}
+        value={value}
         {...dropdownSettings}
       />
     </StyledDropdown>

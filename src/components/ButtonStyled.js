@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BG_GRAY, CHOCO, PRIMARY_MAIN, TEXT_MAIN, VEREM_GOLD } from '../constants/colors';
+import { BG_GOLD, VEREM_GOLD } from '../constants/colors';
 
 export const ButtonStyled = styled('button')`
   display: inline-flex;
@@ -16,6 +16,7 @@ export const ButtonStyled = styled('button')`
   border-radius: 20px;
   cursor: pointer;
   transition: background 3s ease;
+  box-shadow: none;
 
   &:hover {
     animation: slow-shine 3s infinite linear;
@@ -32,14 +33,23 @@ export const ButtonStyled = styled('button')`
     margin: 0 10px 0 0;
   }
   
+  &.secondary {
+    background: transparent;
+    color: ${VEREM_GOLD};
+    
+    &:hover {
+       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
   &:focus {
-    outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при фокусе */
-    outline-offset: 4px; /* Отступ для эстетичности */
+    outline: 2px solid ${VEREM_GOLD};
+    outline-offset: 4px;
+    box-shadow: none;
   }
 
   &:active {
-    outline: 2px solid ${VEREM_GOLD}; /* Золотистый outline при активации */
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3); /* Эффект вдавливания */
+    outline: 2px solid ${VEREM_GOLD};
   }
 
   @keyframes slow-shine {
@@ -59,6 +69,8 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   width: 38px;
   height: 38px;
   display: flex;
+  color: ${VEREM_GOLD};
+  background: transparent;
   justify-content: center;
   align-items: center;
   float: left;
@@ -69,5 +81,19 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   
   &:hover {
     animation: slow-shine 2s infinite linear;
+  }
+`;
+
+export const ButtonIconMiniStyled = styled(ButtonIconStyled)`
+  width: 20px;
+  height: 20px;
+  transition: translate  2s ease;
+  
+  &:not(:first-of-type) {
+    margin-left: 10px;
+  }
+  
+   &:hover {
+      transform: scale(1.1);
   }
 `;

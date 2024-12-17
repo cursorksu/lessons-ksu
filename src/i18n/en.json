@@ -3,8 +3,10 @@
     "collectionDelete": "If you delete this collection all it lessons, images and other staff in it will be reachable out of it",
     "churchDelete": "If you delete this church all it lessons, images and other staff in it will be reachable out of it",
     "teacherDelete": "Do you want to remove this teacher?",
+    "groupDelete": "Do you want to remove this group?",
     "title": {
-      "deleteTeacher": "Remove teacher"
+      "deleteTeacher": "Remove teacher",
+      "deleteGroup": "Remove group"
     }
   },
   "collections": {
@@ -140,6 +142,8 @@
   "church": {
     "deleteChurch": "Delete Church",
     "addChurch": "Add Church",
+    "editPictures": "Edit Pictures",
+    "editChurch": "Edit Church Information",
     "labels": {
       "avatar": "Church front page",
       "pastorAvatar": "Pastor photo",
@@ -183,7 +187,12 @@
   "group": {
     "no-group": "We don't have any created groups yet",
     "title": "Our Groups",
+    "editGroup": "Edit Group",
+    "addGroup": "Create Group",
     "label": {
+      "addTeacher": "Assign teacher",
+      "studentsAmount": "Students in group",
+      "no-teachers": "Any teacher wasn't added yet",
       "teachers": "Teachers",
       "description": "Description",
       "title": "Title"
@@ -221,6 +230,7 @@
     "cabinet": "To the personal office",
     "addProduct": "Add a product",
     "add": "Add",
+    "edit": "Edit",
     "remove": "Remove",
     "createLesson": "Create lesson",
     "accept": "Accept",
