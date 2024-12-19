@@ -12,6 +12,9 @@ export const UserProfileStyled = styled.div`
   }
   
   .tab-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       button {
          display: inline-block;
          margin-left: 20px;

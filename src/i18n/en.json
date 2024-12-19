@@ -189,6 +189,8 @@
     "title": "Our Groups",
     "editGroup": "Edit Group",
     "addGroup": "Create Group",
+    "addToGroup": "Add to group",
+    "addToGroupPlaceholder": "Select group",
     "label": {
       "addTeacher": "Assign teacher",
       "studentsAmount": "Students in group",
@@ -201,6 +203,24 @@
       "teachers": "Select teachers",
       "description": "Enter details",
       "title": "Add title"
+    }
+  },
+  "planer": {
+    "editEvent": "Edit Event",
+    "addEvent": "Add Event",
+    "types": {
+      "event": "Important Event",
+      "manage": "Management meeting",
+      "test": "Report lesson",
+      "lesson": "Ordinary lesson"
+    },
+    "labels": {
+      "title": "Enter event title",
+      "lesson": "Chose lesson",
+      "time": "Chose time (by default: the time of your church ministry)",
+      "teachers": "Chose teachers",
+      "responsible": "Enter names of responsible persons",
+      "type": "Chose type"
     }
   },
   "mainMenu": {

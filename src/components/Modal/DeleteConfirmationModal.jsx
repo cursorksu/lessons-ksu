@@ -44,7 +44,7 @@ export const DeleteConfirmationModal = ({
                     <DeleteIcon/>
                 </ButtonIconMiniStyled>
             }
-            size="small"
+            size="mini"
             open={open}>
                 <ModalHeader>
                     <h2 className="title">{modalTitle}</h2>

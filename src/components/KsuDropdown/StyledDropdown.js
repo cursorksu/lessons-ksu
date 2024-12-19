@@ -2,15 +2,6 @@ import styled from '@emotion/styled';
 import { BG_GOLD, CHOCO, PRIMARY_MAIN, VEREM_GOLD } from '../../constants/colors';
 
 export const StyledDropdown = styled('div')`
-  min-width: 100%;
-  position: relative;
-  border-radius: 4px;
-
-  .ui.top.right.pointing.dropdown > .menu {
-    color: ${CHOCO};
-    margin: 0;
-  }
-
   .ui.dropdown .menu .item .image,
   .ui.dropdown .menu .item img,
   .ui.dropdown .text .image,
@@ -31,9 +22,22 @@ export const StyledDropdown = styled('div')`
   input {
     border: none;
   }
-  .dropdown {
+  .dropdown.fluid {        
+    width: 100%;
+    border-radius: 40px;
+    padding: 0 12px;
+    border: 1px solid ${VEREM_GOLD};
+    background: #fff;
+    font-family: Comfortaa, sans-serif;
     font-weight: 400;
     font-size: 1.2rem;
+    color: ${CHOCO};
+    
+    &:focus {
+      border: 1px solid ${VEREM_GOLD};
+      outline: 2px solid ${VEREM_GOLD};
+      outline-offset: 4px; 
+    }
 
     .text {
       color: ${CHOCO};
@@ -57,9 +61,9 @@ export const StyledDropdown = styled('div')`
       }
     }
   }
-  .ui.selection.dropdown>.delete.icon, .ui.selection.dropdown>.dropdown.icon, .ui.selection.dropdown>.search.icon {
+  .ui.dropdown>.delete.icon, .ui.dropdown>.dropdown.icon, .ui.dropdown>.search.icon {
     position: absolute;
-    top: 14px;
+    top: 12px;
     right: 20px;
     display: inline-block;
     font-size: 20px;
@@ -77,13 +81,21 @@ export const StyledDropdown = styled('div')`
     box-shadow: none;
   }
 
-  .ui.selection.active.dropdown .menu,
-  .ui.selection.active.dropdown {
-    box-shadow: none;
-    border: 1px solid ${VEREM_GOLD};
-    border-radius: 30px !important;
+  .ui.dropdown .menu {
+    top: 140%;
+    width: 100%;
   }
 
+  .ui.active.dropdown .menu:hover,
+  .ui.active.dropdown .menu,
+  .ui.dropdown .menu,
+  .ui.active.dropdown:hover,
+  .ui.active.dropdown,
+  .ui.dropdown {
+    box-shadow: none;
+    border: 1px solid ${VEREM_GOLD} !important;
+    border-radius: 30px !important;
+  }
   .ui.label {
     border: 1px solid ${VEREM_GOLD};
     background-color: ${BG_GOLD};
@@ -116,6 +128,7 @@ export const StyledDropdown = styled('div')`
       color: ${VEREM_GOLD};
       width: 20px;
       height: 20px;
+      z-index: 0;
       
       &:hover {
         color: ${PRIMARY_MAIN}
