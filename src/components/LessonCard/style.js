@@ -55,6 +55,7 @@ export const LessonCardStyled = styled.div`
     background: dimgrey;
 
     p {
+      font-size: 0.7em;
       color: #fff;
       margin: 0;
     }

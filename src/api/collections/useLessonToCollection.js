@@ -76,7 +76,7 @@ export const useLessonToCollection = () => {
           setMessage({
             type: 'error',
             message: {
-              title: t('errors.unbindingError.tilte'),
+              title: t('errors.unbindingError.title'),
               description: `${t('errors.unbindingError.description')}: ${
                 error.message
               }`,

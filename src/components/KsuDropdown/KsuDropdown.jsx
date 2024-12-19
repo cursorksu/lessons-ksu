@@ -1,7 +1,7 @@
 import { Dropdown } from 'semantic-ui-react';
 import { StyledDropdown } from './StyledDropdown';
 import { useGetAllEntities } from '../../api/entity/useGetAllEntities';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getOption } from '../../utils/getOption';
 import { useGetEntityListByIds } from '../../api/entity/useGetEntityListByIds';
 

@@ -24,5 +24,4 @@ export const PlanerContainerStyled = styled('div')`
         background: ${PERPLE_MAIN};
       }
   }
-
 `;

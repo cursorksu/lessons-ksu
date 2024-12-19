@@ -14,8 +14,8 @@ export const LessonListStyled = styled('div')`
   .lessons-grid {
     display: grid;
     grid-template-columns: 23% 23% 23% 23%;
-    grid-gap: 40px;
-    padding: 40px;
+    grid-gap: 3%;
+    padding: 3%;
   }
 
   .cards-grid {

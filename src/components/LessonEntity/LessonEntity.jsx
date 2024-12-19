@@ -1,4 +1,4 @@
-import { FormField, Popup } from 'semantic-ui-react';
+import { Dropdown, FormField, Popup } from 'semantic-ui-react';
 import { ButtonIconStyled, ButtonStyled } from '../ButtonStyled';
 import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
 import { ReactComponent as PrintIcon } from '../../assets/print.svg';
@@ -17,6 +17,9 @@ import { HTMLRenderer } from '../HTMLRender/HTMLRender';
 import { useAssignEntityToLesson } from '../../api/refs/useAssignEntityToLesson';
 import clsx from 'clsx';
 import { InputStyled, LabelStyled } from '../InputStyled';
+import { StyledDropdown } from '../KsuDropdown/StyledDropdown';
+import { EVENTS_OPTIONS } from '../../constants/eventsType/eventsType';
+import { useLessonToGroup } from '../../api/lesson/useLessonToGroup';
 
 const INITIAL_VALUES = {
   text: '',
@@ -26,6 +29,7 @@ const INITIAL_VALUES = {
 
 export const LessonEntity = ({ entityName, lesson }) => {
   const { lessonId } = useParams();
+  const { bindLessonToGroup } = useLessonToGroup();
   const { getEntities, entities } = useGetEntityListByIds(entityName);
   const { createEntity } = useCreateEntity(entityName);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -83,6 +87,21 @@ export const LessonEntity = ({ entityName, lesson }) => {
         className={`ksu-content no-margin ${entityName}`}
         ref={componentRef}>
         <aside className="aside-wrapper">
+          {user?.uid &&
+              <>
+                Assign Lesson to group:
+                <StyledDropdown>
+                  <Dropdown
+                      fluid
+                      multiple={false}
+                      placeholder={'group.labels.type'}
+                      options={user?.groups?.map(el => ({key: el, text: el, value: el}))}
+                      onChange={(_, data) => bindLessonToGroup(data.value, lessonId)}
+                  />
+                </StyledDropdown>
+              </>
+          }
+
           {['creative', 'subject', 'food'].includes(entityName) && (
             <div
               className={clsx({

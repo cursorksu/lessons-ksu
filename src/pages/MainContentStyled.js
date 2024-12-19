@@ -291,9 +291,13 @@ export const MainContentStyled = styled('div')`
     }
     .title {
       font-family: 'Yeseva One', sans-serif;
-      font-size: 4rem;
+      font-size: 3rem;
       font-weight: 500;
       margin: 0 !important;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre-wrap;
     }
     .subtitle {
       font-family: 'Yeseva One', sans-serif;
