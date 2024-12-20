@@ -298,6 +298,21 @@ export const MainContentStyled = styled('div')`
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: pre-wrap;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+      
+      button {
+        width: 40px;
+        height: 40px;
+      }
+      
+      svg {
+        width: 30px;
+        height: 30px;
+        color: ${CREAM}
+      }
     }
     .subtitle {
       font-family: 'Yeseva One', sans-serif;

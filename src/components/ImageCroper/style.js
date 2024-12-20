@@ -30,7 +30,7 @@ export const CroppedImageStyled = styled('div')`
     margin-right: 20px;
     border: 1px solid ${VEREM_GOLD};
     margin-bottom: 10px;
-    border-radius: 30px;
+    border-radius: 4px;
   }
   
   input[type="file"] {

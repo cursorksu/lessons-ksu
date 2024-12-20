@@ -133,7 +133,7 @@ export const BoxesSettings = ({ data, onSave }) => {
                     className="test dnd-list"
                     {...provided.droppableProps}
                     ref={provided.innerRef}>
-                    {test.some((el) => el.question?.length)
+                    {test?.some((el) => el.question?.length)
 ? (
                       test?.map((testItem, idx) => (
                         <Draggable
@@ -175,8 +175,8 @@ export const BoxesSettings = ({ data, onSave }) => {
           <div
             className={clsx({
               'sticky-action': true,
-              error: test.some((el) =>
-                Object.keys(el.error).some((key) => el.error[key])
+              error: test?.some((el) =>
+                Object.keys(el.error)?.some((key) => el.error[key])
               ),
               success:
                 testSaved &&

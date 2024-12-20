@@ -152,7 +152,7 @@ export const CreateEntityForm = ({
                                 name={el.name}
                                 control={control}
                                 render={({ field }) => (
-                                    <InputFieldStyled>
+                                    <InputFieldStyled className={el.inputType}>
                                         <LabelStyled>
                                             {t(`${entityName}.labels.${el.name}`)}
                                         </LabelStyled>

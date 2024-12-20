@@ -172,6 +172,7 @@
     "placeholders": {
       "avatar": "Upload Church logo",
       "title": "Enter title",
+      "subtitle": "Enter subtitle",
       "address": "Enter address",
       "createdDate": "Select date",
       "about": "Put few words about the church strategy and vision",

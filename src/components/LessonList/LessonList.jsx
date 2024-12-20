@@ -12,90 +12,90 @@ import { routes } from '../../router/constants';
 import { publicStatuses } from '../../constants/statuses/publicStatuses';
 
 export const LessonList = ({ collection, selectedStatus }) => {
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
-  const { deleteLesson } = useDeleteLesson();
-  const { unbindLessonFromCollection } = useLessonToCollection();
-  const { loading, getLessonsInCollection } = useGetLessonsInCollection();
-  const { lessons } = useSelector((state) => state.lessonData);
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
+    const { deleteLesson } = useDeleteLesson();
+    const { unbindLessonFromCollection } = useLessonToCollection();
+    const { loading, getLessonsInCollection } = useGetLessonsInCollection();
+    const { lessons } = useSelector((state) => state.lessonData);
 
-  useEffect(() => {
-    !collection?.lessonIds && navigate(routes.collections);
-  }, [collection, getLessonsInCollection, navigate]);
+    useEffect(() => {
+        !collection?.lessonIds && navigate(routes.collections);
+    }, [ collection, getLessonsInCollection, navigate ]);
 
-  useEffect(() => {
-    collection?.lessonIds &&
-      getLessonsInCollection(collection.lessonIds, selectedStatus).then(
-        () => {}
-      );
-  }, [collection, getLessonsInCollection, selectedStatus]);
-
-  const handleClick = (id) => {
-    navigate(`${id}`);
-  };
-
-  const handleDelete = useCallback(
-    async (e, id) => {
-      e.stopPropagation();
-      await unbindLessonFromCollection(collection, id);
-      await deleteLesson(id);
-    },
-    [collection, deleteLesson, unbindLessonFromCollection]
-  );
-
-  const filteredLessons = useMemo(() => {
-    // TODO:  добавить в коллекцию поле церковь и возможность изменять его
-    let filteredCollection = [];
-    if (user?.uid === collection?.createdBy?.uid) {
-      filteredCollection = lessons?.filter(
-        (lesson) => lesson.status === selectedStatus
-      );
-    } else {
-      if (!user?.uid) {
-        filteredCollection = lessons?.filter(
-          (lesson) => lesson.status === publicStatuses.published
+    useEffect(() => {
+        collection?.lessonIds &&
+        getLessonsInCollection(collection.lessonIds, selectedStatus).then(
+            () => {
+            }
         );
-      }
-      if (user?.uid && user.church?.some((el) => el === collection?.church)) {
-        filteredCollection = lessons?.filter(
-          (lesson) => lesson.status === publicStatuses.published
-        );
-        const activeLessons = lessons?.filter(
-          (lessons) => lessons.status === publicStatuses.active
-        );
+    }, [ collection, getLessonsInCollection, selectedStatus ]);
 
-        if (activeLessons.length) {
-          filteredCollection = [...filteredCollection, ...activeLessons];
+    const handleClick = (id) => {
+        navigate(`${id}`);
+    };
+
+    const handleDelete = useCallback(
+        async (e, id) => {
+            e.stopPropagation();
+            await unbindLessonFromCollection(collection, id);
+            await deleteLesson(id);
+        },
+        [ collection, deleteLesson, unbindLessonFromCollection ]
+    );
+
+    const filteredLessons = useMemo(() => {
+        let filteredCollection = [];
+        if (user?.uid === collection?.createdBy?.uid) {
+            filteredCollection = lessons?.filter(
+                (lesson) => lesson.status === selectedStatus
+            );
+        } else {
+            if (!user?.uid) {
+                filteredCollection = lessons?.filter(
+                    (lesson) => lesson.status === publicStatuses.published
+                );
+            }
+            if (user?.uid && user.church?.some((el) => el === collection?.church)) {
+                filteredCollection = lessons?.filter(
+                    (lesson) => lesson.status === publicStatuses.published
+                );
+                const activeLessons = lessons?.filter(
+                    (lessons) => lessons.status === publicStatuses.active
+                );
+
+                if (activeLessons.length) {
+                    filteredCollection = [ ...filteredCollection, ...activeLessons ];
+                }
+            }
         }
-      }
-    }
 
-    return filteredCollection;
-  }, [lessons, selectedStatus]);
+        return filteredCollection;
+    }, [ lessons, selectedStatus ]);
 
-  return (
-    <LessonListStyled>
-      <div className="lessons-grid">
-        {loading
-? (
-          <GridRow>
-            <GridColumn width={16}>
-              <Loader />
-            </GridColumn>
-          </GridRow>
-        )
-: (
-          filteredLessons?.map((item) => (
-            <div className="cards-grid" key={item.id}>
-              <LessonCard
-                item={item}
-                onClick={handleClick}
-                onDelete={handleDelete}
-              />
+    return (
+        <LessonListStyled>
+            <div className="lessons-grid">
+                {loading
+                 ? (
+                     <GridRow>
+                         <GridColumn width={16}>
+                             <Loader/>
+                         </GridColumn>
+                     </GridRow>
+                 )
+                 : (
+                     filteredLessons?.map((item) => (
+                         <div className="cards-grid" key={item.id}>
+                             <LessonCard
+                                 item={item}
+                                 onClick={handleClick}
+                                 onDelete={handleDelete}
+                             />
+                         </div>
+                     ))
+                 )}
             </div>
-          ))
-        )}
-      </div>
-    </LessonListStyled>
-  );
+        </LessonListStyled>
+    );
 };
