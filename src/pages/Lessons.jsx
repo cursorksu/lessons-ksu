@@ -1,9 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { LessonList } from '../components/LessonList';
 import { MainLayout } from './MainLayout';
-import { Popup } from 'semantic-ui-react';
 import { CreateEntityForm } from '../components/CreateEntityForm/CreateEntityForm';
-import { ButtonStyled } from '../components/ButtonStyled';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -16,8 +14,6 @@ import {
 import { EntityStatusMenu } from '../components/KsuStatus/EntityStatusMenu';
 import { BigModal } from '../components/Modal/BigModal';
 import { ReactComponent as AddIcon } from '../assets/add.svg';
-import { churchConfig } from '../constants/entities/churchConfig';
-import { getDateObject } from '../utils/getDateLocalString';
 
 export const LessonsPage = () => {
     const { user } = useSelector((state) => state.auth);

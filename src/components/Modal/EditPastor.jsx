@@ -1,4 +1,4 @@
-import { BigModal } from '../Modal/BigModal';
+import { BigModal } from './BigModal';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,7 @@ import ModalContent from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalCon
 import { FormStyled, InputFieldStyled, InputStyled, LabelStyled } from '../InputStyled';
 import { Controller, useForm } from 'react-hook-form';
 import { useEditEntity } from '../../api/entity/useEditEntity';
-import ImageCropper from '../ImageCroper/ImageCroper';
+import { ImageUploader } from '../ImageCroper/ImageUploader';
 
 export const EditPastor = ({ church, forceUpdate }) => {
     const initialValues = { pastor: church?.pastor, pastorAvatar: church?.pastorAvatar }
@@ -40,7 +40,7 @@ export const EditPastor = ({ church, forceUpdate }) => {
 
     return (
         <BigModal
-            size={'mini'}
+            size={'small'}
             isOpen={isFormShown}
             setIsOpen={setIsFormShown}
             modalTitle={t('church.labels.pastor')}
@@ -57,9 +57,9 @@ export const EditPastor = ({ church, forceUpdate }) => {
                                 <LabelStyled className="label">
                                     {t(`church.labels.pastorAvatar`)}
                                 </LabelStyled>
-                                <ImageCropper
+                                <ImageUploader
                                     size={1}
-                                    onChange={(data) => setValue(field.name, data)}
+                                    onUpload={(data) => setValue(field.name, data)}
                                     src={getValues(field.name)}
                                 />
                             </InputFieldStyled>

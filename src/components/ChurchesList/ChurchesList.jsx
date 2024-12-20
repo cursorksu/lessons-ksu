@@ -52,6 +52,7 @@ export const ChurchesList = () => {
     }, [ getAllEntities, shouldUpdate ]);
 
     const confirmationHandler = async (churchId, churchData) => {
+        console.log({churchData});
         // churchData.teachers.map(async el => {
         //   const teacher = await getEntityById(el);
         //   await editEntity({
@@ -160,6 +161,8 @@ export const ChurchesList = () => {
                         onClick={(e) => cardClickHandler(e, el.id)}
                         img={el?.avatar}
                         titleHover={el.title}
+                        entity={el}
+                        forceUpdate={setShouldUpdate}
                         id={el.id}>
                         <div>
                             <div>

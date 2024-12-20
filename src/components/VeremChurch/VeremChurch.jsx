@@ -26,7 +26,7 @@ import { PHOTO_PLACEHOLDER } from '../../constants/main';
 import { BigModal } from '../Modal/BigModal';
 import { EditAboutUs } from './EditAboutUs';
 import clsx from 'clsx';
-import { EditPastor } from './EditPasto';
+import { EditPastor } from '../Modal/EditPastor';
 
 export const VeremChurch = () => {
   const { user } = useSelector((state) => state.auth);

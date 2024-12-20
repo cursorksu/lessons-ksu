@@ -15,11 +15,12 @@ export const ButtonStyled = styled('button')`
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  transition: background 3s ease;
-  box-shadow: none;
+  transition: background 3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
 
   &:hover {
     animation: slow-shine 3s infinite linear;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
   
   &:not(:first-of-type) {
@@ -50,6 +51,20 @@ export const ButtonStyled = styled('button')`
 
   &:active {
     outline: 2px solid ${VEREM_GOLD};
+  }
+  
+    
+  &:disabled {
+      background: ${BG_GOLD};
+      cursor: not-allowed;
+      
+      &:hover {
+        box-shadow: none;
+      }
+      &:focus {
+        outline: none;
+        outline-offset: 0;
+      }
   }
 
   @keyframes slow-shine {
