@@ -24,6 +24,7 @@ export const CreateEntityForm = ({
                                  }) => {
     const [ emojiIsOpen, setEmojiIsOpen ] = useState(false);
     const { user } = useSelector((state) => state.auth);
+    const [ isSaveDisabled, setIsSaveDisabled ] = useState(true);
     const { reset, control, getValues, setValue } = useForm({
         defaultValues,
         caches: false,
@@ -81,7 +82,11 @@ export const CreateEntityForm = ({
                     return (
                         <ImageUploader
                             size={1}
-                            onUpload={(data) => setValue(field.name, data)}
+                            onUpload={(data) => {
+                                setValue(field.name, data);
+                                setIsSaveDisabled(false);
+                            }}
+                            onDelete={() => setIsSaveDisabled(true)}
                             src={getValues(field.name)}
                         />
                     );
@@ -99,8 +104,12 @@ export const CreateEntityForm = ({
                 case 'imagesPicker':
                     return (
                         <ImageUploader
-                            size={9/16}
-                            onUpload={(data) => setValue(field.name, data)}
+                            size={9 / 16}
+                            onUpload={(data) => {
+                                setValue(field.name, data);
+                                setIsSaveDisabled(false);
+                            }}
+                            onDelete={() => setIsSaveDisabled(true)}
                             src={getValues(field.name)}
                         />
                     );
@@ -174,6 +183,7 @@ export const CreateEntityForm = ({
                     {t('button.cancel')}
                 </ButtonStyled>
                 <ButtonStyled
+                    disabled={isSaveDisabled}
                     onClick={async () => {
                         const newData = getValues();
                         const id = defaultValues.id
