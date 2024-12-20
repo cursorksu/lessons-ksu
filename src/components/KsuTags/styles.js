@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
-import { CHOCO, CREAM, HOVER_GOLD, PRIMARY_MAIN } from '../../constants/colors';
+import { BG_GOLD, CHOCO, CREAM, HOVER_GOLD, PRIMARY_MAIN, VEREM_GOLD } from '../../constants/colors';
 
 export const KsuTagsStyled = styled.div`
   .tags-input-container {
-    border: 1px solid ${PRIMARY_MAIN};
-    padding: 3px 3px 3px 10px;
-    border-radius: 4px;
+    padding: 5px 12px;
+    border-radius: 30px;
     min-width: 100%;
     display: flex;
     align-items: center;
@@ -14,32 +13,39 @@ export const KsuTagsStyled = styled.div`
     min-height: 36px;
     font-size: 1.2rem;
     font-family: Comfortaa, sans-serif;
-    color: ${PRIMARY_MAIN};
-    font-width: 300;
+    color: ${CHOCO};
+    background: #fff;
+    border: 1px solid ${VEREM_GOLD};
+    font-weight: 400;
 
     &.focused {
-      background-color: ${HOVER_GOLD};
-    }
+        border: 1px solid ${VEREM_GOLD};
+        outline: 2px solid ${VEREM_GOLD};
+        outline-offset: 4px; 
+      }
   }
 
   .tag-item {
-    background-color: ${CREAM};
-    display: inline-block;
+    background-color: ${BG_GOLD};
+    line-height: 1.2em;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 3px 3px 3px 9px;
     border-radius: 16px;
     color: ${CHOCO};
   }
   .tag-item .close {
+    flex-basis: 20px;
     height: 20px;
     width: 20px;
-    background-color: ${CHOCO};
-    color: ${CREAM};
-    border-radius: 50%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    background-color: ${CHOCO};
+    color: ${CREAM};
+    border-radius: 50%;
     margin-left: 5px;
-    font-size: 1.2rem;
     cursor: pointer;
   }
 
@@ -53,12 +59,5 @@ export const KsuTagsStyled = styled.div`
     font-family: Comfortaa, sans-serif;
     color: ${PRIMARY_MAIN};
     font-weight: 300;
-
-    &::placeholder {
-      font-size: 1.2rem;
-      font-family: Comfortaa, sans-serif;
-      color: ${PRIMARY_MAIN};
-      font-weight: 300;
-    }
   }
 `;

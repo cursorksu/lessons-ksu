@@ -26,6 +26,7 @@ import { PHOTO_PLACEHOLDER } from '../../constants/main';
 import { BigModal } from '../Modal/BigModal';
 import { EditAboutUs } from './EditAboutUs';
 import clsx from 'clsx';
+import { EditPastor } from '../Modal/EditPastor';
 
 export const VeremChurch = () => {
   const { user } = useSelector((state) => state.auth);
@@ -127,9 +128,12 @@ export const VeremChurch = () => {
           </div>
           <div className="content">
             <div className="content-block">
-              <h3>
-                <VeremChips>{`${t('church.labels.pastor')}`}</VeremChips>
-              </h3>
+              {isAuth && (
+                  <div className={clsx({ 'd-flex-between': isAuth, 'd-flex-center': !isAuth })} style={{ marginBottom: '20px'}}>
+                    <VeremChips>{`${t('church.labels.pastor')}`}</VeremChips>
+                    {isAuth && <EditPastor church={church} forceUpdate={setShouldUpdate}/>}
+                  </div>
+              )}
               <h3>{church?.pastor}</h3>
               <ChurchItemStyled>
                 <img

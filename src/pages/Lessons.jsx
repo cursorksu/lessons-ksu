@@ -1,0 +1,100 @@
+import React, { useCallback, useMemo, useState } from 'react';
+import { LessonList } from '../components/LessonList';
+import { MainLayout } from './MainLayout';
+import { CreateEntityForm } from '../components/CreateEntityForm/CreateEntityForm';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { useLessonToCollection } from '../api/collections/useLessonToCollection';
+import { useGetLessonsInCollection } from '../api/lesson/useGetLessonsInCollection';
+import {
+    lessonConfig,
+    lessonDefaultValues,
+} from '../constants/entities/lessonConfig';
+import { EntityStatusMenu } from '../components/KsuStatus/EntityStatusMenu';
+import { BigModal } from '../components/Modal/BigModal';
+import { ReactComponent as AddIcon } from '../assets/add.svg';
+
+export const LessonsPage = () => {
+    const { user } = useSelector((state) => state.auth);
+    const [ createFormIsOpen, setCreateFormIsOpen ] = useState(false);
+    const [ selectedStatus, setSelectedStatus ] = useState(1);
+    const { collectionId } = useParams();
+    const { collections } = useSelector((state) => state);
+    const { t } = useTranslation('tr');
+    const { bindLessonToCollection } = useLessonToCollection();
+    const { getLessonsInCollection } = useGetLessonsInCollection();
+
+    const currentCollection = useMemo(
+        () =>
+            collections?.length
+            ? collections.find((el) => el.id === collectionId)
+            : [],
+        [ collectionId, collections ]
+    );
+
+    const handleConfirmCreation = useCallback(
+        async (lessonId) => {
+            await bindLessonToCollection(currentCollection, lessonId);
+            await getLessonsInCollection(currentCollection.lessonIds, selectedStatus);
+        },
+        [
+            bindLessonToCollection,
+            getLessonsInCollection,
+            currentCollection,
+            selectedStatus,
+        ]
+    );
+
+    const onChangeFilter = useCallback((status) => {
+        setSelectedStatus(status);
+    }, []);
+
+    return (
+        <MainLayout>
+            <div className="hero collection-hero">
+                <div className="title-wrapper top-container">
+                    <h2 className="subtitle"> Kids Spiritual Universe</h2>
+                    <h1 className="title">
+                        {currentCollection.title}
+
+                        {user?.uid && currentCollection?.createdBy?.uid === user?.uid && (
+                            <div className="control-panel">
+                                <BigModal
+                                    icon={<AddIcon/>}
+                                    isOpen={createFormIsOpen}
+                                    onCancel={() => {
+                                    }}
+                                    setIsOpen={setCreateFormIsOpen}
+                                    modalTitle={t('button.createLesson')}
+                                    onConfirm={() => {
+                                    }}
+                                >
+                                    <CreateEntityForm
+                                        entityName="lessons"
+                                        onConfirm={handleConfirmCreation}
+                                        onClose={() => setCreateFormIsOpen(false)}
+                                        fields={lessonConfig}
+                                        defaultValues={lessonDefaultValues}
+                                    />
+                                </BigModal>
+                            </div>
+                        )}
+                    </h1>
+                </div>
+            </div>
+            {user?.uid && currentCollection?.createdBy?.uid === user?.uid && (
+                <div className="control-panel">
+                    <EntityStatusMenu
+                        onChangeFilter={onChangeFilter}
+                        entityName={'lessons'}
+                    />
+                </div>
+            )}
+            <LessonList
+                collection={currentCollection}
+                selectedStatus={selectedStatus}
+            />
+        </MainLayout>
+    );
+};

@@ -89,7 +89,7 @@ export const BibleTextStyled = styled('section')`
     box-shadow: ${NEON_INNER};
     margin: 5px;
     color: #fff;
-    font-size: 50px;
+    font-size: 36px;
     font-weight: 700;
 
     &.quote {
@@ -99,7 +99,7 @@ export const BibleTextStyled = styled('section')`
   }
 
   .empty {
-    min-height: 74px;
+    min-height: 55px;
     min-width: 200px;
     position: relative;
 

@@ -1,35 +1,38 @@
-import { BigModal } from '../Modal/BigModal';
+import { BigModal } from './BigModal';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ModalActions from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalActions';
 import { ButtonStyled } from '../ButtonStyled';
 import ModalContent from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalContent';
-import { FormStyled, InputFieldStyled, LabelStyled, TextareaAutosizeStyled } from '../InputStyled';
+import { FormStyled, InputFieldStyled, InputStyled, LabelStyled } from '../InputStyled';
 import { Controller, useForm } from 'react-hook-form';
 import { useEditEntity } from '../../api/entity/useEditEntity';
+import { ImageUploader } from '../ImageCroper/ImageUploader';
 
-export const EditAboutUs = ({ church, forceUpdate }) => {
+export const EditImage = ({ imageFieldName, entity, entityName, forceUpdate }) => {
+    const initialValues = { [imageFieldName]: entity[imageFieldName] };
     const { t } = useTranslation('tr');
     const [ isFormShown, setIsFormShown ] = useState(false);
-    const { editEntity: editChurch } = useEditEntity('church');
-    const { reset, control, getValues } = useForm({
-        defaultValues: { about: church?.about },
+    const { editEntity } = useEditEntity(entityName);
+    const [isSaveDisabled, setIsSaveDisabled] = useState(true);
+    const { reset, control, getValues, setValue } = useForm({
+        defaultValues: initialValues,
         caches: false,
         mode: 'onChange',
     });
 
     useEffect(() => {
-        if (church) {
-            reset({ about: church.about });
+        if (entity[imageFieldName]) {
+            reset(initialValues);
         }
-    }, [ church ]);
+    }, [ entity[imageFieldName] ]);
 
     const saveChange = async () => {
         try {
-            await editChurch({ ...church, ...getValues() });
+            await editEntity({ ...entity, ...getValues() });
             forceUpdate(prev => !prev);
-            reset({ about: church.about });
+            reset(initialValues);
             setIsFormShown(false);
         } catch (e) {
             throw new Error(e);
@@ -41,24 +44,28 @@ export const EditAboutUs = ({ church, forceUpdate }) => {
             size={'small'}
             isOpen={isFormShown}
             setIsOpen={setIsFormShown}
-            modalTitle={t('church.labels.about')}
+            modalTitle={t(`${entityName}.labels.${imageFieldName}`)}
             onCancel={reset}
             icon={<EditIcon/>}
         >
             <ModalContent>
                 <FormStyled>
                     <Controller
-                        name="about"
+                        name={imageFieldName}
                         control={control}
                         render={({ field }) => (
                             <InputFieldStyled>
                                 <LabelStyled className="label">
-                                    {t(`church.labels.about`)}
+                                    {t(`${entityName}.labels.${imageFieldName}`)}
                                 </LabelStyled>
-                                <TextareaAutosizeStyled
-                                    value={field.value}
-                                    {...field}
-                                    placeholder={t(`church.placeholder.about`)}
+                                <ImageUploader
+                                    size={1}
+                                    onUpload={(data) => {
+                                        setValue(field.name, data);
+                                        data && setIsSaveDisabled(false);
+                                    }}
+                                    onDelete={() => setIsSaveDisabled(true)}
+                                    src={getValues(field.name)}
                                 />
                             </InputFieldStyled>
                         )}
@@ -67,11 +74,11 @@ export const EditAboutUs = ({ church, forceUpdate }) => {
             </ModalContent>
             <ModalActions>
                 <ButtonStyled
-                    className="ksu-button secondary"
+                    className="secondary"
                     onClick={() => setIsFormShown(false)}>
                     {t('button.cancel')}
                 </ButtonStyled>
-                <ButtonStyled className="ksu-button" onClick={saveChange}>
+                <ButtonStyled onClick={saveChange} disabled={isSaveDisabled}>
                     {t('button.edit')}
                 </ButtonStyled>
             </ModalActions>

@@ -12,8 +12,8 @@ import { KsuDatePicker } from '../KsuDatePicker';
 import { KsuDropdown } from '../KsuDropdown';
 import { KsuTags } from '../KsuTags/KsuTags';
 import { useSelector } from 'react-redux';
-import ImageCropper from '../ImageCroper/ImageCroper';
 import ModalContent from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalContent';
+import { ImageUploader } from '../ImageCroper/ImageUploader';
 
 export const CreateEntityForm = ({
                                      entityName,
@@ -79,9 +79,9 @@ export const CreateEntityForm = ({
                     );
                 case 'imagePicker':
                     return (
-                        <ImageCropper
+                        <ImageUploader
                             size={1}
-                            onChange={(data) => setValue(field.name, data)}
+                            onUpload={(data) => setValue(field.name, data)}
                             src={getValues(field.name)}
                         />
                     );
@@ -98,11 +98,11 @@ export const CreateEntityForm = ({
                     );
                 case 'imagesPicker':
                     return (
-                        <ImageCropper
-                            size={2.2}
-                            onChange={(data) => setValue(field.name, data)}
+                        <ImageUploader
+                            size={9/16}
+                            onUpload={(data) => setValue(field.name, data)}
                             src={getValues(field.name)}
-                            multiple/>
+                        />
                     );
                 case 'multiselectDropdown':
                     return (
@@ -152,7 +152,7 @@ export const CreateEntityForm = ({
                                 name={el.name}
                                 control={control}
                                 render={({ field }) => (
-                                    <InputFieldStyled>
+                                    <InputFieldStyled className={el.inputType}>
                                         <LabelStyled>
                                             {t(`${entityName}.labels.${el.name}`)}
                                         </LabelStyled>

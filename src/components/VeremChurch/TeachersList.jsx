@@ -43,7 +43,8 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
 
     return (
         <>
-            <div className={clsx({ 'd-flex-between': isAuth, 'd-flex-center': !isAuth })} style={{ marginBottom: '20px'}}>
+            <div className={clsx({ 'd-flex-between': isAuth, 'd-flex-center': !isAuth })}
+                 style={{ marginBottom: '20px' }}>
                 <VeremChips>{`${t('church.labels.teachers')}`}</VeremChips>
                 {isAuth && (
                     <ButtonIconMiniStyled onClick={() => setIsFormShown((prev) => !prev)}>
@@ -65,14 +66,15 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
                              pointing={'top right'}
                              onChange={handleChangeTeacherList}
                          />
-                         <div className="button-wrapper"  style={{ marginTop: '20px'}}>
-                             <ButtonStyled className="ksu-button" onClick={handleAddTeachers}>
-                                 Add
-                             </ButtonStyled>
+                         <div className="button-wrapper"
+                              style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
                              <ButtonStyled
-                                 className="ksu-button"
+                                 className="secondary"
                                  onClick={() => setIsFormShown(false)}>
-                                 Cancel
+                                 {t('button.cancel')}
+                             </ButtonStyled>
+                             <ButtonStyled onClick={handleAddTeachers}>
+                                 {t('button.add')}
                              </ButtonStyled>
                          </div>
                      </div>

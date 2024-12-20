@@ -40,6 +40,9 @@ export const UserProfileStyled = styled.div`
     font-size: 4rem;
     font-weight: 500;
     margin: 0 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     button {
       margin-left: 20px;

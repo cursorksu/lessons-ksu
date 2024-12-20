@@ -2,12 +2,12 @@ export const churchConfig = [
   {
     inputType: 'imagePicker',
     name: 'avatar',
-    isIgnored: false,
+    isIgnored: true,
   },
   {
     inputType: 'imagePicker',
     name: 'pastorAvatar',
-    isIgnored: false,
+    isIgnored: true,
   },
   {
     inputType: 'imagePicker',
@@ -22,7 +22,7 @@ export const churchConfig = [
   {
     inputType: 'textInput',
     name: 'pastor',
-    isIgnored: false,
+    isIgnored: true,
   },
   {
     inputType: 'textInput',

@@ -7,6 +7,10 @@ export const CreateEntityFormStyled = styled('div')`
   grid-column-gap: 20px;
   padding: 30px;
   
+  .imagePicker {
+    grid-column: 1 / -1;
+  }
+  
   label {
     color: ${VEREM_GOLD};
   }
