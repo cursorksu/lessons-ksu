@@ -15,6 +15,7 @@ export const EditPastor = ({ church, forceUpdate }) => {
     const { t } = useTranslation('tr');
     const [ isFormShown, setIsFormShown ] = useState(false);
     const { editEntity: editChurch } = useEditEntity('church');
+    const [ isSaveDisabled, setIsSaveDisabled ] = useState(false);
     const { reset, control, getValues, setValue } = useForm({
         defaultValues: initialValues,
         caches: false,
@@ -38,6 +39,10 @@ export const EditPastor = ({ church, forceUpdate }) => {
         }
     };
 
+    useEffect(() => {
+        console.log({values: getValues(), isSaveDisabled });
+    }, [getValues()])
+
     return (
         <BigModal
             size={'small'}
@@ -59,7 +64,11 @@ export const EditPastor = ({ church, forceUpdate }) => {
                                 </LabelStyled>
                                 <ImageUploader
                                     size={1}
-                                    onUpload={(data) => setValue(field.name, data)}
+                                    onUpload={(data) => {
+                                        setValue(field.name, data);
+                                        setIsSaveDisabled(false);
+                                    }}
+                                    onDelete={() => setIsSaveDisabled(true)}
                                     src={getValues(field.name)}
                                 />
                             </InputFieldStyled>
@@ -89,7 +98,7 @@ export const EditPastor = ({ church, forceUpdate }) => {
                     onClick={() => setIsFormShown(false)}>
                     {t('button.cancel')}
                 </ButtonStyled>
-                <ButtonStyled className="ksu-button" onClick={saveChange}>
+                <ButtonStyled className="ksu-button" onClick={saveChange} disabled={isSaveDisabled}>
                     {t('button.edit')}
                 </ButtonStyled>
             </ModalActions>
