@@ -14,8 +14,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useEditEntity } from '../../api/entity/useEditEntity';
 import { useGetEntity } from '../../api/entity/useGetEntity';
-import { BigModal } from '../Modal/BigModal';
-import { ReactComponent as EditIcon } from '../../assets/edit.svg';
 import { Modal, ModalHeader } from 'semantic-ui-react';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 
@@ -51,15 +49,7 @@ export const ChurchesList = () => {
         getAllEntities().then((data) => setChurchList(data));
     }, [ getAllEntities, shouldUpdate ]);
 
-    const confirmationHandler = async (churchId, churchData) => {
-        console.log({churchData});
-        // churchData.teachers.map(async el => {
-        //   const teacher = await getEntityById(el);
-        //   await editEntity({
-        //     ...teacher,
-        //     church: [...teacher?.church, churchId]
-        //   });
-        // });
+    const confirmationHandler = async () => {
         setShouldUpdate((prev) => !prev);
     };
 

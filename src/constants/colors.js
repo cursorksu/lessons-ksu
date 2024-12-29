@@ -17,6 +17,7 @@ export const BG_GOLD = 'rgba(163, 147,103, 0.3)';
 export const DARK_BG = 'rgba(96,81,71,0.3)';
 export const HOVER_GOLD = 'rgba(163, 147,103, 0.1)';
 
+export const VEREM_BORDER = '#ccc';
 export const VEREM_GOLD = '#af931b';
 export const VEREM_CREAM_BG = '#fbfaf1';
 export const VEREM_TEXT = '#000';

@@ -162,4 +162,11 @@ export const SwiperSlider = styled(Swiper)`
       background: ${ERROR_MAIN};
     }
   }
+  
+  .trigger-button {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    z-index: 10;
+  }
 `;
