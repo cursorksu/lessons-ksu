@@ -39,10 +39,6 @@ export const EditPastor = ({ church, forceUpdate }) => {
         }
     };
 
-    useEffect(() => {
-        console.log({values: getValues(), isSaveDisabled });
-    }, [getValues()])
-
     return (
         <BigModal
             size={'small'}

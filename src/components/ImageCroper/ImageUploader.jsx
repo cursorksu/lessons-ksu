@@ -4,17 +4,18 @@ import {
     ref,
     uploadBytes,
     getDownloadURL,
-    deleteObject,
 } from 'firebase/storage';
 import Cropper from 'react-easy-crop';
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
-import { Content, DropzoneStyled, ImageArea, Metadata } from './style';
+import { Content, DropArea, DropzoneStyled, ImageArea, Metadata } from './style';
 import { useDropzone } from 'react-dropzone';
 import { ButtonStyled } from '../ButtonStyled';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
+import { useImages } from '../../api/images/useImages';
+import { DeleteConfirmationModal } from '../Modal/DeleteConfirmationModal';
+import { getFileNameFromUrl } from '../../utils/getFileNameFromUrl';
 
-export const ImageUploader = ({ onUpload, onDelete, size, src }) => {
+export const ImageUploader = ({ onUpload, onDelete, size, src, multiple, storageFolderName = 'images' }) => {
     const storage = getStorage();
     const { t } = useTranslation('tr');
     const [ image, setImage ] = useState(null);
@@ -25,10 +26,12 @@ export const ImageUploader = ({ onUpload, onDelete, size, src }) => {
     const [ fileInfo, setFileInfo ] = useState({ name: '', size: '' });
     const [ storageRef, setStorageRef ] = useState(null);
     const [ imageWasUpload, setImageWasUpload ] = useState(false);
+    const { deleteImage } = useImages();
 
     useEffect(() => {
-        !!src && setImage(src)
-    }, [src])
+        !!src && setImage(src);
+        !!src && setStorageRef(src);
+    }, [ src ]);
 
     const onDrop = (acceptedFiles) => {
         const file = acceptedFiles[0];
@@ -82,7 +85,7 @@ export const ImageUploader = ({ onUpload, onDelete, size, src }) => {
         if (!croppedAreaPixels) return;
 
         const croppedBlob = await getCroppedImage();
-        const storageReference = ref(storage, `images/${fileInfo.name}`);
+        const storageReference = ref(storage, `${storageFolderName}/${fileInfo.name}`);
         await uploadBytes(storageReference, croppedBlob);
         const downloadURL = await getDownloadURL(storageReference);
         setImageWasUpload(false);
@@ -93,25 +96,30 @@ export const ImageUploader = ({ onUpload, onDelete, size, src }) => {
 
     const clearImage = async () => {
         if (storageRef) {
-            await deleteObject(storageRef);
+            await deleteImage(storageRef);
         }
         setImage(null);
         setCroppedImageURL('');
         setImageWasUpload(false);
         setFileInfo({ name: '', size: '' });
-        onUpload('');
         onDelete();
     };
 
     return (
-        <Container>
+        <>
             {!image ? (
-                <div {...getRootProps()} style={{ border: '2px dashed #ccc', padding: '20px', textAlign: 'center' }}>
+                <DropArea {...getRootProps()} className={clsx({ hide: multiple })}>
                     <input {...getInputProps()} />
                     <p>Перетащите изображение сюда или нажмите для выбора</p>
-                </div>
+                </DropArea>
             ) : (
                  <Content>
+                     <DeleteConfirmationModal
+                         modalTitle={`${t('modal.title.deleteImage')}`}
+                         modalContent={`${t('modal.deleteImage')} ${getFileNameFromUrl(croppedImageURL || src)}`}
+                         onConfirm={() => clearImage(croppedImageURL)}
+                         size={'small'}
+                     />
                      <ImageArea>
                          <DropzoneStyled className={clsx({ hide: !imageWasUpload })}>
                              <Cropper
@@ -133,16 +141,12 @@ export const ImageUploader = ({ onUpload, onDelete, size, src }) => {
                          )}
                      </ImageArea>
                      <Metadata>
-                         <div className={clsx({ hide: !fileInfo.name})}>
-                             <h3>Информация о файле:</h3>
-                             <p>Имя файла: {fileInfo.name}</p>
-                             <p>Размер файла: {fileInfo.size}</p>
+                         <div className={clsx({ hide: !fileInfo.name })}>
+                             <h3>{t('fileInfo')}:</h3>
+                             <p>{t('fileName')}: {fileInfo?.name}</p>
+                             <p>Р{t('fileSize')}: {fileInfo?.size}</p>
                          </div>
-                         <div></div>
                          <div className="button-wrapper">
-                             <ButtonStyled onClick={clearImage} className="secondary">
-                                 {t('button.delete')}
-                             </ButtonStyled>
                              <ButtonStyled onClick={uploadToFirebase} disabled={!imageWasUpload}>
                                  {t('button.upload')}
                              </ButtonStyled>
@@ -150,6 +154,6 @@ export const ImageUploader = ({ onUpload, onDelete, size, src }) => {
                      </Metadata>
                  </Content>
              )}
-        </Container>
+        </>
     );
 };

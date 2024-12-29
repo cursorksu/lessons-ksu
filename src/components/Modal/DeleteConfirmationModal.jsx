@@ -15,6 +15,7 @@ export const DeleteConfirmationModal = ({
                                             modalContent,
                                             onConfirm,
                                             onCancel,
+                                            size = 'mini',
                                         }) => {
     const { t } = useTranslation('tr');
     const [ open, setOpen ] = useState(false);
@@ -44,7 +45,7 @@ export const DeleteConfirmationModal = ({
                     <DeleteIcon/>
                 </ButtonIconMiniStyled>
             }
-            size="mini"
+            size={size}
             open={open}>
                 <ModalHeader>
                     <h2 className="title">{modalTitle}</h2>

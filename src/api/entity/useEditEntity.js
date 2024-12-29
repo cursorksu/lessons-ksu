@@ -22,10 +22,11 @@ export const useEditEntity = (entityName) => {
         };
         if (entity) {
           await updateDoc(docRef, newData);
-
           if (entityName === 'students') {
             dispatch(setEntity({ students: newData }));
           }
+
+          return 200;
         }
       } catch (error) {
         dispatch(
@@ -37,6 +38,7 @@ export const useEditEntity = (entityName) => {
             },
           })
         );
+        return null;
       }
     },
     [dispatch, entityName]

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, Keyboard } from 'swiper/modules';
 import { ReactComponent as EditIcon } from '../../assets/edit.svg';
@@ -12,11 +12,25 @@ import 'swiper/css/pagination';
 import { Popup } from 'semantic-ui-react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
-import { ButtonIconMiniStyled } from '../ButtonStyled';
+import { ButtonIconMiniStyled, ButtonStyled } from '../ButtonStyled';
+import { MultiImageUploader } from '../ImageCroper/MultiImageUploader';
+import { BigModal } from '../Modal/BigModal';
 
-export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true, onEdit }) => {
+export const SlideShow = ({
+                              isAuth,
+                              slideList,
+                              blur,
+                              autoplay = false,
+                              navigation = true,
+                              entityName = 'error',
+                              entity = null,
+                              storageFolderName,
+                              forceUpdate
+                          }) => {
     const [ fullScreen, setFullScreen ] = useState(false);
+    const [ isFormOpen, setIsFormOpen ] = useState(false);
     const { t } = useTranslation('tr');
+
 
     return (
         <>
@@ -43,19 +57,23 @@ export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true
                 }}
                 modules={autoplay
                          ? [ Autoplay, Keyboard, Pagination, Navigation ]
-                         : [ Keyboard, Pagination, Navigation ] }
+                         : [ Keyboard, Pagination, Navigation ]}
             >
-                {!!onEdit && (
-                    <Popup
-                        trigger={
-                            <ButtonIconMiniStyled
-                                onClick={() => setFullScreen((prev) => !prev)}
-                                className="print-hide full-screen-button edit">
-                                <EditIcon />
-                            </ButtonIconMiniStyled>
-                        }
-                        content={'Edit Photos'}
-                    />
+                {isAuth && (
+                    <BigModal
+                        isOpen={isFormOpen}
+                        setIsOpen={setIsFormOpen}
+                        modalTitle={t('church.selectImagesForGallery')}
+                        onCancel={() => setIsFormOpen(false)}
+                        icon={<EditIcon/>}
+                    >
+                        <MultiImageUploader
+                            closeForm={() => setIsFormOpen(false)}
+                            forceUpdate={forceUpdate}
+                            entityName={entityName}
+                            entity={entity}
+                        />
+                    </BigModal>
                 )}
                 <Popup
                     trigger={
@@ -76,7 +94,7 @@ export const SlideShow = ({ slideList, blur, autoplay = false, navigation = true
                                 style={{
                                     backgroundImage:
                                         `url("${el.value}")`,
-                                }} />
+                                }}/>
                         ) : (
                              <>
                                  <img src={el.value} alt={el.description}/>

@@ -4,9 +4,11 @@
     "churchDelete": "If you delete this church all it lessons, images and other staff in it will be reachable out of it",
     "teacherDelete": "Do you want to remove this teacher?",
     "groupDelete": "Do you want to remove this group?",
+    "deleteImage": "You can not rollback deleting of this image. You are trying to delete from storage image with name:",
     "title": {
       "deleteTeacher": "Remove teacher",
-      "deleteGroup": "Remove group"
+      "deleteGroup": "Remove group",
+      "deleteImage": "Delete image from storage"
     }
   },
   "collections": {
@@ -144,6 +146,7 @@
     "addChurch": "Add Church",
     "editPictures": "Edit Pictures",
     "editChurch": "Edit Church Information",
+    "selectImagesForGallery": "Chose images for Gallery",
     "labels": {
       "avatar": "Church front page",
       "pastorAvatar": "Pastor photo",
@@ -248,6 +251,7 @@
     "cancel": "Cancel",
     "savePhoto": "Save photo",
     "upload": "Upload",
+    "resize": "Resize image",
     "uploadPhoto": "Upload Photo",
     "cabinet": "To the personal office",
     "addProduct": "Add a product",
@@ -300,5 +304,13 @@
     "draft": "This content is visible for you only"
   },
   "fullScreenOn": "Full screen on",
-  "fullScreenOff": "Full screen off"
+  "fullScreenOff": "Full screen off",
+  "editPhotos": "Edit photos in Gallery",
+  "uploaded": "Uploaded:",
+  "uploading": "Uploading...",
+  "readyToUpload": "Ready to upload",
+  "dropZone": "Drag images here or click for select",
+  "fileInfo": "File information",
+  "fileName": "File name",
+  "fileSize": "File size"
 }

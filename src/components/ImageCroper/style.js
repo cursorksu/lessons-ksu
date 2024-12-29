@@ -1,29 +1,28 @@
 import styled from '@emotion/styled';
-import { CHOCO, VEREM_GOLD, VEREM_GOLD_BG } from '../../constants/colors';
-
-export const Container = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
+import { CHOCO, VEREM_BORDER, VEREM_GOLD, VEREM_GOLD_BG } from '../../constants/colors';
+import { PHOTO_PLACEHOLDER } from '../../constants/main';
 
 export const DropzoneStyled = styled.div`
     width: 100%;
-    height: 200px;
+    height: 100px;
     border: 2px dashed #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     cursor: pointer;
+    
     label {
         cursor: pointer;
-        color: #888;
+        color: ${VEREM_GOLD};
     }
+`;
+export const MultiDropzoneStyled = styled(DropzoneStyled)`
+    height: 200px;
 `;
 
 export const Content = styled.div`
+    position: relative;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -35,14 +34,104 @@ export const Content = styled.div`
       justify-content: flex-end;
       align-items: center;
     }
+    
+    .delete-button,
+    .btn-delete {
+       position: absolute;
+       top: 8px;
+       right: 8px;
+       z-index: 1;
+    }
+`;
+
+export const ImageListStyled = styled.div`
+    position: relative;
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    max-height: 40vh;
+    overflow-y: auto;
+    
+    & > div:not(.drop-input) {
+      flex-basis: 48%;
+      max-width: 48%;
+      text-align: left;
+    }
+    
+    p {
+      padding-top: 30px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    
+    .delete-button,
+    .btn-delete {
+       position: absolute;
+       top: 8px;
+       right: 8px;
+       z-index: 1;
+    }
+       
+    .image-holder {
+        width: 200px !important;
+        height: 100px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        &.empty {
+          background-image: url(${PHOTO_PLACEHOLDER});
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+        
+        img {
+          border-radius: 4px;
+          overflow: hidden;
+          width: 200px !important;
+          height: 100px !important;
+          object-fit: cover;
+        }
+    }
+    .image-holder,
+    .image-area {
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    
+    .drop-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+`;
+
+export const DropArea = styled.div`
+    border: 2px  dashed ${VEREM_BORDER};
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 16px;
+    color: ${CHOCO};
+    font-weight: 600;
+    
+    &.hide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      z-index: -1;
+    }
 `;
 
 export const ImageArea = styled.div`
-    flex: 1;
     position: relative;
-    height: 316px;
-    border-radius: 4px;
-    overflow: hidden;
+    min-width: 200px;
     
     .hide {
       position: absolute;
@@ -51,6 +140,7 @@ export const ImageArea = styled.div`
       width: 0;
       height: 0;
       opacity: 0;
+      z-index: -1;
     }
     
     .image-holder {
@@ -59,7 +149,7 @@ export const ImageArea = styled.div`
       overflow: hidden;
       
       img {
-          width: 1000%;
+          width: 100%;
           height: 316px;
           object-fit: cover;
       }
@@ -71,12 +161,13 @@ export const Metadata = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: space-between;    
+    justify-content: flex-end;    
     gap: 10px;
     font-family: Comfortaa, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 400;
     color: ${CHOCO};
+    width: 100%;
     
     .hide {
       position: absolute;
@@ -86,46 +177,4 @@ export const Metadata = styled.div`
       height: 0;
       opacity: 0;
     }
-`;
-
-export const CroppedImageStyled = styled('div')`
-  position: relative;
-
-  .img-preview {
-     width: 100px;
-     height: 100px;
-     margin-right: 20px;
-     border: 1px solid ${VEREM_GOLD};
-     margin-bottom: 10px;
-     border-radius: 30px;
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     background: #fff;
-     
-     svg  {
-        width: 60px;
-        height: 60px;
-     }
-   }
-
-  .img-holder {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    display: block;
-    margin-right: 20px;
-    border: 1px solid ${VEREM_GOLD};
-    margin-bottom: 10px;
-    border-radius: 4px;
-  }
-  
-  input[type="file"] {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 100px;
-  }
 `;
