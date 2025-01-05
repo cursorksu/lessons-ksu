@@ -220,13 +220,6 @@ export const Home = () => {
 
   return (
     <MainLayout>
-      {/*<div className="hero">*/}
-      {/*  <div className="title-wrapper">*/}
-      {/*    <h2 className="subtitle">Kids Spiritual Universe</h2>*/}
-      {/*    <h1 className="title">Дитячий Духовний Всесвіт</h1>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-
       <HomeContentStyled>
         <aside className="aside-wrapper">
           <div>

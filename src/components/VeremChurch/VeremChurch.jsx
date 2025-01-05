@@ -124,7 +124,7 @@ export const VeremChurch = () => {
                         entity={church}
                         forceUpdate={(status) => status
                                                  ? setShouldUpdate(prev => !prev)
-                                                 : console.log('error')
+                                                 : () => {}
                         }
                     />
                 </div>
