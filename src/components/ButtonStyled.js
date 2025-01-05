@@ -111,4 +111,10 @@ export const ButtonIconMiniStyled = styled(ButtonIconStyled)`
    &:hover {
       transform: scale(1.1);
   }
+  
+  &.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
 `;

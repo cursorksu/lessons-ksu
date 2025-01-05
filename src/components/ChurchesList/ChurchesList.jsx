@@ -109,7 +109,7 @@ export const ChurchesList = () => {
                                              + {t('church.addChurch')}
                                          </ButtonStyled>
                                      }
-                                     size={'big'}
+                                     size={'large'}
                                      open={isFormShown}
                                  >
                                      <ModalHeader className="title">

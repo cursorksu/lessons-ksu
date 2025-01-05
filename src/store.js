@@ -5,14 +5,16 @@ import mainMenuCollapsed from './store/mainMenuReducer';
 import collectionsReducer from './store/collectionsResucer';
 import entitiesReducer from './store/entitiesReducer';
 import auth from './store/authReducer';
+import testEnvMessage from './store/testEnvMessageReducer';
 
 export default configureStore({
-  reducer: {
-    auth,
-    notification: notificationReducer,
-    lessonData: dataReducer,
-    mainMenuCollapsed: mainMenuCollapsed,
-    collections: collectionsReducer,
-    entities: entitiesReducer,
-  },
+    reducer: {
+        auth,
+        notification: notificationReducer,
+        lessonData: dataReducer,
+        mainMenuCollapsed,
+        testEnvMessage,
+        collections: collectionsReducer,
+        entities: entitiesReducer,
+    },
 });

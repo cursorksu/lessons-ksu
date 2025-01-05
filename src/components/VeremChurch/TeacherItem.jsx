@@ -17,16 +17,13 @@ export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
         });
     }, [ id, getUserById ]);
 
-    const isRealAvatar = useMemo(() => {
-        const regex = /googleusercontent/;
-        return regex.test(entityData?.avatar);
-    }, [ entityData ]);
+    const isRealAvatar = useMemo(() => USER_AVATAR_PLACEHOLDER === entityData?.avatar, [ entityData ]);
 
     return (
         <ChurchItemStyled key={entityData?.id}>
             <div
                 className={clsx({ 'd-flex-between': isAuth, 'd-flex-center': !isAuth })}
-                style={{ marginBottom: '20px'}}
+                style={{ marginBottom: '20px' }}
             >
                 <h3>
                     {entityData?.firstName} {entityData?.lastName}

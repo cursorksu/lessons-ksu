@@ -8,9 +8,14 @@ import { VeremChips } from './VeremChurchContent';
 import { ReactComponent as AddIcon } from '../../assets/add.svg';
 import { ReactComponent as RemoveIcon } from '../../assets/minus.svg';
 import clsx from 'clsx';
+import { useInvite } from '../../api/invite/createInvite';
+import { setMessage } from '../../store/notificationReducer';
+import { useDispatch } from 'react-redux';
 
 export const TeachersList = ({ isAuth, church, onEdit }) => {
     const { t } = useTranslation('tr');
+    const { createInvite } = useInvite();
+    const dispatch = useDispatch();
     const { addTeacherToChurch, removeTeacherFromChurch } =
         useAssignTeacherChurch();
     const [ isFormShown, setIsFormShown ] = useState(false);
@@ -37,9 +42,32 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
         onEdit();
     }, [ church, addTeacherToChurch, onEdit, teacherIdxList ]);
 
-    const onDelete = useCallback(() => {
+    const onCopyUrl = useCallback(async () => {
+        const url = await createInvite(church?.id);
+        try {
+            await navigator.clipboard.writeText(url);
+            dispatch(
+                setMessage({
+                    type: 'success',
+                    message: {
+                        title: t('Посилання успішно скопійоване'),
+                        description: `${url} відправте це посилання поштою або зручним вам меседжером`,
+                    },
+                })
+            );
+        } catch (error) {
+            dispatch(
+                setMessage({
+                    type: 'success',
+                    message: {
+                        title: t('Посилання не було створене'),
+                        description: `Перевірте інтернет з'єднання або спробуйте пізніше. ${error.message}`,
+                    },
+                })
+            );
+        }
+    }, [ church ]);
 
-    });
 
     return (
         <>
@@ -52,11 +80,16 @@ export const TeachersList = ({ isAuth, church, onEdit }) => {
                     </ButtonIconMiniStyled>
                 )}
             </div>
-
             <div>
                 {isFormShown
                  ? (
                      <div>
+                         <ButtonStyled
+                             style={{ marginBottom: '10px' }}
+                             onClick={onCopyUrl}
+                         >
+                             Скопіювати посилання для запрошення вчителя
+                         </ButtonStyled>
                          <KsuTeachersDropdown
                              value={teacherIdxList}
                              placeholder={'Select teacher'}

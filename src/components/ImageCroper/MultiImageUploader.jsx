@@ -75,7 +75,7 @@ export const MultiImageUploader = ({ forceUpdate, entityName, entity, closeForm 
     }, []);
 
     const onDrop = (acceptedFiles) => {
-        const file = acceptedFiles[0];
+        const file = acceptedFiles.length ? acceptedFiles[0] : {};
         if (file) {
             setFileInfo({ name: file.name, size: (file.size / 1024).toFixed(2) + ' KB' });
             const reader = new FileReader();
@@ -180,7 +180,7 @@ export const MultiImageUploader = ({ forceUpdate, entityName, entity, closeForm 
     };
 
     const isConfirmDisabled = useMemo(() => {
-        return images.every((el, idx) => el === entity.gallery[idx])
+        return images.every((el, idx) => el === entity.gallery ? entity.gallery[idx] : false)
     }, [entity.gallery, images]);
 
     return (

@@ -11,6 +11,8 @@ import {
 import { useSignUp } from '../api/auth/useSignUp';
 import { auth } from '../api';
 import { clearAuthData } from '../store/authReducer';
+import { TestEnvMessage } from '../components/Messages/TestEnvMessage';
+import { VeremInviteStyled } from '../components/VeremInvite/style';
 
 export const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -42,7 +44,10 @@ export const MainLayout = ({ children }) => {
   return (
     <MainContentStyled collapsed={mainMenuCollapsed}>
       <Control loginWithGoogle={loginWithGoogle} signOut={signOut} />
-      <div className="main-content">{children}</div>
+      <div className="main-content">
+          <TestEnvMessage/>
+          {children}
+      </div>
     </MainContentStyled>
   );
 };

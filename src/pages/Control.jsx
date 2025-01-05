@@ -159,7 +159,7 @@ export const Control = ({ loginWithGoogle, signOut }) => {
               })}>
               {t('mainMenu.show')}
             </MenuItem>
-            {!auth?.token && (
+            {!auth?.token && !pathname.includes('invite') && (
               <MenuItem
                 icon={<GoogleIcon />}
                 onClick={loginWithGoogle}

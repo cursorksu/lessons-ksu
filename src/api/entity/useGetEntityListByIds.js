@@ -20,7 +20,6 @@ export const useGetEntityListByIds = (entityName) => {
             return { id: snapshot.id, ...snapshot.data() };
           }
 
-          console.log({ data: snapshot.id});
           return null;
         });
         const resolvedEntities = await Promise.all(promises);

@@ -14,6 +14,7 @@ import { TestGameView } from '../Games/Test/TestGameView';
 import { LessonEntityList } from '../components/LessonEntity/LessonEntityList';
 import { Rate } from '../Games/Rate/Rate';
 import { VeremChurch } from '../components/VeremChurch/VeremChurch';
+import { Invite } from '../pages/Invite';
 
 export const publicRoutes = [
   {
@@ -40,6 +41,11 @@ export const publicRoutes = [
     path: `${routes.church}/:churchId`,
     title: 'Church',
     component: <VeremChurch />,
+  },
+  {
+    path: `${routes.church}/:churchId/invite/:inviteId`,
+    title: 'Church',
+    component: <Invite />,
   },
   {
     path: `${routes.group}/:groupId`,

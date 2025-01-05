@@ -11,6 +11,8 @@ import {
   setPersistence,
   signInWithPopup,
 } from 'firebase/auth';
+import { TestEnvMessage } from '../components/Messages/TestEnvMessage';
+import { VeremInviteStyled } from '../components/VeremInvite/style';
 
 export const VeremLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -42,7 +44,10 @@ export const VeremLayout = ({ children }) => {
   return (
     <VeremMainContentStyled collapsed={mainMenuCollapsed}>
       <Control loginWithGoogle={loginWithGoogle} signOut={signOut} />
-      <div className="main-content">{children}</div>
+      <div className="main-content">
+          <TestEnvMessage/>
+          {children}
+      </div>
     </VeremMainContentStyled>
   );
 };
