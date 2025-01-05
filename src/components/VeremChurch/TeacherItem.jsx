@@ -37,8 +37,8 @@ export const TeacherItem = ({ entityName, id, removeEntity, isAuth }) => {
                 )}
             </div>
             <img
-                className={isRealAvatar && 'avatar-placeholder'}
-                src={isRealAvatar ? USER_AVATAR_PLACEHOLDER : entityData?.avatar}
+                className={isRealAvatar ? 'avatar-placeholder' : ''}
+                src={entityData?.avatar}
                 alt={entityData?.firstName}
             />
             <ul>

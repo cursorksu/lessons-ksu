@@ -39,7 +39,6 @@ export const useInvite = () => {
                 })
             );
         }
-
         const inviteId = `invite_${Date.now()}`;
         const inviteData = {
             id: inviteId,

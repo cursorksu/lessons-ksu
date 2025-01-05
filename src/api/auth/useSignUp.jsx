@@ -32,7 +32,7 @@ export const useSignUp = () => {
                         fullName: user?.displayName,
                         firstName: user?.displayName?.split(' ')[0],
                         lastName: user?.displayName?.split(' ')[1],
-                        avatar: USER_AVATAR_PLACEHOLDER,
+                        avatar: user?.avatar || USER_AVATAR_PLACEHOLDER,
                         lang: i18n?.language,
                         church: [],
                         groups: [],
@@ -96,13 +96,12 @@ export const useSignUp = () => {
                         fullName: user?.displayName,
                         firstName: user?.displayName?.split(' ')[0],
                         lastName: user?.displayName?.split(' ')[1],
-                        avatar: USER_AVATAR_PLACEHOLDER,
+                        avatar: userData?.avatar || USER_AVATAR_PLACEHOLDER,
                         lang: i18n?.language,
                         church: [],
                         groups: [],
                         lessons: [],
                     };
-
                     if (userData) {
                         await i18n.changeLanguage(userData.lang);
                     }
