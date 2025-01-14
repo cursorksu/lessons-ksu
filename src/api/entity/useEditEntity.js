@@ -1,9 +1,10 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { fireStore } from '../index';
 import { doc, getDoc, Timestamp, updateDoc } from 'firebase/firestore';
 import { setEntity } from '../../store/entitiesReducer';
 import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/notificationReducer';
+import { getDateToDatePicker } from '../../utils/getDateLocalString'
 
 export const useEditEntity = (entityName) => {
   const dispatch = useDispatch();
@@ -21,6 +22,18 @@ export const useEditEntity = (entityName) => {
           createdAt: entity.createdAt,
           modification_timestamp: Timestamp.now(),
         };
+				
+				if (newData.birthday) {
+					if (getDateToDatePicker(newData.birthday)) {
+						newData.birthday = (getDateToDatePicker(newData.birthday));
+					} else if (newData.birthday instanceof Date) {
+						newData.birthday = (newData.birthday);
+					}  else if (typeof newData.birthday === 'string') {
+						newData.birthday = (getDateToDatePicker(JSON.parse(newData.birthday)));
+					} else {
+						newData.birthday = new Date(newData.birthday);
+					}
+				}
         if (entity) {
           await updateDoc(docRef, newData);
           if (entityName === 'students') {

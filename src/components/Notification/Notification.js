@@ -19,7 +19,7 @@ export const Notification = () => {
   }, [notification, dispatch]);
 
   return (
-    <TransitionablePortal open={!!notification?.type}>
+    <TransitionablePortal open={!!notification?.type} transition={{ animation: 'fly left' }}>
       <NotificationStyled
         className={clsx(notification?.type, { open: notification?.type })}>
         <b>{notification?.message.title}</b>

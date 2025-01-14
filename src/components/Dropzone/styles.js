@@ -78,9 +78,10 @@ export const UvDropzoneStyled = styled('section')`
   }
 
   &.user-avatar {
-    background: ${CREAM};
     border: 1px dashed white;
+	  border-radius: 4px;
     display: block;
+	  overflow: visible;
     width: 160px;
     height: 160px;
 
@@ -95,10 +96,17 @@ export const UvDropzoneStyled = styled('section')`
   }
 
   img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+	  object-position: center center;
   }
+	
+	.delete-button {
+		position: absolute;
+		top: 6px;
+		right: -30px;
+	}
 `;
 
 export const FileItemStyled = styled('div')`

@@ -15,7 +15,7 @@ import { useImages } from '../../api/images/useImages';
 import { DeleteConfirmationModal } from '../Modal/DeleteConfirmationModal';
 import { getFileNameFromUrl } from '../../utils/getFileNameFromUrl';
 
-export const ImageUploader = ({ onUpload, onDelete, size, src, multiple, storageFolderName = 'images' }) => {
+export const ImageUploader = ({ onUpload, onDelete, onDrop, size, src, multiple, storageFolderName = 'images' }) => {
     const storage = getStorage();
     const { t } = useTranslation('tr');
     const [ image, setImage ] = useState(null);
@@ -33,7 +33,7 @@ export const ImageUploader = ({ onUpload, onDelete, size, src, multiple, storage
         !!src && setStorageRef(src);
     }, [ src ]);
 
-    const onDrop = (acceptedFiles) => {
+    const handleDrop = (acceptedFiles) => {
         const file = acceptedFiles[0];
         if (file) {
             setFileInfo({ name: file.name, size: (file.size / 1024).toFixed(2) + ' KB' });
@@ -41,12 +41,13 @@ export const ImageUploader = ({ onUpload, onDelete, size, src, multiple, storage
             reader.onload = () => setImage(reader.result);
             reader.readAsDataURL(file);
             setImageWasUpload(true);
+            onDrop();
         }
     };
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*',
-        onDrop,
+        onDrop: handleDrop,
     });
 
     const getCroppedImage = async () => {

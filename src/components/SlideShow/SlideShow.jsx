@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { ButtonIconMiniStyled, ButtonStyled } from '../ButtonStyled';
 import { MultiImageUploader } from '../ImageCroper/MultiImageUploader';
 import { BigModal } from '../Modal/BigModal';
+import {StudentProfileStyled} from "./style";
 
 export const SlideShow = ({
                               isAuth,
@@ -33,7 +34,7 @@ export const SlideShow = ({
 
 
     return (
-        <>
+        <StudentProfileStyled>
             <SwiperSlider
                 className={clsx('print-hide', {
                     'full-screen': fullScreen,
@@ -120,6 +121,6 @@ export const SlideShow = ({
                     </>
                 )}
             </SwiperSlider>
-        </>
+        </StudentProfileStyled>
     );
 };

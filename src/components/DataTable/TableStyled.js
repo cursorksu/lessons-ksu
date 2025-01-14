@@ -1,13 +1,27 @@
 import styled from '@emotion/styled';
 import { BG_GOLD, CREAM, ERROR_MAIN, SUCCESS } from '../../constants/colors';
 
-export const TableStaled = styled.div`
+export const TableStyled = styled.div`
   padding: 0 40px 40px;
   font-family: Comfortaa, sans-serif;
   font-size: 1.5rem;
   font-weight: 400;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
+	
+	.avatar,
+	.photo {
+		width: 70px;
+		text-align: center;
+	}
+	
+	img{
+		width: 80px;
+		height: 80px;
+		object-fit: cover;
+		margin: auto;
+		border-radius: 20px;
+	}
 
   td {
     vertical-align: center;
@@ -72,4 +86,14 @@ export const TableStaled = styled.div`
       margin-right: 0;
     }
   }
+  
+  .action {
+      width: 90px
+  }
+	td.estimation {
+		min-height: 100px;
+	}
+	th.estimation {
+		min-height: 70px;
+	}
 `;

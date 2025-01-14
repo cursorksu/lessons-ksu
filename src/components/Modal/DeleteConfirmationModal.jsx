@@ -15,7 +15,7 @@ export const DeleteConfirmationModal = ({
                                             modalContent,
                                             onConfirm,
                                             onCancel,
-                                            size = 'mini',
+                                            size = 'small',
                                         }) => {
     const { t } = useTranslation('tr');
     const [ open, setOpen ] = useState(false);

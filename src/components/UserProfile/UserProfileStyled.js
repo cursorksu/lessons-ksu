@@ -6,6 +6,38 @@ export const UserProfileStyled = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   text-align: left;
+	
+	.group-top-container-btns {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+	
+	.group-top-container-info {
+		font-family: Comfortaa, sans-serif;
+		font-size: 1.2rem;
+		font-weight: 600;
+		display: flex;
+		gap: 140px;
+		color: ${CREAM};
+	}
+	
+	.group-top-teachers {
+		font-family: Comfortaa, sans-serif;
+		font-size: 1.2rem;
+		color: ${CREAM};
+		line-height: 1.8rem;
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		
+		li:first-child {
+			font-size: 1.5rem;
+			font-weight: 700;
+			margin-bottom: 10px;
+		}
+	}
+	
 
   .action-wrapper {
     padding: 16px;
@@ -53,27 +85,10 @@ export const UserProfileStyled = styled.div`
     font-family: 'Yeseva One', sans-serif;
     font-size: 2rem;
     font-weight: 500;
-    margin: 0 !important;
-    padding-top: 20px;
+	  padding: 0;
+	  margin: 0 0 30px 0 !important;
     position: relative;
     overflow: visible;
-
-    &:after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 1px;
-      bottom: -10px;
-      right: -50%;
-      transform: translateX(-50%);
-      background-image: linear-gradient(
-        to right,
-        transparent 0%,
-        ${CREAM} 50%,
-        ${CREAM} 50%,
-        transparent 100%
-      );
-    }
   }
 
   .info {
@@ -142,12 +157,17 @@ export const UserProfileStyled = styled.div`
       overflow: hidden;
     }
   }
-
+  .group-top-container {
+    margin-bottom: 40px;
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+    background: ${CHOCO};
+  }
   .top-container {
     position: relative;
     padding: 20px;
     overflow: hidden;
-    //background-image: url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fpreview%20(10).webp?alt=media&token=a22a2da8-1821-4366-805a-6fce2bf456f8");
     background: ${CHOCO};
 
     &:after {
@@ -173,7 +193,7 @@ export const UserProfileStyled = styled.div`
 
   .d-flex {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
   }
 
   img {

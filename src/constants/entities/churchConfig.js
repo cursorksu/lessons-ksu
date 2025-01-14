@@ -10,13 +10,14 @@ export const churchConfig = [
     isIgnored: true,
   },
   {
-    inputType: 'imagePicker',
+    inputType: 'logoPicker',
     name: 'logo',
     isIgnored: false,
   },
   {
     inputType: 'textInput',
     name: 'title',
+	  required: true,
     isIgnored: false,
   },
   {
@@ -32,6 +33,7 @@ export const churchConfig = [
   {
     inputType: 'textInput',
     name: 'city',
+	  required: true,
     isIgnored: false,
   },
   {

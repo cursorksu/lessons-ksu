@@ -29,7 +29,6 @@ export const SprintCard = ({
             <div className="shape-light">
                 <ShapeBg/>
             </div>
-            {img}
             <div className="shape">
                 <ShapeBg/>
             </div>
