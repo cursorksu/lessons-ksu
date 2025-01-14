@@ -6,6 +6,8 @@ export const CreateEntityFormStyled = styled('div')`
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 20px;
   padding: 30px;
+	max-height: 63vh;
+  overflow: auto;
   
   .imagePicker {
     grid-column: 1 / -1;

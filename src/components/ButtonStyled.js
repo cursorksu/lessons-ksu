@@ -86,6 +86,7 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   display: flex;
   color: ${VEREM_GOLD};
   background: transparent;
+	white-space: nowrap;
   justify-content: center;
   align-items: center;
   float: left;

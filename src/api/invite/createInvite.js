@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { setMessage } from '../../store/notificationReducer';
 
 const db = getFirestore();
-const mainUrl = process.env.REACT_APP_FE_URL_LOCAL;
+const mainUrl = process.env.REACT_APP_FE_URL_DEV;
 
 export const useInvite = () => {
     const dispatch = useDispatch();

@@ -16,9 +16,9 @@ export const KsuDropzoneBase64 = ({ onChange, files, multiple }) => {
                     ...files,
                     {
                         ...file,
-                        path: file.path,
-                        name: file.name,
-                        size: file.size,
+                        path: file?.path,
+                        name: file?.name,
+                        size: file?.size,
                         base64: preview,
                     },
                 ]);
@@ -28,7 +28,7 @@ export const KsuDropzoneBase64 = ({ onChange, files, multiple }) => {
 
     const handleRemove = (data) => {
         const newData = files.filter((el) => {
-            return el.path !== data.path;
+            return el?.path !== data?.path;
         });
 
         onChange(newData);

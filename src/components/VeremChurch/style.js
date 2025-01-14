@@ -72,6 +72,48 @@ export const GroupItemStyled = styled('div')`
         margin-top: 0 !important;
     }
   `;
+export const ContentListStyled = styled('div')`
+	display: flex;
+	gap: 20px;
+	margin: 30px 0;
+	position: relative;
+	padding-right: 30px;
+	
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+	
+	li {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		line-height: 1.5rem;
+		overflow: hidden;
+	}
+	
+	h3 {
+		width: 100%;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+	
+	.delete-button {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	
+	img {
+		width: 100px;
+		height: 100px;
+		object-fit: cover;
+		border-radius: 0;
+	}
+	`;
+
 export const ChurchItemStyled = styled('div')`
   font-size: 1em;
   line-height: 20px;

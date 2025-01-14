@@ -1,15 +1,23 @@
 // Format: yyyy-mm-dd
-import { getDateObject } from './getDateLocalString';
+import { getDateToDatePicker } from './getDateLocalString'
 
 export function getAge(birthDate) {
   const today = new Date();
-  const birthDateObj = getDateObject(JSON.parse(birthDate));
-
-  let age = today.getFullYear() - birthDateObj.getFullYear();
-  const monthDiff = today.getMonth() - birthDateObj.getMonth();
+	let preparedDate = JSON.parse(birthDate);
+	
+	if (!preparedDate.seconds) {
+		preparedDate  = JSON.parse(preparedDate);
+	}
+	
+	if (!preparedDate.seconds) {
+		return 0
+	}
+	
+  let age = today.getFullYear() - getDateToDatePicker(preparedDate)?.getFullYear();
+  const monthDiff = today.getMonth() - getDateToDatePicker(preparedDate)?.getMonth();
   if (
     monthDiff < 0 ||
-    (monthDiff === 0 && today.getDate() < birthDateObj.getDate())
+    (monthDiff === 0 && today.getDate() < getDateToDatePicker(preparedDate)?.getDate())
   ) {
     age--;
   }

@@ -1,4 +1,4 @@
-import { Modal, ModalHeader } from 'semantic-ui-react';
+import {Modal, ModalHeader, Popup} from 'semantic-ui-react';
 import { ButtonIconMiniStyled, ButtonIconStyled } from '../ButtonStyled';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import React, { useCallback } from 'react';
@@ -28,9 +28,17 @@ export const BigModal = ({
             onClose={onCancel}
             onOpen={handleOpen}
             trigger={
-                <ButtonIconMiniStyled onClick={handleOpen} className={'trigger-button'}>
-                    {icon}
-                </ButtonIconMiniStyled>
+                <Popup
+                        trigger={
+                            <ButtonIconMiniStyled
+                                    className={'ksu-modal-trigger'}
+                                    onClick={handleOpen}>
+                                {icon}
+                            </ButtonIconMiniStyled>
+                        }
+                        content={modalTitle}
+                        basic
+                />
             }
             size={size}
             open={isOpen}

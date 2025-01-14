@@ -27,6 +27,7 @@ import { BigModal } from '../Modal/BigModal';
 import { EditAboutUs } from './EditAboutUs';
 import clsx from 'clsx';
 import { EditPastor } from '../Modal/EditPastor';
+import {BALLS_DECOR} from "../../constants/staticImages";
 
 export const VeremChurch = () => {
     const { user } = useSelector((state) => state.auth);
@@ -87,8 +88,7 @@ export const VeremChurch = () => {
                             <BigModal
                                 icon={<EditIcon/>}
                                 isOpen={isFormShown}
-                                onCancel={() => {
-                                }}
+                                onCancel={() => {}}
                                 setIsOpen={setIsFormShown}
                                 modalTitle={t('church.editChurch')}
                                 onConfirm={confirmationHandler}
@@ -133,7 +133,7 @@ export const VeremChurch = () => {
                 <VeremChurchContent>
                     <div className="balls-container">
                         <img
-                            src="https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fcircles.png?alt=media&token=7d9cc5b2-37ef-4aea-86f0-0aee2217d6d2"
+                            src={BALLS_DECOR}
                             alt="decor"
                         />
                     </div>

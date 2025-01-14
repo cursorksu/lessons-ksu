@@ -1,6 +1,6 @@
 import { TextArea } from 'semantic-ui-react';
 import styled from '@emotion/styled';
-import { BG_GOLD, CHOCO, CREAM, PRIMARY_MAIN, VEREM_GOLD } from '../constants/colors';
+import { BG_GOLD, CHOCO, CREAM, ERROR_MAIN, PRIMARY_MAIN, VEREM_GOLD } from '../constants/colors'
 
 export const FormStyled = styled.div`
   margin: 10px 0;
@@ -18,6 +18,14 @@ export const LabelStyled = styled.label`
       display: inline-block;
     }
 `;
+export const InputErrorStyled = styled.p`
+	color: ${ERROR_MAIN};
+	font-size: 12px;
+	font-weight: 700;
+	margin-top: 6px;
+	`;
+
+
 export const InputFieldStyled = styled.div`
   width: 100%;
   display: block;
@@ -26,6 +34,18 @@ export const InputFieldStyled = styled.div`
   font-size: 14px;
   color: ${VEREM_GOLD};
   margin-bottom: 10px;
+	
+	&.required {
+		position: relative;
+		
+		&:after {
+			content: '*';
+			font-size: 28px;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+	}
 
   .label,
   label {
