@@ -7,7 +7,6 @@ import {ButtonIconMiniStyled, ButtonStyled} from '../ButtonStyled';
 import {CreateEntityForm} from '../CreateEntityForm/CreateEntityForm';
 import {useDispatch, useSelector} from 'react-redux';
 import {ReactComponent as EditIcon} from '../../assets/edit.svg';
-import {ReactComponent as DeleteIcon} from '../../assets/delete.svg';
 import {ReactComponent as ViewIcon} from '../../assets/view.svg';
 import {ReactComponent as AddIcon} from '../../assets/add.svg';
 import {studentConfig} from '../../constants/entities/studentConfig';
@@ -17,7 +16,7 @@ import {useTranslation} from 'react-i18next';
 import {useUpdateStudent} from '../../api/student/useUpdateStudent';
 import {useDeleteEntity} from '../../api/entity/useDeleteEntity';
 import {useGetEntityListByIds} from '../../api/entity/useGetEntityListByIds';
-import {getDateLocalString, getDateObject, getDateToDatePicker} from '../../utils/getDateLocalString';
+import {getDateObject} from '../../utils/getDateLocalString';
 import {useEditEntity} from '../../api/entity/useEditEntity';
 import {setMessage} from '../../store/notificationReducer';
 import {getAge} from '../../utils/getAge';
@@ -25,6 +24,7 @@ import {BigModal} from "../Modal/BigModal";
 import {EditGroupModal} from "../VeremChurch/EditGroupModal";
 import {StudentProfile} from "../StudentProfile/StudentProfile";
 import {DeleteConfirmationModal} from "../Modal/DeleteConfirmationModal";
+import { EditStudentModal } from '../Modal/EditStudentModal';
 
 export const GroupItem = () => {
     const {groupId} = useParams();
@@ -53,7 +53,6 @@ export const GroupItem = () => {
         estimation: 0,
         photo: '',
         group: groupId,
-        listOfVisits: [new Date().toDateString()],
         isActive: true,
     };
     const [defaultValues, setDefaultValues] = useState(initialValues);
@@ -218,24 +217,10 @@ export const GroupItem = () => {
                                                         onEdit={confirmEditGroupHandler}
                                                         churchTeachersList={group?.teachers || []}
                                                 />
-                                                <BigModal
-                                                        isOpen={isAddStudentFormShown}
-                                                        setIsOpen={createEditFormOpen}
-                                                        modalTitle={!isEdit
-                                                                ? t('students.addStudent')
-                                                                : t('students.editStudent')
-                                                        }
-                                                        onCancel={reset}
-                                                        icon={<AddIcon/>}
-                                                >
-                                                    <CreateEntityForm
-                                                            entityName="students"
-                                                            onConfirm={confirmationHandler}
-                                                            onClose={reset}
-                                                            fields={studentConfig}
-                                                            defaultValues={defaultValues}
-                                                    />
-                                                </BigModal>
+                                                <EditStudentModal
+                                                        student={initialValues}
+                                                        onConfirm={() => setShouldUpdate((prev) => !prev)}
+                                                />
                                                 <ButtonStyled
                                                         onClick={() => navigate(`/group/${groupId}/games/rate`)}>
                                                     {t('students.showResult')}
@@ -285,9 +270,10 @@ export const GroupItem = () => {
                                                         <ButtonIconMiniStyled onClick={() => setActiveStudent(data)}>
                                                             <ViewIcon/>
                                                         </ButtonIconMiniStyled>
-                                                        <ButtonIconMiniStyled onClick={() => handleRowClick(data)}>
-                                                            <EditIcon/>
-                                                        </ButtonIconMiniStyled>
+                                                        <EditStudentModal
+                                                                student={data}
+                                                                onConfirm={() => setShouldUpdate((prev) => !prev)}
+                                                        />
                                                         <DeleteConfirmationModal
                                                                 modalTitle={`${t('modal.title.deleteStudent')} ${data?.firstName.toString()}`}
                                                                 modalContent={`${t('modal.studentDelete')}`}

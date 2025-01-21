@@ -25,6 +25,7 @@ export const CreateEntityForm = ({
                                      onClose,
                                      fields,
                                      defaultValues = {},
+        className,
                                  }) => {
     const dispatch = useDispatch();
     const [emojiIsOpen, setEmojiIsOpen] = useState(false);
@@ -194,7 +195,7 @@ export const CreateEntityForm = ({
 
     return (
             <>
-                <ModalContent>
+                <ModalContent className={clsx(className, 'dynamic-list')}>
                     <CreateEntityFormStyled>
                         {fields?.map((el) => {
                             if (el.isIgnored) return <></>;

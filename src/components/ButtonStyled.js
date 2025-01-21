@@ -104,6 +104,7 @@ export const ButtonIconMiniStyled = styled(ButtonIconStyled)`
   width: 20px;
   height: 20px;
   transition: translate  2s ease;
+	background: transparent;
   
   &:not(:first-of-type) {
     margin-left: 10px;
