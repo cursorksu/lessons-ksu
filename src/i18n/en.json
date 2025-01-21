@@ -7,6 +7,7 @@
     "groupDelete": "Do you want to remove this group?",
     "deleteImage": "You can not rollback deleting of this image. You are trying to delete from storage image with name:",
     "title": {
+      "churchDelete": "Delete Church:",
       "deleteStudent": "Remove student",
       "deleteTeacher": "Remove teacher",
       "deleteGroup": "Remove group",
