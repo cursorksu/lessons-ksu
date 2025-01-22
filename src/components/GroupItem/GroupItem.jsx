@@ -4,12 +4,8 @@ import {useGetEntity} from '../../api/entity/useGetEntity';
 import {MainLayout} from '../../pages/MainLayout';
 import {UserProfileStyled} from '../UserProfile/UserProfileStyled';
 import {ButtonIconMiniStyled, ButtonStyled} from '../ButtonStyled';
-import {CreateEntityForm} from '../CreateEntityForm/CreateEntityForm';
 import {useDispatch, useSelector} from 'react-redux';
-import {ReactComponent as EditIcon} from '../../assets/edit.svg';
-import {ReactComponent as DeleteIcon} from '../../assets/delete.svg';
 import {ReactComponent as ViewIcon} from '../../assets/view.svg';
-import {ReactComponent as AddIcon} from '../../assets/add.svg';
 import {studentConfig} from '../../constants/entities/studentConfig';
 import {StudentsTable} from '../DataTable/StudentsTable';
 import {EditStudentEstimateModal} from '../EditStudentEstimateModal/EditStudentEstimateModal';
@@ -17,14 +13,14 @@ import {useTranslation} from 'react-i18next';
 import {useUpdateStudent} from '../../api/student/useUpdateStudent';
 import {useDeleteEntity} from '../../api/entity/useDeleteEntity';
 import {useGetEntityListByIds} from '../../api/entity/useGetEntityListByIds';
-import {getDateLocalString, getDateObject, getDateToDatePicker} from '../../utils/getDateLocalString';
+import {getDateObject} from '../../utils/getDateLocalString';
 import {useEditEntity} from '../../api/entity/useEditEntity';
 import {setMessage} from '../../store/notificationReducer';
 import {getAge} from '../../utils/getAge';
-import {BigModal} from "../Modal/BigModal";
 import {EditGroupModal} from "../VeremChurch/EditGroupModal";
 import {StudentProfile} from "../StudentProfile/StudentProfile";
 import {DeleteConfirmationModal} from "../Modal/DeleteConfirmationModal";
+import { EditStudentModal } from '../Modal/EditStudentModal';
 
 export const GroupItem = () => {
     const {groupId} = useParams();
@@ -33,10 +29,8 @@ export const GroupItem = () => {
     const {getEntityById} = useGetEntity('group');
     const [group, setGroup] = useState({});
     const {t} = useTranslation('tr');
-    const [isAddStudentFormShown, setIsAddStudentFormShown] = useState(false);
     const [shouldUpdate, setShouldUpdate] = useState(false);
     const [activeStudent, setActiveStudent] = useState(null);
-    const [isEdit, setIsEdit] = useState(false);
     const {updateStudentData} = useUpdateStudent();
     const {editEntity} = useEditEntity('group');
     const {deleteEntity} = useDeleteEntity('students');
@@ -53,7 +47,6 @@ export const GroupItem = () => {
         estimation: 0,
         photo: '',
         group: groupId,
-        listOfVisits: [new Date().toDateString()],
         isActive: true,
     };
     const [defaultValues, setDefaultValues] = useState(initialValues);
@@ -76,19 +69,8 @@ export const GroupItem = () => {
     }, [groupId, getEntityById, shouldUpdate]);
 
     const reset = () => {
-        setIsAddStudentFormShown(false);
         setDefaultValues(defaultValues);
-        setIsEdit(false);
     }
-
-    const handleRowClick = (data) => {
-        setIsAddStudentFormShown(true);
-        setIsEdit(true);
-        setDefaultValues({
-            ...data,
-            birthday: data.birthday,
-        });
-    };
 
     const confirmEditGroupHandler = () => {
         setDefaultValues({
@@ -96,6 +78,9 @@ export const GroupItem = () => {
             group: groupId,
         });
     };
+    
+    
+    //TODO: update group after student creation
     const confirmationHandler = async (id) => {
         try {
             id !== 200 && await editEntity({...group, students: [...group.students, id]});
@@ -139,7 +124,6 @@ export const GroupItem = () => {
                         ...group, students:
                                 group?.students?.filter(el => el !== data.id)
                     });
-                    setIsAddStudentFormShown(false);
                     setShouldUpdate((prev) => !prev);
                 } catch (error) {
                     dispatch(
@@ -159,21 +143,10 @@ export const GroupItem = () => {
     const onIsActiveSwitch = useCallback(
             async (data) => {
                 await updateStudentData(data.id, {isActive: !data.isActive});
-                setIsAddStudentFormShown(false);
                 setShouldUpdate((prev) => !prev);
             },
             [updateStudentData]
     );
-
-
-    const createEditFormOpen = (isOpen) => {
-        setIsAddStudentFormShown(isOpen);
-        setIsEdit(isOpen);
-        setDefaultValues({
-            ...initialValues,
-            group: groupId,
-        });
-    }
 
     return (
             <MainLayout>
@@ -218,24 +191,10 @@ export const GroupItem = () => {
                                                         onEdit={confirmEditGroupHandler}
                                                         churchTeachersList={group?.teachers || []}
                                                 />
-                                                <BigModal
-                                                        isOpen={isAddStudentFormShown}
-                                                        setIsOpen={createEditFormOpen}
-                                                        modalTitle={!isEdit
-                                                                ? t('students.addStudent')
-                                                                : t('students.editStudent')
-                                                        }
-                                                        onCancel={reset}
-                                                        icon={<AddIcon/>}
-                                                >
-                                                    <CreateEntityForm
-                                                            entityName="students"
-                                                            onConfirm={confirmationHandler}
-                                                            onClose={reset}
-                                                            fields={studentConfig}
-                                                            defaultValues={defaultValues}
-                                                    />
-                                                </BigModal>
+                                                <EditStudentModal
+                                                        student={initialValues}
+                                                        onConfirm={() => setShouldUpdate((prev) => !prev)}
+                                                />
                                                 <ButtonStyled
                                                         onClick={() => navigate(`/group/${groupId}/games/rate`)}>
                                                     {t('students.showResult')}
@@ -285,9 +244,10 @@ export const GroupItem = () => {
                                                         <ButtonIconMiniStyled onClick={() => setActiveStudent(data)}>
                                                             <ViewIcon/>
                                                         </ButtonIconMiniStyled>
-                                                        <ButtonIconMiniStyled onClick={() => handleRowClick(data)}>
-                                                            <EditIcon/>
-                                                        </ButtonIconMiniStyled>
+                                                        <EditStudentModal
+                                                                student={data}
+                                                                onConfirm={() => setShouldUpdate((prev) => !prev)}
+                                                        />
                                                         <DeleteConfirmationModal
                                                                 modalTitle={`${t('modal.title.deleteStudent')} ${data?.firstName.toString()}`}
                                                                 modalContent={`${t('modal.studentDelete')}`}

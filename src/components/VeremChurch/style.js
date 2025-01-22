@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CHOCO, VEREM_GOLD } from '../../constants/colors';
+import { BOX_SHADOW, BOX_SHADOW_GOLD, CHOCO, CREAM, VEREM_GOLD } from '../../constants/colors'
 
 export const VeremContentChurchItem = styled('div')`
     display: flex;
@@ -72,6 +72,45 @@ export const GroupItemStyled = styled('div')`
         margin-top: 0 !important;
     }
   `;
+export const InviteStyled = styled('div')`
+	text-align: center;
+	
+	p {
+		text-align: center;
+		font-weight: 600;
+		margin-bottom: 20px;
+	}
+	
+	button {
+		background: linear-gradient(90deg, #f0c674, ${VEREM_GOLD}, ${VEREM_GOLD}, #f0c674);
+		background-size: 200%;
+		transition: background 3s ease, box-shadow 0.3s ease;
+		color: ${CREAM};
+		margin-left: 2px !important;
+		padding: 3px;
+		width: 28px;
+		height: 28px;
+	}
+	
+	.invite-panel {
+		width: 84%;
+		margin: auto;
+		background: ${CREAM};
+		box-shadow: ${BOX_SHADOW_GOLD};
+		border-radius: 30px;
+		padding: 8px 8px 8px 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-family: 'Comfortaa', sans-serif;
+		
+		span {
+			font-size: 16px;
+			font-weight: 700;
+		}
+	}
+	`;
+
 export const ContentListStyled = styled('div')`
 	display: flex;
 	gap: 20px;
