@@ -146,6 +146,7 @@
     }
   },
   "church": {
+    "invite": "If you want to invite other ministers to collaborate on the church content, choose a convenient way to send the invitation.",
     "deleteChurch": "Delete Church",
     "addChurch": "Add Church",
     "editPictures": "Edit Pictures",

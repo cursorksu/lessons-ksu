@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BG_GOLD, VEREM_GOLD } from '../constants/colors';
+import { BG_GOLD, CREAM, VEREM_GOLD } from '../constants/colors'
 
 export const ButtonStyled = styled('button')`
   display: inline-flex;
@@ -83,19 +83,21 @@ export const ButtonIconStyled = styled(ButtonStyled)`
   padding: 0;
   width: 38px;
   height: 38px;
-  display: flex;
-  color: ${VEREM_GOLD};
-  background: transparent;
+  display: inline-flex;
+  color: ${CREAM};
+	border-radius: 50%;
+	margin-left: 7px !important;
+	background-color: ${VEREM_GOLD};
 	white-space: nowrap;
   justify-content: center;
   align-items: center;
-  float: left;
   
   svg {
     margin: 0;
   }
   
   &:hover {
+	  box-shadow: none;
     animation: slow-shine 2s infinite linear;
   }
 `;
@@ -105,6 +107,7 @@ export const ButtonIconMiniStyled = styled(ButtonIconStyled)`
   height: 20px;
   transition: translate  2s ease;
 	background: transparent;
+	color: ${VEREM_GOLD};
   
   &:not(:first-of-type) {
     margin-left: 10px;
