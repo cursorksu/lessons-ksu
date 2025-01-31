@@ -13,6 +13,7 @@ import { auth } from '../api';
 import { clearAuthData } from '../store/authReducer';
 import { TestEnvMessage } from '../components/Messages/TestEnvMessage';
 import { VeremInviteStyled } from '../components/VeremInvite/style';
+import { Footer } from '../components/Footer/Footer';
 
 export const MainLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ export const MainLayout = ({ children }) => {
       <div className="main-content">
           <TestEnvMessage/>
           {children}
+          <Footer />
       </div>
     </MainContentStyled>
   );

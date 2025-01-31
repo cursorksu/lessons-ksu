@@ -26,7 +26,6 @@ import { LessonMemory } from '../LessonEntity/LessonMemory';
 import { KsuStatus } from '../KsuStatus/KsuStatus';
 
 export const LessonTabs = () => {
-  const [editFormIsOpen, setEditFormIsOpen] = useState(false);
   const [shouldUpdate, setShouldUpdate] = useState(false);
   const dispatch = useDispatch();
   const { lessonId } = useParams();
@@ -43,11 +42,11 @@ export const LessonTabs = () => {
         dispatch(setLessonInStore(lesson))
       );
   }, [lessonId, getEntityById, shouldUpdate, dispatch]);
-
-  const handleConfirmCreation = () => {
-    setShouldUpdate((prev) => !prev);
-  };
-
+	
+	const handleConfirmCreation = () => {
+		setShouldUpdate((prev) => !prev)
+	};
+	
   const componentRef = useRef();
 
   const panes = [
@@ -58,42 +57,42 @@ export const LessonTabs = () => {
         content: t('lessonTabs.topic'),
       },
       render: () => (
-        <TabPane key={'topic'}>
-          <TopicToPrint
-            ref={componentRef}
-            lesson={lesson}
-            onChangeConfirm={handleConfirmCreation}
-          />
-          ,
-        </TabPane>
+	      <TabPane key={ 'topic' }>
+		      <TopicToPrint
+			      ref={ componentRef }
+			      lesson={ lesson }
+			      onChangeConfirm={ handleConfirmCreation }
+			      formConfig={ setShouldUpdate }
+		      />
+	      </TabPane>
       ),
     },
-    {
-      menuItem: {
-        key: 'subject',
-        icon: <BookmarkIcon />,
-        content: t('lessonTabs.subject'),
-      },
-      render: () => (
-        <TabPane key={'subject'}>
-          <LessonEntity entityName={'subject'} lesson={lesson} />,
-        </TabPane>
-      ),
-    },
-    {
-      menuItem: {
-        key: 'creative',
-        icon: <PalletIcon />,
-        content: t('lessonTabs.creative'),
-      },
-      render: () => (
-        <TabPane key={'creative'}>
-          <LessonEntity entityName={'creative'} lesson={lesson} />
-        </TabPane>
-      ),
-    },
-    {
-      menuItem: {
+	  {
+		  menuItem: {
+			  key: 'subject',
+			  icon: <BookmarkIcon/>,
+			  content: t('lessonTabs.subject'),
+		  },
+		  render: () => (
+			  <TabPane key={ 'subject' }>
+				  <LessonEntity entityName={ 'subject' } lesson={ lesson }/>,
+			  </TabPane>
+		  ),
+	  },
+	  {
+		  menuItem: {
+			  key: 'creative',
+			  icon: <PalletIcon/>,
+			  content: t('lessonTabs.creative'),
+		  },
+		  render: () => (
+			  <TabPane key={ 'creative' }>
+				  <LessonEntity entityName={ 'creative' } lesson={ lesson }/>
+			  </TabPane>
+		  ),
+	  },
+	  {
+		  menuItem: {
         key: 'activeGame',
         icon: <GameIcon />,
         content: t('lessonTabs.game'),
@@ -130,62 +129,9 @@ export const LessonTabs = () => {
     },
   ];
 
-  const [selectedStatus, setSelectedStatus] = useState(lesson?.status);
-  useEffect(() => {
-    setSelectedStatus(lesson?.status);
-  }, [lesson]);
-
   return (
-    <div>
-      <div
-        className="hero"
-        style={{ backgroundImage: `url("${lesson?.imageUrl}")` }}>
-        <div className="title-wrapper top-container">
-          <h2 className="subtitle"> Kids Spiritual Universe</h2>
-          <h1 className="title">{lesson?.title}</h1>
-        </div>
-      </div>
-
-      {editFormIsOpen && (
-        <CreateEntityForm
-          entityName="lessons"
-          onConfirm={handleConfirmCreation}
-          onClose={() => setEditFormIsOpen(false)}
-          fields={lessonConfig}
-          defaultValues={lesson || lessonDefaultValues}
-        />
-      )}
-
-      <div className="control-panel">
-        {user?.uid && lesson?.createdBy?.uid === user?.uid
-? (
-          <KsuStatus
-            status={selectedStatus}
-            entityName={'lessons'}
-            entityId={lessonId}
-            onStatusChange={(data) => setSelectedStatus(data)}
-          />
-        )
-: (
-          <div></div>
-        )}
-        <div>
-          {user?.uid && lesson?.createdBy?.uid === user?.uid && (
-            <Popup
-              trigger={
-                <ButtonIconStyled onClick={() => setEditFormIsOpen(true)}>
-                  <EditIcon />
-                </ButtonIconStyled>
-              }
-              content="Змінити назву та заобаження уроку"
-            />
-          )}
-        </div>
-      </div>
-
-      <TabStyled>
-        <Tab panes={panes} />
-      </TabStyled>
-    </div>
+		  <TabStyled>
+			  <Tab panes={ panes }/>
+		  </TabStyled>
   );
 };

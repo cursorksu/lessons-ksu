@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import { LessonList } from '../components/LessonList';
 import { MainLayout } from './MainLayout';
 import { CreateEntityForm } from '../components/CreateEntityForm/CreateEntityForm';
@@ -32,6 +32,12 @@ export const LessonsPage = () => {
             : [],
         [ collectionId, collections ]
     );
+
+    useEffect(() => {
+        getLessonsInCollection(currentCollection.lessonIds, selectedStatus).then(() => {
+            console.log({ currentCollection, lessonIds: currentCollection.lessonIds});
+        });
+    }, [collectionId, currentCollection.lessonIds, selectedStatus])
 
     const handleConfirmCreation = useCallback(
         async (lessonId) => {

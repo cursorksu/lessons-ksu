@@ -51,15 +51,15 @@ export const useLessonToCollection = () => {
   );
 
   const unbindLessonFromCollection = useCallback(
-    async (collection, lessonId) => {
-      if (!collection || !collection.id) {
+    async (collectionId, lessonId) => {
+      if (!collectionId) {
         throw new Error('The collection or the collection ID is not defined.');
       }
 
-      const collectionRef = doc(fireStore, 'collections', collection.id);
-      const docSnap = await getDoc(collectionRef);
+      const collectionRef = doc(fireStore, 'collections', collectionId);
+			const collection = await getDoc(collectionRef);
 
-      if (!docSnap.exists()) throw new Error('No such document fined');
+      if (!collection.exists()) throw new Error('No such document fined');
       try {
         await updateDoc(collectionRef, {
           lessonIds: arrayRemove(lessonId),
@@ -67,8 +67,8 @@ export const useLessonToCollection = () => {
 
         dispatch(
           setOneCollection({
-            ...collection,
-            lessonIds: collection.lessonIds.filter((el) => el !== lessonId),
+            ...collection.data(),
+            lessonIds: collection.data().lessonIds.filter((el) => el !== lessonId),
           })
         );
       } catch (error) {

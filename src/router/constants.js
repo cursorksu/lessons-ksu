@@ -13,4 +13,5 @@ export const routes = {
   game: '/game',
   creativity: '/creativity',
   memory: '/memory',
+  blog: '/blog',
 };

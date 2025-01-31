@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
 import {
-  CHOCO,
-  ERROR_MAIN,
-  PRIMARY_MAIN,
-  SUCCESS,
-  YELLOW_MAIN,
-} from '../../constants/colors';
+	CARD_SHADOW,
+	CHOCO,
+	ERROR_MAIN,
+	PRIMARY_MAIN, STATUS_ACTIVE, STATUS_DRAFT, STATUS_PUBLIC,
+	SUCCESS,
+	YELLOW_MAIN,
+} from '../../constants/colors'
 export const EntityStatusMenuStyled = styled.ul`
   padding: 0 10px 10px;
   display: flex;
@@ -53,24 +54,32 @@ export const KsuStatusStyled = styled.div`
   border-bottom-left-radius: 30px;
   font-family: Comfortaa, sans-serif;
   color: white;
-  font-weight: 400;
+	font-weight: 700;
   display: inline-block;
   text-transform: uppercase;
   background: ${CHOCO};
-
-  &.draft {
-    background: ${PRIMARY_MAIN};
-  }
-
-  &.active {
-    background: ${ERROR_MAIN};
-  }
-
-  &.published {
-    background: ${SUCCESS};
-  }
-
-  &.waiting {
-    background: ${YELLOW_MAIN};
-  }
+	
+	&.action-button {
+		padding: 5px 10px;
+		border-radius: 10px;
+		text-transform: none;
+		text-shadow: ${CARD_SHADOW};
+		box-shadow: ${CARD_SHADOW};
+	}
+	
+	&.draft {
+		background: ${STATUS_DRAFT};
+	}
+	
+	&.active {
+		background: ${STATUS_ACTIVE};
+	}
+	
+	&.public {
+		background: ${STATUS_PUBLIC};
+	}
+	
+	&.waiting {
+		background: ${YELLOW_MAIN};
+	}
 `;

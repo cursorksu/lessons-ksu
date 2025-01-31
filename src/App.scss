@@ -12,12 +12,7 @@
 }
 
 .main-content {
-  padding-bottom: 200px;
-  background-size: 450px 450px;
-  background-repeat: no-repeat;
-  background-position: left -40px bottom -50px;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Ftulep.png?alt=media&token=96d3f024-5df8-4e82-80ca-049f306701a0');
-  min-height: 100vh;
+	min-height: 100vh;
   background-color: #fbfaf1;
 }
 
@@ -529,9 +524,9 @@ img.epr-emoji-img {
   }
 
   span, label, li, a, p {
-    font-size: 1.5rem !important;
+    font-size: 18px !important;
     line-height: 1.5 !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     font-family: "Comfortaa", sans-serif;
   }
 
@@ -584,7 +579,7 @@ img.epr-emoji-img {
 }
 
 .content-wrapper .ql-size-huge {
-  font-size: 32px !important;
+  font-size: 22px !important;
 }
 
 .shadow-point {

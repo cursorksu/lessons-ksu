@@ -22,9 +22,14 @@ export const VEREM_GOLD = '#af931b';
 export const VEREM_CREAM_BG = '#fbfaf1';
 export const VEREM_TEXT = '#000';
 
+export const STATUS_DRAFT = '#8595a2';
+export const STATUS_PUBLIC = '#97b5aa';
+export const STATUS_ACTIVE = '#f39f78';
+
 export const BOX_SHADOW_GOLD = '0 2px 4px 3px rgba(163, 147,103, 0.3)';
 export const BOX_SHADOW = '0 2px 8px 4px rgba(0, 0, 0, 0.5)';
 export const BOX_SHADOW_HOVER = '0 2px 4px 2px rgba(0, 0, 0, 0.5)';
+export const CARD_SHADOW = '3px 3px 8px rgba(0, 0, 0, 0.3)';
 export const ITEM_INNER =
   '-10px -10px 15px rgba(255, 255, 255, 0.5),\n' +
   '              10px 10px 15px rgba(70, 70, 70, 0.12),\n    ' +
