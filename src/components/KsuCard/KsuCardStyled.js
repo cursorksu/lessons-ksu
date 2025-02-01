@@ -1,28 +1,87 @@
 import styled from '@emotion/styled';
-import { BG_GOLD, DARK_GRAY } from '../../constants/colors';
+import { BG_GOLD, CARD_SHADOW, CHOCO, DARK_GRAY } from '../../constants/colors'
 export const KsuCardStyled = styled('div')`
-  font-size: 1.5rem;
+  font-size: 16px !important;
   font-weight: 300;
   line-height: 1.5;
   color: ${DARK_GRAY};
   position: relative;
   min-height: 100px;
-  box-shadow: none;
-
-  .header h3 {
-    font-family: 'Yeseva One', sans-serif;
-    font-size: 1.8rem;
-    margin-bottom: 0 !important;
-  }
-
+	background: #fff;
+	border-radius: 20px;
+	box-shadow: ${CARD_SHADOW};
+	overflow: hidden;
+	padding: 20px 20px 60px;
+	margin-bottom: 20px;
+	
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+		
+		label {
+			font-size: 16px !important;
+			line-height: 1.5;
+		}
+	}
+	&.admin-panel {
+		background: ${CHOCO};
+		padding: 10px 20px 0;
+	
+		color: white;
+		text-align: center;
+		
+		.content > * {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-weight: 700 !important;
+			margin-bottom: 20px;
+		}
+		
+		button {
+			font-weight: 700;
+			margin: 0 20px;
+		}
+	}
+	
+	.action-buttons {
+		margin-top: 20px;
+	}
+	
+	&.bible {
+		color: white;
+		text-align: center;
+		background-size: auto 400px;
+		background-position: center bottom 40px;
+		background-repeat: no-repeat;
+		backdrop-filter: opacity(0.5);
+		background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)),
+		url("https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Fbible-bg.png?alt=media&token=b982c86c-b8c8-4eb1-b726-de64ff425cc6");
+		
+		p {
+			font-weight: 700;
+			text-align: center;
+		}
+	}
+	
+	input {
+		display: block;
+		margin-bottom: 20px;
+	}
+	
   .card-actions {
-    margin: 20px 0;
-    padding: 5px;
+    padding: 0 10px;
+	  height: 40px;
     background: ${BG_GOLD};
-    border-radius: 4px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+	  position: absolute;
+	  bottom: 0;
+	  left: 0;
+	  right: 0;
+	  z-index: 1;
   }
   .action-top {
     position: absolute;

@@ -16,7 +16,7 @@ export const TestEnvMessage = () => {
         <>
             {isOpen
              ? (
-                 <Message size={'small'} negative>
+                 <Message size={'small'} style={{ margin: 0 }} negative>
                      <MessageHeader>
                          Увага! Ви працюєте з сайтом який знаходитсья у розробці!
                          <ButtonIconMiniStyled onClick={onClose} className="close">

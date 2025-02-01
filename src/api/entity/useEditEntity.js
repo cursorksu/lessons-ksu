@@ -14,7 +14,10 @@ export const useEditEntity = (entityName) => {
         const docRef = doc(fireStore, `/${entityName}/${data.id}`);
         const profileSnap = await getDoc(docRef);
         const entity = profileSnap.data();
-        if (!entity) throw  new Error(`${entityName} was not found`);
+	      
+	      console.log({ entityName, data, entity});
+	      
+	      if (!entity) throw  new Error(`${entityName} was not found`);
 
         const newData = {
           ...data,

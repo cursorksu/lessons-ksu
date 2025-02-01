@@ -7,7 +7,7 @@ import React from 'react';
 import { useEditEntity } from '../../api/entity/useEditEntity';
 import { useSelector } from 'react-redux';
 
-export const KsuStatus = ({ status, entityName, onStatusChange, entityId }) => {
+export const KsuStatus = ({ status, entityName, onStatusChange, entityId, className }) => {
   const { t } = useTranslation('tr');
   const { user } = useSelector((state) => state.auth);
   // TODO: не давать править урок в статусе ожидания аппрува или давать
@@ -41,7 +41,7 @@ export const KsuStatus = ({ status, entityName, onStatusChange, entityId }) => {
       closeOnPortalMouseLeave
       trigger={
         <KsuStatusStyled
-          className={clsx({
+          className={clsx(className, {
             public: status === publicStatuses.published,
             waiting: status === publicStatuses.waiting,
             active: status === publicStatuses.active,
@@ -84,7 +84,7 @@ export const KsuStatus = ({ status, entityName, onStatusChange, entityId }) => {
   )
 : (
     <KsuStatusStyled
-      className={clsx({
+      className={clsx(className, {
         waiting: status === publicStatuses.waiting,
       })}>
       {status === publicStatuses.waiting && t('status.labels.waiting')}

@@ -14,7 +14,6 @@ import {
   collectionConfig,
   defaultValues,
 } from '../constants/entities/collectionsConfig';
-import { getDateLocalString } from '../utils/getDateLocalString';
 
 export const Collections = () => {
   const { user } = useSelector((state) => state.auth);
@@ -74,7 +73,6 @@ export const Collections = () => {
             </div>
           )}
         </div>
-        ta
       </div>
 
       <div className="collections-parent-wrapper">
@@ -104,9 +102,6 @@ export const Collections = () => {
                 id={el.id}>
                 <div>
                   <div>
-                    <span className="meta">
-                      {getDateLocalString(JSON.parse(el.createdAt))}
-                    </span>
                   </div>
                   <div>
                     <span className="meta">

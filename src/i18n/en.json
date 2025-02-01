@@ -5,12 +5,14 @@
     "teacherDelete": "Do you want to remove this teacher?",
     "studentDelete": "Do you want to remove this student?",
     "groupDelete": "Do you want to remove this group?",
+    "lessonDelete": "Do you want to remove this lesson?",
     "deleteImage": "You can not rollback deleting of this image. You are trying to delete from storage image with name:",
     "title": {
       "churchDelete": "Delete Church:",
       "deleteStudent": "Remove student",
       "deleteTeacher": "Remove teacher",
       "deleteGroup": "Remove group",
+      "lessonDelete": "Remove lesson",
       "deleteImage": "Delete image from storage"
     }
   },
@@ -97,12 +99,15 @@
     }
   },
   "lessonTabs": {
-    "topic": "Lesson Topic",
-    "subject": "Subject example",
+    "topic": "Topic",
+    "subject": "Example",
     "creative": "Creativity",
     "game": "Games",
     "memory": "Memory",
-    "food": "Snack"
+    "food": "Snack",
+    "presentation": "Presentation",
+    "video": "Video",
+    "print": "Print"
   },
   "entity": {
     "goal": "Lesson goal",
@@ -265,6 +270,7 @@
     "edit": "Edit",
     "remove": "Remove",
     "createLesson": "Create lesson",
+    "editLesson": "Edit lesson",
     "accept": "Accept",
     "confirm": "Confirm",
     "reject": "Reject"

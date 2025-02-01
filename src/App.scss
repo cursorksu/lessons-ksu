@@ -12,12 +12,7 @@
 }
 
 .main-content {
-  padding-bottom: 200px;
-  background-size: 450px 450px;
-  background-repeat: no-repeat;
-  background-position: left -40px bottom -50px;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/lessons-ksu.appspot.com/o/static%2Ftulep.png?alt=media&token=96d3f024-5df8-4e82-80ca-049f306701a0');
-  min-height: 100vh;
+	min-height: 100vh;
   background-color: #fbfaf1;
 }
 
@@ -288,19 +283,16 @@ input:-webkit-autofill {
     line-height: 1.5;
   }
 
-  h1.title,
-  .title,
-  .subtitle {
-    font-size: 1.2rem;
-    margin: 1rem 0 !important;
-  }
-
-  h1.title {
-    font-size: 2rem;
-  }
+	img {
+		width: auto !important;
+		height: 200px !important;
+		//object-fit: contain !important;
+	}
 
   span,
   div,
+  label,
+  a,
   p,
   li {
     font-size: 14px !important;
@@ -311,13 +303,46 @@ input:-webkit-autofill {
     display: none !important;
   }
 
-  .aside-wrapper,
   .print-fluid {
     width: 100% !important;
     flex-basis: 100% !important;
     min-width: initial !important;
     max-width: initial !important;
   }
+
+	.aside-wrapper {
+		display: flex !important;
+		flex-direction: row !important;
+		justify-content: stretch !important;
+		align-items: stretch !important;
+		flex-wrap: wrap !important;
+		gap: 20px !important;
+		width: 100% !important;
+		min-width: initial !important;
+	}
+	.aside-wrapper > div {
+		box-shadow: none !important;
+		border: 1px solid #282c34 !important;
+		width: 30% !important;
+	}
+
+	.image-wrapper {
+		border-radius: 20px !important;
+		overflow: hidden !important;
+	}
+
+	.image-wrapper img {
+		border-radius: 20px !important;
+		width: 100% !important;
+		height: auto !important;
+		object-fit: cover !important;
+	}
+
+	.bible {
+		background-image: none !important;
+		background-color: transparent !important;
+		font-size: 24px !important;
+	}
 
   .print-block {
     display: block !important;
@@ -529,9 +554,9 @@ img.epr-emoji-img {
   }
 
   span, label, li, a, p {
-    font-size: 1.5rem !important;
+    font-size: 18px !important;
     line-height: 1.5 !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     font-family: "Comfortaa", sans-serif;
   }
 
@@ -584,7 +609,7 @@ img.epr-emoji-img {
 }
 
 .content-wrapper .ql-size-huge {
-  font-size: 32px !important;
+  font-size: 22px !important;
 }
 
 .shadow-point {
