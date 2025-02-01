@@ -104,7 +104,10 @@
     "creative": "Creativity",
     "game": "Games",
     "memory": "Memory",
-    "food": "Snack"
+    "food": "Snack",
+    "presentation": "Presentation",
+    "video": "Video",
+    "print": "Print"
   },
   "entity": {
     "goal": "Lesson goal",
@@ -267,6 +270,7 @@
     "edit": "Edit",
     "remove": "Remove",
     "createLesson": "Create lesson",
+    "editLesson": "Edit lesson",
     "accept": "Accept",
     "confirm": "Confirm",
     "reject": "Reject"

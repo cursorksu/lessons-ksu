@@ -73,7 +73,6 @@ export const Collections = () => {
             </div>
           )}
         </div>
-        ta
       </div>
 
       <div className="collections-parent-wrapper">

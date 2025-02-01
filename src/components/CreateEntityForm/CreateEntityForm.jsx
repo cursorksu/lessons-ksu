@@ -14,10 +14,10 @@ import {KsuTags} from '../KsuTags/KsuTags';
 import {useDispatch, useSelector} from 'react-redux';
 import ModalContent from 'semantic-ui-react/dist/commonjs/modules/Modal/ModalContent';
 import {ImageUploader} from '../ImageCroper/ImageUploader';
-import {getDateObject, getDateToDatePicker} from "../../utils/getDateLocalString";
-import {SinglePhotoInStorage} from "../Dropzone/SinglePhotoInStorage";
-import clsx from "clsx";
-import {setMessage} from "../../store/notificationReducer";
+import {getDateObject, getDateToDatePicker} from '../../utils/getDateLocalString';
+import {SinglePhotoInStorage} from '../Dropzone/SinglePhotoInStorage';
+import clsx from 'clsx';
+import {setMessage} from '../../store/notificationReducer';
 
 export const CreateEntityForm = ({
                                      entityName,
@@ -25,7 +25,7 @@ export const CreateEntityForm = ({
                                      onClose,
                                      fields,
                                      defaultValues = {},
-        className,
+                                     className,
                                  }) => {
     const dispatch = useDispatch();
     const [emojiIsOpen, setEmojiIsOpen] = useState(false);
@@ -118,9 +118,9 @@ export const CreateEntityForm = ({
                         return (
                                 <div className="triple-cell">
                                     <SinglePhotoInStorage
-                                        onChange={(data) => setValue(field.name, data)}
-                                        file={getValues(field.name)}
-                                        folder={user?.church[0]}
+                                            onChange={(data) => setValue(field.name, data)}
+                                            file={getValues(field.name)}
+                                            folder={user?.church[0]}
                                     />
                                 </div>
                         );
@@ -175,7 +175,7 @@ export const CreateEntityForm = ({
                         );
                 }
             },
-            [emojiIsOpen, defaultValues, user]
+            [emojiIsOpen, defaultValues, user],
     );
 
     const getRequiredFields = useMemo(() => (
@@ -191,7 +191,7 @@ export const CreateEntityForm = ({
         isValid = requiredFields.every((el) => !!data[el.name]);
 
         return isValid;
-    }
+    };
 
     return (
             <>
@@ -206,7 +206,8 @@ export const CreateEntityForm = ({
                                             name={el.name}
                                             control={control}
                                             render={({field}) => (
-                                                    <InputFieldStyled className={clsx(el.inputType, {'required': el.required})}>
+                                                    <InputFieldStyled
+                                                            className={clsx(el.inputType, {'required': el.required})}>
                                                         <LabelStyled>
                                                             {t(`${entityName}.labels.${el.name}`)}
                                                         </LabelStyled>
@@ -240,7 +241,7 @@ export const CreateEntityForm = ({
                                                     title: `Fill required fields!`,
                                                     description: `Check fields: ${getRequiredFields}`,
                                                 },
-                                            })
+                                            }),
                                     );
 
                                     return;

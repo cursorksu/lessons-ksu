@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { KsuCard } from '../KsuCard'
-import { Checkbox, FormField, Popup } from 'semantic-ui-react'
+import React, { useEffect, useRef, useState } from 'react'
+import { FormField } from 'semantic-ui-react'
 import { ButtonIconMiniStyled, ButtonIconStyled } from '../ButtonStyled'
 import { ReactComponent as EditIcon } from '../../assets/edit.svg'
 import { ReactComponent as SaveIcon } from '../../assets/save.svg'
@@ -11,27 +10,26 @@ import { Controller, useForm } from 'react-hook-form'
 import Editor from '../TextEditor'
 import { useEditEntity } from '../../api/entity/useEditEntity'
 import { HTMLRenderer } from '../HTMLRender/HTMLRender'
-import { InputStyled } from '../InputStyled'
-import { DynamicList } from '../DynamicList/DynamicList'
 import { InfoBlockStyled } from '../InfoBlockStyled'
 import { useReactToPrint } from 'react-to-print'
 import clsx from 'clsx'
 import { TitleLarge } from '../TitleStyled'
-import { CreateEntityForm } from '../CreateEntityForm/CreateEntityForm'
-import { lessonConfig, lessonDefaultValues } from '../../constants/entities/lessonConfig'
 import { AdminPanel } from './AsideCards/AdminPanel'
 import { BibleText } from './AsideCards/BibleText'
 import { StaffList } from './AsideCards/StaffList'
 import { LessonGoal } from './AsideCards/LessonGoal'
+import { MediaCard } from './AsideCards/MediaCard'
+import { LessonEntity } from '../LessonEntity/LessonEntity'
+import { LessonVideo } from '../LessonEntity/LessonVideo'
 
 export const TopicToPrint = React.forwardRef(({
-	                                              forceUpdate,
 	                                              lesson,
 	                                              onChangeConfirm
                                               }, ref) => {
-	const { editEntity } = useEditEntity('lessons')
-	const [isTopicEdit, setIsTopicEdit] = useState(false)
-	const [isFullScreen, setIsFullScreen] = useState(false)
+	const { editEntity } = useEditEntity('lessons');
+	const [activeTab, setActiveTab] = useState(0);
+	const [isTopicEdit, setIsTopicEdit] = useState(false);
+	const [isFullScreen, setIsFullScreen] = useState(false);
 	
 	useEffect(() => {
 		if (lesson?.memory?.length) {
@@ -108,13 +106,12 @@ export const TopicToPrint = React.forwardRef(({
 					</div>
 					<img src={ lesson?.imageUrl } alt={ lesson?.title }/>
 				</div>
-				<LessonGoal
-					lesson={lesson}
-					onEdit={editLessonHandler}
-					
+				<MediaCard
+					setActiveTab={setActiveTab}
+					activeTab={activeTab}
 				/>
 			</aside>
-			<section className="content-wrapper">
+			<div>
 				<TitleLarge>{ lesson?.title }
 					<span className="action print-hide">
 						{ user?.uid && lesson?.createdBy?.uid === user?.uid && ( !isTopicEdit ? (
@@ -125,34 +122,68 @@ export const TopicToPrint = React.forwardRef(({
 						</ButtonIconMiniStyled> ) ) }
 					</span>
 				</TitleLarge>
+				{activeTab === 0 &&
+					<>
+						<LessonGoal
+							lesson={ lesson }
+							onEdit={ editLessonHandler }
+						/>
+						<section className="content-wrapper">
+							<div className="action-top">
+								{ isTopicEdit ? ( <Controller
+									name="topic"
+									control={ control }
+									render={ ({ field }) => ( <FormField>
+										<Editor
+											placeholder={ 'Почніть вводити текст...' }
+											onChange={ (data) => setValue('topic', data) }
+											value={ field.value }
+										/>
+									</FormField> ) }
+								/> ) : ( <HTMLRenderer htmlContent={ lesson?.topic }/> ) }
+							</div>
+						</section>
+					</>
+				}
 				
-				<div className="action-top">
-					{ isTopicEdit ? ( <Controller
-						name="topic"
-						control={ control }
-						render={ ({ field }) => ( <FormField>
-							<Editor
-								placeholder={ 'Почніть вводити текст...' }
-								onChange={ (data) => setValue('topic', data) }
-								value={ field.value }
-							/>
-						</FormField> ) }
-					/> ) : ( <HTMLRenderer htmlContent={ lesson?.topic }/> ) }
-				</div>
-			</section>
+				{activeTab === 1 &&
+					<LessonEntity entityName={'presentation'} lesson={lesson} />
+				}
+				{activeTab === 2 &&
+					<LessonVideo entityName={'video'} lesson={lesson} />
+				}
+				{activeTab === 3 &&
+					<LessonEntity entityName={'subject'} lesson={lesson} />
+				}
+				{activeTab === 4 &&
+					<LessonEntity entityName={'creative'} lesson={lesson} />
+				}
+				{activeTab === 5 &&
+					<LessonEntity entityName={'game'} lesson={lesson} />
+				}
+				{activeTab === 6 &&
+					<LessonEntity entityName={'memory'} lesson={lesson} />
+				}
+				{activeTab === 7 &&
+					<LessonEntity entityName={'food'} lesson={lesson} />
+				}
+				{activeTab === 8 &&
+					<LessonEntity entityName={'print'} lesson={lesson} />
+				}
+			</div>
 			<aside className="aside-wrapper print-fluid">
 				<AdminPanel
-					onEdit={() => forceUpdate(prev => !prev)}
-					lesson={lesson}
-					onPrint={handlePrint}
+					onEdit={ onChangeConfirm }
+					lesson={ lesson }
+					onPrint={ handlePrint }
 				/>
 				<BibleText
-					lesson={lesson}
-					onEdit={editLessonHandler}
+					lesson={ lesson }
+					onEdit={ editLessonHandler }
 				/>
 				<StaffList
-					lesson={lesson}
-					onEdit={editLessonHandler}
+					lesson={ lesson }
+					onEdit={ editLessonHandler }
 				/>
 			</aside>
 		</section>

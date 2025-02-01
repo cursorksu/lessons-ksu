@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CARD_SHADOW, VEREM_GOLD } from '../constants/colors'
+import { BG_GOLD, CARD_SHADOW, VEREM_GOLD } from '../constants/colors'
 
 export const InfoBlockStyled = styled.div`
 	font-family: Comfortaa, sans-serif;
@@ -9,7 +9,26 @@ export const InfoBlockStyled = styled.div`
 	width: 100%;
 	padding-bottom: 20px;
 	
+	.btn-block {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		margin: 20px 0;
+	}
+	
+	.video-wrapper {
+		width: 100%;
+		height: 56vh;
+		border-radius: 20px;
+		border: none;
+		background: ${BG_GOLD};
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
 	.ksu-wrapper {
+		padding: 20px;
 		display: grid;
 		grid-gap: 20px;
 		grid-template-columns: 280px calc(100% - 600px) 280px;
@@ -22,13 +41,26 @@ export const InfoBlockStyled = styled.div`
 		display: block;
 	}
 	
+	.title-wrapper {
+		border-radius: 30px;
+		box-shadow: ${ CARD_SHADOW };
+		position: relative;
+		overflow: hidden;
+		padding: 0 12px 0 20px;
+		margin-bottom: 20px;
+		background: #fff;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	
 	.image-wrapper {
-		border-radius: 20px;
+		border-radius: 30px;
 		box-shadow: ${ CARD_SHADOW };
 		position: relative;
 		overflow: hidden;
 		margin-bottom: 20px;
-		padding: 0;
+		padding: ;
 		
 		button {
 			position: absolute;
@@ -58,15 +90,13 @@ export const InfoBlockStyled = styled.div`
 		padding: 20px;
 		box-shadow: ${ CARD_SHADOW };
 		border-radius: 20px;
-		height: calc(100vh - 100px);
+		height: calc(100vh - 280px);
 		overflow: auto;
 
 		h1, h2, h3, h4, h5, h6 {
-			color: ${ VEREM_GOLD };
 			margin: 0;
 			padding: 0;
 			font-family: Comfortaa, sans-serif;
-			line-height: 1.2;
 			font-weight: 700;
 		}
 	}

@@ -26,76 +26,43 @@ import {useTranslation} from 'react-i18next';
 import {useEditEntity} from '../../api/entity/useEditEntity';
 
 const INITIAL_VALUES = {
-    text: '',
     title: '',
-    imageUrl: '',
+    videoUrl: '',
 };
 
-export const LessonEntity = ({entityName, lesson}) => {
+export const LessonVideo = ({entityName, lesson}) => {
     const {t} = useTranslation('tr');
     const {lessonId} = useParams();
-    const {getEntities, entities} = useGetEntityListByIds(entityName);
-    const {createEntity} = useCreateEntity(entityName);
     const {editEntity} = useEditEntity('lessons');
     const [isVideoShown, setIsVideoShown] = useState(false);
-    const {addEntityToArrayField, removeEntityFromArrayField} =
-            useAssignEntityToLesson(entityName);
+    const {user} = useSelector((state) => state.auth);
 
     const {control, getValues, setValue, reset} = useForm({
         defaultValues: INITIAL_VALUES,
         caches: false,
     });
 
-    useEffect(() => {
-        lesson &&
-        lesson[entityName]?.length &&
-        getEntities(lesson[entityName]).then(() => {
-        });
-    }, [lesson, entityName, getEntities]);
-
-    const [isFormShown, setIsFormShown] = useState(false);
-    const {user} = useSelector((state) => state.auth);
-
-    const handleEntityCreate = async () => {
-        try {
-            if (entityName === 'video') {
-                await editEntity({id: lessonId, videoUrl: getValues('videoUrl')});
-                setIsVideoShown(false);
-                return;
-            }
-            const newValue = getValues();
-            const id = await createEntity(newValue);
-
-            if (id === undefined) {
-                throw new Error(`${entityName} Did Not Created!`);
-            }
-            await addEntityToArrayField(entityName, id, lessonId);
-
-            setIsFormShown(false);
-            reset(INITIAL_VALUES);
-        } catch (err) {
-            throw new Error(err);
-        }
+    const handleChangeVideoUrl = async () => {
+        await editEntity({id: lessonId, video: getValues()});
+        setIsVideoShown(false);
+        reset(INITIAL_VALUES);
     };
 
     const removeEntity = async (entityId) => {
-        await removeEntityFromArrayField(entityName, entityId, lessonId);
+        await editEntity({id: lessonId, video: INITIAL_VALUES});
     };
 
     const handleCancel = () => {
         reset();
-        setIsFormShown(false);
+        setIsVideoShown(false);
     };
 
-    const createButtonHandler = () => {
-        switch (entityName) {
-            case 'video': {
-                return setIsVideoShown(true);
-            }
-            default: {
-                return setIsFormShown(true);
-            }
-        }
+    const embedUrl = (url) => {
+        if (url?.includes('https://www.youtube.com/embed/')) return url;
+        if (url?.includes('watch?v=')) return url?.replace('watch?v=', 'embed/');
+        if (url?.includes('https://youtu.be/'))
+            return url?.replace('https://youtu.be/', 'https://www.youtube.com/embed/');
+        return url;
     };
 
     return (
@@ -104,7 +71,7 @@ export const LessonEntity = ({entityName, lesson}) => {
                     <TitleMedium>{t(`lessonTabs.${entityName}`)}</TitleMedium>
                     {user?.uid && lesson?.createdBy.uid === user?.uid && (
                             <div className="btn-block print-hide">
-                                <ButtonStyled onClick={createButtonHandler}>
+                                <ButtonStyled onClick={() => setIsVideoShown(true)}>
                                     {t('button.add')} {t(`lessonTabs.${entityName}`)}
                                 </ButtonStyled>
                                 <Popup
@@ -114,7 +81,7 @@ export const LessonEntity = ({entityName, lesson}) => {
                                                 <DeleteIcon/>
                                             </ButtonIconStyled>
                                         }
-                                        content={`Відкріпити ${entityName} від урока`}
+                                        content={t('button.delete')}
                                 />
                             </div>
                     )}
@@ -122,7 +89,7 @@ export const LessonEntity = ({entityName, lesson}) => {
                 <section className="content-wrapper">
                     <div>
                         <div className="action-top">
-                            {isFormShown
+                            {isVideoShown
                                     ? (
                                             <div className="print-hide">
                                                 <Controller
@@ -130,51 +97,53 @@ export const LessonEntity = ({entityName, lesson}) => {
                                                         control={control}
                                                         render={({field}) => (
                                                                 <InputFieldStyled>
-                                                                    <LabelStyled>Назва</LabelStyled>
+                                                                    <LabelStyled>{t('title')}</LabelStyled>
                                                                     <InputStyled {...field} />
                                                                 </InputFieldStyled>
                                                         )}
                                                 />
                                                 <Controller
-                                                        name={'imageUrl'}
+                                                        name={'videoUrl'}
                                                         control={control}
                                                         render={({field}) => (
                                                                 <InputFieldStyled>
-                                                                    <LabelStyled>Посилання на зображення</LabelStyled>
+                                                                    <LabelStyled>{t('videoUrl')}</LabelStyled>
                                                                     <InputStyled {...field} />
                                                                 </InputFieldStyled>
                                                         )}
                                                 />
-                                                <Controller
-                                                        name={'text'}
-                                                        control={control}
-                                                        render={({field}) => (
-                                                                <InputFieldStyled>
-                                                                    <LabelStyled>Контент</LabelStyled>
-                                                                    <Editor
-                                                                            {...field}
-                                                                            placeholder={'Почніть вводити текст...'}
-                                                                            onChange={(data) => setValue('text', data)}
-                                                                            value={field.value}
-                                                                    />
-                                                                </InputFieldStyled>
-                                                        )}
-                                                />
-                                                <ButtonStyled className="secondary"
-                                                              onClick={handleCancel}>Cancel</ButtonStyled>
-                                                <ButtonStyled onClick={handleEntityCreate}>Save</ButtonStyled>
+                                                <div className="btn-block">
+                                                    <ButtonStyled
+                                                            className="secondary"
+                                                            onClick={handleCancel}
+                                                    >
+                                                        Cansel
+                                                    </ButtonStyled>
+                                                    <ButtonStyled onClick={handleChangeVideoUrl}>Save</ButtonStyled>
+                                                </div>
                                             </div>
-                                    )
-                                    : (
-                                            entities.map((el) => (
-                                                    <div key={el.id}>
-                                                        <img src={el.imageUrl} alt={el.title} className="item-image"/>
-                                                        <div className="item-action print-hide">
-                                                            <TitleSmall>{el.title}</TitleSmall>
-                                                        </div>
-                                                        <HTMLRenderer htmlContent={el.text}/>
-                                                    </div>
-                                            ))
+                                    ) : (
+                                            <div>
+                                                {lesson.video?.videoUrl
+                                                        ? (
+                                                                <iframe
+                                                                        title="lesson video"
+                                                                        width="100%"
+                                                                        height="200"
+                                                                        src={`${embedUrl(lesson.video?.videoUrl)}?controls=1&showinfo=0`}
+                                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                                        allowFullScreen
+                                                                        className="video-wrapper"
+                                                                />
+                                                        ) : (
+                                                                <div className="video-wrapper">
+                                                                    <TitleMedium>No video Url</TitleMedium>
+                                                                </div>
+                                                        )
+
+                                                }
+                                            </div>
+
                                     )}
                         </div>
                     </div>

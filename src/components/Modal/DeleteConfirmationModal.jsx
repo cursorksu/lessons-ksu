@@ -1,14 +1,14 @@
-import React, { useCallback, useState } from 'react';
-import { ButtonIconMiniStyled, ButtonStyled } from '../ButtonStyled';
-import { ReactComponent as CloseIcon } from '../../assets/close.svg';
-import { ReactComponent as DeleteIcon } from '../../assets/delete.svg';
+import React, {useCallback, useState} from 'react';
+import {ButtonIconMiniStyled, ButtonStyled} from '../ButtonStyled';
+import {ReactComponent as CloseIcon} from '../../assets/close.svg';
+import {ReactComponent as DeleteIcon} from '../../assets/delete.svg';
 import {
     Modal,
     ModalActions,
     ModalContent,
-    ModalHeader,
+    ModalHeader, Popup,
 } from 'semantic-ui-react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export const DeleteConfirmationModal = ({
                                             modalTitle,
@@ -17,8 +17,8 @@ export const DeleteConfirmationModal = ({
                                             onCancel,
                                             size = 'small',
                                         }) => {
-    const { t } = useTranslation('tr');
-    const [ open, setOpen ] = useState(false);
+    const {t} = useTranslation('tr');
+    const [open, setOpen] = useState(false);
 
     const handleOpen = useCallback((e) => {
         e.stopPropagation();
@@ -27,26 +27,31 @@ export const DeleteConfirmationModal = ({
     const handleClose = useCallback(() => {
         onCancel && onCancel();
         setOpen(false);
-    }, [ onCancel ]);
+    }, [onCancel]);
     const handleConfirm = useCallback(
-        (e) => {
-            onConfirm(e);
-            setOpen(false);
-        },
-        [ onConfirm ]
+            (e) => {
+                onConfirm(e);
+                setOpen(false);
+            },
+            [onConfirm],
     );
 
     return (
-        <Modal
-            onClose={onCancel}
-            onOpen={handleOpen}
-            trigger={
-                <ButtonIconMiniStyled onClick={handleOpen} className={'delete-button'}>
-                    <DeleteIcon/>
-                </ButtonIconMiniStyled>
-            }
-            size={size}
-            open={open}>
+            <Modal
+                    onClose={onCancel}
+                    onOpen={handleOpen}
+                    trigger={
+                        <Popup
+                                trigger={
+                                    <ButtonIconMiniStyled onClick={handleOpen} className={'delete-button'}>
+                                        <DeleteIcon/>
+                                    </ButtonIconMiniStyled>
+                                }
+                                content={modalTitle}
+                        />
+                    }
+                    size={size}
+                    open={open}>
                 <ModalHeader>
                     <h2 className="title">{modalTitle}</h2>
                     <ButtonIconMiniStyled onClick={handleClose}>
@@ -62,6 +67,6 @@ export const DeleteConfirmationModal = ({
                         {t('button.delete')}
                     </ButtonStyled>
                 </ModalActions>
-        </Modal>
+            </Modal>
     );
 };

@@ -45,6 +45,10 @@ export const KsuCardStyled = styled('div')`
 		}
 	}
 	
+	.action-buttons {
+		margin-top: 20px;
+	}
+	
 	&.bible {
 		color: white;
 		text-align: center;

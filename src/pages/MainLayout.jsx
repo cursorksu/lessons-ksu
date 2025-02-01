@@ -15,7 +15,7 @@ import { TestEnvMessage } from '../components/Messages/TestEnvMessage';
 import { VeremInviteStyled } from '../components/VeremInvite/style';
 import { Footer } from '../components/Footer/Footer';
 
-export const MainLayout = ({ children }) => {
+export const MainLayout = ({ children, className }) => {
   const dispatch = useDispatch();
   const mainMenuCollapsed = useSelector(
     ({ mainMenuCollapsed }) => mainMenuCollapsed
@@ -43,7 +43,7 @@ export const MainLayout = ({ children }) => {
   }, [dispatch, signOutUser]);
 
   return (
-    <MainContentStyled collapsed={mainMenuCollapsed}>
+    <MainContentStyled collapsed={mainMenuCollapsed} className={className}>
       <Control loginWithGoogle={loginWithGoogle} signOut={signOut} />
       <div className="main-content">
           <TestEnvMessage/>

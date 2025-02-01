@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import {VEREM_GOLD} from '../constants/colors';
 
-export const TitleSmall = styled.div`
+export const TitleSmall = styled.h2`
     margin: 0;
     padding: 0;
     font-family: Comfortaa, sans-serif;
@@ -17,4 +18,6 @@ export const TitleLarge = styled(TitleSmall)`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: ${VEREM_GOLD};
+    margin: 0 12px;
 `;
