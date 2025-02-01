@@ -107,6 +107,7 @@ export const TopicToPrint = React.forwardRef(({
 					<img src={ lesson?.imageUrl } alt={ lesson?.title }/>
 				</div>
 				<MediaCard
+					lesson={lesson}
 					setActiveTab={setActiveTab}
 					activeTab={activeTab}
 				/>

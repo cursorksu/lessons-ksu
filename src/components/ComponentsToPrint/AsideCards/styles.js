@@ -1,5 +1,13 @@
 import styled from '@emotion/styled'
-import { CHOCO, CREAM, STATUS_DRAFT, STATUS_PUBLIC, SUCCESS, VEREM_GOLD } from '../../../constants/colors'
+import {
+	CHOCO,
+	CREAM,
+	STATUS_ACTIVE,
+	STATUS_DRAFT,
+	STATUS_PUBLIC,
+	SUCCESS,
+	VEREM_GOLD
+} from '../../../constants/colors'
 
 export const MediaButtonWrapperStyled = styled.div`
 	display: grid !important;
@@ -35,17 +43,18 @@ export const MediaButtonStyled = styled.button`
 		width: 36px;
 		height: 36px;
 	}
-	
+	&.exist {
+		background: linear-gradient(to bottom, ${ CREAM }, ${ STATUS_DRAFT });
+	}
 	&:hover {
 		background: linear-gradient(to bottom, #d4af37, #faebd7);
 		box-shadow: rgba(0, 0, 0, 0.3) 6px 6px 12px, inset rgba(0, 0, 0, .2) -3px -3px 3px 3px,
 		inset rgba(255, 255, 255, .7) 3px 3px 3px 3px,
 		1px 1px 4px rgba(255, 255, 255, .1);
 	}
-	
 	&.active {
-		background: ${STATUS_PUBLIC};
 		color: #fff;
+		background: ${STATUS_ACTIVE} !important;
 		transform: scale(0.95);
 		box-shadow: rgba(0, 0, 0, 0.6) 2px 2px 4px, inset rgba(0, 0, 0, .3) -3px -3px 3px 3px,
 		inset rgba(255, 255, 255, .5) 3px 3px 3px 3px,
