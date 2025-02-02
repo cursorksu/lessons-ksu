@@ -6,6 +6,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {ReactComponent as PrintIcon} from '../../../assets/print.svg';
 import {ReactComponent as EditIcon} from '../../../assets/edit.svg';
+import {ReactComponent as CopyIcon} from '../../../assets/copy.svg';
 import {useDeleteLesson} from '../../../api/lesson';
 import {useLessonToCollection} from '../../../api/collections/useLessonToCollection';
 import {useNavigate, useParams} from 'react-router';
@@ -21,8 +22,9 @@ import {LabelStyled} from '../../InputStyled';
 
 export const AdminPanel = ({onEdit, lesson, onPrint}) => {
     const {t} = useTranslation('tr');
-    const { lessonId } = useParams();
-    const { bindLessonToGroup } = useLessonToGroup();
+    const {t: lessonsT} = useTranslation('lessons');
+    const {lessonId} = useParams();
+    const {bindLessonToGroup} = useLessonToGroup();
     const {collectionId} = useParams();
     const navigate = useNavigate();
     const {user} = useSelector((state) => state.auth);
@@ -34,6 +36,10 @@ export const AdminPanel = ({onEdit, lesson, onPrint}) => {
     useEffect(() => {
         setSelectedStatus(lesson?.status);
     }, [lesson]);
+
+    useEffect(() => {
+        console.log('Translation check (lessons):', lessonsT('lessons.copyLesson')); // Должно вернуть перевод
+    }, []);
 
     const handleDelete = useCallback(async (e, lessonId) => {
         e.stopPropagation();
@@ -47,76 +53,84 @@ export const AdminPanel = ({onEdit, lesson, onPrint}) => {
         setSelectedStatus(lesson?.status);
     }, [lesson]);
 
-    return user?.uid && lesson?.createdBy?.uid === user?.uid ? (
+    return (
             <KsuCard className={'admin-panel print-hide'}>
-                <div>
-                    <TitleSmall>Status:
-                        <KsuStatus
-                                status={selectedStatus}
-                                entityName={'lessons'}
-                                className={'action-button'}
-                                entityId={lesson?.id}
-                                onStatusChange={(data) => setSelectedStatus(data)}
-                        />
-                    </TitleSmall>
-                </div>
-                <>
-                    <LabelStyled>Assign Lesson to group:</LabelStyled>
-                    <StyledDropdown>
-                        <Dropdown
-                                fluid
-                                multiple={false}
-                                placeholder={'group.labels.type'}
-                                options={user?.groups?.map(el => ({key: el, text: el, value: el}))}
-                                onChange={(_, data) => bindLessonToGroup(data.value, lessonId)}
-                        />
-                    </StyledDropdown>
-                </>
+                {user?.uid && lesson?.createdBy?.uid === user?.uid && (
+                        <div>
+                            <TitleSmall>{lessonsT('status')}:
+                                <KsuStatus
+                                        status={selectedStatus}
+                                        entityName={'lessons'}
+                                        className={'action-button'}
+                                        entityId={lesson?.id}
+                                        onStatusChange={(data) => setSelectedStatus(data)}
+                                />
+                            </TitleSmall>
+                        </div>
+                )}
+                {user?.uid && (
+                        <>
+                            <LabelStyled>{lessonsT('assignToGroup')}:</LabelStyled>
+                            <StyledDropdown>
+                                <Dropdown
+                                        fluid
+                                        multiple={false}
+                                        options={user?.groups?.map(el => ({key: el, text: el, value: el}))}
+                                        onChange={(_, data) => bindLessonToGroup(data.value, lessonId)}
+                                />
+                            </StyledDropdown>
+                        </>
+                )}
                 <div className={'action-buttons'}>
                     <Popup
                             trigger={<ButtonIconMiniStyled onClick={onPrint}>
                                 <PrintIcon/>
                             </ButtonIconMiniStyled>}
-                            content="Надрукувати цей урок"
+                            content={lessonsT('printLesson')}
                     />
-                    <Popup
-                            trigger={
-                                <BigModal
-                                        icon={<EditIcon/>}
-                                        isOpen={createFormIsOpen}
-                                        onCancel={() => {
-                                        }}
-                                        setIsOpen={setCreateFormIsOpen}
-                                        modalTitle={t('button.editLesson')}
-                                        onConfirm={() => {
-                                        }}
-                                >
-                                    <CreateEntityForm
-                                            entityName="lessons"
-                                            onConfirm={onEdit}
-                                            onClose={() => setCreateFormIsOpen(false)}
-                                            fields={lessonConfig}
-                                            defaultValues={lesson || lessonDefaultValues}
-                                    />
-                                </BigModal>
-                            }
-                            content="Змінити назву та заобаження уроку"
-                    />
+                    {user?.uid && (
+                            <Popup
+                                    trigger={<ButtonIconMiniStyled onClick={onPrint}>
+                                        <CopyIcon/>
+                                    </ButtonIconMiniStyled>}
+                                    content={lessonsT('copyLesson')}
+                            />
+                    )}
+                    {user?.uid && lesson?.createdBy?.uid === user?.uid && (
+                            <>
+                                <Popup
+                                        trigger={
+                                            <BigModal
+                                                    icon={<EditIcon/>}
+                                                    isOpen={createFormIsOpen}
+                                                    onCancel={() => {
+                                                    }}
+                                                    setIsOpen={setCreateFormIsOpen}
+                                                    modalTitle={t('button.editLesson')}
+                                                    onConfirm={() => {
+                                                    }}
+                                            >
+                                                <CreateEntityForm
+                                                        entityName="lessons"
+                                                        onConfirm={onEdit}
+                                                        onClose={() => setCreateFormIsOpen(false)}
+                                                        fields={lessonConfig}
+                                                        defaultValues={lesson || lessonDefaultValues}
+                                                />
+                                            </BigModal>
+                                        }
+                                        content="Змінити назву та заобаження уроку"
+                                />
 
-                    <DeleteConfirmationModal
-                            modalTitle={`${t('modal.title.lessonDelete')}`}
-                            modalContent={`${t('modal.lessonDelete')}`}
-                            onConfirm={(e) => handleDelete(e, lesson?.id)}
-                            size={'small'}
-                    />
+                                <DeleteConfirmationModal
+                                        modalTitle={`${t('modal.title.lessonDelete')}`}
+                                        modalContent={`${t('modal.lessonDelete')}`}
+                                        onConfirm={(e) => handleDelete(e, lesson?.id)}
+                                        size={'small'}
+                                />
+                            </>
+                    )}
                 </div>
             </KsuCard>
-    ) : (
-            <Popup
-                    trigger={<ButtonIconMiniStyled onClick={onPrint}>
-                        <PrintIcon/>
-                    </ButtonIconMiniStyled>}
-                    content="Надрукувати цей урок"
-            />
     );
 };

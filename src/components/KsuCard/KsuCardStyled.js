@@ -18,11 +18,12 @@ export const KsuCardStyled = styled('div')`
 		list-style-type: none;
 		padding: 0;
 		margin: 0;
-		
-		label {
-			font-size: 16px !important;
-			line-height: 1.5;
-		}
+	}
+	
+	label {
+		font-size: 12px !important;
+		line-height: 1.5;
+		margin-bottom: 5px !important;
 	}
 	&.admin-panel {
 		background: ${CHOCO};

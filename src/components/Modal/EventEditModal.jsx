@@ -183,7 +183,7 @@ export const EventEditModal = ({ isOpen, setIsOpen, onSave, event, group }) => {
                                     selection
                                     optionsIds={group?.teachers}
                                     pointing={'top right'}
-                                    onChange={(teacher) => console.log({teacher})}
+                                    onChange={(teacher) => {}}
                                 />
                             </InputFieldStyled>
                         )}

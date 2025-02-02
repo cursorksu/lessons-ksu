@@ -15,8 +15,6 @@ export const useEditEntity = (entityName) => {
         const profileSnap = await getDoc(docRef);
         const entity = profileSnap.data();
 	      
-	      console.log({ entityName, data, entity});
-	      
 	      if (!entity) throw  new Error(`${entityName} was not found`);
 
         const newData = {
