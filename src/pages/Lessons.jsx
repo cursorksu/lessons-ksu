@@ -34,9 +34,7 @@ export const LessonsPage = () => {
     );
 
     useEffect(() => {
-        getLessonsInCollection(currentCollection.lessonIds, selectedStatus).then(() => {
-            console.log({ currentCollection, lessonIds: currentCollection.lessonIds});
-        });
+        getLessonsInCollection(currentCollection.lessonIds, selectedStatus)
     }, [collectionId, currentCollection.lessonIds, selectedStatus])
 
     const handleConfirmCreation = useCallback(
