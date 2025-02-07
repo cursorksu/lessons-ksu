@@ -18,13 +18,15 @@ export const useLessonToGroup = () => {
 
     const bindLessonToGroup = useCallback(
         async (groupId, lessonId) => {
+					
             const groupRef = doc(fireStore, 'group', groupId);
             const lessonRef = doc(fireStore, 'lessons', lessonId);
             const docSnap = await getDoc(groupRef);
             const lessonSnap = await getDoc(lessonRef);
 
-            if (!docSnap.exists() || !lessonSnap.exists() ) throw new Error('No such document fined');
 
+            if (!docSnap.exists() || !lessonSnap.exists() ) throw new Error('No such document fined');
+	     
             try {
                 await updateDoc(groupRef, {
                     lessonIds: arrayUnion(lessonId),
@@ -32,6 +34,18 @@ export const useLessonToGroup = () => {
                 await updateDoc(lessonRef, {
                     usage: arrayUnion(groupId),
                 });
+								
+	            dispatch(
+		            setMessage({
+			            type: 'success',
+			            message: {
+				            title: t('success'),
+				            description: `${t('Updated successfully')}: ${
+					            error.message
+				            }`,
+			            },
+		            })
+	            );
             } catch (error) {
                 dispatch(
                     setMessage({
@@ -85,5 +99,5 @@ export const useLessonToGroup = () => {
         [ dispatch, t ]
     );
 
-    return { bindLessonToGroup };
+    return { bindLessonToGroup, unbindLessonFromGroup };
 };

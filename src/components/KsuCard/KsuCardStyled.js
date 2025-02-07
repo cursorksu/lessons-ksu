@@ -27,10 +27,10 @@ export const KsuCardStyled = styled('div')`
 	}
 	&.admin-panel {
 		background: ${CHOCO};
-		padding: 10px 20px 0;
-	
+		padding: 10px 20px 10px;
 		color: white;
 		text-align: center;
+		overflow: visible;
 		
 		.content > * {
 			display: flex;
@@ -43,6 +43,37 @@ export const KsuCardStyled = styled('div')`
 		button {
 			font-weight: 700;
 			margin: 0 20px;
+		}
+		.ui.dropdown {
+			min-height: 40px;
+		}
+		.ui.label {
+			text-overflow: ellipsis;
+			text-wrap: nowrap;
+			padding-right: 30px;
+			overflow: hidden;
+			margin: 4px 0;
+			
+			.dropdown.icon,
+			.icon {
+				top: 8px;
+			}
+		}
+		.ui.dropdown>.dropdown.icon {
+			top: 10px;
+		}
+		.item {
+			max-width: 240px;
+			top: 110%;
+			overflow: hidden;
+		}
+		
+		.text {
+			display: block;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			width: 100%;
 		}
 	}
 	
