@@ -16,10 +16,7 @@ import {lessonConfig, lessonDefaultValues} from '../../../constants/entities/les
 import {useTranslation} from 'react-i18next';
 import {DeleteConfirmationModal} from '../../Modal/DeleteConfirmationModal';
 import {TitleSmall} from '../../TitleStyled';
-import {useLessonToGroup} from '../../../api/lesson/useLessonToGroup';
 import {LabelStyled} from '../../InputStyled';
-import {KsuDropdown} from '../../KsuDropdown';
-import {KsuDropdownDynamic} from '../../KsuDropdown/KsuDropdownDynamic';
 import {KsuDropdownUserGroups} from '../../KsuDropdown/KsuDropdownUserGroups';
 
 export const AdminPanel = ({onEdit, lesson, onPrint}) => {
