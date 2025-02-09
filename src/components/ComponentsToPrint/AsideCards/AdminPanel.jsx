@@ -1,7 +1,6 @@
 import {KsuCard} from '../../KsuCard';
 import {KsuStatus} from '../../KsuStatus/KsuStatus';
-import {Dropdown, Popup} from 'semantic-ui-react';
-import {ButtonIconMiniStyled} from '../../ButtonStyled';
+import {Popup} from 'semantic-ui-react';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {ReactComponent as PrintIcon} from '../../../assets/print.svg';
@@ -18,6 +17,8 @@ import {DeleteConfirmationModal} from '../../Modal/DeleteConfirmationModal';
 import {TitleSmall} from '../../TitleStyled';
 import {LabelStyled} from '../../InputStyled';
 import {KsuDropdownUserGroups} from '../../KsuDropdown/KsuDropdownUserGroups';
+
+import {ButtonIconMiniStyled} from '../../ButtonStyled';
 
 export const AdminPanel = ({onEdit, lesson, onPrint}) => {
     const {t} = useTranslation('tr');
