@@ -1,6 +1,6 @@
 import {KsuCard} from '../../KsuCard';
 import {KsuStatus} from '../../KsuStatus/KsuStatus';
-import {Dropdown, Popup} from 'semantic-ui-react';
+import {Popup} from 'semantic-ui-react';
 import {ButtonIconMiniStyled} from '../../ButtonStyled';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
