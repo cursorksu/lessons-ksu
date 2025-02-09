@@ -46,7 +46,7 @@ export const StatusListStyled = styled.ul`
   }
 `;
 
-export const KsuStatusStyled = styled.div`
+export const KsuStatusStyled = styled.span`
   margin: 0 5px;
   font-size: 14px;
   padding: 12px 40px;

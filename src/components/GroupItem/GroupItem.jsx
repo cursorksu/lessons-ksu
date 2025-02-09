@@ -16,7 +16,7 @@ import {useGetEntityListByIds} from '../../api/entity/useGetEntityListByIds';
 import {getDateObject} from '../../utils/getDateLocalString';
 import {useEditEntity} from '../../api/entity/useEditEntity';
 import {setMessage} from '../../store/notificationReducer';
-import {getAge} from '../../utils/getAge';
+// import {getAge} from '../../utils/getAge';
 import {EditGroupModal} from "../VeremChurch/EditGroupModal";
 import {StudentProfile} from "../StudentProfile/StudentProfile";
 import {DeleteConfirmationModal} from "../Modal/DeleteConfirmationModal";
@@ -214,7 +214,7 @@ export const GroupItem = () => {
                                             label: '',
                                             render: (data) => (
                                                     <div className="years">
-                                                        {getAge(data.birthday)}
+                                                        {/*{getAge(data.birthday)}*/}
                                                     </div>
                                             ),
                                             isIgnored: false,

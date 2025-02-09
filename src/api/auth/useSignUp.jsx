@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetAllEntities } from '../entity/useGetAllEntities';
 import { setTeachersList } from '../../store/dataReducer';
 import { USER_AVATAR_PLACEHOLDER } from '../../constants/main';
+import {useGetEntityListByIds} from '../entity/useGetEntityListByIds';
 
 export const useSignUp = () => {
     const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export const useSignUp = () => {
     const [ userProfile, setUserProfile ] = useState(null);
     const { getAllEntities: getUsers } = useGetAllEntities('users');
     const { createUser } = useCreateUser();
+    const {getEntities, entities: groups} = useGetEntityListByIds('group');
 
     const getSignUpData = async () => {
         await getRedirectResult(auth)
@@ -26,6 +28,12 @@ export const useSignUp = () => {
                     const userDocRef = doc(fireStore, `/users/${user?.uid}`);
                     const profileSnap = await getDoc(userDocRef);
                     const userData = await profileSnap.data();
+
+                    if (userData?.groups.length > 0) {
+                        await getEntities(userData?.groups);
+                        userData.groups = groups;
+                    }
+
                     const profile = {
                         uid: user?.uid,
                         email: user?.email,
@@ -34,9 +42,9 @@ export const useSignUp = () => {
                         lastName: user?.displayName?.split(' ')[1],
                         avatar: user?.avatar || USER_AVATAR_PLACEHOLDER,
                         lang: i18n?.language,
-                        church: [],
-                        groups: [],
-                        lessons: [],
+                        church: user?.church || [],
+                        groups: groups.length > 0 ? groups : [],
+                        lessons: user?.lessons || [],
                     };
 
                     if (userData) {
@@ -90,6 +98,12 @@ export const useSignUp = () => {
                     const userDocRef = doc(fireStore, `/users/${user?.uid}`);
                     const profileSnap = await getDoc(userDocRef);
                     const userData = await profileSnap.data();
+
+                    if (userData?.groups.length > 0) {
+                        await getEntities(userData?.groups);
+                        userData.groups = groups;
+                    }
+
                     const profile = {
                         uid: user?.uid,
                         email: user?.email,
@@ -98,9 +112,9 @@ export const useSignUp = () => {
                         lastName: user?.displayName?.split(' ')[1],
                         avatar: userData?.avatar || USER_AVATAR_PLACEHOLDER,
                         lang: i18n?.language,
-                        church: [],
-                        groups: [],
-                        lessons: [],
+                        church: user?.church || [],
+                        groups: groups.length > 0 ? groups : [],
+                        lessons: user?.lessons || [],
                     };
                     if (userData) {
                         await i18n.changeLanguage(userData.lang);

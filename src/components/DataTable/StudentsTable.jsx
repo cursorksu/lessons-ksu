@@ -15,7 +15,7 @@ import {useTranslation} from 'react-i18next';
 import {useParams} from 'react-router';
 import {useGetStudentsInGroup} from '../../api/student/useGetStudentsInGroup';
 import clsx from 'clsx';
-import {getAge} from '../../utils/getAge';
+// import {getAge} from '../../utils/getAge';
 
 export const StudentsTable = ({
                                   selectedRow,
@@ -31,7 +31,7 @@ export const StudentsTable = ({
     useEffect(() => {
         studentList && setPreparedStudents(studentList.map(el => ({
             ...el,
-            years: getAge(el.birthday)
+            // years: getAge(el.birthday)
         })));
     }, [studentList]);
 

@@ -8,6 +8,7 @@ export const TitleSmall = styled.h2`
     font-size: 22px;
     line-height: 2;
     font-weight: 700;
+    white-space: nowrap;
 `;
 export const TitleMedium = styled(TitleSmall)`
     font-size: 30px;

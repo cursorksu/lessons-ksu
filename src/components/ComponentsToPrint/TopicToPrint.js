@@ -163,7 +163,15 @@ export const TopicToPrint = React.forwardRef(({
 					<LessonEntity entityName={'game'} lesson={lesson} />
 				}
 				{activeTab === 6 &&
-					<LessonEntity entityName={'memory'} lesson={lesson} />
+					<div>
+						{lesson.memory?.length > 0 && lesson.memory.map((el) => ( <div>{
+							el.settings.map((el2) => ( <div>
+								<h3>{el2.question}</h3>
+								{el2.answer.map((ans, idx) => ( <p><b>{idx}.  {" "}</b>{ans.text}</p> ))}
+								<br/>
+							</div> ))
+						}</div>))}
+					</div>
 				}
 				{activeTab === 7 &&
 					<LessonEntity entityName={'food'} lesson={lesson} />

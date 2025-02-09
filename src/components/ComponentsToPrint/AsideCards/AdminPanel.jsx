@@ -16,15 +16,14 @@ import {lessonConfig, lessonDefaultValues} from '../../../constants/entities/les
 import {useTranslation} from 'react-i18next';
 import {DeleteConfirmationModal} from '../../Modal/DeleteConfirmationModal';
 import {TitleSmall} from '../../TitleStyled';
-import {StyledDropdown} from '../../KsuDropdown/StyledDropdown';
-import {useLessonToGroup} from '../../../api/lesson/useLessonToGroup';
 import {LabelStyled} from '../../InputStyled';
+import {KsuDropdownUserGroups} from '../../KsuDropdown/KsuDropdownUserGroups';
 
 export const AdminPanel = ({onEdit, lesson, onPrint}) => {
     const {t} = useTranslation('tr');
     const {t: lessonsT} = useTranslation('lessons');
-    const {lessonId} = useParams();
-    const {bindLessonToGroup} = useLessonToGroup();
+
+
     const {collectionId} = useParams();
     const navigate = useNavigate();
     const {user} = useSelector((state) => state.auth);
@@ -36,10 +35,6 @@ export const AdminPanel = ({onEdit, lesson, onPrint}) => {
     useEffect(() => {
         setSelectedStatus(lesson?.status);
     }, [lesson]);
-
-    useEffect(() => {
-        console.log('Translation check (lessons):', lessonsT('lessons.copyLesson')); // Должно вернуть перевод
-    }, []);
 
     const handleDelete = useCallback(async (e, lessonId) => {
         e.stopPropagation();
@@ -57,7 +52,7 @@ export const AdminPanel = ({onEdit, lesson, onPrint}) => {
             <KsuCard className={'admin-panel print-hide'}>
                 {user?.uid && lesson?.createdBy?.uid === user?.uid && (
                         <div>
-                            <TitleSmall>{lessonsT('status')}:
+                            <TitleSmall>{lessonsT('status') + ' '}:
                                 <KsuStatus
                                         status={selectedStatus}
                                         entityName={'lessons'}
@@ -68,17 +63,10 @@ export const AdminPanel = ({onEdit, lesson, onPrint}) => {
                             </TitleSmall>
                         </div>
                 )}
-                {user?.uid && (
+                {user?.uid && user?.groups?.length > 0 && (
                         <>
                             <LabelStyled>{lessonsT('assignToGroup')}:</LabelStyled>
-                            <StyledDropdown>
-                                <Dropdown
-                                        fluid
-                                        multiple={false}
-                                        options={user?.groups?.map(el => ({key: el, text: el, value: el}))}
-                                        onChange={(_, data) => bindLessonToGroup(data.value, lessonId)}
-                                />
-                            </StyledDropdown>
+                            <KsuDropdownUserGroups forceUpdate={() => {}}/>
                         </>
                 )}
                 <div className={'action-buttons'}>
@@ -90,9 +78,11 @@ export const AdminPanel = ({onEdit, lesson, onPrint}) => {
                     />
                     {user?.uid && (
                             <Popup
-                                    trigger={<ButtonIconMiniStyled onClick={onPrint}>
-                                        <CopyIcon/>
-                                    </ButtonIconMiniStyled>}
+                                    trigger={(
+                                            <ButtonIconMiniStyled onClick={onPrint}>
+                                                <CopyIcon/>
+                                            </ButtonIconMiniStyled>
+                                    )}
                                     content={lessonsT('copyLesson')}
                             />
                     )}
@@ -119,7 +109,7 @@ export const AdminPanel = ({onEdit, lesson, onPrint}) => {
                                                 />
                                             </BigModal>
                                         }
-                                        content="Змінити назву та заобаження уроку"
+                                        content={lessonsT('changeLesson')}
                                 />
 
                                 <DeleteConfirmationModal
